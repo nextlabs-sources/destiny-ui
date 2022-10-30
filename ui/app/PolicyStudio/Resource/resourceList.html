@@ -1,0 +1,64 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="ResourceListController as resourceListCtrl">
+  <div class="no-margin cc-ps-title-on-content ">
+    <div id="cc-ps-page-title" class="cc-ps-title-on-content-title">
+      <p id="label-resource-search-title" data-ng-if="show_search" class="cc-ps-list-search-subtitle">{{"resourcelist.title.Search" | translate}}</p>
+      <p id="label-component-type-title" class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : show_search}">{{ "resourcelist.title.ResourceManagement" | translate}}</p>
+    </div>
+    <div class="cc-ps-saved-search-div cc-ps-title-on-content-title" data-ng-show="show_search">
+      <div id="box-resouce-savedSearchBox" class="btn-group btn-block cc-ps-dropdown-grp cc-ps-saved-search-dropdown" data-uib-dropdown keyboard-nav>
+        <button class="form-control cc-ps-button-common" id="btn-resouce-savedSearchBox" type="button" uib-dropdown-toggle ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span id="span-resouce-savedSearchBox" class="cc-ps-dropdown-btn-title">{{searchCriteria.$_nameDisplay}}</span></span><span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-saved-search-list">
+          <li role="menuitem" data-ng-repeat="o in savedSearchList" data-ng-click="setSearch(o)"
+            class="cc-ps-clickable-dropdown cc-saved-search-list-item">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><span class="cc-saved-search-list-item-name"
+                uib-tooltip="{{::o.desc}}" tooltip-placement="top-left">{{o.name}}</span>
+              <i class="fa fa-times cc-ps-del-search" data-ng-click="delSearch($index, $event)" title="Delete this search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- {{searchCriteria}} -->
+    <div class="cc-ps-filter-applied-div" data-ng-show="!show_search && (searchCriteria.name || !searchCriteria.pristine)">
+      <div class="cc-ps-filter-applied-label" data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+        <p class="cc-ps-list-filter-label">{{"resourcelist.title.FilterApplied" | translate}}</p>
+        <p class="cc-ps-list-filter-name" data-ng-if="searchCriteria.name">{{searchCriteria.name}}</p>
+      </div>
+      <div class="cc-ps-filter-applied-clear-icon">
+        <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+      </div>
+    </div>
+    <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn">
+      <button id="btn-resource-search" type="button" class="btn btn-default active cc-search-btn" data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}" data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')">
+      </button>
+    </div>
+    <a id="btn-component-type-add-resource-type" data-ui-sref='PolicyStudio.createPolicyModel({type:"{{type}}"})' class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-if="permissions" dyn-attr="permissions.CREATE_POLICY_MODEL.pageLevel.result ? permissions.CREATE_POLICY_MODEL.pageLevel.action.ALLOW : permissions.CREATE_POLICY_MODEL.pageLevel.action.DENY" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!permissions.CREATE_POLICY_MODEL.pageLevel.result"><i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"resourcelist.title.createResource" | translate}}</a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-ps-search-and-list-box" scroll-to-top-when="searchFormOpen">
+    <div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!show_search">
+      <div class="cc-ps-main-search-section-content" data-ng-include="'ui/app/PolicyStudio/Resource/resourceSearch.html'"></div>
+    </div>
+    <div data-ng-class="!show_search? 'cc-ps-resource-list-table list-container' : 'cc-ps-resource-list-table search-opened-list-container'">
+      <div  data-ng-if="resourceList.length" class="cc-ps-operation" data-ng-include="'ui/app/PolicyStudio/Resource/partials/resourceoperation-checked-template.html'"></div>
+      <ul id="componentType-completeList" class="no-padding no-decoration cc-ps-resource-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="resource in resourceList" ng-init="$resourceId=resource.id;">
+          <div data-ng-include="'ui/app/PolicyStudio/Resource/partials/resourcetemplate.html'">
+          </div>
+        </li>
+      </ul>
+      <p data-ng-if="resourceList.length < resourceTotal">
+        <button id="btn-component-type-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore" data-ng-click="loadMore()">{{"resourcelist.title.LoadMore" | translate}}
+        </button>
+      </p>
+      <div data-ng-if="!resourceList.length" class="cc-ps-empty-resource-list-box">
+          <p style="text-align:center"> {{"resourceType.empty.list.msg" | translate}}
+          <br> 
+           <!-- <a data-ui-sref='PolicyStudio.createPolicyModel({type:"{{type}}"})'> {{"resourceType.create.msg" | translate}} </a> </p> -->
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

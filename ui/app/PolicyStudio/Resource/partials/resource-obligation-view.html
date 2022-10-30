@@ -1,0 +1,24 @@
+<td>
+    <span class="cc-create-page-view-value">{{obli.name}}</span>
+   
+    
+   <!--  <a href="" ng-click="obli.hideParameters=!obli.hideParameters">
+      <i class="fa cc-ps-obligation-collapse-icon" data-ng-class="{'fa-angle-up':!obli.hideParameters, 'fa-angle-down':obli.hideParameters}"> </i>
+    </a> -->
+
+    <label class="param-label" ng-init = "hideObliParams[$index] = false" ng-click="hideObliParams[$index]=!hideObliParams[$index]"> {{!hideObliParams[$index] ? 'show parameters' : 'hide parameters'}} </label>
+    <label class="param-list">{{ getParameterNames(obli.parameters) }} </label> 
+</td>
+<td>
+    
+    <span class="cc-create-page-view-value">{{obli.shortName}}</span>
+</td>
+<td class="td-icon">
+    <i class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="setEdit(obli,3)" title="Edit"></i>
+    <i class="fa fa-trash-o" data-ng-click="removeObligation($index,1)" title="Delete"> </i>
+    <i class="fa fa-arrows" aria-hidden="true"></i>
+    <i class="triangle-up" ng-click="!$first && moveUp(resource.obligations, $index)" ng-class="{disabled:$first}"></i>
+    <i class="triangle-down" ng-click="!$last && moveDown(resource.obligations, $index)" ng-class="{disabled:$last}"></i>
+</td>
+
+

@@ -1,0 +1,23 @@
+<td>
+    <div class="cc-create-page-editor-data-component-condition-attr cc-ps-dropdown-grp cc-delegation-user-attribute" style="width:100%">
+        <input type="text" name="attribute_key_{{$index}}" style="width:100%" ng-model="attr.key" autocomplete="off" uib-typeahead="a for a in userAttributeOptions | filter:implicitAttrFilter() | filter:$viewValue" 
+            typeahead-min-length="0" typeahead-wait-ms="300" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255" >
+        <div class="cc-validation-block" ng-messages="userForm.val['attribute_key_' + $index].$error" ng-if="userForm.val['attribute_key_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.createuser.validation.attr.key.required" | translate}}</p>
+        </div>
+    </div>    
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value">
+        <input class="cc-create-page-common-input" name="attribute_value_{{$index}}" placeholder="{{::'createComponent.input.placeholder.Value' | translate}}"   style="width:100%" data-ng-model="attr.value" data-ng-focus="highlightGrammar('users')" required class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-dlg-create-page-common-input cc-dlg-create-page-common-input-user" maxlength="255">
+        <div class="cc-validation-block" ng-messages="userForm.val['attribute_value_' + $index].$error" ng-if="userForm.val['attribute_value_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.createuser.validation.attr.value.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td class="td-icon">
+  
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit()" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit($index)" title="Cancel"></i>
+  
+</td>

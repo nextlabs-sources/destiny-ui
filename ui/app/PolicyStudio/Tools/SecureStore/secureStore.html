@@ -1,0 +1,27 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="secureStoreController">
+    <div class="no-margin cc-dlg-title-on-content ">
+        <div id="cc-ps-page-title" class="cc-dlg-title-on-content-title">
+            <p class="cc-ps-list-title">
+                {{ "secureStore.title" | translate}}</p>
+        </div>
+        <div class="cc-ps-policy-import-export-div cc-ps-page-operation-btn">
+            <button id="exportAll" class="btn btn-default cc-ps-btn cc-btn-export cc-ps-btn-cc-big cc-ps-import-export-line" data-ng-click="exportAll();" title="{{'secureStore.title.exportAll' | translate}}"> </button>
+            <button id="replaceStoreFile" class="btn btn-default cc-ps-btn cc-btn-import cc-ps-btn-cc-big cc-ps-import-export-line" data-ng-click="openReplaceStoreFileModal();" title="{{'secureStore.title.replaceStoreFile' | translate}}"> </button>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="cc-dlg-search-and-list-box">
+        <div id="keyManager" class="cc-dlg-icon-menu" data-ng-click="listSecureStore('keystore')">
+            <div class="cc-dlg-icon-key-manager"></div>
+            <div class="cc-dlg-icon-title">{{ "secureStore.keystore.title.main" | translate}}</div>
+            <div class="cc-dlg-icon-desc">{{ "secureStore.keystore.description" | translate}}</div>
+        </div>
+        <div id="certificateManager" class="cc-dlg-icon-menu" data-ng-click="listSecureStore('truststore')">
+            <div class="cc-dlg-icon-certificate-manager"></div>
+            <div class="cc-dlg-icon-title">{{ "secureStore.truststore.title.main" | translate}}</div>
+            <div class="cc-dlg-icon-desc">{{ "secureStore.truststore.description" | translate}}</div>
+        </div>
+
+        <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+    </div>
+</div>

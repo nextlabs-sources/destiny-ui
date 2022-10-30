@@ -1,0 +1,18 @@
+<td style="vertical-align: middle;">
+    <span>{{con.attribute.name}}</span>
+
+</td>
+<td style="vertical-align: middle;">
+    <span>{{con.operator.label}}</span>
+</td>
+<td style="vertical-align: middle;">
+    <span data-ng-if="con.attribute.dataType == 'DATE'">{{con.value | date:'shortDate'}}</span>
+    <span data-ng-if="con.attribute.dataType != 'MULTIVAL' && con.attribute.dataType != 'DATE'">{{con.value}}</span>
+    <multi-input data-ng-if="con.attribute.dataType == 'MULTIVAL'" data-read-only="true" data-value="con.value" data-type="con.attribute.dataType"></multi-input>
+</td>
+<td class="td-icon" style="vertical-align: middle;">
+    <i class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="setEdit(con,1);highlightGrammar('componentCondition');"
+        title="Edit"></i>
+    <i class="fa fa-trash-o" data-ng-click="removeCondition($index,1);highlightGrammar('componentCondition');" title="Delete">
+    </i>
+</td>

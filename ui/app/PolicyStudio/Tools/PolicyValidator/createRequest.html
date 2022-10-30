@@ -1,0 +1,92 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="createRequestController">
+    <div class="cc-ps-create-page-container cc-layout-full-height">
+        <form id="reqBuilderForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height" name="reqBuilderForm.val" novalidate>
+            <div class="cc-pv-create-page-title-panel">
+                <div class="cc-ps-create-page-title">
+                    <span>{{"requestbuilder.title.addRequest" | translate}}</span>
+                </div>
+                <div class="cc-ps-create-page-btn-div" data-ng-if="permissions">
+                    <a class="btn btn-default cc-btn-discard" data-ng-click="resetForm();"> &nbsp;&nbsp;Reset </a>
+                    <a class="btn btn-default cc-btn-primary" data-ng-click="testRequest(reqBuilderForm.val);"> &nbsp;&nbsp;Test Request </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="cc-pv-create-page-container">
+                <div class="cc-pv-create-page-bottom-panel pv">
+                    <div class="cc-pv-create-page-filter-policy-panel">
+                        <!-- Policy Filtering Section -->
+                        <div class="cc-ps-create-page-editor-info">
+                            <div id="policySelect" class="cc-pv-create-page-policy-filter-title">
+                                <span> {{::"requestbuilder.label.selectPolicies" | translate}} </span>
+                            </div>
+                            <div>
+                                <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown >
+                                    <button class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-click=" getSavedPolicySearchCriteria()">
+                                      <span class="cc-ps-dropdown-btn-label">{{selectPoliciesType.val}}
+                                        <span class="cc-ps-dropdown-btn-label-content"></span>
+                                      </span>
+                                      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                                    </button>
+                                    <ul data-uib-dropdown-menu class="dropdown-menu" style="max-height:400px; overflow:auto;" role="menu">
+                                        <li role="menuitem" data-ng-repeat="option in selectPolicyOptions track by $index">
+                                            <a href="javascript:void(0)" data-ng-click="updateSelectedPolicies(option)">{{option.label}}</a>
+                                        </li>
+                                        <li data-ng-if="selectFilterOptions.length" class="divider divider-override"></li>
+                                        <li data-ng-if="selectFilterOptions.length" class="cc-ps-bold-text">Saved Search Filter</li>
+                                        <li role="menuitem" data-ng-repeat="filterOption in selectFilterOptions track by $index">
+                                            <a href="javascript:void(0)" data-ng-click="setPolicySearchCriteria(filterOption)">{{filterOption.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cc-pv-custom-policies-select" data-ng-if="selectCustomPolicies.val">
+                                    <go-as-you-type data-item-label="name" data-check-and-go="false" data-apply-btn-label="APPLY" data-item-key-field="id" data-newitem-function="addtoCustomPolicies" data-data-set-save-to="selectedPolicies" data-get-latest-options="getMatchingPolicies" data-placeholder="Search for Policies" data-refresh-onfocus="1"
+                                        data-input-max="255" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?', '{', '}']">
+                                    </go-as-you-type>
+                                    <div class="cc-pv-switch-container-divs">
+                                        <span class="cc-ps-search-include-subpolicy">
+                                        <switch class="cc-ps-search-switch-include-sub" data-ng-model="includeSubPolicies.val"  ></switch>
+                                        </span>
+                                        <span>{{::"requestbuilder.label.includeSubPolicy" | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabs Section -->
+                    <uib-tabset id="policyValidate" class="cc-pv-outer-tabs" active="selectedTab.val">
+                        <uib-tab id="requestInterface" select="selectTab(0);">
+                            <uib-tab-heading>
+                                <span class=""> {{::"requestbuilder.tabs.requestInterface" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+                            </uib-tab-heading>
+                            <div class="cc-pv-request-editor-page-div cc-pv-create-page-editor-content-outer" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+                                <div data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/request-interface.html'"></div>
+                            </div>
+                            
+                        </uib-tab>
+                        <uib-tab id="responseInterface" select="selectTab(1);">
+                            <uib-tab-heading>
+                                <span class=""> {{::"requestbuilder.tabs.responseInterface" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+                            </uib-tab-heading>
+                            <div class="cc-pv-request-editor-page-div cc-pv-create-page-editor-content-outer" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+                                <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/response-interface.html'"></div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab id="evalLogsInterface" select="selectTab(2);">
+                            <uib-tab-heading>
+                                <span class=""> {{::"requestbuilder.tabs.logsInterface" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+                            </uib-tab-heading>
+                            <div class="cc-pv-request-editor-page-div cc-pv-create-page-editor-content-outer" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+                                <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/viewDebugLogs.html'"></div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                    <div class="clear"></div> 
+                    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div>   -->
+                </div>   
+            </div> 
+        </form>        
+    </div>
+</div>
+ 

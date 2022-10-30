@@ -1,0 +1,45 @@
+<div class="cc-home" data-ng-controller="dasboardController">
+    <div class="cc-dashboard-policy-stat" data-ng-if="appAccess.PolicyStudio.result && policyStatusStat">
+        <div class="cc-dashboard-policy-stat-item">
+            <div id="label-dashboard-policy-total" class="cc-dashboard-policy-stat-item-title">{{policyStatusStat['TOTAL']}}&nbsp;{{'dashboard.label.policy.status.total' | translate}}</div>
+            <div id="label-dashboard-policy-last-week-total" class="cc-dashboard-policy-stat-item-sub-title"><span class="highlight-number">{{policyStatusStat.lastweek['TOTAL']}}</span>&nbsp;{{' new/modified in last week'}}</div>
+        </div>
+        <div class="cc-dashboard-policy-stat-item">
+            <div id="label-dashboard-policy-deployed" class="cc-dashboard-policy-stat-item-title">{{policyStatusStat["DEPLOYED"] || 0}}&nbsp;{{'dashboard.label.policy.status.deployed' | translate}}</div>
+            <div id="label-dashboard-policy-last-week-deployed" class="cc-dashboard-policy-stat-item-sub-title"><span class="highlight-number">{{policyStatusStat.lastweek['DEPLOYED'] || 0}}</span>&nbsp;{{' in last week'}}</div>
+        </div>
+        <div class="cc-dashboard-policy-stat-item">
+            <div id="label-dashboard-policy-undeployed" class="cc-dashboard-policy-stat-item-title">{{policyStatusStat["UNDEPLOYED"] || 0}}&nbsp;{{'dashboard.label.policy.status.undeployed' | translate}}</div>
+            <div id="label-dashboard-policy-last-week-undeployed" class="cc-dashboard-policy-stat-item-sub-title"><span class="highlight-number">{{policyStatusStat.lastweek['UNDEPLOYED'] || 0}}</span>&nbsp;{{' in last week'}}</div>
+        </div>
+        <div class="cc-dashboard-policy-stat-item draft">
+            <div id="label-dashboard-policy-draft" class="cc-dashboard-policy-stat-item-title">{{policyStatusStat["DRAFT"] || 0}}&nbsp;{{'dashboard.label.policy.status.draft' | translate}}</div>
+            <div id="label-dashboard-policy-draft-new" class="cc-dashboard-policy-stat-item-sub-title">{{policyStatusStat["DRAFT_NEW"] || 0}}&nbsp;{{'dashboard.label.policy.status.draft.new' | translate}}&nbsp;&nbsp;{{policyStatusStat["DRAFT_EDIT"] || 0}}&nbsp;{{'dashboard.label.policy.status.draft.edit' | translate}}</div>
+        </div>
+    </div>
+     <div class="bottom-panel row cc-home-side-margin">
+        <div class="cc-dashboard-widget-list" ng-include="installMode=='SAAS' ? 'ui/app/Dashboard/partials/widgetlist-saas.html' : 'ui/app/Dashboard/partials/widgetlist-opn.html'">
+        </div>
+        <div class="cc-home-side-col">
+            <div class="cc-dashboard-widget" data-ng-if="dashboardWidgetConfig['dashboard.widget.recent-activities.enabled'] == 'true'">
+                <div id="label-dashboard-recent-activities-title" class="cc-dashboard-widget-title">
+                    {{'Recent activities' | translate}}
+                    <div class="cc-ps-dashboard-widget-spinner" data-ng-show="loadingWidgets.indexOf('ActivityStream') > -1">
+                        <center><i id="icon-dashboard-recent-activities-spinner" class="fa fa-refresh fa-spin"></i></center>
+                    </div>
+                </div>
+                <div class="cc-dashboard-widget-body cc-dashboard-widget-policy-status-body">
+                    <div class="cc-home-activity-item" data-ng-repeat="act in activities">
+                        <div id="label-dashboard-recent-activities-activity" class="cc-dashboard-activity-msg activity-msg" data-ng-bind-html="act.msgIncludeUser"></div>
+                        <div class="cc-dashboard-activity-time">
+                            <span id="label-dashboard-recent-activities-activity-time">{{act.createdDate | date:'MMM dd, yyyy HH:mm'}}</span>
+                        </div>
+                    </div>
+                    <div id="label-dashboard-activities-no-data" data-ng-if="showNoDataMask && !activities.length" class="cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+</div>
+</div>

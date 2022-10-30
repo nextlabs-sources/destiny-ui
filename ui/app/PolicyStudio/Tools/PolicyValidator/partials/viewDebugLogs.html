@@ -1,0 +1,30 @@
+<div>
+    <div class="cc-pv-eval-log-switch-holder-div evalog">
+        <span data-ng-hide="true" class="cc-ps-search-include-subpolicy">
+        	<span style="color:#FF6101">{{::"requestbuilder.label.showEvalLogs" | translate }}</span>
+            <switch class="cc-ps-search-switch-include-sub" data-ng-model="showEvalLogs.val"></switch>
+            <button class="btn btn-default cc-ps-btn cc-btn-clear-log cc-pv-eval-log-clear-btn" data-ng-click="clearEvalLogs()"></button>
+        </span>
+    </div>
+	<br><br>
+	<div class="cc-pv-debug-logs-container">
+		<!-- data-ng-show="showEvalLogs.val && logData.val" -->
+<pre>
+<span><b>{{evalLog.logdatetime}}</b></span>
+<span><b>Policies Tested</b>
+    <span class="cc-pv-eval-log-sub-heading">Policies with Allow Effect: </span>
+        <span>{{evalLog.allowPolicies}}</span>
+    <span class="cc-pv-eval-log-sub-heading">Policies with Deny Effect: </span>
+        <span>{{evalLog.denyPolicies}}</span>
+    <span class="cc-pv-eval-log-sub-heading">Policies that did not Match: </span>
+        <span>{{evalLog.noMatchPolicies}}</span>
+</span>
+<span><b>Request Parameters</b>
+  <span>{{evalLog.requestParams}}</span>
+</span>
+<span><b>Response</b>
+    <span>{{evalLog.evalResponse}}</span>
+</span>
+</pre>
+    </div>
+</div>

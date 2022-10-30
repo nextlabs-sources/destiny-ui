@@ -1,0 +1,140 @@
+<div>
+  <div class="left-container">
+    <a href="" data-ng-click="scrollTo('policyName')">
+      <div  class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyName')}">
+        <label for="policyname">{{"createpolicy.grammar.This" | translate}}</label>
+        <span class="key-word"> &nbsp;{{"createpolicy.grammar.Policy" | translate}}:</span>
+        <div class="wrapper">
+          <span ng-hide="policy.name.length" class="cc-grammar-placeholder"><{{'createpolicy.grammar.placeholder.PolicyName' | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="policy.name.length">{{policy.name}}</span>
+        </div>
+        <br>
+        <div data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyName')}">
+          <label for="policyname">{{"createpolicy.grammar.With.Tags" | translate}}:</label>
+          <div class="wrapper">
+            <span ng-hide = "policy.tags.length" class="cc-grammar-placeholder"><{{'createpolicy.label.Tags' | translate}}></span>
+            <span class="cc-ps-create-page-grammar-content" data-ng-repeat="tag in policy.tags">
+              {{tag.label}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('policyEffect')">
+      <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyEffect')}">
+        <label for="enforcement">{{"createpolicy.grammar.Will" | translate}}:</label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content"> {{'createpolicy.effect.' + policy.effects  |translate}}</span>
+        </div>
+        <br>
+        <label for="subjectComponent">{{"createpolicy.grammar.Subjects" | translate}}:</label>
+        <div class="wrapper">
+          <p data-ng-repeat="subjectComponent in policy.subjectComponents">
+            <span class="key-word" data-ng-if="$first && subjectComponent.$condition.value != 'IN'"> {{'createpolicy.grammar.subject.not.in.1st' | translate}} </span>
+            <span class="key-word" data-ng-if="!$first"> {{(subjectComponent.$condition.value == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+            <span data-ng-if = "subjectComponent.subjects.length "><span data-ng-repeat="subject in subjectComponent.subjects">
+              {{ subject.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span> </span>
+            <span data-ng-if = "!subjectComponent.subjects.length"><{{'createpolicy.grammar.placeholder.SubjectComponents' | translate}}></span>
+          </p>
+        </div>
+        <div style="margin-top: 5px;margin-left: 15px;" ng-if="policy.toSubjectComponentsEnabled">
+          <label for="subjectComponent">{{"createpolicy.grammar.subject.Recipient" | translate}}:</label>
+          <div class="wrapper">
+            <p data-ng-repeat="subjectComponent in policy.toSubjectComponents">
+              <span class="key-word" data-ng-if="$first && subjectComponent.$condition.value != 'IN'"> {{'createpolicy.grammar.subject.not.in.1st' | translate}} </span>
+              <span class="key-word" data-ng-if="!$first"> {{(subjectComponent.$condition.value == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in')
+                | translate}} </span>
+              <span data-ng-if="subjectComponent.subjects.length ">
+                <span data-ng-repeat="subject in subjectComponent.subjects">
+                  {{ subject.name}}
+                  <span data-ng-if="!$last">,&nbsp;&#8203;</span>
+                </span>
+              </span>
+              <span data-ng-if="!subjectComponent.subjects.length">
+                <{{ 'createpolicy.grammar.placeholder.SubjectComponents' | translate}}>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('policyAction')">
+      <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyAction')}">
+        <label for="action">{{"createpolicy.grammar.ToPerform" | translate}}:</label>
+        <div class="wrapper">
+          <span ng-hide = "policy.actions.length" class="cc-grammar-placeholder"><{{'createpolicy.grammar.placeholder.ActionComponents' | translate}}></span>
+            <span data-ng-repeat="action in policy.actions">
+              {{ action.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span> 
+          
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('policyResource')">
+      <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyResource')}">         
+        <label for="target">{{"createpolicy.grammar.On" | translate}}:</label>
+        <div class="wrapper">
+          <p data-ng-repeat="resource in policy.resourceComptsContainer">
+            <span class="key-word" data-ng-if="!$first"> {{'createpolicy.grammar.resource.concat' | translate}} </span>
+            <span data-ng-repeat="compts in resource.resources">
+              {{ compts.name }}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span> 
+            <span data-ng-if="!resource.resources.length" class="cc-grammar-placeholder"><{{'createpolicy.grammar.placeholder.ResourceComponents' | translate}}></span>
+          </p>
+        </div>
+        <div style="margin-top: 5px;margin-left: 15px;" ng-if="policy.toResourceComponentsEnabled">
+          <label for="target">{{"createpolicy.grammar.resources.TargetLocation" | translate}}:</label>
+          <div class="wrapper">
+            <p data-ng-repeat="resource in policy.toResourceComptsContainer">
+              <span class="key-word" data-ng-if="!$first"> {{'createpolicy.grammar.resource.concat' | translate}} </span>
+              <span data-ng-repeat="compts in resource.resources">
+                {{ compts.name }}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+              </span> 
+              <span data-ng-if="!resource.resources.length" class="cc-grammar-placeholder"><{{'createpolicy.grammar.placeholder.ResourceComponents' | translate}}></span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('policyConditions')">
+      <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyConditions')}">
+        <label for="condition">{{"createpolicy.grammar.Under" | translate}}:</label>
+        <div class="wrapper">
+          <span ng-hide="policy.expression.length" class="cc-grammar-placeholder"><{{'createpolicy.grammar.placeholder.Conditions' | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="policy.expression.length">{{policy.expression}}</span>
+        </div>
+        
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('policyObligations')">
+      <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('policyObligations')}">
+        <div>
+          <label for="obligation">{{"createpolicy.grammar.IfAllowedPerform" | translate}}:</label>
+          <div class="wrapper">
+            <!-- <span data-ng-repeat="(policyModelId, obligationGroup) in policy.allowObligationMap"> -->
+            <span data-ng-repeat="obligation in allEnabledAllowObligation()">{{obligation.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span>
+          <!-- </span> -->
+          </div>
+          
+        </div>  
+        <br>
+        <div>
+          <label for="obligation">{{"createpolicy.grammar.OnDeniedPerform" | translate}}:</label>
+          <div class="wrapper">
+            <!-- <span data-ng-repeat="(policyModelId, obligationGroup) in policy.denyObligationMap"> -->
+            <span data-ng-repeat="obligation in allEnabledDenyObligation()">{{obligation.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+            </span>
+            <!-- </span> -->
+          </div>
+          
+        </div>
+      </div>
+    </a>
+          
+  </div>
+</div>

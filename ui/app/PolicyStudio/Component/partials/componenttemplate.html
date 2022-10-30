@@ -1,0 +1,66 @@
+<div class="cc-ps-component" data-ng-class="{'cc-ps-component-parent-with-subcomponent':component.subComponents.length > 0, 'cc-ps-checked':component.checked}">
+  <div data-ng-if="!component.lastUpdatedDate">
+    <i class="fa fa-spinner fa-pulse"></i>
+  </div>
+  <div data-ng-if="component.lastUpdatedDate">
+    <div class="cc-ps-component-parent">
+      <div class="cc-ps-component-content-container">
+        
+        <div class="cc-ps-parent-component-title" data-ng-if="component.hasIncludedIn">
+          <table>
+            <tbody>
+              <tr>
+                <td class="cc-ps-component-parent-label">{{"componentlist.label.Parent" | translate}}:</td>
+                <td class="cc-ps-parent-component-titles-box" >
+                 <div class="cc-ps-component-parent-title"><span data-ng-repeat="parent in component.includedInComponents" title="{{parent.name}}">{{parent.name}}<span data-ng-if="!$last">,&nbsp;</span></span>
+                  </div>
+                </td>
+                <td style="padding: 5px 10px 0 0;" data-ng-if="component.moreParentLabel" class="cc-ps-parent-title-more{{component.componentParentTitleHide}}">{{component.moreParentLabel}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-component-check">
+          <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+            <input id="checkbox-component-{{component.group | lowercase}}-{{component.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="component.checked" data-ng-change="componentCheckStatusChange()"><span><span id="checkbox-span-component-{{component.group | lowercase}}-{{component.name | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+          </label>
+        </div>
+        <div class="cc-ps-component-content">
+          <div ng-class="folders.open ? 'cc-ps-component-name-desc-folder-open' : 'cc-ps-component-name-desc'">
+            <p class="cc-ps-component-name"><span data-ng-click="editComponent(component)" title="{{component.name}}">{{component.name}}</span></p>
+            <p class="cc-ps-description"><small data-ng-click="editComponent(component)" title="{{component.description}}">{{component.description}}</small></p>
+            <p>
+              <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+              <friendly-date data-date="{{component.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+            </p>
+            <div><div class="cc-ps-tag" data-ng-repeat="tag in component.tags"><div class="cc-ps-tag-pre"></div><div class="cc-ps-tag-text">{{::tag.label}}</div></div></div>
+          </div>
+          <div ng-class="folders.open ? 'cc-ps-component-type-folder-open' : 'cc-ps-component-type'" data-ng-if="component.modelType">
+            <span class="cc-ps-component-type-badge" title="{{component.modelType}}">{{component.modelType}}</span>
+          </div>
+          <div class="cc-ps-component-update">
+            <span class="cc-ps-deployed" data-ng-class="{'active': component.deployed, 'inactive': !component.deployed}">{{component.deploymentStatus}}</span>
+            <span ng-if="component.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{component.status}}</span>
+          </div>
+          <div class="cc-ps-component-option-block">
+            <p class="cc-ps-align-right">
+              <button id="btn-components-{{type | lowercase}}-option-dots-{{component.name | id}}" class="btn btn-default cc-ps-component-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(component, !openOption(component))"></button>
+            </p>
+            <div data-ng-include="'ui/app/PolicyStudio/Component/partials/componentoption-template.html'" class="cc-ps-option" data-ng-show="component.optionOpen"></div>
+          </div>
+        </div>
+        <div data-ng-include="'ui/app/PolicyStudio/Component/partials/subcomponent-title.html'"></div>
+      </div>
+    </div>
+    <div class="cc-ps-subcomponents cc-ps-subcomponent-alternate-1" data-ng-if="component.hasSubComponents" data-ng-show="component.showsubcomponent">
+      <ul class="no-padding no-decoration">
+        <li data-ng-repeat="component in component.subComponents" data-ng-init="alternate=0">
+          <!-- <div class="cc-ps-subcomponent" data-ng-include="'PolicyStudio/Component/partials/componenttemplate.html'"></div> -->
+          <div class="cc-ps-subcomponent" data-ng-include="'ui/app/PolicyStudio/Component/partials/subcomponent.html'"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

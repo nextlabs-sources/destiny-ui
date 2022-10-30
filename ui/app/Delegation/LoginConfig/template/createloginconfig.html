@@ -1,0 +1,173 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="createLoginConfigController">
+  <div class="cc-dlg-create-page-container cc-layout-full-height">
+    <div class="no-margin cc-dlg-create-page-title-panel">
+      <div class="cc-dlg-create-page-back-btn-div">
+        <a ui-sref="LoginConfig.list">
+          <button class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active">
+            <i class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-dlg-create-page-title">
+        <span data-ng-if="!isEditMode"> {{"delegation.loginConfig.create.title" | translate}} </span>
+        <span data-ng-if="isEditMode"> {{ config.name }} </span>
+      </div>
+      <div class="cc-dlg-create-page-btn-div">
+        <a class="btn btn-default cc-btn-discard" data-ng-click="reset()"> &nbsp;&nbsp;{{"common.discard" | translate}} </a>
+        <a class="btn btn-default cc-btn-primary" data-ng-click="saveUserSource()"> &nbsp;&nbsp;{{"common.save" | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-dlg-create-page-bottom-panel">
+      <div class="cc-ps-create-page-grammar-div cc-layout-full-height">
+        <div class="sticky-left-container">
+            <div class="left-container">
+              <a href="" data-ng-click="scrollTo('userinfo')">
+                <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('userinfo')}">
+                  <label for="userinfo"> {{"delegation.loginConfig.grammar.thisConfig" | translate}}: </label>
+                  <div class="wrapper">
+                    <span class="cc-ps-create-page-grammar-content" ng-show="config.name.length"> {{config.name}} </span>
+                    <span ng-hide="config.name.length" class="cc-grammar-placeholder"> {{'delegation.loginConfig.grammar.placeholder.configName' | translate}} </span>
+                  </div>
+                  
+                  <br>
+                  <label> {{"delegation.loginConfig.grammar.ofType" | translate}}: </label>
+                  <div class="wrapper">
+                    <span class="cc-ps-create-page-grammar-content"> {{selectedConfigType.name}} </span>
+                  </div>
+                </div>
+              </a>
+              <a href="" data-ng-click="scrollTo('userAttrs')">
+                <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('userAttrs')}">
+                  <label> {{"delegation.loginConfig.grammar.willLoad" | translate}}: </label>
+                  <div class="wrapper">
+                    <p ng-repeat="attr in config.attributes">
+                      <span ng-show="attr.externalAttribute.length">{{attr.externalAttribute}}</span><span ng-show="!attr.externalAttribute.length" translate="delegation.loginConfig.grammar.placeholder.attributeName" translate-value-type-label="{{selectedConfigType.name}}"></span> <span class="key-word"> {{"delegation.loginConfig.grammar.mapTo" | translate}} </span> <span ng-show="attr.internalAttribute.length">{{attr.internalAttribute}}</span><span ng-show="!attr.internalAttribute.length"><{{'delegation.loginConfig.grammar.placeholder.attributeMapped' | translate}}></span>
+                    </p>
+                    <p ng-repeat="attr in config.complexAttributes">
+                      <span ng-show="attr.friendlyName.length">{{attr.friendlyName}}</span><span ng-show="!attr.friendlyName.length" translate="delegation.loginConfig.grammar.placeholder.attributeName" translate-value-type-label="{{selectedConfigType.name}}"></span> <span class="key-word"> {{"delegation.loginConfig.grammar.mapTo" | translate}} </span> <span ng-show="attr.mappedAs.length">{{attr.mappedAs}}</span><span ng-show="!attr.mappedAs.length"><{{'delegation.loginConfig.grammar.placeholder.attributeMapped' | translate}}></span>
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+        </div>
+        
+      </div>
+      <div class="cc-dlg-create-page-editor-div cc-dlg-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+        <form class="cc-dlg-create-page-editor-form" name="configForm.val" novalidate>
+          <div id="userinfo" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{"delegation.loginConfig.subtitle.info" | translate}} </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info">
+            <div class="btn-group cc-ps-dropdown-grp cc-dlg-user-import-config-div" uib-dropdown is-open="open">
+              <button type="button" class="btn btn-default form-control cc-ps-button-common" uib-dropdown-toggle ng-disabled="isEditMode">
+                <span class="cc-ps-dropdown-btn-label">
+                  <span class="cc-ps-dropdown-btn-title">{{"Type" | translate}}:</span>
+                <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{selectedConfigType.name}}</span> 
+                </span>
+                <span class="cc-ps-dropdown-btn-expand-icon"></span>
+              </button>
+              <ul class="dropdown-menu cc-dlg-user-import-config-list" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem" class="cc-dlg-user-import-config" ng-repeat="type in configTypes"><a href="javascript:void(0)" data-ng-click="setConfigType(type);setDirty()">{{type.name}}</a></li>
+              </ul>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.name.$touched && configForm.val.name.$invalid }">
+              <label for="name"> {{"delegation.loginConfig.label.name" | translate}} 
+                <i id="icon-userSource-name" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Name']=true" data-ng-if="pageOptionList['Name']"> </i>
+              </label>
+              <input id="name" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis" placeholder="{{'delegation.loginConfig.placeholder.name' | translate}}" data-ng-model="config.name" name="name" required ng-maxlength="255" maxlength="255" autocomplete="off"/>
+              <div class="cc-validation-block" ng-messages="configForm.val.name.$error" ng-if="configForm.val.name.$touched">
+                <p ng-message="required"> {{"delegation.create.validation.name.required" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Name" data-ng-model="showUserManual['Name']"></user-manual>
+            </div>
+            <div data-ng-if = "selectedConfigType.value == 'LDAP'">
+              <div data-ng-include="'ui/app/Delegation/LoginConfig/template/login-config-form-ldap.html'"></div>
+            </div>
+            <div data-ng-if = "selectedConfigType.value == 'DB'">
+              <div data-ng-include="'ui/app/Delegation/LoginConfig/template/login-config-form-db.html'"></div>
+            </div>
+            <div data-ng-if = "selectedConfigType.value == 'OIDC'">
+              {{loadAttributesForAzure()}}
+                <div data-ng-include="'ui/app/Delegation/LoginConfig/template/login-config-form-azure.html'"></div>
+            </div>
+            <div data-ng-if = "selectedConfigType.value == 'SAML2'">
+              {{loadAttributesForAzure()}}
+                <div data-ng-include="'ui/app/Delegation/LoginConfig/template/login-config-form-saml2.html'"></div>
+            </div>
+          </div>
+          <div id="userAttrs" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{"delegation.loginConfig.subtitle.attribute" | translate}} </span>
+            <i id="icon-userSource-ldap-user-attributes" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP User Attributes']=true" data-ng-if="pageOptionList['LDAP User Attributes']"></i>
+          </div>
+          <div class="cc-dlg-create-page-editor-info cc-user-manual-anchor admin-bottom-input-container" data-ng-if="selectedConfigType.value != 'SAML2'">
+            <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP User Attributes" data-ng-model="showUserManual['LDAP User Attributes']"></user-manual>
+            <div class="cc-ps-search-text-container cc-create-page-editor-data-right" ng-class="{'custom-validation-error':model_error}">
+              <p class="table-message" data-ng-class="{'success':attributeTable.success,'error':attributeTable.error}" data-ng-show="attributeTable.notify">{{attributeTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                <div class="table-header">
+                <p class="heading">Characteristics of a user that may be referenced in delegation policy creation</p>
+                <p class="count" data-ng-if="config.attributes.length">{{config.attributes.length}} {{(config.attributes.length > 1) ? 'Attributes': 'Attribute'}}</p>
+                </div>
+                <input id="addAttribute" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD NEW ATTRIBUTE" data-ng-click="addAttribute(config.attributes.length+1);attributeTable.dirty = true;" data-ng-disabled="editItem.$$hashKey" /> 
+              </div>
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+                <thead>
+                <tr>
+                  <th style="width:50%">{{"Name" | translate}}</th>
+                  <th style="width:40%">{{"Map To" | translate}}</th>
+                  <th style="width:10%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="" ng-repeat="attr in config.attributes track by $index" data-ng-include="editItem.$$hashKey == attr.$$hashKey ? 'ui/app/Delegation/LoginConfig/template/two-col-user-attribute-edit.html' : 'ui/app/Delegation/LoginConfig/template/two-col-user-attribute-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                  <td colspan="3"> 
+                    <a href="javascript:void(0)" data-ng-click="addAttribute(config.attributes.length+1);attributeTable.dirty = true;" >+ {{'Add New Attribute' | translate}}</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <input data-ng-if="selectedConfigType.value == 'OIDC'" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="VERIFY" data-ng-click="connect()" ng-disabled="formInvalid()" />
+          </div>
+          <div class="cc-dlg-create-page-editor-info cc-user-manual-anchor" data-ng-if="selectedConfigType.value == 'SAML2'">
+            <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP User Attributes" data-ng-model="showUserManual['LDAP User Attributes']"></user-manual>
+            <div class="cc-ps-search-text-container cc-create-page-editor-data-right" ng-class="{'custom-validation-error':model_error}">
+              <p class="table-message" data-ng-class="{'success':complexAttributeTable.success,'error':complexAttributeTable.error}" data-ng-show="complexAttributeTable.notify">{{complexAttributeTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                <div class="table-header">
+                <p class="heading">Characteristics of a user that may be referenced in delegation policy creation</p>
+                <p class="count" data-ng-if="config.complexAttributes.length">{{config.complexAttributes.length}} {{(config.complexAttributes.length > 1) ? 'Attributes': 'Attribute'}}</p>
+                </div>
+                <input id="addComplexAttribute" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD NEW ATTRIBUTE" data-ng-click="addComplexAttribute(config.complexAttributes.length+1);complexAttributeTable.dirty = true;" data-ng-disabled="editItem.$$hashKey" /> 
+              </div>
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+                <thead>
+                <tr>
+                  <th style="width:10%">{{"Required" | translate}}</th>
+                  <th style="width:25%">{{"Name" | translate}}</th>
+                  <th style="width:20%">{{"Friendly Name" | translate}}</th>
+                  <th style="width:22%">{{"Name Format" | translate}}</th>
+                  <th style="width:15%">{{"Map To" | translate}}</th>
+                  <th style="width:10%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="" ng-repeat="attr in config.complexAttributes track by $index" data-ng-include="editItem.$$hashKey == attr.$$hashKey ? 'ui/app/Delegation/LoginConfig/template/five-col-user-attribute-edit.html' : 'ui/app/Delegation/LoginConfig/template/five-col-user-attribute-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                  <td colspan="6"> 
+                    <a href="javascript:void(0)" data-ng-click="addComplexAttribute(config.complexAttributes.length+1);complexAttributeTable.dirty = true;" >+ {{'Add New Attribute' | translate}}</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+     <div class="clear"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="DelegationPolicyListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute">
+    <div class="cc-dlg-list-title cc-dlg-title-on-content-title">
+
+      <p data-ng-if="show_search" class="cc-ps-list-search-subtitle">{{"policylist.title.Search" | translate}}</p>
+      <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : !show_search}">{{"delegation.list.page.title" | translate}}</p>
+    </div>
+
+    <div class="cc-ps-filter-applied-div" data-ng-show="!show_search && (searchCriteria.name || !searchCriteria.pristine)">
+    
+      <div class="cc-ps-filter-applied-label" data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+        <p class="cc-ps-list-filter-label">{{"policylist.title.FilterApplied" | translate}}</p>
+      </div>
+      <div class="cc-ps-filter-applied-clear-icon">
+        <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+      </div>
+    </div>
+    <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn cc-ps-page-operation-btn">
+      <button type="button" class="btn btn-default active cc-search-btn" data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}" data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')">
+      </button>
+    </div>
+    <a data-ui-sref="Delegations.create" class="btn btn-default cc-btn-primary cc-create-btn cc-ps-page-operation-btn">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"delegation.list.btn.createDelegation" | translate}}</a>
+    <div class="cc-ps-policy-import-export-div cc-ps-page-operation-btn" ng-hide="true">
+      <button class="btn btn-default cc-btn-export cc-ps-btn cc-ps-btn-cc-big cc-ps-import-export-line" data-ng-click="exportAllDA();show_import_export=false;" title="{{'delegation.title.exportAll' | translate}}"></button>
+      <button class="btn btn-default cc-ps-btn cc-btn-import cc-ps-btn-cc-big cc-ps-import-export-line" data-ng-click="openImportModal();show_import_export=false;" title="{{'delegation.title.import' | translate}}"> </button>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-dlg-search-and-list-box">
+    <div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!show_search">
+      <div class="cc-ps-main-search-section-content" data-ng-include="'ui/app/Delegation/Policies/template/delegationsearch.html'"></div>
+    </div>
+    <div data-ng-class="!show_search ? 'cc-dlg-delegation-list-table cc-dlg-delegation-list-margin list-container dlg-top-space dlg-bottom-space' : 'cc-dlg-delegation-list-table cc-dlg-delegation-list-margin search-opened-list-container dlg-top-space dlg-bottom-space'">
+      <div data-ng-if="delegationList.length" class="cc-dlg-operation-delegation-polices" data-ng-include="'ui/app/Delegation/Policies/template/delegationoperation-checked-template.html'"></div>
+      <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="delegation in delegationList">
+          <div class="cc-dlg-delegation" data-ng-class="{'cc-ps-checked':delegation.checked}">
+            <div class="cc-dlg-delegation-content-container">
+              <div class="height-100-percent cc-green-checkbox-radio-box cc-dlg-delegation-check">
+                <label class="nobold cc-green-checkbox-radio-label cc-dlg-checkbox-left-half">
+                  <input id="checkbox-delegation-{{delegation.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="delegation.checked" data-ng-change="delegationCheckStatusChange()">
+                  <span><span id="checkbox-span-delegation-{{delegation.name | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                </label>
+              </div>
+              <div class="cc-dlg-delegation-content">
+                <div class="cc-dlg-delegation-name-desc">
+                  <p class="cc-dlg-delegation-name"><span data-ng-click="editDelegation(delegation)">{{delegation.name}}</span></p>
+                  <p>
+                    <span class="cc-ps-effect {{delegation.effectType | lowercase}}">{{delegation.effectType | lowercase}}</span><span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                    <friendly-date data-date="{{delegation.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                  </p>
+                </div>
+                <div class="cc-dlg-delegation-option-block">
+                  <div class="cc-dlg-align-right">
+                    <!-- <button class="btn btn-default cc-dlg-delegation-option cc-dlg-btn-cc-big cc-dlg-btn-bkgrd-hover cc-dlg-btn-no-bkgrd cc-dlg-btn-no-border" data-ng-click="openOption(delegation, !openOption(delegation), $event)"></button> -->
+                  <!-- <div class="cc-dlg-option" data-ng-show="delegation.optionOpen"> -->
+                    <!-- <div class="cc-ps-btn-grp cc-inline"> -->
+                      <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Edit" data-ng-click="editDelegation(delegation)"><i class="fa fa-pencil"></i></button>
+                      <!-- <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Clone" data-ng-click="cloneDelegation(delegation)"><i class="fa fa-clone"></i></button> -->
+                      <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete" data-ng-click="delDelegation(delegation, $event)"><i class="cc-ps-icon-trash"></i></button>
+                    <!-- </div> -->
+                  <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p data-ng-if="delegationList.length < delegationTotal">
+        <button id="btn-delegation-policy-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore" data-ng-click="loadMore()">{{"delegation.list.title.LoadMore" | translate}} </button>
+      </p>
+      <div data-ng-if="!delegationList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"delegation.list.nodelegation.msg" | translate}}</p>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

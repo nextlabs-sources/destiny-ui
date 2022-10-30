@@ -1,0 +1,48 @@
+<div data-ui-view data-ng-controller="createComponentController" class="cc-layout-full-height">
+	<div  class="cc-ps-create-page-container cc-layout-full-height">
+		<form id="componentForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height cc-layout-full-width" name="componentForm.val" novalidate>
+			<div class="no-margin cc-ps-create-page-title-panel">
+				<div class="cc-ps-create-page-back-btn-div">
+					<a data-ng-click="backToComponentList(componentForm.val)">
+						<button id="btn-add-component-{{type | lowercase}}-back-arrow" class="cc-ps-create-page-back-btn" type="button"class="btn btn-default active">
+							<i class="fa fa-arrow-left" data-ng-class=""></i>
+						</button>
+					</a>
+				</div>
+
+				<div class="cc-ps-create-page-title">
+		      		{{"createComponent.title.CreateComponent" | translate}}
+		    	</div>
+				
+			    <div class="cc-ps-create-page-btn-div" data-ng-if="permissions">
+					<a id="btn-add-component-{{type | lowercase}}-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardComponent(componentForm.val)" dyn-attr-del-unbind-if="!permissions.CREATE_COMPONENT.pageLevel.result" dyn-attr="permissions.CREATE_COMPONENT.pageLevel.result ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.Discard" | translate}}</a>
+					<a id="btn-add-component-preview" class="btn btn-default cc-btn-discard" data-ng-show="type.toUpperCase() === 'SUBJECT'" data-ng-click="openComponentPreviewPanel(componentForm.val)" dyn-attr-del-unbind-if="!permissions.CREATE_COMPONENT.pageLevel.result" dyn-attr="permissions.CREATE_COMPONENT.pageLevel.result ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+						{{"createComponent.button.Preview" | translate}}
+					</a>
+					<a id="btn-add-component-{{type | lowercase}}-save" class="btn btn-default cc-btn-discard" data-ng-click="saveAndDeployComponent(componentForm.val, true, false)" dyn-attr-del-unbind-if="!permissions.CREATE_COMPONENT.pageLevel.result" dyn-attr="permissions.CREATE_COMPONENT.pageLevel.result ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+						{{"createComponent.button.SaveComponent" | translate}}
+					</a>
+					<a id="btn-add-component-{{type | lowercase}}-save-deploy" class="btn btn-default cc-btn-primary" data-ng-click="saveAndDeployComponent(componentForm.val, true, true)" dyn-attr-del-unbind-if="!permissions.CREATE_COMPONENT.pageLevel.result || !permissions.DEPLOY_COMPONENT.pageLevel.result" dyn-attr="(permissions.CREATE_COMPONENT.pageLevel.result && permissions.DEPLOY_COMPONENT.pageLevel.result) ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+						{{"createComponent.button.SaveAndDeployComponent" | translate}}
+					</a>
+					<a class="btn btn-default cc-btn-primary" data-ng-click="saveAndDeployComponent(componentForm.val, false, true)" dyn-attr-del-unbind-if="permissions.CREATE_COMPONENT.pageLevel.result || !permissions.DEPLOY_COMPONENT.pageLevel.result" dyn-attr="(!permissions.CREATE_COMPONENT.pageLevel.result  && permissions.DEPLOY_COMPONENT.pageLevel.result) ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+						{{"createComponent.button.DeployComponent" | translate}}
+					</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="cc-ps-create-page-bottom-panel cc-ps-container-relative">
+				<div class="cc-ps-create-page-grammar-div cc-layout-full-height cc-fixed-grammar" >
+					<div class="sticky-left-container" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-summary.html'">
+
+					</div>
+				</div>
+				<div class="cc-ps-create-page-editor-div cc-ps-create-page-editor-content cc-policy-editor-absolute" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-editor.html'" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first" scroll-top-margin="80"></div>
+			</div>
+			<div class="clear"></div>
+		</form>	
+		<div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':memberOverview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Component/partials/member-overview-panel.html'"></div>    
+		<div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentPreview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-preview.html'"></div>	
+		<div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentOverview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Policy/partials/component-overview-panel.html'"></div>
+	</div>	
+</div>

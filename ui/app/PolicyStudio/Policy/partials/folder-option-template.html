@@ -1,0 +1,20 @@
+<div class="cc-ps-btn-grp cc-inline">
+    <button id="btn-policy-delete-folder-{{folder.name | id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete"
+        data-ng-click="deleteFolder(folder, $event)"
+        dyn-attr="folder.authoritiesParsed.DELETE_POLICY_FOLDER ? permissions.DELETE_POLICY_FOLDER.rowLevel.action.ALLOW : permissions.DELETE_POLICY_FOLDER.rowLevel.action.DENY"
+        dyn-attr-del-unbind-if="!folder.authoritiesParsed.DELETE_POLICY_FOLDER" dyn-attr-del="['data-ng-click','click']">
+        <i class="cc-ps-icon-trash"></i>
+    </button>
+    <button id="btn-policy-rename-folder-{{folder.name | id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="{{::'Rename' | translate}}"
+        data-ng-click="renameFolder(folder)"
+        dyn-attr="folder.authoritiesParsed.RENAME_POLICY_FOLDER ? permissions.RENAME_POLICY_FOLDER.rowLevel.action.ALLOW : permissions.RENAME_POLICY_FOLDER.rowLevel.action.DENY"
+        dyn-attr-del-unbind-if="!folder.authoritiesParsed.RENAME_POLICY_FOLDER" dyn-attr-del="['data-ng-click','click']">
+        <i class="cc-ps-icon-folder-rename"></i>
+    </button>
+    <button id="btn-policy-move-folder-{{folder.name | id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="{{::'Move' | translate}}"
+        data-ng-click="move([folder.id], [])"
+        dyn-attr="folder.authoritiesParsed.MOVE_POLICY_FOLDER ? permissions.MOVE_POLICY_FOLDER.rowLevel.action.ALLOW : permissions.MOVE_POLICY_FOLDER.rowLevel.action.DENY"
+        dyn-attr-del-unbind-if="!folder.authoritiesParsed.MOVE_POLICY_FOLDER" dyn-attr-del="['data-ng-click','click']">
+        <i class="cc-ps-icon-move"></i>
+    </button>
+</div>

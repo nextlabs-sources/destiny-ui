@@ -1,0 +1,75 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="loginConfigListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute">
+    <div class="cc-dlg-list-title cc-dlg-title-on-content-title">
+      {{"delegation.loginConfig.title" | translate}}
+    </div>
+    <a data-ui-sref="LoginConfig.add" class="btn btn-default cc-btn-primary cc-create-btn cc-ps-page-operation-btn">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"delegation.loginConfig.add" | translate}}</a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-dlg-search-and-list-box cc-ps-resource-list-table list-container">
+    <div class="cc-dlg-delegation-list-table">
+      <!-- <div data-ng-if="configList.length" class="cc-dlg-operation" >
+        <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+          <label class="nobold cc-green-checkbox-radio-label">
+            <input type="checkbox" ng-disabled="configList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allConfigChecked" data-ng-change="checkAllConfig(checkStatus.allConfigChecked)"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span></label>
+        </div>
+        <div class="cc-inline cc-dlg-operation-btn">
+          <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.hasConfigChecked" title="Delete" data-ng-click="bulkDelConfig($event)"><i class="fa fa-trash"></i></button>
+        </div> -->
+        <!-- <div id="cc-sort-by" class="cc-inline cc-dlg-align-right">
+          <div class="cc-inline" id="cc-sort-by-title">{{"componentsearch.label.sortby"|translate}}</div>
+          <div class="cc-inline btn-group btn-block cc-dlg-dropdown-grp cc-dlg-search-status" id="cc-sort-by-select" uib-dropdown>
+            <button class="form-control cc-dlg-button-common" id="" type="button" data-uib-dropdown-toggle>
+              <span class="cc-dlg-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span> <span class="cc-dlg-dropdown-btn-expand-icon"></span>
+            </button>
+            <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+              <li role="menuitem" data-ng-repeat="s in searchOptions.sortOptions" data-ng-click="searchCriteria.sortBy = s;" class="cc-ps-clickable-dropdown">{{s.label}}</li>
+            </ul>
+          </div>
+        </div> 
+      </div> -->
+      <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="config in configList">
+          <div class="cc-dlg-delegation" data-ng-class="{'cc-ps-checked':config.checked}">
+            <div class="cc-dlg-delegation-content-container">
+              <!-- <div class="height-100-percent cc-green-checkbox-radio-box cc-dlg-delegation-check">
+                <label class="nobold cc-green-checkbox-radio-label cc-dlg-checkbox-left-half">
+                  <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="config.checked" data-ng-change="configCheckStatusChange()"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                </label>
+              </div> -->
+              <div class="cc-dlg-delegation-content">
+                <div class="cc-dlg-delegation-name-desc">
+                  <p class="cc-dlg-delegation-name" ng-class="{'cc-dlg-delegation-name-width': config.inUse}">
+                    <span data-ng-click="editConfig(config)">&nbsp;{{config.name}}</span>
+                  </p>
+                  <p>
+                    <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                    <friendly-date data-date="{{config.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                  </p>
+                  <div class="cc-dlg-list-page-warning-msg">
+                      <span data-ng-show="config.inUse" >{{"delegation.loginConfig.msg.userSourceList.infoDelete" | translate}}</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="cc-dlg-list-page-type" title="{{config.type}}">{{config.type}}</span>
+                </div>
+                <div class="cc-dlg-delegation-option-block">
+                  <div class="cc-dlg-align-right">
+                    <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Edit" data-ng-click="editConfig(config)"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete" data-ng-disabled="config.inUse" data-ng-click="delConfig(config, $event)"><i class="cc-ps-icon-trash"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div data-ng-if="!configList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"delegation.loginConfig.noconfig.msg" | translate}}</p>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

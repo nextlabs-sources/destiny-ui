@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<h2 class="cc-ps-list-title">{{::'policylist.import.title' | translate}}</h2>
+</div>
+<div class="modal-body">
+  <div class="btn btn-default btn-file">
+    {{'PS.Browse' | translate}} <input type="file" id="import-file" title="{{fileToImportName}}">
+  </div>{{fileToImportName}}
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"resourcesearch.label.Cancel" | translate}}</button>
+  <button class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!fileToImportName" ng-click="import()">{{"resourcesearch.label.Save" | translate}}</button>
+</div>

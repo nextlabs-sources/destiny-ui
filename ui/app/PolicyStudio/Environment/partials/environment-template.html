@@ -1,0 +1,49 @@
+<div class="cc-ps-environment">
+    <div>
+        <div class="cc-ps-environment-parent">
+            <div class="cc-ps-environment-content-container">
+                <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-environment-check">
+                    <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+                        <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="environment.checked"
+                            data-ng-change="environmentCheckStatusChange()"><span><span class="cc-green-checkbox-radio-bgrd-holder"
+                                data-ng-if="permissions"
+                                dyn-attr="permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result ? permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.ALLOW : permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.DENY"
+                                dyn-attr-del="['ui-sref','href']"
+                                dyn-attr-del-unbind-if="!permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result"></span></span>
+                    </label>
+                </div>
+                <div class="cc-ps-environment-content">
+                    <div class="cc-ps-environment-name-desc cc-ps-environment-width">
+                        <p class="cc-ps-environment-name"><span data-ng-click="editEnvironment(environment)"
+                                title="Environment Name">{{::environment.name}}</span></p>
+                        <p>
+                            <span class="cc-ps-list-environment-summary">
+                                <span class="cc-ps-list-modified-time">
+                                    <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                                    <friendly-date data-date="{{environment.lastUpdatedDate}}"
+                                        data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title"
+                                        data-content-class="cc-ps-friendly-date-content" data-prefix=""
+                                        data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="row cc-environment-inner-row">
+                            Hostname: {{::environment.host}}
+                    </div>
+                </div>
+                <div class="cc-ps-environment-option-block" >
+                    <div class="cc-ps-align-right">
+                        <button ng-if="(permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result) || (permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result)"
+                            class="btn btn-default cc-ps-environment-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border"
+                            data-ng-click="openOption(environment, !openOption(environment), $event)"></button>
+                    </div>
+                    <div data-ng-include="'ui/app/PolicyStudio/Environment/partials/environmentoption-template.html'"
+                        class="cc-ps-option" data-ng-show="environment.optionOpen"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>

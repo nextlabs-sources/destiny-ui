@@ -1,0 +1,181 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="trustStoreController">
+  <div class="cc-dlg-create-page-container cc-layout-full-height">
+    <div class="no-margin cc-dlg-create-page-title-panel">
+      <div class="cc-dlg-create-page-back-btn-div">
+        <a ui-sref="PolicyStudio.listSecureStore({storeType:'truststore'})">
+          <button id="goBack" class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active">
+            <i class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-dlg-create-page-title">
+        <span data-ng-if="!isViewMode"> {{"secureStore.truststore.title.add" | translate}} </span>
+        <span data-ng-if="isViewMode"> {{ storeEntry.alias }} </span>
+      </div>
+      <div class="cc-dlg-create-page-btn-div">
+        <a id="discardForm" class="btn btn-default cc-btn-discard" data-ng-click="reset()" data-ng-hide="isViewMode"> &nbsp;&nbsp;{{"common.discard" | translate}} </a>
+        <a id="submitForm" class="btn btn-default cc-btn-primary" data-ng-click="createKeyPair(certificateForm.val)" data-ng-hide="isViewMode"> &nbsp;&nbsp;{{"common.save" | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-dlg-create-page-bottom-panel">
+      <div class="cc-ps-create-page-grammar-div cc-layout-full-height" data-ng-include="'ui/app/PolicyStudio/Tools/SecureStore/partials/certificate-grammar-section.html'"></div>
+      <div class="cc-dlg-create-page-editor-div cc-dlg-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+        <form id="certificateForm.val" class="cc-dlg-create-page-editor-form" name="certificateForm.val" novalidate>
+          <div id="certificateBasic" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{"secureStore.truststore.section.info" | translate}} </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info">
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="standard">{{"secureStore.truststore.label.standard" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.type}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="version">{{"secureStore.truststore.label.version" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.version}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="serialNumber">{{"secureStore.truststore.label.serialNumber" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.serialNumber}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="issuer">{{"secureStore.truststore.label.issuer" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.issuer}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label class="display-inline" for="storeName"> {{"secureStore.truststore.label.storeName" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.storeName}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label class="display-inline" for="alias">{{"secureStore.truststore.label.alias" | translate}}:</label>
+              <span class="display-inline field-as-label" style="word-wrap: break-word;">{{storeEntry.alias}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="keyAlgorithm">{{"secureStore.truststore.label.keyAlgorithm" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.keyAlgorithm}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="keySize">{{"secureStore.truststore.label.keySize" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.keySize}} {{::"bits" | translate}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="signatureAlgorithm">{{"secureStore.truststore.label.signatureAlgorithm" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.signatureAlgorithm.label}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="validFromDate">{{"secureStore.truststore.label.validFrom" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.validFrom | date : 'medium'}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="validUntilDate">{{"secureStore.truststore.label.validUntil" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.validUntil | date : 'medium'}}</span>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="distinguishedName" name="distinguishedName" class="cc-dlg-create-page-editor-title">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.truststore.section.distinguishedName" | translate}} </span>
+            </div>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-class="{'custom-validation-error':nameFieldTable.error}">
+              <p class="table-message" data-ng-class="{'success':nameFieldTable.success,'error':nameFieldTable.error}" data-ng-show="nameFieldTable.notify">{{nameFieldTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Name of a key pair that describes the identifying information of itself</p>
+                    <p class="count" data-ng-if="storeEntry.nameFields.length">{{storeEntry.nameFields.length}} {{(storeEntry.nameFields.length > 1) ? 'Entries': 'Entry'}}</p>
+                  </div>
+                    <input id="addNameField" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD FIELD" data-ng-click="addNameField(); nameFieldTable.dirty = true;" data-ng-disabled="dnEditItem.$$hashKey" data-ng-hide="isViewMode"/> 
+                </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">{{"Field" | translate}}</th>
+                  <th style="width:67%">{{"Value" | translate}}</th>
+                  <th style="width:8%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="nameField in storeEntry.nameFields track by $index" data-ng-include="dnEditItem.$$hashKey == nameField.$$hashKey ? 'ui/app/PolicyStudio/Tools/SecureStore/partials/name-field-edit.html' : 'ui/app/PolicyStudio/Tools/SecureStore/partials/name-field-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!dnEditItem.$$hashKey && !isViewMode">
+                  <td colspan="5">
+                    <a href="javascript:void(0)" data-ng-click="addNameField(); nameFieldTable.dirty = true;" >+ {{'Add Field' | translate}}</a>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="namedExtension" name="namedExtension" class="cc-dlg-create-page-editor-title cc-user-manual-anchor">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.truststore.section.namedExtension" | translate}} </span>
+              <i id="icon-key-distinguished-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Named Extension'] = true" data-ng-if="pageOptionList['Named Extension']"></i>
+            </div>
+            <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Named Extension" data-ng-model="showUserManual['Named Extension']"></user-manual>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-class="{'custom-validation-error':namedExtensionTable.error}">
+              <p class="table-message" data-ng-class="{'success':namedExtensionTable.success,'error':namedExtensionTable.error}" data-ng-show="namedExtensionTable.notify">{{namedExtensionTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Denotes an X.509 certificate extension</p>
+                    <p class="count" data-ng-if="storeEntry.namedExtensions.length">{{storeEntry.namedExtensions.length}} {{(storeEntry.namedExtensions.length > 1) ? 'Entries': 'Entry'}}</p>
+                  </div>
+                  <input id="addNamedExtension" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD EXTENSION" data-ng-click="addNamedExtension(); namedExtension.dirty = true;" data-ng-disabled="extEditItem.$$hashKey || storeEntry.namedExtensions.length > 0" data-ng-hide="isViewMode"/> 
+                </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">{{"Name" | translate}}</th>
+                  <th style="width:67%">{{"Value" | translate}}</th>
+                  <th style="width:8%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="namedExtension in storeEntry.namedExtensions track by $index" data-ng-include="extEditItem.$$hashKey == namedExtension.$$hashKey ? 'ui/app/PolicyStudio/Tools/SecureStore/partials/named-extension-edit.html' : 'ui/app/PolicyStudio/Tools/SecureStore/partials/named-extension-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!extEditItem.$$hashKey && !isViewMode && storeEntry.namedExtensions.length == 0">
+                  <td colspan="5">
+                    <a href="javascript:void(0)" data-ng-click="addNamedExtension(); namedExtension.dirty = true;" >+ {{'Add Named Extension' | translate}}</a>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="thumbprints" class="cc-dlg-create-page-editor-title">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.truststore.section.thumbprint" | translate}} </span>
+            </div>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor">
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                <div class="table-header">
+                    <p class="heading">Thumbprint of key pair with message digest algorithm</p>
+                </div>
+              </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+                <thead>
+                  <tr>
+                    <th style="width:25%">{{"Digest Algorithm" | translate}}</th>
+                    <th style="width:75%">{{"Value" | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="thumbprint in storeEntry.thumbprints">
+                    <td style="vertical-align: middle;">
+                      <span>{{thumbprint.algorithm}}</span>
+                    </td>
+                    <td style="vertical-align: middle;">
+                      <span>{{thumbprint.value}}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

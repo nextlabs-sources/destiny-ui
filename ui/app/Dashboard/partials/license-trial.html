@@ -1,0 +1,5 @@
+<div class="cc-dashboard-trial-stamp"></div>
+<div><span id="dashboard-trial-license-days-left" style="color:#07B582; font-size: 14px;">{{sysDetails.license_properties.no_of_days_left + ' Days'}}</span>&nbsp;{{'remaining' | translate}}</div>
+<div id="label-dashboard-trial-license-expire-date">{{'This license will expire on ' | translate}}&nbsp;<span style="font-weight: bold;">{{sysDetails.license_properties.expiration_milis|date:'dd MMMM yyyy'}}</span></div>
+<div id="label-dashboard-trial-license-purchase-subscription" class="cc-dashboard-subscribe-title">{{'Purchase a subscription' | translate}}</div>
+<div style="font-size: 12px;"><a d="link-dashboard-trial-email" ng-href="mailto:{{dashboardConfig.subscriptionEmail}}">Email us</a> <span ng-show="dashboardConfig.subscriptionCall">{{'or call' | translate}} {{dashboardConfig.subscriptionCall}}</span></div>

@@ -1,0 +1,91 @@
+<div class="btn-group go-as-you-type-root" data-uib-dropdown auto-close="outsideClick">
+    <div class="go-as-you-type-selected-box" data-ng-class="{'go-as-you-type-selected-box-disabled':ngDisabledCc, 'go-as-you-type-selected-box-expand':itemSubLabel}">
+        <div class="go-as-you-type-selected" data-ng-repeat="item in dataSetSaveTo  track by $index" data-ng-class="{'go-as-you-type-selected-expand':itemSubLabel,'not-last':!$last}" ng-click="callShowDetail(item)">
+            <table class="item">
+                <tbody class="item">
+                    <tr class="item">
+                        <td class="go-as-you-type-selected-icon-pre"></td>
+                        <td auto-size class="go-as-you-type-selected-label">
+                            <div class="auto-resize-target" ng-style="isErrorItem(item) && {'color':'red'}">{{listItemLabel(item)}}</div>
+                        </td>
+                        <td class="go-as-you-type-selected-sublabel" ng-if="itemSubLabel || itemSubLabelArray">{{listItemSubLabel(item)}}</td>
+                        <td class="go-as-you-type-deselect" data-ng-click="deleteItem(item, $event);deselectItem($index)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="go-as-you-type-input-box">
+            <input id="{{goAsYouTypeId}}" ng-disabled="ngDisabledCc" data-ng-focus="$parent.highlightGrammar('componentContaisSub');!noInputTimeout && setNoInputTimer(); refreshOptions();"
+                class="go-as-you-type-input" data-ng-model="__itemFilterValueModel" data-ng-model-options="{ debounce: staticDataSet ? 0 :500, allowInvalid: true }"
+                data-ng-change="nameChanged()" placeholder="{{placeholder}}" maxlength="{{inputMax}}" data-ng-click="inputClicked()"
+                ng-keypress="clearNoInputTimer()" data-ng-required="required && dataSetSaveTo.length == 0"></div>
+        <div class="clear"></div>
+    </div>
+    <button id="go-as-you-type-toggle-btn-{{$id}}" class="go-as-you-type-toggle-btn" type="button" data-uib-dropdown-toggle></button>
+    <div data-uib-dropdown-menu class="uib-dropdown-menu go-as-you-type-dropdown-box">
+        <div class="go-as-you-type-dropdown-filters-container" data-ng-if="filters.length > 0 || enableLookup === 'true'">
+            <ul class="go-as-you-type-dropdown-filters" data-ng-if="filters.length > 0">
+                <li data-ng-repeat="option in filters">
+                    <label>
+                        <input type="checkbox" class="go-as-you-type-checkbox" data-ng-checked="filterSelection.indexOf(option.key) > -1"
+                            data-ng-click="toggleFilterSelection(option.key)" />
+                        <span class="cc-ps-label-for-checkbox-radio">
+                            <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="go-as-you-type-dropdown-filter-item-name">{{option.value}}</span>
+                        </span>
+                    </label>
+                </li>
+            </ul>
+            <div class="go-as-you-type-lookup" data-ng-if="enableLookup === 'true'">
+                <input class="btn btn-default cc-create-page-member-lookup-btn" type="button" name="memberLookup" value="{{'createComponent.button.Members.lookup' | translate}}"
+                    data-ng-click="lookup()" />
+            </div>
+        </div>
+        <div class="go-as-you-type-select-all-container" checked="true" data-ng-if="showSelectAll && (dataSet | filter: notselected()).length">
+            <div class="go-as-you-type-select-all">
+                <label>
+                    <input type="checkbox" class="go-as-you-type-checkbox" data-ng-click="selectAllOptions($event)" data-ng-model="optionSelection.all"
+                    />
+                    <span class="cc-ps-label-for-checkbox-radio">
+                        <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        <span class="go-as-you-type-dropdown-filter-item-name">{{"ui.goasyoutype.selectall" | translate}}</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+        <ul class="go-as-you-type-dropdown-items" data-ng-if="(noInputTimeout || __itemFilterValueModel && __itemFilterValueModel.length) ">
+            <!-- remove this if new item is added by button -->
+            <li data-ng-if="createNew && __itemFilterValueModel && __itemFilterValueModel.length && noMatchedTag()" class="go-as-you-type-dropdown-item">
+                <label>
+                    <input type="checkbox" class="go-as-you-type-checkbox" checked="false" ng-true-value="true" ng-false-value="false" data-ng-model="newItemChecked.checked"><span class="cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{__itemFilterValueModel}}<span class="go-as-you-type-new-item-label">({{addNewBtnLabel}}) </span></label>
+            </li>
+            <li data-ng-if="createNew && __itemFilterValueModel && __itemFilterValueModel.length && noMatchedTag()" class="divider"></li>
+
+            <li data-ng-repeat="item in dataSet | filter : dataSetFilter() | filter: dataSetAttrFilter | filter: labelFilter | filter: notselected() | orderBy:perfectMatchedFirst" 
+            ng-if="!existInDataSetSavedTo(item)" data-ng-style="($index== 0 && showSelectAll) && {'margin-top':'15px'}"
+            class="go-as-you-type-dropdown-item">
+                <label>
+                    <input type="checkbox" class="go-as-you-type-checkbox"  ng-true-value="true" data-ng-click="toggleSelectAll($event, item[itemKeyField])" ng-false-value="false" data-ng-model="item.$selected" data-ng-change="__itemFilterValueModel =null;">
+                    <span class="cc-ps-label-for-checkbox-radio">
+                        <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{listItemLabel(item)}}
+                        <span data-ng-if="item.data.policy_model_name || item.agent || item.domainName" style="color:#989CB1"> &nbsp;({{listItemSubLabel(item)}})</span>
+                        <div style="color: #989CB1;">
+                            <span data-ng-if="item.effectType">(<b>Effect:</b> {{item.effectType}}</span><span data-ng-if="item.noOfTags > 1"><b>; Tags:</b>&nbsp;</span><span data-ng-if="item.noOfTags == 1"><b>; Tag:</b>&nbsp;</span><span data-ng-if="item.noOfTags == 0">)</span>    
+                            <span class="go-as-you-type-sublabel-span" data-ng-if="item.tags" data-ng-repeat="tag in item.tags">
+                            <span data-ng-if="!$first" style="color:#989CB1">,&nbsp;</span>{{tag.label}}<span data-ng-if="$last">)</span>
+                            </span>
+                        </div>
+                    </span>
+                </label>
+            </li>
+        </ul>
+        <div data-ng-if="(dataSet | filter : dataSetFilter() | filter: dataSetAttrFilter | filter: labelFilter | filter: notselected()).length > 0 || newItemChecked.checked" class="go-as-you-type-btn-box">
+            <button id="btn-{{goAsYouTypeId}}" class="btn btn-default go-as-you-type-btn-apply" data-ng-click="applyBtnClicked()">{{applyBtnLabel}} </button>
+        </div>
+        
+        <!-- uncomment this if new item is added by button -->
+        <!-- <div data-ng-if="createNew && __itemFilterValueModel && __itemFilterValueModel.length  && noMatchedTag()" class="go-as-you-type-addnew-box">
+            <button type="button" class="btn btn-default go-as-you-type-btn-addnew" data-ng-click="addNewBtnClicked();"><span class="go-as-you-type-new-item-label">{{__itemFilterValueModel}}</span>( {{addNewBtnLabel}} )</button>
+        </div> -->
+    </div>
+</div>

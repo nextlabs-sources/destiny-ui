@@ -1,0 +1,75 @@
+<p class="cc-ps-create-page-warning" data-ng-show="globalWarning">{{globalWarning}}</p>
+<div id="taskInformation" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.details" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label id="label-enrollment-name" for="name">{{"enrollment.name" | translate}}
+            <i id="icon-enrollment-name-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['Enrollment Name'] = true" data-ng-if="pageOptionList['Enrollment Name']"></i>
+        </label>
+        <input id="tf-enrollment-name" type="text"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-name cc-long-text-ellipsis"
+            name="name" ng-model="enrollment.name" placeholder="{{'toolManagement.createTask.namePlaceholder' | translate}}"
+            data-ng-pattern="'[^~/*$&?\\\\]*'" title="{{enrollment.name}}" data-ng-focus="highlightGrammar('name')" required
+            ng-maxlength="100" maxlength="100" data-ng-disabled="isEditMode && enrollment.created"
+            restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+        <user-manual id="manual-enrollment-name" class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Enrollment Name"
+            data-ng-model="showUserManual['Enrollment Name']"></user-manual>
+        <div class="cc-validation-block" ng-messages="enrollmentForm.val.name.$error"
+            ng-if="enrollmentForm.val.name.$touched || saveExecuted ">
+            <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+            <p ng-message="required">{{"toolManagement.createTask.validation.required" | translate}}</p>
+            <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label id="label-enrollment-description" for="description">{{"toolManagement.createTask.description" | translate}}
+            {{ "enrollment.optional" | translate }}
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+            data-ng-click="showUserManual['Description'] = true" data-ng-if="pageOptionList['Description']"></i>
+        </label>
+        <textarea id="ta-enrollment-description" style="height: 100px;"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-textfield-width" name="description"
+            ng-model="enrollment.description" placeholder="{{'toolManagement.createTask.descPlaceholder' | translate}}"
+            data-ng-focus="highlightGrammar('description')" ng-maxlength="255" maxlength="255"></textarea>
+        <user-manual id="manual-enrollment-description" class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Description"
+            data-ng-model="showUserManual['Description']"></user-manual>
+        <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskName.$error"
+            ng-if="enrollmentForm.val.description.$touched">
+            <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+            <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+</div>
+<div id="label-section-parameters" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"toolManagement.createTask.subtitle.parameters" | translate}}</span>
+</div> 
+<div class="cc-ps-create-page-editor-info cc-common-gap cc-user-manual-anchor">
+    <label id="label-parameters-datasource" class="">{{"enrollment.source" | translate}}
+        <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+        data-ng-click="showUserManual['Source of information/record'] = true" data-ng-if="pageOptionList['Source of information/record']"></i>
+        <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right" style="top:0px;"
+            data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+            data-page="{{userManualOption.page}}" key="Source of information/record" data-ng-model="showUserManual['Source of information/record']"></user-manual>
+    </label>
+    <div class="cc-create-page-editor-data-right">
+        <select id="select-enrollment-{{parameter.displayName | id}}" class="form-control cc-create-page-common-select"
+            name="parameter_{{$index}}" data-ng-required="{{parameter.mandatory}}" data-ng-model="currentDataSource"
+            style="width: 210px;" data-ng-change="onSelectChange(currentDataSource)"
+            data-ng-disabled="isEditMode"   
+            ng-options="dataSource as dataSource.name for dataSource in dataSources"
+            > 
+        </select>
+    </div>
+</div>
+
+<!-- unique UI start here -->
+<div ng-if="currentDataSource.value === 'ACTIVE_DIRECTORY'" data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/active-dir-ui.html'"></div>
+<div ng-if="currentDataSource.value === 'LDIF'" data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/ldif-ui.html'"></div>
+<div ng-if="currentDataSource.value === 'SHAREPOINT'" data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/portal-ui.html'"></div>
+<div ng-if="currentDataSource.value === 'AZURE_ACTIVE_DIRECTORY'" data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/azure-ui.html'"></div>

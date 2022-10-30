@@ -1,0 +1,72 @@
+{
+  "data": [{
+    "id": 5,
+    "title": "Restricted Access 2",
+    "description": "This policy, as well, deny unauthorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "effect": "Deny",
+    "status": "deployed",
+    "lastModifiedDate": 1445916655000,
+    "createdTime": 1445916655000,
+    "hasSubPolicies": true,
+    "subPolicies": [{
+      "id": 2,
+      "title": "Restricted Access With a long name"
+    }, {
+      "id": 3,
+      "title": "Allowed Access With a really looooooooooooooong name"
+    }, {
+      "id": 4,
+      "title": "Temp Access"
+    }]
+  }, {
+    "id": 6,
+    "title": "Allowed Access",
+    "description": "This policy allows authorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "effect": "Allow",
+    "status": "saved",
+    "lastModifiedDate": 1446089455000,
+    "createdTime": 1446089455000
+  }, {
+    "id": 7,
+    "title": "Temp Access",
+    "description": "This policy allows tempraray authorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "effect": "Allow",
+    "status": "saved",
+    "lastModifiedDate": 1414380655000,
+    "lastModifiedBy": "A",
+    "createdTime": 1414380655000
+  }],
+  "startFrom": 0,
+  "pageSize": -1,
+  "totalNoOfRecords": 27
+}

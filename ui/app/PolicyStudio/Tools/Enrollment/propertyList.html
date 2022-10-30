@@ -1,0 +1,128 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="propertyListController">
+    <form id="propertyForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height cc-layout-full-width"
+        name="propertyForm.val" novalidate>
+        <div class="no-margin cc-ps-title-on-content cc-ps-sticky">
+            <div class="cc-ps-create-page-back-btn-div title-space">
+                  
+              </div>
+            <div id="cc-ps-page-title" class="cc-ps-title-on-content-title cc-ps-enrollment-title">
+                <p data-ng-if="show_search" class="cc-ps-list-search-subtitle">
+                    {{"toolManagement.propertyManager.search.title" | translate}}
+                </p>
+                <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : show_search}">
+                    {{ "toolManagement.propertyManager.title" | translate}}</p>
+            </div>
+            <div class="cc-ps-saved-search-div cc-ps-title-on-content-title" data-ng-show="show_search">
+                <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-saved-search-dropdown" data-uib-dropdown keyboard-nav>
+                  <button id="property_btn_savedsearch" class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle ng-disabled="disabled">
+                    <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{searchCriteria.$_nameDisplay}}</span></span><span class="cc-ps-dropdown-btn-expand-icon"></span>
+                  </button>
+                  <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-saved-search-list">
+                    <li role="menuitem" data-ng-repeat="o in savedSearchList" data-ng-click="setSearch(o)"
+                        class="cc-ps-clickable-dropdown cc-saved-search-list-item">
+                        <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a">
+                            <span class="cc-saved-search-list-item-name" uib-tooltip="{{::o.desc}}"
+                                tooltip-placement="top-left">{{o.name}}</span>
+                            <i class="fa fa-times cc-ps-del-search" data-ng-click="delSearch($index, $event)"
+                                title="Delete this search"></i>
+                        </a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- {{searchCriteria}} -->
+              <div class="cc-ps-filter-applied-div" data-ng-show="!show_search && (searchCriteria.name || !searchCriteria.pristine)">
+                <div class="cc-ps-filter-applied-label" data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+                  <p class="cc-ps-list-filter-label">{{"resourcelist.title.FilterApplied" | translate}}</p>
+                  <p class="cc-ps-list-filter-name" data-ng-if="searchCriteria.name">{{searchCriteria.name}}</p>
+                </div>
+                <div class="cc-ps-filter-applied-clear-icon">
+                  <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+                </div>
+              </div>
+            <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn">
+                <button id="property-btn-search"  type="button" class="btn btn-default active cc-search-btn"
+                    data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}"
+                    data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')">
+                </button>
+            </div>
+            <a id="property-btn-add"  data-ng-click="addProperty()" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn">
+                <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"toolManagement.propertyManager.title.addProperty" | translate}}</a>
+            <div class="clear"></div>
+        </div>
+        <div class="cc-ps-search-and-list-box" scroll-to-top-when="searchFormOpen">
+            <div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!show_search">
+                <div class="cc-ps-main-search-section-content"
+                    data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/property-search.html'"></div>
+            </div>
+            <div data-ng-class="!show_search ? 'cc-ps-resource-list-table cc-ps-resource-list-table-btm-padding list-container' : 'cc-ps-resource-list-table cc-ps-resource-list-table-btm-padding search-opened-list-container'" id="resource-list-table">
+                <div class="cc-ps-operation">
+                    <div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+                        <label class="nobold cc-green-checkbox-radio-label">
+                            <input id="checkbox-property-selectAll" type="checkbox" ng-disabled="propertyList.length - preSeededNum < 1"
+                                class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                                data-ng-model="allPropertiesChecked" data-ng-change="updateAllChecks()"><span><span
+                                    id="checkbox-span-property-selectAll" class="cc-green-checkbox-radio-bgrd-holder"></span></span></label>
+                    </div>
+                    <div class="cc-inline cc-ps-operation-btn">
+                        <button id="property-btn-bulkDelete" type="button" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big"
+                            data-ng-disabled="!((totalChecked>0) || allPropertiesChecked)" title="Delete"
+                            data-ng-click="bulkDeleteProperty()"><i class="fa fa-trash"></i></button>
+                    </div>
+                    <div id="cc-sort-by" class="cc-inline cc-ps-align-right">
+                        <div class="cc-inline" id="cc-sort-by-title">{{"resourcesearch.label.sortby"|translate}}</div>
+                        <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status"
+                            id="cc-sort-by-select" uib-dropdown keyboard-nav>
+                            <button id="property-btn-sortBy" type="button" class="form-control cc-ps-button-common"
+                                data-uib-dropdown-toggle>
+                                <span class="cc-ps-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span> <span
+                                    class="cc-ps-dropdown-btn-expand-icon"></span>
+                                <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                            </button>
+                            <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu"
+                                aria-labelledby="">
+                                <li id="property-btn-sortBy-{{s.label | id}}" role="menuitem" data-ng-repeat="s in searchOptions.sortOptions"
+                                    data-ng-click="searchCriteria.sortBy = s" class="cc-ps-clickable-dropdown">
+                                    <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a">{{s.label}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="width:4%"></th>
+                            <th style="width:18%">{{"toolManagement.propertyManager.list.column.entityType" | translate}}
+                            </th>
+                            <th style="width:36%">
+                                {{"toolManagement.propertyManager.list.column.displayName" | translate}}</th>
+                            <th style="width:18%">
+                                {{"toolManagement.propertyManager.list.column.logicalName" | translate}}</th>
+                            <th style="width:18%">{{"toolManagement.propertyManager.list.column.dataType" | translate}}
+                            </th>
+                            <th style="width:6%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="property_row_{{$index}}" class="cc-ps-subject-type" data-ng-if="prop.preSeeded" ng-repeat="prop in propertyList track by $index" ng-init="cIndex = $index"
+                            data-ng-include="prop.isEdit ? 'ui/app/PolicyStudio/Tools/Enrollment/partials/property-edit.html' : 'ui/app/PolicyStudio/Tools/Enrollment/partials/property-view.html'">
+                        </tr>
+                        <tr id="property_row_{{$index}}" data-ng-if="!prop.preSeeded" ng-repeat="prop in propertyList track by $index" ng-init="cIndex = $index"
+                            data-ng-include="prop.isEdit ? 'ui/app/PolicyStudio/Tools/Enrollment/partials/property-edit.html' : 'ui/app/PolicyStudio/Tools/Enrollment/partials/property-view.html'">
+                        </tr>
+                    </tbody>
+                </table>
+                <p data-ng-if="propertyList.length < propertyTotal">
+                    <button id="btn-property-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore"
+                        data-ng-click="loadMore()">{{"toolManagement.propertyManager.title.loadMore" | translate}}
+                    </button>
+                </p>
+                <div data-ng-if="!propertyList.length" class="cc-ps-empty-resource-list-box">
+                    <p style="text-align:center"> {{"toolManagement.propertyManager.empty" | translate}}
+                        <br>
+                </div>
+            </div>
+            <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+        </div>
+    </form>
+</div>

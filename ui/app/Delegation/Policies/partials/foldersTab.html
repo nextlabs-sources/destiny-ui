@@ -1,0 +1,53 @@
+<div class="actions">
+    <div data-ng-repeat="resComp in tab.resourceComponents | orderBy:'name':true"
+        ng-if="showResourceComponents(resComp)">
+        <label class="action-label"><span>Permission on {{resComp.name | lowercase}}</span></label>
+        <div class="action-container">
+            <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+                <label class="nobold " data-ng-if="resComp.actionComponents.length > 1">
+                    <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                        data-ng-model="resComp.allActionsSelected" data-ng-change="onCheckActionAll(resComp)">
+                    <span>
+                        <span id="{{resComp.shortName + '_ALL'}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        All
+                    </span>
+                </label>
+            </div>
+            <div data-ng-class="{'action-container-has-all' : resComp.actionComponents.length > 1}"
+                data-ng-repeat="actionComp in resComp.actionComponents | orderBy: sortActions">
+                <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+                    <label class="nobold">
+                        <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                            data-ng-model="actionComp.checked" data-ng-disabled="actionComp.disabled"
+                            data-ng-change="onCheckAction(resComp,actionComp,actionComp.checked)">
+                        <span>
+                            <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            {{actionComp.name}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <p data-ng-show="resComp.hasFolderError" class="error"> In order to select folders, atleast one action needs to be
+                selected </p>
+            <div class="paramter-block">
+                <div class="cc-ps-search-text-container tag-container tag cc-create-page-common-del-anchor go-as-you-type-has-condition paramter"
+                    data-ng-repeat="foldersObj in resComp.foldersConfig">
+                    <div data-ng-include="'ui/app/Delegation/Policies/partials/foldersSection.html'"></div>
+                    <i class="fa fa-times-circle-o cc-create-page-common-del-icon remove-tag-condition"
+                        data-ng-show="resComp.foldersConfig.length > 1"
+                        data-ng-click="removeFolderCondition(resComp.foldersConfig, $index)"></i>
+                    <div class="and-label"
+                        data-ng-show="resComp.foldersConfig.length > 1  && $index < resComp.foldersConfig.length - 1">
+                        AND</div>
+                </div>
+            </div>
+            <button id="add-folder-{{resComp.name | id}}-condition" href="javascript:void(0)" class="cc-btn-add-condition" data-ng-if="resComp.foldersConfig.length"
+                data-ng-click="addFolderCondition(resComp, resComp.name)">
+                {{::'Add Condition' | translate}}</button>
+            <br>
+            <div class="cc-h-seperator cc-h-seperator-folder-margin" data-ng-if="!$last"></div>
+        </div>
+    </div>
+    <p data-ng-show="actionNotification.show" class="notification-open"><i class="fa fa-exclamation-triangle"
+            aria-hidden="true"></i> {{actionNotification.message}}</p>
+</div>

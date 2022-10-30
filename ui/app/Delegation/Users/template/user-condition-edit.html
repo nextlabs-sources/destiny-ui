@@ -1,0 +1,38 @@
+<td>
+  <div class="btn-group btn-block cc-ps-dropdown-grp" data-uib-dropdown>
+    <button class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-model="con.attribute" data-ng-focus="highlightGrammar('users')"  ng-init='!con.attribute && (con.attribute = userConditionsOptions[0])' style="height:34px;">
+      <span class="cc-ps-dropdown-btn-label">{{con.attribute.name}}</span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="dropdown-menu" style="max-height:400px; overflow:auto;" role="menu" >
+      <li role="menuitem" data-ng-repeat='c in userConditionsOptions'> 
+        <a href="javascript:void(0)" data-ng-click="con.attribute = c;  con.operator = c.operator[0]; con.value=null; notifyMultival(con);" name="con_{{$index}}">{{c.name}}</a>
+      </li>
+    </ul>
+  </div>
+</td>
+<td>
+  <div class="btn-group btn-block cc-ps-dropdown-grp" data-uib-dropdown>
+    <button class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-model="con.operator" data-ng-focus="highlightGrammar('users')" ng-init='!con.operator && (con.operator = con.attribute.operator[0])' style="height:34px;">
+      <span class="cc-ps-dropdown-btn-label">{{con.operator.label}}</span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="dropdown-menu" style="max-height:400px; overflow:auto;" role="menu" >
+      <li role="menuitem" data-ng-repeat='o in con.attribute.operator'> 
+        <a href="javascript:void(0)" data-ng-click="con.operator = o" name="con_{{$index}}">{{o.label}}</a>
+      </li>
+    </ul>
+  </div>
+</td>
+<td>
+  <div class="btn-group btn-block">
+    <input class=" form-control cc-create-page-common-input" name="condition_value_{{$index}}" data-ng-if="con.attribute.dataType != 'MULTIVAL' && con.attribute.dataType != 'DATE'" style="height:34px;" placeholder="{{::'createComponent.input.placeholder.Value' | translate}}" data-ng-model="con.value" data-ng-focus="highlightGrammar('users')" required>
+    <multi-input data-input-name="condition_value_{{$index}}" data-ng-focus="highlightGrammar('users')" data-ng-if="con.attribute.dataType == 'MULTIVAL'"
+      data-read-only="false" data-value="con.value" data-type="con.attribute.dataType" required></multi-input>
+    <div class="cc-validation-block" ng-messages="delegationForm.val['condition_value_' + $index].$error" ng-if="delegationForm.val['condition_value_' + $index].$touched">
+        <p ng-message="required">{{::"component.condition.value.validation.required" | translate}}</p>
+    </div>
+  </div>
+</td>
+<td class="td-icon">
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit()" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit()" title="Cancel"></i>
+</td>

@@ -1,0 +1,17 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeOverview()"> </div>
+<div class=" cc-ps-overview-content cc-ps-history-version-detail cc-ps-history-content">
+    <div class="cc-ps-create-page-grammar-row-1">
+        <ul>
+            <li>
+                Type<br/>
+                <span class="cc-ps-policy-name">{{selectedElement.type}}</span>
+            </li>
+            <li data-ng-repeat='(key, value) in selectedElement.attributes'>
+                {{key}}<br/>
+                <span class="cc-ps-policy-name enrolled-data-attribute-value">{{value}}</span>
+            </li>
+        </ul>
+    </div>       
+</div>
+
+

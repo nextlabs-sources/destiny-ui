@@ -1,0 +1,16 @@
+<nvd3 id="dashboard-pdp-inner-data" options="pdpStatD3Inner.options" data="pdpStatD3Inner.data" style="width: 350px; height: 220px; position: absolute; left: 5px;"></nvd3>
+<nvd3 id="dashboard-pdp-outer-data" options="pdpStatD3Outer.options" data="pdpStatD3Outer.data" style="width: 440px; "></nvd3>
+<div class="cc-dashboard-hole-text-pdp">
+  <div> {{'# of PDPs' | translate}} </div>
+  <div>
+    <center id="label-dashboard-total-pdp">{{pdpTotal}}</center>
+  </div>
+</div>
+<div class="cc-dashboard-legend">
+  <div class="cc-dashboard-pdp-legend-item" data-ng-repeat="legend in pdpLegend">
+    <div id="label-dashboard-pdp-legend-color-{{legend.title | id}}" style="float: left; width: 14px; height: 14px;" ng-style="legend.style">&nbsp;</div>
+    <span id="label-dashboard-pdp-legend-count-{{legend.title | id}}" style="font-size: 18px;" ng-style="legend.contentStyle">&nbsp;&nbsp;{{legend.count}}</span>
+    <span id="label-dashboard-pdp-legend-title-{{legend.title | id}}" style="font-size: 12px;">{{legend.title}}</span>
+  </div>
+</div>
+<div id="label-dashboard-pdp-no-data" data-ng-if="pdpStatD3Inner.noData" class=" cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>

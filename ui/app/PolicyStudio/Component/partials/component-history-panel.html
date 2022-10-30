@@ -1,0 +1,69 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeVersionPanel()"> </div>
+<div class="cc-ps-history-version-meta">
+  <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version' | translate}}</div>
+  <div class="cc-ps-history-content cc-ps-history-text-version cc-ps-history-line-height-1">{{componentRevision.revision}}</div>
+  <div class="cc-ps-history-content cc-ps-history-text-name" title="{{componentRevision.componentDetail.name}}">{{componentRevision.componentDetail.name}}</div>
+</div>
+<div class="cc-ps-history-version-time">
+  <div class="cc-ps-history-version-last-updated-by">
+    <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version.lastUpdatedBy' | translate}}</div>
+    <div class="cc-ps-history-content cc-ps-history-line-height-1">{{componentRevision.modifiedBy}}</div>
+    <div>
+      <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+      <span class="cc-ps-history-content">{{componentRevision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-version-last-deployed-by">
+    <div class="cc-ps-history-title cc-ps-history-line-height-1" data-ng-if="componentRevision.actionType == 'DE'">{{'history.version.deployedBy' | translate}}</div>
+    <div class="cc-ps-history-title cc-ps-history-line-height-1" data-ng-if="componentRevision.actionType == 'UN'">{{'history.version.undeployedBy' | translate}}</div>
+    <div class="cc-ps-history-content cc-ps-history-line-height-1">{{componentRevision.modifiedBy}}</div>
+    <div>
+      <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+      <span class="cc-ps-history-content">{{componentRevision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+    </div>
+  </div>
+</div>
+<div class="cc-ps-history-version-revert-button-box" data-ng-if="componentRevision && ((!componentRevision.latest || component.status == 'DRAFT') && componentRevision.actionType == 'DE')">
+  <button class="btn btn-default cc-ps-history-version-revert-button" data-ng-click="revertToRevision(componentRevision, $event)" dyn-attr="component.authoritiesParsed.EDIT_COMPONENT ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{'history.version.revertToThisBtn' | translate}}</button>
+</div>
+<div class="cc-ps-history-version-detail">
+  <div data-ng-if="componentRevision.componentDetail.description.length">
+    <div class="cc-ps-history-title">{{'createpolicy.version.contain.desc' | translate}}</div>
+    <span class="detail-info">{{componentRevision.componentDetail.description}}</span>
+  </div>
+  <div data-ng-if="componentRevision.componentDetail.tags.length">
+    <div class="cc-ps-history-title">{{'createpolicy.version.contain.tags' | translate}}</div>
+    <span class="detail-info" data-ng-repeat="tag in componentRevision.componentDetail.tags">{{tag.label}}
+      <span data-ng-if="!$last">,&nbsp;</span>
+    </span>
+  </div>
+  <div data-ng-if="componentRevision.componentDetail.type !== 'ACTION' && componentRevision.componentDetail.conditions.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createComponent.grammar.With' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="condition in componentRevision.componentDetail.conditions" class="detail-info"> {{ condition.attribute}}&nbsp;{{ condition.operator}}&nbsp;{{ condition.value}}
+        <span data-ng-if="!$last">,&nbsp;</span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="componentRevision.componentDetail.type == 'ACTION' && componentRevision.componentDetail.actions.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{"createComponent.grammar.With.Action" | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="action in componentRevision.componentDetail.actions" class="detail-info"> {{ action }}&nbsp;
+        <span data-ng-if="!$last">,&nbsp;</span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="componentRevision.componentDetail.memberConditions.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createComponent.grammar.With.Members' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="memberCondition in componentRevision.componentDetail.memberConditions">
+        <span data-ng-if="$first && memberCondition.operator != 'IN'"  class="cc-ps-history-title" >{{'createpolicy.grammar.subject.not.in.1st' | translate}}</span>
+        <span class="cc-ps-history-title" data-ng-if="!$first"> {{(memberCondition.operator == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+        <span data-ng-repeat="member in memberCondition.members" class="detail-info"> {{ member.name}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

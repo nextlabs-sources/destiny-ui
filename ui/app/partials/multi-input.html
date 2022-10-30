@@ -1,0 +1,17 @@
+<div data-ng-class="{'advanced-input-div': (multiInputValues.length), 'advanced-input-div-no-values' : !(multiInputValues.length), 'advanced-input-div-read-only': readOnly}">
+    <span ng-repeat="inputValue in multiInputValues track by $index">
+        <span class="advanced-input-added-item auto-resize-target">
+            <span class="advanced-input-added-item-value" title="{{inputValue}}">{{inputValue}}</span>
+            <span data-ng-if="!readOnly" class="advanced-input-added-item-delete">
+                <i class="fa fa-times advanced-input-close-img-position" aria-hidden="true" data-ng-click="removeValue($index);"></i>
+            </span>
+        </span>
+    </span>
+    <span data-ng-class="{'advanced-input-to-add-item-icons-span-on-focus': (inputValue.newVal && showIcons), 'advanced-input-to-add-item-icons-span' : !(inputValue.newVal && showIcons)}"
+        data-ng-if="!readOnly">
+        <input name="{{inputName}}" ng-keyup="handleKeyPress($event, inputValue)" type="text" data-ng-class="{'advanced-input-to-add-item-on-focus': (inputValue.newVal && showIcons), 'advanced-input-to-add-item' : !(inputValue.newVal && showIcons)}"
+            placeholder="{{::'createComponent.input.placeholder.AddValues' | translate}}" data-ng-model="inputValue.newVal" data-ng-pattern="type === 'NUMBER'? '[\\d]*' : ''"
+            autocomplete="off" data-ng-focus="setIconsFlag();" data-ng-blur="addValue(inputValue)" ng-required="!(multiInputValues.length)" 
+            auto-suggestion="suggestionOption" data-suggestion-option="suggestionOption"/>
+    </span>
+</div>

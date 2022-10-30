@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{"policysearch.title.savesearch"|translate}}</h3>
+</div>
+<div class="modal-body">
+  <p>
+    <input type="text" class="form-control" data-ng-model="name" placeholder="{{::'search name (required)' | translate}}" maxlength="255">
+  </p>
+  <p>
+    <textarea class="form-control" data-ng-model="description" maxlength="255" placeholder="{{::'search description (required)' | translate}}"></textarea>
+  </p>
+</div>
+<div class="modal-footer">
+  <button class="btn cc-btn-discard" type="button" ng-click="cancel()">{{"policysearch.label.Cancel" | translate}}</button>
+  <button class="btn cc-btn-primary" type="button" data-ng-disabled="!name || !description" ng-click="ok()">{{"policysearch.label.Save" | translate}}</button>
+</div>

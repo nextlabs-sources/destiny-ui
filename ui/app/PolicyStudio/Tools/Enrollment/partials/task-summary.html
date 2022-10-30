@@ -1,0 +1,25 @@
+
+<a href="" data-ng-click="scrollTo('taskInformation')">
+        <div  class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentName')}">
+            
+            <label for="taskInformation">{{"toolManagement.createTask.summary.thisTask" | translate}}</label>
+            
+            <div class="wrapper">
+                <span ng-hide="task.name.length" class="cc-grammar-placeholder"><{{'toolManagement.createTask.summary.namePlaceholder' | translate}}>
+                </span>
+                <span class="cc-ps-create-page-grammar-content" ng-show="task.name.length">{{task.name}}</span>
+            </div>
+                        
+        </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('taskParameters')">
+        <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentCondition')}">
+            <label for="taskParameters">{{"toolManagement.createTask.summary.with" | translate}}:</label>
+            <div class="wrapper">
+                <p ng-hide = "parameterList.length" class="cc-grammar-placeholder"><{{'toolManagement.createTask.summary.paramPlaceholder' | translate}}></p>
+                <p data-ng-repeat="param in parameterList track by $index">
+                    <span data-ng-if = "param.value.length && fieldMap[param.parameterType] != 'password' && fieldMap[param.parameterType] != 'textarea'">{{param.displayName}} &nbsp; <span style="color: rgb(175, 179, 181)">{{"toolManagement.createTask.summary.is" | translate}}</span> &nbsp; {{(fieldMap[param.parameterType] == 'select'? param.parameterValues[param.value] : param.value) | jsonToText}} </span>
+                </p>
+            </div>
+        </div>
+    </a>

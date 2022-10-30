@@ -1,0 +1,48 @@
+<section class="links links-saas">
+    <ul class="tabs">
+        <li class="no-link" ng-click="splashScreen.leftContent = 'quick_start'" ng-class="{active:splashScreen.leftContent == 'quick_start'}">
+            <div><a class="link-title ">Quick Start</a></div>
+            <div class="link-description">Get Started with CloudAz product, learn through sample applications in your favorite programming language </div>
+        </li>
+        <li class="no-link" ng-click="splashScreen.leftContent = 'video'" ng-class="{active:splashScreen.leftContent == 'video'}">
+            <div><a class="link-title ">Videos</a></div>
+            <div class="link-description">Instructional videos explain key concepts and terminology and present a step-by-step demonstration of CloudAz console </div>
+        </li>
+    </ul>
+</section>
+<div class="links links-saas links-help-links">
+    <ul class="links-list">
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['What is CloudAz']}}" target="_blank">CloudAz overview</a></div>
+            <div class="link-description">Explore CloudAz features and components</div>
+        </li>
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['ABAC Concepts']}}" target="_blank">ABAC concepts</a></div>
+            <div class="link-description">Learn about Attribute Based Access Control</div>
+        </li>
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['Integration Guides']}}" target="_blank">Integration guidelines</a></div>
+            <div class="link-description">Find out how to implement CloudAz to meet your security needs</div>
+        </li>
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['SDK']}}" target="_blank">SDK</a></div>
+            <div class="link-description">Learn to make authorization requests using CloudAz client libraries in a variety of programming languages</div>
+        </li>
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['API Reference']}}" target="_blank">API references</a></div>
+            <div class="link-description">Get in-depth information about the CloudAz REST API</div>
+        </li>
+        <li>
+            <div><a class="link-title" ng-href="{{splashScreen.linksSaas['Product Guide']}}" target="_blank">Product guide</a></div>
+            <div class="link-description">Master the policy creation process and learn to generate reports</div>
+        </li>
+    </ul>
+    <div class="main-help-link">
+        <div>
+            <a ng-href="{{splashScreen.links.helpSystemSaas}}" target="_blank">Launch Help</a></div>
+    </div>
+    <section class="contact">
+        <div class="contact-links">
+            <!-- <a href="mailto:support@nextlabs.com" class="email-lnk">Email Support</a> --><a href="mailto:CloudAz-Support@nextlabs.com" class="contact-lnk">Contact support</a></div>
+    </section>
+</div>

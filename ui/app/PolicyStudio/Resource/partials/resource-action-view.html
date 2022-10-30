@@ -1,0 +1,11 @@
+<td>
+  <span>{{action.name}}</span>
+</td>
+<td>
+  <span>{{action.shortName}}</span>
+</td>
+<td class="td-icon">
+  <!-- <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="setEdit(action,2)">{{'Edit' | translate}}</button> -->
+   <i class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="setEdit(action,2)" title="Edit"></i>
+  <i class="fa fa-trash-o cc-ps-bigger-icon" data-ng-click="removeAction($index,1)"> </i>
+</td>

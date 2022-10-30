@@ -1,0 +1,109 @@
+<div class="sticky-left-container">
+  <div class="left-container">
+    <a href="" data-ng-click="scrollTo('ruleinfo')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('ruleinfo')}">
+        <label for="ruleinfo"> {{"delegation.create.grammar.thisDelegationRule" | translate}}: </label>
+        <div class="wrapper">
+          <span ng-hide="delegation.name.length" class="cc-grammar-placeholder">
+            <{{ 'delegation.create.placeholder.delegationName' | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="delegation.name.length"> {{delegation.name}}
+        </span>
+        </div>
+
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('conditions')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('conditions')}">
+
+        <span class="key-word">{{ 'delegation.create.grammar.Will' | translate}}:</span>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content" data-translate="delegation.create.label.effect"
+            data-translate-value-allow="{{delegation.allow}}"></span>
+        </div>
+      </div>
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('conditions')}">
+        <label for="conditions">{{ 'delegation.create.grammar.users' | translate}}:</label>
+
+        <div class="wrapper">
+          <p ng-repeat="con in delegation.user_conditions">
+            {{con.attribute.name}}&nbsp;<span class="key-word">{{con.operator.label}}</span>&nbsp;<span
+              class="cc-ps-create-page-grammar-content" data-ng-show="con.value.length">{{con.value}}</span><span
+              class="cc-ps-create-page-grammar-content" data-ng-show="!con.value.length">
+              <{{'delegation.create.placeholder.value' | translate}}>
+            </span>
+          </p>
+          <p data-ng-if="!delegation.user_conditions.length">
+            &lt;<span translate="delegation.create.placeholder.users"
+              translate-value-install-mode="{{installMode}}"></span>&gt;
+          </p>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('action')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('action')}">
+        <label for="users"> {{"delegation.create.grammar.toPerform" | translate}}:</label>
+
+        <div class="wrapper">
+          <span data-ng-if="!delegation.actions.length">
+            <{{ 'delegation.create.placeholder.actions' | translate}}>
+          </span>
+          <span ng-repeat="action in delegation.actions track by $index">
+            <span data-ng-if="action.data.policy_model_name !== 'Policy Studio - Policy Model'"><span
+                data-ng-if="action.shortName !== 'CREATE_POLICY_MODEL_TAG'">
+                {{action.name  === 'Create Folder' ? action.name + '/Sub-folders' : action.name }}</span>
+            </span>
+            <span data-ng-if="action.shortName === 'VIEW_POLICY_MODEL'">{{"delegation.view.component.type" | translate}}
+            </span>
+            <span data-ng-if="action.shortName === 'CREATE_POLICY_MODEL'">{{"delegation.create.component.type" | translate}}
+            </span>
+            <span data-ng-if="action.shortName === 'EDIT_POLICY_MODEL'">{{"delegation.edit.component.type" | translate}}
+            </span>
+            <span data-ng-if="action.shortName === 'DELETE_POLICY_MODEL'">{{"delegation.delete.component.type" | translate}}
+            </span>
+            <span
+              data-ng-if="action.shortName === 'CREATE_POLICY_MODEL_TAG'">{{"delegation.create.component.type.tags" | translate}}
+            </span>
+            <span data-ng-if="!$last">,&nbsp;&#8203;</span>
+          </span>
+        </div>
+
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('resource')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('resource')}">
+        <label for="users"> {{"delegation.create.grammar.on" | translate}}:</label>
+
+        <div class="wrapper">
+          <span data-ng-if="!delegation.resources.length">
+            <{{ 'delegation.create.placeholder.resources' | translate}}>
+          </span>
+          <span ng-repeat="resource in delegation.resources | filter: actionsFound track by $index">
+            <span data-ng-if="resource.shortName === 'POLICY_MODEL'">{{"delegation.grammar.component.type" | translate}}</span>
+            <span data-ng-if="resource.shortName !== 'POLICY_MODEL'">{{resource.name}}</span>
+            <span data-ng-if="!$last">,&nbsp;&#8203;</span>
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('obligations')" data-ng-hide="true">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('obligations')}">
+        <div class="key-word">{{"delegation.create.grammar.ifAllow" | translate}}</div>
+        <div class="wrapper">
+        </div>
+      </div>
+      <div class="cc-ps-create-page-grammar-row" data-ng-show="!delegation.allow"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('obligations')}">
+        <div class="key-word">{{"delegation.create.grammar.ifDeny" | translate}}</div>
+        <div class="wrapper">
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

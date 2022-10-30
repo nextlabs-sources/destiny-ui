@@ -1,0 +1,29 @@
+<div class="cc-ps-subpolicies-title" data-ng-if="policy.hasSubPolicies">
+  <div class="cc-ps-subpolicies-title-showbtn" data-ng-click="showSubpolicy(policy)" data-ng-show="!policy.showsubpolicy">
+     <table>
+        <tbody>
+          <tr>
+            <td class="cc-ps-subpolicy-label">{{"policylist.label.SubPolicies" | translate}}:</td>
+            <td class="cc-ps-subpolicy-titles-box">
+              <div class="cc-ps-subpolicy-titles">
+                <!-- <cc-ps-subpolicy-label data-subpolicies="{{policy.subPolicies}}" data-maxwidth="404"></cc-ps-subpolicy-label> -->
+                <div class="cc-ps-subpolicy-title">
+                <span data-ng-repeat="subpolicy in policy.subPolicies" title="{{subpolicy.name}}">{{subpolicy.name}}<span data-ng-if="!$last">,&nbsp;</span></span>
+                </div>
+              </div>
+            </td>
+            <td style="padding: 5px 10px 0 0;" data-ng-if="policy.moreLabel" class="cc-ps-subpolicy-title-more{{policy.subpolicyTitleHide}}">{{policy.moreLabel}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <table>
+    <tbody>
+      <tr>
+        <td class="cc-ps-subpolicy-label cc-ps-subpolicy-label-hide" data-ng-click="hideSubpolicy(policy)" data-ng-show="policy.showsubpolicy">
+          <span>{{"policylist.label.HideSubPolicies" | translate}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

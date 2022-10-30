@@ -1,0 +1,38 @@
+<div data-ui-view data-ng-controller="createEnrollmentController" class="cc-layout-full-height">
+	<div class="cc-ps-create-page-container cc-layout-full-height">
+		<form id="enrollmentForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height cc-layout-full-width"
+			name="enrollmentForm.val" novalidate>
+			<div class="no-margin cc-ps-create-page-title-panel">
+				<div class="cc-ps-create-page-back-btn-div">
+					<a data-ng-click="backToEnrollmentList(enrollmentForm.val)">
+						<button id="btn-enrollment-back-arrow" class="cc-ps-create-page-back-btn" type="button" class="btn btn-default active">
+							<i id="icon-enrollment-back-arrow" class="fa fa-arrow-left" data-ng-class=""></i>
+						</button>
+					</a>
+				</div>
+				<div id="label-enrollment-title" class="cc-ps-create-page-title">
+					<span ng-if="!isEditMode">{{"enrollment.create" | translate}}</span> 
+					<span ng-if="isEditMode">{{enrollmentTitle}}</span>
+				</div>
+
+				<div class="cc-ps-create-page-btn-div">
+					<a id="btn-enrollment-discard" class="btn btn-default cc-btn-discard" data-ng-click="discardEnrollment(enrollmentForm.val)"
+						dyn-attr-del="['data-ng-click','click']"
+						dyn-attr-unbind="['click']">{{"toolManagement.createTask.button.discard" | translate}}</a>
+					<button id="btn-enrollment-execute" class="btn btn-default cc-btn-primary"
+						data-ng-click="save()"
+						>
+						{{"enrollment.save.enroll" | translate}}
+					</button>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="cc-ps-create-page-bottom-panel">
+				<div class="cc-ps-create-page-editor-div cc-ps-create-page-editor-content enrollment-bottom-panel create-enrollment-container"
+					data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/task-editor.html'" auto-scroll-to
+					scroll-target-selector=".cc-validation-block>p:first" scroll-top-margin="80"></div>
+			</div>
+			<div class="clear"></div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<form id="cryptForm.val" name="cryptForm.val" novalidate>
+<div  class="cc-inline" style="width: 100%">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="name">{{"toolManagement.crypt.w.label" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.CryptPassword = true"
+                data-ng-if="pageOptionList['CryptPassword']"></i>
+        </label>
+        <input id="cryptPassword" type= "{{ showPassword ? 'text' : 'password' }}"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis"
+            name="cryptPassword" placeholder="{{'toolManagement.crypt.w.placeholder' | translate}}"
+            data-ng-pattern="'[^\\s~/*$&?\\\\]*'" data-ng-model="crypt.w"
+            data-ng-focus="highlightGrammar('cryptPassword')" required ng-maxlength="255" maxlength="255"
+            restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+            <div class="cc-password-input-icons" >
+                    <span class="cc-show-password-input-eye {{!showPassword? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open' }}"  ng-click="showPassword = !showPassword" > </span>
+                </div>
+        <a style="margin-left: 10px;" class="btn cc-btn-primary" data-ng-click="executeCrypt(cryptForm.val)"
+        class="fa fa-plus uppercase"></i>{{"toolManagement.crypt.encrypt" | translate}}</a>
+        <div class="cc-validation-block" ng-messages="cryptForm.val.cryptPassword.$error"
+            ng-if="cryptForm.val.cryptPassword.$touched">
+            <p ng-message="maxlength">{{"toolManagement.crypt.validation.maxLength" | translate}}</p>
+            <p ng-message="required">{{"toolManagement.crypt.validation.required" | translate}}</p>
+            <p ng-message="pattern">{{"toolManagement.crypt.validation.pattern" | translate}}</p>
+        </div>
+        <div data-ng-show="showUserManual.CryptPassword"
+            class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+            data-ng-if="pageOptionList['CryptPassword']">
+            <span>
+                <span data-ng-bind-html="pageOptionList['CryptPassword']"></span> <span class="cc-user-manual-close">
+                    <i class="fa fa-times-circle" data-ng-click="closeManual('CryptPassword')"></i>
+                </span>
+            </span>
+        </div>
+    </div>
+    
+</div>
+<div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="name">{{"toolManagement.crypt.ew.label" | translate}}:
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.CryptEncryptedPassword = true"
+                data-ng-if="pageOptionList['CryptEncryptedPassword']"></i>
+        </label>
+        <input id="cryptEncryptedPassword" type="text"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+            name="cryptEncryptedPassword" placeholder="{{'toolManagement.crypt.ew.placeholder' | translate}}"
+            data-ng-model="crypt.ew"
+            data-ng-focus="highlightGrammar('cryptEncryptedPassword')"
+            data-ng-disabled="true" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+        <div data-ng-show="showUserManual.CryptEncryptedPassword"
+            class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+            data-ng-if="pageOptionList['CryptEncryptedPassword']">
+            <span>
+                <span data-ng-bind-html="pageOptionList['CryptEncryptedPassword']"></span> <span class="cc-user-manual-close">
+                    <i class="fa fa-times-circle" data-ng-click="closeManual('CryptEncryptedPassword')"></i>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,332 @@
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.spEntityId.$touched && configForm.val.spEntityId.$invalid }">
+  <label for="spEntityId"> {{"delegation.loginConfig.label.saml2.spEntityId" | translate}} 
+    <i id="icon-userSource-spEntityId" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sp Entity ID']=true" data-ng-if="pageOptionList['Sp Entity ID']"> </i>
+  </label>
+  <input id="spEntityId" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis" placeholder="{{'delegation.loginConfig.placeholder.saml2.spEntityId' | translate}}" 
+    data-ng-model="config.configData.spEntityId" data-ng-pattern="/^[a-z0-9]{1}[a-z0-9\-]{1,31}:[a-z0-9_,:=@;!'%/#\(\)\+\-\.\$\*\?]+$/"
+    name="spEntityId" required ng-maxlength="255" maxlength="255" autocomplete="off"/>
+  <div class="cc-validation-block" ng-messages="configForm.val.spEntityId.$error" ng-if="configForm.val.spEntityId.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.saml2.spEntityId.required" | translate}} </p>
+    <p ng-message="pattern"> {{"delegation.loginConfig.validation.saml2.spEntityId.pattern" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sp Entity ID" data-ng-model="showUserManual['Sp Entity ID']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2LoginImage"> {{"delegation.loginConfig.label.saml2.loginImage" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Login Image']=true" data-ng-if="pageOptionList['Login Image']"> </i>
+  </label>
+  <span>{{config.loginImageFileName}}</span>
+  <span class="cc-download-link" data-ng-if="!config.loginImageFileName && isEditMode" data-ng-click="downloadFileResource('login-image', 'image/png');">saml2.png</span>
+  <div class="btn btn-default btn-file">
+    {{'PS.Browse' | translate}} <input type="file" id="selectLoginImage" accept=".png" ng-init="addEventListener()"/>
+  </div>
+  <div class="cc-validation-block" ng-if="loginImageFileRequired">
+    <p class="ng-binding ng-scope"> {{"delegation.loginConfig.validation.saml2.loginImage.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Login Image" data-ng-model="showUserManual['Login Image']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2IdpMetadata"> {{"delegation.loginConfig.label.saml2.idpMetadata" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Idp Metadata']=true" data-ng-if="pageOptionList['Idp Metadata']"> </i>
+  </label>
+  <span>{{config.idpMetadataFileName}}</span>
+  <span class="cc-download-link" data-ng-if="!config.idpMetadataFileName && isEditMode" data-ng-click="downloadFileResource('idp-metadata', 'application/xml');">idp-metadata.xml</span>
+  <div class="btn btn-default btn-file">
+    {{'PS.Browse' | translate}} <input type="file" id="selectIdpMetadata" accept=".xml" ng-init="addEventListener()"/>
+  </div>
+  <div class="cc-validation-block" ng-if="idpMetadataFileRequired">
+    <p class="ng-binding ng-scope"> {{"delegation.loginConfig.validation.saml2.idpMetadata.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Idp Metadata" data-ng-model="showUserManual['Idp Metadata']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-if="isEditMode">
+  <label for="saml2SpMetadata"> {{"delegation.loginConfig.label.saml2.spMetadata" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sp Metadata']=true" data-ng-if="pageOptionList['Sp Metadata']"> </i>
+  </label>
+  <span class="cc-download-link" data-ng-click="downloadFileResource('sp-metadata', 'application/xml')">sp-metadata.xml</span>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sp Metadata" data-ng-model="showUserManual['Sp Metadata']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2AuthenticationContextClassReference"> {{"delegation.loginConfig.label.saml2.authnContextClassRefs" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Authentication Context Class Reference']=true" data-ng-if="pageOptionList['Authentication Context Class Reference']"> </i>
+  </label>
+  <div class="cc-ps-checkboxlist-grp cc-ps-input-common">
+    <ul>
+      <li data-ng-repeat='authenticationContextClassReference in authenticationContextClassReferences'>
+        <label class="cc-green-checkbox-radio-label">
+          <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="authenticationContextClassReference.selected">
+          <span class="cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+              <span class="cc-ps-checkbox-label-text">{{authenticationContextClassReference.name}}</span>
+          </span>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="cc-validation-block" ng-if="authenticationContextClassReferenceRequired">
+    <p class="ng-binding ng-scope"> {{"delegation.loginConfig.validation.saml2.authenticationContextClassReference.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Authentication Context Class Reference" data-ng-model="showUserManual['Authentication Context Class Reference']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2AuthenticationContextComparisonType"> {{"delegation.loginConfig.label.saml2.authnContextComparisonType" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Authentication Context Comparison Type']=true" data-ng-if="pageOptionList['Authentication Context Comparison Type']"> </i>
+  </label>
+  <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+    <button id="saml2AuthenticationContextComparisonType" class="form-control cc-ps-button-common cc-ps-create-dropdown-button-resource" type="button" uib-dropdown-toggle data-ng-focus="highlightGrammar('authenticationContextComparisonType')">
+      <span class="cc-ps-dropdown-btn-label">{{config.configData.authenticationContextComparisonType.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span>
+      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+      <li role="menuitem" data-ng-repeat='authenticationContextComparisonType in authenticationContextComparisonTypes'> 
+        <a href="javascript:void(0)" data-ng-click="setAuthContextComparisonType(authenticationContextComparisonType);setDirty()">{{authenticationContextComparisonType.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Authentication Context Comparison Type" data-ng-model="showUserManual['Authentication Context Comparison Type']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2NameIdPolicyFormat"> {{"delegation.loginConfig.label.saml2.nameIdPolicyFormat" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Name Id Policy Format']=true" data-ng-if="pageOptionList['Name Id Policy Format']"> </i>
+  </label>
+  <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+    <button id="saml2NameIdPolicyFormat" class="form-control cc-ps-button-common cc-ps-create-dropdown-button-resource" type="button" uib-dropdown-toggle data-ng-focus="highlightGrammar('nameIdPolicyFormat')">
+      <span class="cc-ps-dropdown-btn-label">{{config.configData.nameIdPolicyFormat.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span>
+      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+      <li role="menuitem" data-ng-repeat='nameIdPolicyFormat in nameIdPolicyFormats'> 
+        <a href="javascript:void(0)" data-ng-click="setNameIdPolicyFormat(nameIdPolicyFormat);setDirty()">{{nameIdPolicyFormat.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Name Id Policy Format" data-ng-model="showUserManual['Name Id Policy Format']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignatureAlgorithm"> {{"delegation.loginConfig.label.saml2.signatureAlgorithms" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Signature Algorithms']=true" data-ng-if="pageOptionList['Signature Algorithms']"> </i>
+  </label>
+  <div class="cc-ps-checkboxlist-grp cc-ps-input-common">
+    <ul>
+      <li data-ng-repeat='signatureAlgorithm in signatureAlgorithms'>
+        <label class="cc-green-checkbox-radio-label">
+          <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="signatureAlgorithm.selected">
+          <span class="cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+              <span class="cc-ps-checkbox-label-text">{{signatureAlgorithm.name}}</span>
+          </span>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="cc-validation-block" ng-if="signatureAlgorithmRequired">
+    <p class="ng-binding ng-scope"> {{"delegation.loginConfig.validation.saml2.signatureAlgorithm.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Signature Algorithms" data-ng-model="showUserManual['Signature Algorithms']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignatureReferenceDigestMethod"> {{"delegation.loginConfig.label.saml2.signatureReferenceDigestMethods" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Signature Reference Digest Method']=true" data-ng-if="pageOptionList['Signature Reference Digest Method']"> </i>
+  </label>
+  <div class="cc-ps-checkboxlist-grp cc-ps-input-common">
+    <ul>
+      <li data-ng-repeat='signatureReferenceDigestMethod in signatureReferenceDigestMethods'>
+        <label class="cc-green-checkbox-radio-label">
+          <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="signatureReferenceDigestMethod.selected">
+          <span class="cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+              <span class="cc-ps-checkbox-label-text">{{signatureReferenceDigestMethod.name}}</span>
+          </span>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="cc-validation-block" ng-if="signatureReferenceDigestMethodRequired">
+    <p class="ng-binding ng-scope"> {{"delegation.loginConfig.validation.saml2.signatureReferenceDigestMethod.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Signature Reference Digest Method" data-ng-model="showUserManual['Signature Reference Digest Method']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignatureCanonicalizationAlgorithm"> {{"delegation.loginConfig.label.saml2.signatureCanonicalizationAlgorithm" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Signature Canonicalization Algorithm']=true" data-ng-if="pageOptionList['Signature Canonicalization Algorithm']"> </i>
+  </label>
+  <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+    <button id="saml2SignatureCanonicalizationAlgorithm" class="form-control cc-ps-button-common cc-ps-create-dropdown-button-resource" type="button" uib-dropdown-toggle data-ng-focus="highlightGrammar('signatureCanonicalizationAlgorithm')">
+      <span class="cc-ps-dropdown-btn-label">{{config.configData.signatureCanonicalizationAlgorithm.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span>
+      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+      <li role="menuitem" data-ng-repeat='signatureCanonicalizationAlgorithm in signatureCanonicalizationAlgorithms'> 
+        <a href="javascript:void(0)" data-ng-click="setSignatureCanonicalizationAlgorithm(signatureCanonicalizationAlgorithm);setDirty()">{{signatureCanonicalizationAlgorithm.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Signature Canonicalization Algorithm" data-ng-model="showUserManual['Signature Canonicalization Algorithm']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.saml2PrincipalIdAttribute.$touched && configForm.val.saml2PrincipalIdAttribute.$invalid }">
+  <label for="saml2PrincipalIdAttribute"> {{"delegation.loginConfig.label.saml2.principalAttributeId" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Principal Id Attribute']=true" data-ng-if="pageOptionList['Principal Id Attribute']"> </i>
+  </label>
+  <input id="saml2PrincipalIdAttribute" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis"
+    placeholder="{{'delegation.loginConfig.placeholder.saml2.principalAttributeId' | translate}}" 
+    data-ng-model="config.configData.principalIdAttribute" name="saml2PrincipalIdAttribute" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.saml2PrincipalIdAttribute.$error" ng-if="configForm.val.saml2PrincipalIdAttribute.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.saml2.principalIdAttribute.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Principal Id Attribute" data-ng-model="showUserManual['Principal Id Attribute']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2MaximumAuthenticationLifetime">{{"delegation.loginConfig.label.saml2.maximumAuthenticationLifetime" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Maximum Authentication Lifetime'] = true" data-ng-if="pageOptionList['Maximum Authentication Lifetime']"></i>
+  </label>
+  <input id="saml2MaximumAuthenticationLifetime" type="number" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" 
+      data-ng-model="config.maximumAuthenticationLifetime" data-ng-min="1" data-ng-pattern="/^\d+$/"
+      data-ng-focus="highlightGrammar('maximumAuthenticationLifetime')" name="saml2MaximumAuthenticationLifetime" required restrict-input="['.']" style="width: 90px;">
+  <div class="cc-validation-block" ng-messages="configForm.val.saml2MaximumAuthenticationLifetime.$error" ng-if="configForm.val.saml2MaximumAuthenticationLifetime.$touched">
+    <p ng-message="required">{{"delegation.loginConfig.validation.saml2.maximumAuthenticationLifetime.required" | translate}}</p>
+    <p ng-message="min">{{"delegation.loginConfig.validation.saml2.minAuthenticationLifetime" | translate}}</p>
+    <p ng-message="pattern">{{"delegation.loginConfig.validation.saml2.maximumAuthenticationLifetime.pattern" | translate}}</p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Maximum Authentication Lifetime" data-ng-model="showUserManual['Maximum Authentication Lifetime']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2ForceAuthentication"> {{"delegation.loginConfig.label.saml2.forceAuthentication" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Force Authentication']=true" data-ng-if="pageOptionList['Force Authentication']"> </i>
+  </label>
+  <p id="saml2ForceAuthentication" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.forceAuthentication"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.forceAuthentication |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Force Authentication" data-ng-model="showUserManual['Force Authentication']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2Passive"> {{"delegation.loginConfig.label.saml2.passive" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Passive']=true" data-ng-if="pageOptionList['Passive']"> </i>
+  </label>
+  <p id="saml2Passive" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.passive"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.passive |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Passive" data-ng-model="showUserManual['Passive']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignAssertion"> {{"delegation.loginConfig.label.saml2.signAssertion" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sign Assertion']=true" data-ng-if="pageOptionList['Sign Assertion']"> </i>
+  </label>
+  <p id="saml2SignAssertion" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.signAssertion"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.signAssertion |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sign Assertion" data-ng-model="showUserManual['Sign Assertion']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignResponse"> {{"delegation.loginConfig.label.saml2.signResponse" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sign Response']=true" data-ng-if="pageOptionList['Sign Response']"> </i>
+  </label>
+  <p id="saml2SignResponse" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.signResponse"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.signResponse |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sign Response" data-ng-model="showUserManual['Sign Response']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2DisableAllSignatureValidation"> {{"delegation.loginConfig.label.saml2.disableAllSignatureValidation" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Disable All Signature Validation']=true" data-ng-if="pageOptionList['Disable All Signature Validation']"> </i>
+  </label>
+  <p id="saml2DisableAllSignatureValidation" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.disableAllSignatureValidation"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.disableAllSignatureValidation |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Disable All Signature Validation" data-ng-model="showUserManual['Disable All Signature Validation']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignServiceProviderMetadata"> {{"delegation.loginConfig.label.saml2.signServiceProviderMetadata" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sign Service Provider Metadata']=true" data-ng-if="pageOptionList['Sign Service Provider Metadata']"> </i>
+  </label>
+  <p id="saml2SignServiceProviderMetadata" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.signServiceProviderMetadata"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.signServiceProviderMetadata |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sign Service Provider Metadata" data-ng-model="showUserManual['Sign Service Provider Metadata']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2UseNameQualifier"> {{"delegation.loginConfig.label.saml2.useNameQualifier" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Use Name Qualifier']=true" data-ng-if="pageOptionList['Use Name Qualifier']"> </i>
+  </label>
+  <p id="saml2UseNameQualifier" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.useNameQualifier"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.useNameQualifier |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Use Name Qualifier" data-ng-model="showUserManual['Use Name Qualifier']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2AllowNameIdPolicyCreation"> {{"delegation.loginConfig.label.saml2.allowNameIdPolicyCreation" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Allow Name ID Policy Creation']=true" data-ng-if="pageOptionList['Allow Name ID Policy Creation']"> </i>
+  </label>
+  <p id="saml2AllowNameIdPolicyCreation" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.allowNameIdPolicyCreation"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.allowNameIdPolicyCreation |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Allow Name ID Policy Creation" data-ng-model="showUserManual['Allow Name ID Policy Creation']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignAuthenticationRequest"> {{"delegation.loginConfig.label.saml2.signAuthenticationRequest" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sign Authentication Request']=true" data-ng-if="pageOptionList['Sign Authentication Request']"> </i>
+  </label>
+  <p id="saml2SignAuthenticationRequest" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.signAuthenticationRequest"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.signAuthenticationRequest |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sign Authentication Request" data-ng-model="showUserManual['Sign Authentication Request']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <label for="saml2SignServiceProviderLogoutRequest"> {{"delegation.loginConfig.label.saml2.signServiceProviderLogoutRequest" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Sign Service Provider Logout Request']=true" data-ng-if="pageOptionList['Sign Service Provider Logout Request']"> </i>
+  </label>
+  <p id="saml2SignServiceProviderLogoutRequest" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.signServiceProviderLogoutRequest"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.saml2.yesno." + config.configData.signServiceProviderLogoutRequest |translate}}</span>
+  </p>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Sign Service Provider Logout Request" data-ng-model="showUserManual['Sign Service Provider Logout Request']"></user-manual>
+</div>

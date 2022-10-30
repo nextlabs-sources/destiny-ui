@@ -1,0 +1,546 @@
+<div id="taskADConnectionDetails" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.connection.details" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info ">
+    <div class="cc-flexbox cc-flexbox-justify-space-between">
+        <div class="cc-enrollment-server cc-user-manual-anchor">
+            <label id="enrollment-ad-server-label">{{"enrollment.active.directory.server" | translate}}
+                <i id="icon-enrollment-ad-server-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Server'] = true" data-ng-if="pageOptionList['AD - Server']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style=" left: 70px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="AD - Server" data-ng-model="showUserManual['AD - Server']"></user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-ad-server" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis"
+                    name="Server" placeholder="{{'enrollment.connection.server.url.placeholder' | translate}}"
+                    data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="adProperties['server'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                    <div class="cc-validation-block" ng-messages="enrollmentForm.val.Server.$error" ng-if="enrollmentForm.val.Server.$touched || saveExecuted || testConnectionExecuted">
+                        <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                        <p ng-message="required" class="cc-validation-block-no-margin">{{"toolManagement.createTask.validation.required" | translate}}</p>
+                        <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                    </div>
+            </div>
+        </div>
+        <div class="cc-enrollment-port cc-user-manual-anchor">
+            <label id="enrollment-ad-port-label">{{"enrollment.active.directory.port" | translate}}
+                <i id="icon-enrollment-ad-port-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Port'] = true" data-ng-if="pageOptionList['AD - Port']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 60px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="AD - Port" data-ng-model="showUserManual['AD - Port']"></user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-ad-port" type="text" 
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-full-width cc-long-text-ellipsis"
+                    placeholder="The port number" restrict-input="['a-z','~', '/', '*', '$', '&', '\\', '?', '@', '-', '^','#', '(', '%']" data-ng-model="adProperties['port'].value" name="port" required maxlength="5" 
+                    string-to-number>
+                <div class="cc-validation-block" ng-messages="enrollmentForm.val.port.$error" ng-if="enrollmentForm.val.port.$touched || saveExecuted || testConnectionExecuted">
+                    <p ng-message="maxlength">{{"enrollment.port.exceed.maxlength" | translate}}</p>
+                    <p ng-message="required" class="cc-validation-block-no-margin">{{"toolManagement.createTask.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-flexbox cc-flexbox-justify-space-between cc-connection-details-margin">
+        <div class="cc-enrollment-server-username cc-user-manual-anchor">
+            <label id="enrollment-ad-username-label">{{"enrollment.active.directory.username" | translate}}
+                <i id="icon-enrollment-ad-username-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Server Username'] = true" data-ng-if="pageOptionList['AD - Server Username']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 160px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="AD - Server Username" data-ng-model="showUserManual['AD - Server Username']"></user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-ad-username" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis"
+                    name="taskServer" placeholder="{{'enrollment.connection.server.username.placeholder' | translate}}"
+                    data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="adProperties['login'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255"
+                    >
+                    <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskServer.$error" ng-if="enrollmentForm.val.taskServer.$touched || saveExecuted || testConnectionExecuted">
+                        <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                        <p ng-message="required" class="cc-validation-block-no-margin">{{"toolManagement.createTask.validation.required" | translate}}</p>
+                        <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                    </div>
+            </div>
+        </div>
+        <div class="cc-enrollment-server-password cc-user-manual-anchor">
+            <label id="enrollment-ad-password-label">{{"enrollment.active.directory.password" | translate}}
+                <i id="icon-enrollment-ad-password-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Server Password'] = true" data-ng-if="pageOptionList['AD - Server Password']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style="left: 150px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="AD - Server Password"
+                    data-ng-model="showUserManual['AD - Server Password']"></user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-ad-password" type="password"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-full-width cc-long-text-ellipsis"
+                    name="adEnrollmentPassword" placeholder="{{'enrollment.connection.server.password.placeholder' | translate}}"
+                       data-ng-model="adProperties['password'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                    <div class="cc-validation-block" ng-messages="enrollmentForm.val.adEnrollmentPassword.$error" ng-if="enrollmentForm.val.adEnrollmentPassword.$touched || saveExecuted || testConnectionExecuted">
+                        <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                        <p ng-message="required" class="cc-validation-block-no-margin">{{"toolManagement.createTask.validation.required" | translate}}</p>
+                        <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor cc-connection-details-margin" >
+        <div class="cc-flexbox">
+            <div class="cc-mr-2">
+                <label id="enrollment-ad-ssl-label" class="cc-item-margin" for="effect">{{"enrollment.active.directory.ssl" | translate}}
+                    <i id="icon-enrollment-ad-ssl-manual" class="fa cc-about-individual-question fa-question-circle"
+                       data-ng-click="showUserManual['AD - SSL Secure Mode'] = true" data-ng-if="pageOptionList['AD - SSL Secure Mode']"></i>
+                    <user-manual id="manual-enrollment-ssl" class="cc-user-manual-input cc-user-manual-position-right" style="left: 75px;"
+                                 data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                 data-page="{{userManualOption.page}}" key="AD - SSL Secure Mode" data-ng-model="showUserManual['AD - SSL Secure Mode']">
+                    </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container no-margin">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="adProperties['secure.transport.mode'].value" class="cc-ps-search-switch-include-sub "></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor cc-root-margin">
+        <label id="enrollment-root-label">{{"enrollment.connection.root" | translate}}
+            <i id="icon-enrollment-root-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Root'] = true" data-ng-if="pageOptionList['AD - Root']"></i>
+            <user-manual id="manual-enrollment-root" class="cc-user-manual-input cc-user-manual-position-right" style="left: 75px;"
+                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="AD - Root" data-ng-model="showUserManual['AD - Root']">
+            </user-manual>
+        </label>
+        <!-- roots -->
+        <div ng-repeat="root in roots track by $index" ng-class="{'cc-enrollment-roots-gap': $index > 0}">
+            <div class="cc-create-page-common-del-anchor cc-enrollment-roots">
+                <i class="fa fa-times-circle-o cc-create-page-common-del-icon remove-tag-condition cc-enrollment-roots-icon" ng-click="deleteRoot($index)" 
+                ng-if="roots.length > 1"></i>
+                <input id="tf-root-{{$index}}" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-long-text-ellipsis cc-create-textfield-width "
+                    name="root{{$index}}" placeholder="{{'enrollment.connection.placeholder' | translate}}"
+                    data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="roots[$index]" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255"
+                    required>
+            </div>
+            <div class="cc-validation-block" ng-messages="enrollmentForm.val['root' + $index].$error" ng-if="enrollmentForm.val['root' + $index].$touched || saveExecuted || testConnectionExecuted">
+                <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                <p ng-message="required" class="cc-validation-block-no-margin">{{"toolManagement.createTask.validation.required" | translate}}</p>
+                <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+            </div>
+        </div>
+    </div>
+    <button id="btn-enrollment-add-root"
+        class="btn btn-default cc-create-page-add-condition-btn cc-sub-item-margin cc-connection-details-margin"  
+        data-ng-click="addEmptyRoot()">{{'enrollment.connection.add.root' | translate}}</button>
+        <div class="cc-create-page-editor-data cc-user-manual-anchor no-margin">
+            <label id="label-ad-root-filter" class="">{{"enrollment.common.filter" | translate}}
+                <i id="icon-enrollment-ad-rootFilter-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['AD - Search Filter'] = true" data-ng-if="pageOptionList['AD - Search Filter']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style="left: 75px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="AD - Search Filter"
+                    data-ng-model="showUserManual['AD - Search Filter']">
+                </user-manual>
+            </label>
+            <input id="tf-enrollment-ad-rootFilter" type="text"
+                class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-long-text-ellipsis cc-create-textfield-width "
+                name="rootFilter" placeholder="The root filter" ng-model="adProperties['filter'].value" title="{{enrollment.name}}"
+                data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+        </div>
+    <input id="btn-enrollment-test-connection" class="btn btn-default cc-enrollment-test-connection-btn cc-connection-details-margin"
+        type="button" name="testConnection" value="{{'enrollment.connection.test' | translate}}"
+        data-ng-click="validateEnrollment()" />
+    <label id="enrollment-ad-connection-test-result-label" class="cc-enrollment-connection-response-label cc-connection-response-label-green cc-edit-page-editor-data"
+           data-ng-if="connectionTestSuccessful">{{"enrollment.common.connection.test.success" | translate}}</label>
+    <div class="cc-h-seperator cc-h-seperator-margin"></div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor" style="margin-bottom: 0px !important;">
+        <div class="cc-flexbox">
+            <div class="cc-mr-2">
+                <label class="cc-item-margin" for="effect">{{"enrollment.connection.paging" | translate}}
+                    <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Paging Control Support'] = true" data-ng-if="pageOptionList['Paging Control Support']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 160px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="Paging Control Support"
+                        data-ng-model="showUserManual['Paging Control Support']">
+                    </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="adProperties['ispagingenabled'].value" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p> 
+            </div>
+            <div>
+                <label class="cc-item-margin" for="effect">{{"enrollment.connection.dirsync" | translate}}
+                    <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['DirSync Control Support'] = true" data-ng-if="pageOptionList['DirSync Control Support']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style="left: 380px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="DirSync Control Support"
+                    data-ng-model="showUserManual['DirSync Control Support']">
+                </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="adProperties['enableaddirchgreplication'].value" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p>
+            </div>
+        </div>
+        <div class="cc-flexbox">
+            <div class="cc-mr-2 cc-user-manual-anchor">
+                <label class="cc-item-margin" for="effect">{{"enrollment.connection.auto" | translate}}
+                    <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Auto Sync'] = true" data-ng-if="pageOptionList['Auto Sync']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 90px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="Auto Sync"
+                        data-ng-model="showUserManual['Auto Sync']">
+                    </user-manual>
+               
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="syncOn" ng-change="onSyncChange(syncOn)" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p>
+            </div>
+        </div>
+        <div class="cc-tools-auto-sync-container" ng-if="syncOn">
+            <div class="cc-tools-first-sync cc-user-manual-anchor">
+                <label id="enrollment-ad-firstSync-label" class="cc-tools-first-sync-label">{{"enrollment.common.first.sync" | translate}}
+                    <i id="icon-enrollment-ad-firstSync-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['First sync on'] = true" data-ng-if="pageOptionList['First sync on']"></i>
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 120px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="First sync on"
+                        data-ng-model="showUserManual['First sync on']">
+                    </user-manual>
+               </label>
+                <div class="input-group">
+                    <input id="input-enrollment-ad-startDate" type="text" name="enrollmentStartDate" class="form-control"
+                        uib-datepicker-popup="mediumDate" ng-model="enrollmentStartDate.from.date"
+                        is-open="enrollmentStartDate.from.popupOpen" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                        readonly min-date="enrollmentStartDate.from.minDate">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="enrollmentStartDate.from.popupOpen = true">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="cc-tools-sync-at">
+                <label id="enrollment-ad-syncAt-label" style="visibility: hidden;">{{"enrollment.common.sync.at" | translate}}</label>
+                <div class="cc-tools-time-picker">
+                    <div class="cc-tools-time-picker-hour-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('hour')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{ syncTime.hour }}"
+                            ng-model="syncTime.hour" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('hour')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-minute-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('minute')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{syncTime.minute}}"
+                            ng-model="syncTime.minute" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('minute')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-format-container">
+                        <i class="cc-tools-arrow-background" ng-click="toggleTimeFormat()"></i>
+                        <input class="cc-tools-time-picker-minute sync" value="{{syncTime.format}}"
+                            ng-model="syncTime.format" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="toggleTimeFormat()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cc-tools-sync-repeat cc-user-manual-anchor">
+                <label id="enrollment-ad-interval-label">{{"enrollment.common.repeat.every" | translate}}
+                    <i id="icon-enrollment-ad-interval-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Repeat for every'] = true" data-ng-if="pageOptionList['Repeat for every']"></i>
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="Repeat for every"
+                        data-ng-model="showUserManual['Repeat for every']">
+                    </user-manual>
+                </label>
+                <div class="cc-tools-repeat-container">
+                    <div>
+                        <input class="cc-tools-input-number" min="0" type="number" ng-keydown="numberOnly($event)" ng-model="syncInterval.value" />
+                    </div>
+                    <div>
+                        <select data-ng-model="syncInterval.unit" class="form-control cc-tools-select-type"
+                            ng-options="timeUnit as timeUnit.label for timeUnit in timeUnits">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div id="taskParameters" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.definition.details" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info ">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor no-margin">
+        <label id="label-enrollment-name" for="name">{{"enrollment.definition.details.global.id" | translate}}
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+            data-ng-click="showUserManual['Global Unique ID'] = true" data-ng-if="pageOptionList['Global Unique ID']"></i>
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Global Unique ID" data-ng-model="showUserManual['Global Unique ID']">
+            </user-manual>
+        </label>
+        <input id="tf-enrollment-ad-staticId" type="text"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-long-text-ellipsis cc-create-textfield-width "
+            name="staticId" placeholder="{{'enrollment.definition.details.global.id.placeholder' | translate}}"
+            data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="adProperties['entry.attributefor.staticid'].value"
+            title="{{enrollment.name}}" data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255"
+            maxlength="255">
+        <div class="cc-validation-block" ng-messages="enrollmentForm.val.staticId.$error"
+            ng-if="enrollmentForm.val.staticId.$touched">
+            <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+            <p ng-message="required">{{"toolManagement.createTask.validation.required" | translate}}</p>
+            <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-mr-2 cc-connection-details-margin">
+        <div class="cc-flexbox">
+            <div class="cc-mr-2 cc-user-manual-anchor">
+                <label id="enrollment-ad-deleteInactiveGroupMember-label" class="cc-item-margin" for="effect">{{"enrollment.common.delete.inactive.group" | translate}}
+                    <i id="icon-enrollment-ad-deleteInactiveGroupMember-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Delete inactive group members'] = true" data-ng-if="pageOptionList['Delete inactive group members']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="Delete inactive group members"
+                        data-ng-model="showUserManual['Delete inactive group members']">
+                    </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="adProperties['delete.inactive.group.members'].value" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p> 
+            </div>
+            <div>
+                <label class="cc-item-margin cc-user-manual-anchor" for="effect">{{"enrollment.definition.details.store.missing.attributes" | translate}}
+                    <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual['Store missing attributes'] = true"
+                        data-ng-if="pageOptionList['Store missing attributes']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}"
+                        data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Store missing attributes"
+                        data-ng-model="showUserManual['Store missing attributes']">
+                    </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="adProperties['store.missing.attributes'].value" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="cc-sub-item-margin">
+        <label class="cc-item-margin cc-user-manual-anchor" for="effect">{{"enrollment.definition.enroll.entities" | translate}}
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+            data-ng-click="showUserManual['Entities to enroll'] = true" data-ng-if="pageOptionList['Entities to enroll']"></i>&nbsp;
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Entities to enroll" data-ng-model="showUserManual['Entities to enroll']">
+            </user-manual>
+        </label>
+        <div id="ad-enrollment-entities" class="cc-flexbox-filter">
+            <div ng-repeat="(key, entity) in entities">
+                <div class="cc-enrollment-entities">
+                    <label id="enrollment-ad-entity-label" class="nobold cc-entities-margin">
+                        <input id="checkbox-enrollment-ad-{{entity.entity}}" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                            ng-model="entity.$checked" ng-change="entityChecked(entity)">
+                        <span>
+                            <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            {{entity.entity}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="cc-validation-block">
+            <p ng-if="saveExecuted && !checked">{{"toolManagement.createTask.validation.requiredOne" | translate}}</p>
+        </div>
+    </div>
+    <div class="data-source-attribute-mapping">
+        <label id="enrollment-ad-filtersAndAttributes-label" class="cc-label-tab-margin cc-connection-details-margin cc-user-manual-anchor">{{"enrollment.common.filters.and.attribute.mapping" | translate}}
+            <i id="icon-enrollment-ad-filtersAndAttributes-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['Filters & attributes mapping'] = true" data-ng-if="pageOptionList['Filters & attributes mapping']"></i>
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 210px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Filters & attributes mapping" data-ng-model="showUserManual['Filters & attributes mapping']">
+            </user-manual>
+        </label>
+        <uib-tabset active="active" class="cc-enrollment-tab">
+            <uib-tab index="$index" ng-repeat="(key, tab) in entities track by $index" heading="{{tab.entity}}"
+                disable="tab.tabDisabled">
+                <!-- {{tab.content}} -->
+                <div class="cc-tab-content-container" ng-if="tab.$checked && $index !== 3">
+                    <div class="cc-enrollment-filter " ng-if="tab.entity !== 'Groups'">
+                        <label id="label-enrollment-ad-{{tab.entity}}Filter" class="cc-filter-label cc-user-manual-anchor">{{"enrollment.common.filter" | translate}}
+                            <i id="icon-enrollment-ad-{{tab.entity}}Filter-manual"
+                                class="fa cc-about-individual-question fa-question-circle"
+                                data-ng-click="showUserManual[tab.entity+' Filter'] = true"
+                                data-ng-if="pageOptionList[tab.entity+' Filter']"></i>
+                            <user-manual id="manual-enrollment-{{tab.entity}}Filter"
+                                class="cc-user-manual-input cc-user-manual-position-right" style="left: 60px; width: 500px;"
+                                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                data-page="{{userManualOption.page}}" key="{{tab.entity+' Filter'}}"
+                                data-ng-model="showUserManual[tab.entity+' Filter']">
+                            </user-manual>
+                        </label>
+                        <input id="tf-enrollment-ad-{{tab.entity | id}}-filter" type="text"
+                            class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                            name="filter{{key | uppercase}}" data-ng-model="tab.filter" title="{{enrollment.name}}"
+                            data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                        <hr style="margin: 26.5px 0 36.5px 0;">
+                    </div>
+                    <button id="btn-enrollment-ad-add-{{tab.entity}}-addAttribute" class="btn btn-default cc-create-page-add-condition-btn cc-enrollment-add-attribute"
+                        ng-if="$index < 3" ng-click="addProperty(key)">{{"enrollment.common.add.attribute" | translate}}</button>
+                    <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table cc-enrollment-table"
+                        ng-if="$index < 3">
+                        <thead>
+                            <tr class="cc-th-border">
+                                <th style="width:45%; text-align: center;">{{"enrollment.common.cc.attribute" | translate}}</th>
+                                <th style="width:45%; text-align: center;">{{"enrollment.common.directory.attributes" | translate}}
+                                </th>
+                                <th style="width:6%">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="property_row_{{$index}}" ng-repeat="attribute in tab.attributeList track by $index">
+                                <td ng-class="{'cc-attribute-first-row': $index === 0}">
+                                    <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp" id="cc-sort-by-select"
+                                        uib-dropdown>
+                                        <button id="property_btn_entityName_{{$index}}" type="button" class="form-control cc-ps-button-common"
+                                            data-uib-dropdown-toggle ng-disabled="attribute.mandatory" title="{{attribute.shortName}}"
+                                            ng-class="{'cc-enrollment-semi-mandatory': $index === 2 && tab.entity === 'Users'}">
+                                            <span class="cc-ps-dropdown-btn-label">{{attribute.shortName}}</span> <span class="cc-ps-dropdown-btn-expand-icon"
+                                                ng-if="!attribute.mandatory"></span>
+                                        </button>
+                                        <ul data-uib-dropdown-menu
+                                            class="uib-dropdown-menu cc-ps-dropdown-menu cc-enrollment-dropdown" role="menu"
+                                            aria-labelledby="">
+                                            <li role="menuitem" data-ng-repeat="s in propertyList[tab.shortName]" label = "{{s.shortName}}" ng-if="checkEntityType(tab.entity, $parent.$index)"
+                                                data-ng-click="setAttribute(attribute, s)" class="cc-ps-clickable-dropdown" ng-class="{'cc-disable-attribute': s.disabled}">
+                                                {{s.shortName}} 
+                                            </li>
+                                             <li role="menuitem" data-ng-repeat="s in filteredPropertyList" label = "{{s.shortName}}" 
+                                             ng-if="!checkEntityType(tab.entity, $parent.$index)"
+                                                data-ng-click="setAttribute(attribute, s)" class="cc-ps-clickable-dropdown" ng-class="{'cc-disable-attribute': s.disabled}">
+                                                {{s.shortName}} 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td ng-class="{'cc-attribute-first-row': $index === 0}">
+                                    <div class="btn-group btn-block">
+                                        <input class=" form-control cc-create-page-common-input"
+                                            id="attribute-input-ad-{{$index}}" name="ad-{{tab.entity + $index}}"
+                                            style="height:40px;" placeholder="The attribute value"
+                                            data-ng-model="attribute.value" data-ng-focus="highlightGrammar('users')" required>
+                                        <div class="cc-validation-block"
+                                            ng-messages="enrollmentForm.val['ad-' + tab.entity + $index].$error"
+                                            ng-if="enrollmentForm.val['ad-' + tab.entity + $index].$touched || saveExecuted">
+                                            <p ng-message="required" class="cc-validation-block-no-margin">
+                                                {{::"toolManagement.locationManager.list.required.value" | translate}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cc-discard-container" ng-if="!attribute.mandatory && checkEntityType(tab.entity, $index)">
+                                    <div class="btn-group btn-block cc-enrollment-discard-attribute" ng-click="cancelEdit(tab.shortName, $index)">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cc-tab-content-container" ng-if="tab.$checked && $index === 3">
+                        <div class="cc-enrollment-filter ">
+                            <label id="label-enrollment-ad-GroupFilter" class="cc-filter-label-group-1 cc-user-manual-anchor">{{"enrollment.common.filter" | translate}}
+                                <i id="icon-enrollment-ad-GroupFilter-manual" class="fa cc-about-individual-question fa-question-circle"
+                                    data-ng-click="showUserManual['Groups Filter'] = true" data-ng-if="pageOptionList['Groups Filter']"></i>
+                                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                                    style="left: 60px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                    data-page="{{userManualOption.page}}" key="Groups Filter"
+                                    data-ng-model="showUserManual['Groups Filter']">
+                                </user-manual>
+                            </label>
+                            <input id="input-enrollment-ad-GroupFilter" type="text"
+                                class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="adProperties['group.requirements'].value"
+                                data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                            <div class="cc-enrollment-filter cc-user-manual-anchor">
+                                <label id="label-enrollment-ad-GroupEnumerationFilter" class="cc-filter-label-group"
+                                    style="display: inline;">{{"enrollment.common.group.enumeration" | translate}}
+                                    <i id="icon-enrollment-ad-GroupEnumerationFilter-manual" class="fa cc-about-individual-question fa-question-circle"
+                                        data-ng-click="showUserManual['Group attributes for enumeration'] = true"
+                                        data-ng-if="pageOptionList['Group attributes for enumeration']"></i>
+                                    <user-manual id="manual-enrollment-ad-GroupEnumerationFilter"
+                                        class="cc-user-manual-input cc-user-manual-position-right" style="left: 60px; width: 500px;"
+                                        data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                        data-page="{{userManualOption.page}}" key="Group attributes for enumeration"
+                                        data-ng-model="showUserManual['Group attributes for enumeration']">
+                                    </user-manual>
+                                </label>
+                                <input id="input-enrollment-ad-GroupEnumeration" type="text"
+                                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                    data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="adProperties['group.attributefor.enumeration'].value"
+                                    data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                            </div>
+                            <div class="cc-enrollment-filter cc-user-manual-anchor">
+                                <label id="enrollment-structural-group-label" class="nobold cc-entities-margin cc-enrollment-structural-group">
+                                    <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                                        ng-change="onChangeStructuralCheckbox(structuralGroupCheckbox.$checked)"
+                                        ng-model="structuralGroupCheckbox.$checked">
+                                    <span>
+                                        <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                    </span>
+                                    {{"enrollment.common.structural.group" | translate}}
+                                </label>
+                                <i id="icon-enrollment-structural-group-manual" class="fa cc-about-individual-question fa-question-circle"
+                                    data-ng-click="showUserManual['Structural Group Filter'] = true"
+                                    data-ng-if="pageOptionList['Structural Group Filter']"></i>
+                                <user-manual id="manual-enrollment-structural-group" class="cc-user-manual-input cc-user-manual-position-right"
+                                    style="left: 180px; width: 500px;" data-app="{{userManualOption.app}}"
+                                    data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Structural Group Filter"
+                                    data-ng-model="showUserManual['Structural Group Filter']">
+                                </user-manual>
+                                <input id="tf-enrollment-structural-group" type="text"
+                                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                    name="filter{{key | uppercase}}" data-ng-model="adProperties['structure.requirements'].value"
+                                    title="{{enrollment.name}}" data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                            </div>
+                        </div>
+                </div>
+                <div class="cc-tab-content-no-item" ng-if="!tab.$checked">
+                    {{"enrollment.common.no.entity.checked" | translate}}
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

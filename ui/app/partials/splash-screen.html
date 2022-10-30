@@ -1,0 +1,151 @@
+<div class="cc-help-splash-container" ng-keydown="closeOnEsc($event)" tabindex="0" data-ng-if="installMode && splashScreen.show && externalHelpUrl">
+  <div class="content">
+    <div class="title"><span class="title-text">Welcome to NextLabs <span class="orange">{{'appName' | translate}}</span></span>
+    </div>
+    <i class="cc-search-close" aria-hidden="true" data-ng-click="splashScreen.show=false"></i>
+    <div class="external-help-frame splash">
+      <article class="slide">
+        <ul cc-video class="slider" data-nav="thumbs" data-fit="cover" data-autoplay="5000" data-transitionduration="1000" data-width="100%" data-height="475" data-thumbwidth="180" data-thumbheight="140" videos="splashScreen.videos" ng-if="installMode && splashScreen.show && (installMode != 'SAAS' || splashScreen.leftContent == 'video')">
+        </ul>
+        <div class="quick-start">
+        <div class="link-panel-content paragraph">
+          <p class=Body><span style='mso-font-width:100%'>The Quick Start Guide explains how to use sample ABAC (Attribute Based Access Control) policies and configure a sample application to make authorization requests in NextLabs Cloud Authorization Service. This service is referred to as CloudAz.</span></p>
+          <p class=""><span style='mso-font-width:100%'>After completing the Quick Start Guide, you will:</span></p>
+          <p class="Bulleted first">•<span style="padding-left: 7pt;"><span style='mso-font-width:100%'>Understand how a simple authorization policy is used in CloudAz</span></p>
+          <p class="Bulleted">•<span style="padding-left: 7pt;"><span style='mso-font-width:100%'>Be able to perform a simple authorization using CloudAz</span></p>
+        </div>
+
+        <div uib-accordion close-others="true" ng-if="installMode == 'SAAS' && splashScreen.leftContent == 'quick_start'" class="">
+            <div uib-accordion-group panel-class="link-subtitle first" is-open="quickStartTab.beforeBeginOpen">
+                <uib-accordion-heading>
+                    <span ng-class="{'active':quickStartTab.beforeBeginOpen}"><i class="fa" ng-class="{'fa-plus':!quickStartTab.beforeBeginOpen,'fa-minus':quickStartTab.beforeBeginOpen}" aria-hidden="true"></i><span class="title-text">Before you begin</span></span>
+                </uib-accordion-heading>
+                <div class="link-panel-content">
+                    <p dir="ltr" class="FM_Body">To use the Quick Start Guide example, you need to import sample ABAC policies into your CloudAz instance. The sample policies are for authorization in a typical Support Ticket system. There are three authorization rules to be enforced by the Support Ticket system:</p>
+                     <p dir="ltr" class="FM_Bulleted first">•<span style="padding-left: 7pt;"></span>Allow support representatives to edit and reassign tickets that belong to their product area</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>Allow users from the IT department to view all support tickets</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>Deny access to security vulnerabilities if they are not created by or assigned to the user</p>
+                     <!-- <p dir="ltr" class="FM_Heading2Preface"><a name="TOC_Import_sample_ABAC"></a>Import sample ABAC policies</p> -->
+                     <!-- <p dir="ltr" class="FM_Body">Import sample ABAC policies from the CloudAz Help page or from the Policy Management page.</p> -->
+                     <p class="FM_Body"><a ng-click="importSamplePolicies()" class="splash-import-sample cc-btn-import">import sample ABAC policies</a></p>
+                </div>
+            </div>
+            <div uib-accordion-group panel-class="link-subtitle" is-open="quickStartTab.runJavaApp">
+                <uib-accordion-heading>
+                    <span ng-class="{'active':quickStartTab.runJavaApp}"><i class="fa" ng-class="{'fa-plus':!quickStartTab.runJavaApp,'fa-minus':quickStartTab.runJavaApp}" aria-hidden="true"></i><span class="title-text">Run the Java sample application</span></span>
+                </uib-accordion-heading>
+                <div class="link-panel-content">
+                  <p dir="ltr" class="FM_Body">After you have imported the sample policies, you can run the Java application, which sends a set of authorization requests to the CloudAz REST API. CloudAz evaluates each authorization request against the imported sample policies; calculates a decision, allow, deny, or indeterminate; and returns the decision with an optional set of obligations. Obligations are additional instructions the sample application needs to perform before proceeding with the application logic. The sample application displays each set of request attributes and the response on-screen before proceeding to the next request.</p>
+                  <p dir="ltr" class="FM_Heading2Preface">Procedure</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">1</span><span class="space-after-number"></span>Set up the Java SDK with JDK 7 or higher. For instructions, go to <span class="FM_Hyperlink"><a href="http://docs.oracle.com/javase/7/docs/webnotes/install/" target="_blank">http://docs.oracle.com/javase/7/docs/webnotes/install/</a></span>.</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">2</span><span class="space-after-number"></span>Download the sample Java application from <a ng-href="{{splashScreen.linksSaas.sampleCode}}" target="_blank" class="" style="">{{splashScreen.linksSaas.sampleCode}}</a></p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">3</span><span class="space-after-number"></span>Extract the files from the downloaded package.</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">4</span><span class="space-after-number"></span>In the extracted folder, open the <span class="FM_Filename">java</span> folder, which has the required binaries and samples for the Java API.</p>
+                   <div class="paragraph">
+                     <p dir="ltr" class="">Note: Files are extracted with the Read-only attribute set in their properties. To make the files editable in Windows, right-click the file(s), then click Properties, make sure the read-only checkbox is not checked. </p>
+                   </div>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">5</span><span class="space-after-number"></span>Open <span class="FM_Filename">sample_code/config/openaz-pep.properties</span> file in a text editor. Replace the following placeholders with the properties for your system and save the file:</p>
+                   <div class="paragraph">
+                     <!-- <div class="paragraph paragraph-2"> -->
+                       <p dir="ltr" class="FM_Bulleted first">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;CloudAz REST API host&gt;</span>: The hostname of your CloudAz instance, which was provided in the Welcome email from NextLabs- <span class="FM_Code"><b>{{jpcDomain}}</b></span></p>
+                       <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;LOGIN_USER_NAME&gt;</span>: The username of your account. For example, <span class="FM_Code">Administrator</span></p>
+                       <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;LOGIN_PASSWORD&gt;</span>: The password associated with your account.</p>
+                     <!-- </div> -->
+                   </div>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">6</span><span class="space-after-number"></span>Send the sample authorization request</p>
+                   <div class="paragraph">
+                     <p dir="ltr" class="FM_NumBody FM_NumBody-2"><span style="padding-left: 0pt;" class="FMAutoNumber_2">a</span><span class="space-after-number"></span>Open a Windows Command prompt or Linux terminal, and navigate to <span class="FM_Filename">sample_code</span> folder.</p>
+                     <p dir="ltr" class="FM_NumBody FM_NumBody-2"><span style="padding-left: 0pt;" class="FMAutoNumber_2">b</span><span class="space-after-number"></span>Run one of the following scripts to send the request:</p>
+                     <div class="paragraph paragraph-2">
+                       <!-- <div class="paragraph"> -->
+                         <p dir="ltr" class="FM_Bulleted2">- <span style="padding-left: 4pt;" class=""></span>Windows: <span class="FM_Filename">cloudaz_request.bat</span></p>
+                         <p dir="ltr" class="FM_Bulleted2">- <span style="padding-left: 4pt;" class=""></span>Linux: <span class="FM_Filename">cloudaz_request.sh</span></p>
+                       <!-- </div> -->
+                     </div>
+                     <p dir="ltr" class="FM_Bulleted ">The response appears in the console. To learn more about the response, refer to <span class="FM_Filename">About the sample client</span> section below.</p>
+                   </div>
+                </div>
+            </div>
+            <div uib-accordion-group panel-class="link-subtitle" is-open="quickStartTab.runJSApp">
+                <uib-accordion-heading>
+                    <span ng-class="{'active':quickStartTab.runJSApp}"><i class="fa" ng-class="{'fa-plus':!quickStartTab.runJSApp,'fa-minus':quickStartTab.runJSApp}" aria-hidden="true"></i><span class="title-text">Run the JavaScript sample application</span></span>
+                </uib-accordion-heading>
+                <div class="link-panel-content">
+                     <p dir="ltr" class="FM_Body">After you have imported the sample policies, you can run the JavaScript application, which sends a set of authorization requests to the CloudAz REST API. CloudAz evaluates each authorization request against the imported sample policies; calculates a decision, allow, deny, or indeterminate; and returns the decision with an optional set of obligations. Obligations are additional instructions the sample application needs to perform before proceeding with the application logic. The sample application displays each set of request attributes and the response on-screen before proceeding to the next request.</p>
+                     <p dir="ltr" class="FM_Heading2Preface">Procedure</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">1</span><span class="space-after-number"></span>Set up the JavaScript SDK. For instructions, go to <span class="FM_Hyperlink"><a href="https://nodejs.org/en/download/" target="_blank">https://nodejs.org/en/download/</a></span>.</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">2</span><span class="space-after-number"></span>Verify that the NodeJS version is 4.5 or higher, and the npm version is 3.10.6 or higher. To check the versions, use these commands:</p>
+                   <div class="paragraph">
+                       <p dir="ltr" class="FM_Bulleted first">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">node --version</span></p>
+                       <p dir="ltr" class="FM_Bulleted first">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">npm --version</span></p>
+                   </div>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">3</span><span class="space-after-number"></span>Download the sample JavaScript application from <a ng-href="{{splashScreen.linksSaas.sampleCode}}" target="_blank" class="" style="">{{splashScreen.linksSaas.sampleCode}}</a></p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">4</span><span class="space-after-number"></span>Extract the files from the downloaded package.</p>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">5</span><span class="space-after-number"></span>In the extracted folder, open the <span class="FM_Filename">js</span> folder, which has the required binaries and samples for the NodeJS API.</p>
+                   <div class="paragraph">
+                     <p dir="ltr" class="">Note: Files are extracted with the Read-only attribute set in their properties. To make the files editable in Windows, right-click the file(s), then click Properties, make sure the read-only checkbox is not checked. </p>
+                   </div>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">6</span><span class="space-after-number"></span>Open <span class="FM_Filename">sample_code/RestSampleClient.js</span> file in a text editor. Replace the following placeholders with the properties for your system and save the file:</p>
+                   <div class="paragraph">
+                     <!-- <div class="paragraph paragraph-2"> -->
+                       <p dir="ltr" class="FM_Bulleted first">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;CloudAz REST API host&gt;</span>: The hostname of your CloudAz instance, which was provided in the Welcome email from NextLabs- <span class="FM_Code"><b>{{jpcDomain}}</b></span></p>
+                       <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;LOGIN_USER_NAME&gt;</span>: The username of your account. For example, <span class="FM_Code">Administrator</span></p>
+                       <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span><span class="FM_Variable">&lt;LOGIN_PASSWORD&gt;</span>: The password associated with your account.</p>
+                     <!-- </div> -->
+                   </div>
+                   <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">7</span><span class="space-after-number"></span>Send the sample authorization request</p>
+                   <div class="paragraph">
+                     <p dir="ltr" class="FM_NumBody FM_NumBody-2"><span style="padding-left: 0pt;" class="FMAutoNumber_2">a</span><span class="space-after-number"></span>Open a Windows Command prompt or Linux terminal, and navigate to <span class="FM_Filename">sample_code</span> folder.</p>
+                     <p dir="ltr" class="FM_NumBody FM_NumBody-2"><span style="padding-left: 0pt;" class="FMAutoNumber_2">b</span><span class="space-after-number"></span>Run one of the following scripts to send the request:</p>
+                     <div class="paragraph paragraph-2">
+                       <!-- <div class="paragraph"> -->
+                         <p dir="ltr" class="FM_Bulleted2">- <span style="padding-left: 4pt;" class=""></span>Windows: <span class="FM_Filename">cloudaz_request.bat</span></p>
+                         <p dir="ltr" class="FM_Bulleted2">- <span style="padding-left: 4pt;" class=""></span>Linux: <span class="FM_Filename">cloudaz_request.sh</span></p>
+                       <!-- </div> -->
+                     </div>
+                     <p dir="ltr" class="FM_Bulleted ">The response appears in the console. To learn more about the response, refer to <span class="FM_Filename">About the sample client</span> section below.</p>
+                   </div>
+                </div>
+            </div>
+            <div uib-accordion-group panel-class="link-subtitle" is-open="quickStartTab.aboutSampleCode">
+                <uib-accordion-heading>
+                    <span ng-class="{'active':quickStartTab.aboutSampleCode}"><i class="fa" ng-class="{'fa-plus':!quickStartTab.aboutSampleCode,'fa-minus':quickStartTab.aboutSampleCode}" aria-hidden="true"></i><span class="title-text">About the sample client:</span></span>
+                </uib-accordion-heading>
+                <div class="link-panel-content">
+                     <p dir="ltr" class="FM_Body">The sample client performs the following tasks:</p>
+                     <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">1</span><span class="space-after-number"></span>Prepares each authorization request by collecting all required attributes. These include user, resource, and environment attributes, as well as the action that the user is performing, which are considered by the CloudAz policy engine, the Policy Decision Point (PDP).</p>
+                     <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">2</span><span class="space-after-number"></span>Submits the REST authorization request to the CloudAz PDP over HTTPS with appropriate credentials.</p>
+                     <p dir="ltr" class="FM_NumBody"><span style="padding-left: 0pt;" class="FMAutoNumber_1">3</span><span class="space-after-number"></span>Processes the response from the PDP and handles any obligations. Typically, the authorization decision is enforced in the application being securing.</p>
+                     <p dir="ltr" class="FM_Heading2Preface"><a name="TOC_About_the_output_of_the"></a>How the sample requests are processed by the PDP</p>
+                     <p dir="ltr" class="FM_Body">The PDP (Policy Decision Point) processes the sample authorization requests from both the Java and JavaScript sample applications as follows:</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>AllowITDeptUsersToViewTickets: Chris Webber, a user who belongs to the IT department, is requesting access to view a ticket that belongs to the SharePoint product. The CloudAz PDP evaluates this request and responds with <span class="splash-decision">Allow</span>, since the request matches the following policy: <span class="splash-policy-name">Allow users from the IT department to view all support tickets</span>.</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>AllowUsersToEditTktsAssignedToThem: Kate Adams, a user who belongs to the IT department, has these attributes: Her job role is support representative, and her product area is Exchange email. She is requesting access to edit support tickets in product Exchange email. The CloudAz PDP evaluates this request and responds with <span class="splash-decision">Allow</span>, since the request matches the following policy: <span class="splash-policy-name">Allow support representatives to edit and reassign tickets that belong to their product area</span>.</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>DenyUsersAccessToSecurityTkts: Kate Adams, a user who belongs to the IT department, is requesting access to view a security category support ticket. The CloudAz PDP evaluates this request and responds with <span class="splash-decision">Deny</span>, since the request matches the following policy: <span class="splash-policy-name">Deny access to security vulnerabilities if not created by or assigned to the user</span>. Access is denied because although Kate belongs to the IT department, the support ticket is in the Security category and it is not assigned to her. The response also contains the obligation that the PEP (Policy Enforcement Point) needs to handle.</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>NoMatchingPolicyFound: Kevin Chen, a user who belongs to the Marketing department, is requesting access to view a support ticket. The CloudAz PDP evaluates the request and responds with <span class="splash-decision">Indeterminate</span>, since there is no policy that matches the attributes of either the user or the ticket that is being accessed. In such cases, the PEP determines how to handle the authorization request. As a good practice, the PEP should default to Deny when requests result in a response of Indeterminate.</p>
+                     <p>For more information about CloudAz components such as the PDP and PEP, refer to  <span class="FM_Filename">CloudAz overview</span> link.</p>
+                     <p dir="ltr" class="FM_Heading2Preface"><a name="TOC_About_the_output_of_the"></a>Take it for a spin</p>
+                     <p dir="ltr" class="FM_Body">It’s time to get your feet wet. You can modify the sample policies to see how changes affect the CloudAz authorization requests and responses. For example:</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>In NoMatchingPolicyFound, change the user’s department attribute to IT</p>
+                     <p dir="ltr" class="FM_Bulleted">•<span style="padding-left: 7pt;"></span>In DenyUserAccessToSecurityTks, change the resource attribute of the support ticket, and update the created_by attribute to kate.adams</p>
+                     <p dir="ltr" class="FM_Body">Send an authorization request to view the new policy effect.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+     </article>
+     <aside class="sidebar" ng-include="installMode=='SAAS' ? 'ui/app/partials/link-saas.html' : 'ui/app/partials/link-opn.html'">
+        
+    </aside>
+    <div class="clear"></div>
+    </div>
+    <div class="bottom">
+      <div class="checkbox-container">
+        <label class="nobold cc-green-checkbox-radio-label " style="line-height:22px;">
+          <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="splashScreen.checkbox" data-ng-change="setSplashHelpPref()">
+          <span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+          <span style="color: #797676;">{{"Don't show this screen again. You can access this from help menu" | translate}}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

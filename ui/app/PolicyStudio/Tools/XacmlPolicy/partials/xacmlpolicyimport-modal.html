@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h2 class="cc-ps-list-title">{{::'xacmlPolicy.title.import.dialog' | translate}}</h2>
+</div>
+<div class="modal-body">
+    <div class="btn btn-default btn-file">
+        {{'PS.Browse' | translate}} <input type="file" accept=".xml" id="import-file" title="{{fileToImportName}}">
+        {{fileToImportName}}
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-import-xacml-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"resourcesearch.label.Cancel" | translate}}</button>
+    <button id="btn-import-xacml-confirm" class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!fileToImportName" ng-click="import()">{{"resourcesearch.label.Save" | translate}}</button>
+</div>

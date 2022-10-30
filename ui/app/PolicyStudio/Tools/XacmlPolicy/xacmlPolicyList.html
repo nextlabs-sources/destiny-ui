@@ -1,0 +1,45 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="xacmlPolicyListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute">
+    <div id="cc-ps-page-title" class="cc-dlg-title-on-content-title">
+      <span id="label-xacml" class="cc-ps-list-title ng-binding">
+        {{"xacmlPolicy.title.PolicyManagement" | translate}}</span>
+    </div>
+    <button id="btn-xacml-import" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn cc-btn-xacml-import" data-ng-click="openImportModal()">
+      <span id="span-xacml-import" class="cc-ps-xacml-btn-text">{{"xacmlPolicy.title.import.button" | translate}}</span>
+    </button>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-ps-search-and-list-box cc-ps-xacml-search-and-list-box ng-scope">
+    <div class="cc-ps-policy-list-container xacml-list-container list-container dlg-bottom-space">
+      <div class="cc-ps-operation"
+           data-ng-include="'ui/app/PolicyStudio/Tools/XacmlPolicy/partials/operation-checked-template.html'"></div>
+      <div class="cc-ps-policy-list-table-header">
+        <div class="cc-ps-resource-content-container cc-ps-xacml-resource-content-container">
+          <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-resource-check">
+          </div>
+          <div class="cc-ps-resource-content">
+            <div id="xacml-policy-name" class="cc-ps-xacml-policy-desc-col">
+              <span id="span-xacml-policy-name">{{"xacmlPolicyList.table.header.policyName" | translate}}</span>
+            </div>
+            <div id="xacml-policy-doc-type" class="cc-ps-tool-xacml-policy-document-type"><span id="span-xacml-policy-doc-type">{{"xacmlPolicyList.table.header.documentType" | translate}}</span></div>
+            <div id="xacml-policy-last-modified" class="cc-ps-tool-xacml-policy-file-last-update-date">
+              <span id="span-xacml-policy-last-modified">{{"xacmlPolicyList.table.header.lastModified" | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cc-dlg-search-and-list-box">
+        <ul class="no-padding no-decoration cc-dlg-xacml-list-table-ul">
+          <li class="cc-ps-list-item cc-ps-xacml-list-item" ng-repeat="xacmlPolicy in xacmlPoliciesList track by $index" ng-init="cIndex = $index">
+            <div data-ng-include="'ui/app/PolicyStudio/Tools/XacmlPolicy/partials/xacmlpolicy-view.html'">
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div data-ng-if="!xacmlPoliciesList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"xacmlPolicyList.empty.list.msg" | translate}}</p>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

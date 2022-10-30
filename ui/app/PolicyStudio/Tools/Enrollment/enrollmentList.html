@@ -1,0 +1,39 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="enrollmentListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute">
+    <div class="cc-ps-create-page-back-btn-div title-space">
+      
+    </div>
+    <div class="cc-dlg-list-title cc-dlg-title-on-content-title cc-ps-enrollment-title">
+      <p id="label-enrollment-title" class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : !show_search}">
+        Enrollment Manager</p>
+    </div>
+
+    <a id="btn-enrollment-add-enrollment" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-click=createEnrollment()>
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{ "toolManagement.createTask.title" | translate }}</a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-dlg-search-and-list-box cc-ps-resource-list-table list-container">
+    <div class="cc-dlg-delegation-list-table">
+      <div ng-if="syncDisabled" class="cc-enrollment-sync-disabled-banner">
+        <span><strong>Enrollment error:</strong> An enrollment sync operation failed. Fix the error to allow sync on other enrollments.</span>
+      </div>
+      <div class="cc-enrollment-status-bar">
+        <div class="cc-enrollment-column">Enrollment</div>
+        <div class="cc-enrollment-column-type">Source/Record</div>
+        <div class="cc-enrollment-column-status">Sync Status</div>
+        <div class="cc-enrollment-column-empty"></div>
+      </div>
+      <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="enrollment in enrollmentList" data-ng-switch="user.id">
+          
+          <div data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/enrollmentList-row-template.html'">
+          </div>
+        </li>
+      </ul>
+      <div data-ng-if="!enrollmentList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"toolManagement.taskList.empty" | translate}}</p>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

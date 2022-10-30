@@ -1,0 +1,518 @@
+<div id="policyName" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.PolicyInfo" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data" data-ng-if="parentPolicy">
+    <label>{{"createpolicy.label.parent" | translate}}</label>
+    <span>{{parentPolicy.name}}</span>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="name">{{"createpolicy.label.Name" | translate}}
+      <i id="icon-policy-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name=true" data-ng-if="pageOptionList['Name']"></i>
+    </label>
+    <input id="name" type="text" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+      placeholder="{{'createpolicy.input.placeholder.NameOfPolicy' | translate}}" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="policy.name"
+      data-ng-focus="highlightGrammar('policyName')" name="policyName" required ng-maxlength="255" maxlength="255" data-ng-disabled="isEditMode && policy.deployed"
+      restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+    <!-- <div data-ng-show="showUserManual.name"> -->
+    <user-manual id="ta-policy-name-manual" class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+      data-page="{{userManualOption.page}}" key="Name" data-ng-model="showUserManual.Name"></user-manual>
+    <!-- </div> -->
+    <div class="cc-validation-block" ng-messages="policyForm.val.policyName.$error" ng-if="policyForm.val.policyName.$touched">
+      <p ng-message="maxlength">{{"createpolicy.policy.name.validation.maxLength" | translate}}</p>
+      <p ng-message="required">{{"createpolicy.policy.name.validation.required" | translate}}</p>
+      <p ng-message="pattern">{{"createpolicy.policy.name.validation.pattern" | translate}}</p>
+    </div>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="folder">
+      {{"createpolicy.label.Folder" | translate}}
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name=true"
+        data-ng-if="pageOptionList['Folder']"></i>
+    </label>
+    <input id="folder" type="text"
+      class="c-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis"
+      data-ng-model="policy.folderPath" title="{{policy.folderPath}}" name="folder" disabled/>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+      data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Folder"
+      data-ng-model="showUserManual.Folder"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="description">{{"createpolicy.label.Description" | translate}}
+      <i id="icon-policy-description-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Description=true" data-ng-if="pageOptionList['Description']"></i>
+    </label>
+    <textarea style="height: 100px;" id="description" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right"
+      placeholder="{{'createpolicy.input.placeholder.DescriptionOfPolicy' | translate}}" data-ng-model="policy.description"
+      data-ng-focus="highlightGrammar('policyName')"></textarea>
+    <user-manual id="ta-policy-description-manual" class="cc-user-manual-textarea cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+      data-page="{{userManualOption.page}}" key="Description" data-ng-model="showUserManual.Description"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="tags">{{"createpolicy.label.Tags" | translate}}&nbsp;
+      <i id="icon-policy-tags-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Tags=true" data-ng-if="pageOptionList['Tags']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right tag">
+      <go-as-you-type data-item-label="label" data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW"
+        data-item-key-field="id" data-newitem-function="addTag" data-data-set-save-to="policy.tags" data-get-latest-options="getPolicyTags"
+        data-placeholder="{{'createpolicy.input.placeholder.tags' | translate}}" data-input-max="50" onfocus="highlightGrammar('policyName')"
+        ng-if="userAccessMap" create-new="userAccessMap['CREATE_POLICY_TAG']" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?', '{', '}']"></go-as-you-type>
+    </div>
+    <user-manual id="ta-policy-tags-manual" class="cc-user-manual-multi-select cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+      data-page="{{userManualOption.page}}" key="Tags" data-ng-model="showUserManual.Tags"></user-manual>
+  </div>
+</div>
+<div id="policyEffect" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.PolicyEffect" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="effect">{{"createpolicy.label.PolicyEffect" | translate}}&nbsp;
+      <i id="icon-policy-effect-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Policy Effect']=true" data-ng-if="pageOptionList['Policy Effect']"></i>
+    </label>
+    <p id="effect" class="cc-ps-search-text-container">
+      <span class="cc-ps-policy-effect-switch">
+        <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(policyForm.val)" data-ng-model="policy.effects"></switch>
+      </span>
+      <user-manual id="ta-policy-effect-manual" class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Policy Effect" data-ng-model="showUserManual['Policy Effect']"></user-manual>
+      <input id="switch-policy-effect" type="hidden" data-ng-model="policy.effects" data-ng-focus="highlightGrammar('policyEffect')">
+      <span>{{"createpolicy.effect." + policy.effects |translate}}</span>
+    </p>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="subjectComponent" class="vertical-align-top">{{"createpolicy.label.SubjectComponents" | translate}}&nbsp;
+      <i id="icon-policy-subject-component-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Subject Components']=true" data-ng-if="pageOptionList['Subject Components']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right" style="padding: 7px;">
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Subject Components" data-ng-model="showUserManual['Subject Components']"></user-manual>
+      <div ng-repeat="subjectCompt in policy.subjectComponents" class="cc-create-page-editor-data-subjectCompt-div cc-create-page-common-del-anchor component">
+        <div class="btn-group cc-ps-dropdown-grp cc-ps-component-scope" style="margin:1px 0px 10px 0" data-uib-dropdown>
+          <select class="form-control cc-create-page-common-select" data-ng-model="subjectCompt.$condition" data-ng-options="attribute.attr for attribute in attributes"
+            ng-init='!subjectCompt.$condition && (subjectCompt.$condition = attributes[0])' data-ng-focus="highlightGrammar('policyEffect')">
+          </select>
+        </div>&nbsp;&nbsp;
+        <go-as-you-type class="cc-create-page-editor-data-subjectCompt" data-item-label="name" data-item-sub-label="data.policy_model_name"
+          data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="createNewSubjectExt($index, false)"
+          data-data-set-save-to="subjectCompt.subjects" data-placeholder="{{'createpolicy.search.subject' | translate}}" data-input-max="255"
+          onfocus="highlightGrammar('componentContaisSub')" data-data-set="subjectCompt.$subjectOptions" data-static-data-set="true"
+          ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_POLICY']" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']"
+          show-detail="showComponentInPanel" auto-resize-width="true"></go-as-you-type>
+
+        <i id="btn-policy-subject-component-cross-{{$index}}" class="fa fa-times-circle-o cc-create-page-common-del-icon" data-ng-click="removeCondition($index,'subject', false)" data-ng-if="policy.subjectComponents.length > 1"></i>
+        <div class="cc-ps-component-set-with-and-conj" ng-if="!$last">
+          <div class="cc-ps-component-set-with-and-conj-circle">
+            - AND -
+          </div>
+        </div>
+      </div>
+      <input id="btn-policy-subject-component-add-condition" class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addCondition" value="{{'createpolicy.addsubject.btn' | translate}}"
+        data-ng-click="addCondition('subject', false)" />
+    </div>
+    <div class="cc-create-page-editor-data-right" style="margin-top: 20px;">
+      <div class="cc-user-manual-anchor">
+        <switch id="switch-policy-recipient" class="cc-ps-search-switch-include-sub" data-ng-model="policy.toSubjectComponentsEnabled" data-slide-toggle=".cc-ps-and-recipient-container"></switch>
+        &nbsp;
+        <label for="recipient-switch">{{"createpolicy.label.AndRecipient" | translate}}&nbsp;
+          <i id="icon-policy-recipient-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Subject Recipient']=true" data-ng-if="pageOptionList['Subject Recipient']"></i>
+        </label>
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+          data-page="{{userManualOption.page}}" key="Subject Recipient" data-ng-model="showUserManual['Subject Recipient']"></user-manual>
+      </div>
+      <div class="cc-ps-and-recipient-container">
+        <div ng-repeat="toSubjectCompt in policy.toSubjectComponents" class="cc-create-page-editor-data-subjectCompt-div cc-create-page-common-del-anchor component">
+          <div class="btn-group cc-ps-dropdown-grp cc-ps-component-scope" style="margin:1px 0px 10px 0" data-uib-dropdown>
+            <select class="form-control cc-create-page-common-select" data-ng-model="toSubjectCompt.$condition" data-ng-options="attribute.attr for attribute in attributes"
+              ng-init='!toSubjectCompt.$condition && (toSubjectCompt.$condition = attributes[0])' data-ng-focus="highlightGrammar('policyEffect')">
+            </select>
+          </div>&nbsp;&nbsp;
+          <go-as-you-type class="cc-create-page-editor-data-subjectCompt" data-item-label="name" data-item-sub-label="data.policy_model_name"
+            data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="createNewSubjectExt($index, true)"
+            data-data-set-save-to="toSubjectCompt.subjects" data-placeholder="{{'createpolicy.search.subject' | translate}}"
+            data-input-max="255" onfocus="highlightGrammar('componentContaisSub')" data-data-set="toSubjectCompt.$subjectOptions"
+            data-static-data-set="true" ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_POLICY']" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']"
+            show-detail="showComponentInPanel" auto-resize-width="true"></go-as-you-type>
+
+          <i class="fa fa-times-circle-o cc-create-page-common-del-icon" data-ng-click="removeCondition($index,'subject', true)" data-ng-if="policy.toSubjectComponents.length > 1"></i>
+          <div class="cc-ps-component-set-with-and-conj" ng-if="!$last">
+            <div class="cc-ps-component-set-with-and-conj-circle">
+              - AND -
+            </div>
+          </div>
+        </div>
+        <input class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addCondition" value="{{'createpolicy.addsubject.btn' | translate}}"
+          data-ng-click="addCondition('subject', true)" />
+      </div>
+    </div>
+  </div>
+</div>
+<div id="policyResource" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.ResourceComponents" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="resourceComponent">{{"createpolicy.label.ResourceComponents" | translate}}&nbsp;
+      <i id="icon-policy-resource-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Resource Components']=true"
+        data-ng-if="pageOptionList['Resource Components']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right" style="padding: 7px;">
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Resource Components" data-ng-model="showUserManual['Resource Components']"></user-manual>
+      <div data-ng-repeat="resourceCompt in policy.resourceComptsContainer" class="cc-create-page-editor-data-resourceCompt-div component"
+        style="position:relative" data-ng-init="$resourceIndex = $index;">
+        <div class="btn-group cc-ps-dropdown-grp cc-ps-component-scope" style="margin:1px 0px 10px 0" data-uib-dropdown>
+          <select class="form-control cc-create-page-common-select" data-ng-model="resourceCompt.$condition" data-ng-options="attribute.attr for attribute in attributes"
+            ng-init='!resourceCompt.$condition && (resourceCompt.$condition = attributes[0])' data-ng-focus="highlightGrammar('policyEffect')">
+          </select>
+        </div>&nbsp;&nbsp;
+        <go-as-you-type class="cc-create-page-editor-data-subjectCompt" data-item-label="name" data-item-sub-label="data.policy_model_name"
+          data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="createNewResourceExt($index, false)"
+          data-data-set-save-to="resourceCompt.resources" data-data-set-save-to-on-change="updatePolicyModels" data-data-set-filter="policyModelAvailableForResource"
+          data-placeholder="{{'createpolicy.search.resource' | translate}}" data-input-max="255" onfocus="highlightGrammar('componentContaisSub')"
+          data-data-set="resourceCompt.$resourceOptions" data-static-data-set="true" ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_POLICY']"
+          char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']" show-detail="showComponentInPanel" auto-resize-width="true"></go-as-you-type>
+        <i id="btn-policy-resource-component-cross-{{$index}}"
+          class="fa fa-times-circle-o cc-ps-create-policy-component-del-icon"
+          data-ng-click="removeCondition($index,'resource', false);updatePolicyModels()"
+          data-ng-if="policy.resourceComptsContainer.length > 1"></i>
+        <div class="cc-ps-component-set-with-and-conj" ng-if="!$last">
+          <div class="cc-ps-component-set-with-and-conj-circle">
+            - AND -
+          </div>
+        </div>
+      </div>
+      <input id="btn-policy-resource-component-add-condition" class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addCondition" value="{{'createpolicy.addresource.btn' | translate}}"
+        data-ng-click="addCondition('resource', false);updatePolicyModels()" />
+    </div>
+    <div class="cc-create-page-editor-data-right " style="margin-top: 20px;">
+      <div class="cc-user-manual-anchor">
+        <switch id="switch-policy-target-location" class="cc-ps-search-switch-include-sub" data-ng-model="policy.toResourceComponentsEnabled"
+          data-slide-toggle=".cc-ps-target-location-container"></switch>
+        &nbsp;
+        <label for="target-location-switch">{{"createpolicy.label.TargetLocation" | translate}}&nbsp;
+          <i id="icon-policy-resource-target-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Resource Target Location']=true"
+            data-ng-if="pageOptionList['Resource Target Location']"></i>
+        </label>
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+          data-page="{{userManualOption.page}}" key="Resource Target Location" data-ng-model="showUserManual['Resource Target Location']"></user-manual>
+      </div>
+      <div class="cc-ps-target-location-container">
+        <div data-ng-repeat="toResourceCompt in policy.toResourceComptsContainer" class="cc-create-page-editor-data-resourceCompt-div component"
+          style="position:relative" data-ng-init="$resourceIndex = $index;">
+          <div class="btn-group cc-ps-dropdown-grp cc-ps-component-scope" style="margin:1px 0px 10px 0" data-uib-dropdown>
+            <select class="form-control cc-create-page-common-select" style="padding: 6px 5px;" data-ng-model="toResourceCompt.$condition" data-ng-options="attribute.attr for attribute in toResourceAttributes"
+              ng-init='!toResourceCompt.$condition && (toResourceCompt.$condition = toResourceAttributes[0])' data-ng-focus="highlightGrammar('policyEffect')">
+            </select>
+          </div>&nbsp;&nbsp;
+          <go-as-you-type class="cc-create-page-editor-data-subjectCompt" data-item-label="name" data-item-sub-label="data.policy_model_name"
+            data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="createNewResourceExt($index, true)"
+            data-data-set-save-to="toResourceCompt.resources" data-data-set-save-to-on-change="updatePolicyModels" data-data-set-filter="policyModelAvailableForResource"
+            data-placeholder="{{'createpolicy.search.resource' | translate}}" data-input-max="255" onfocus="highlightGrammar('componentContaisSub')"
+            data-data-set="toResourceCompt.$resourceOptions" data-static-data-set="true" ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_POLICY']"
+            char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']" show-detail="showComponentInPanel" auto-resize-width="true"></go-as-you-type>
+          <i class="fa fa-times-circle-o cc-ps-create-policy-component-del-icon" data-ng-click="removeCondition($index,'resource', true);updatePolicyModels()"
+            data-ng-if="policy.toResourceComptsContainer.length > 1"></i>
+          <div class="cc-ps-component-set-with-and-conj" ng-if="!$last">
+            <div class="cc-ps-component-set-with-and-conj-circle">
+              - AND -
+            </div>
+          </div>
+        </div>
+        <input class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addCondition" value="{{'createpolicy.addresource.btn' | translate}}"
+          data-ng-click="addCondition('resource', true);updatePolicyModels()" />
+      </div>
+    </div>
+  </div>
+</div>
+<div id="policyAction" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.ActionComponents" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="actionComponent">{{"createpolicy.label.ActionComponents" | translate}}&nbsp;
+      <i id="icon-policy-action-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Action Components']=true" data-ng-if="pageOptionList['Action Components']"></i>
+    </label>
+    <div class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right component">
+      <go-as-you-type class="" data-item-label="name" data-item-sub-label="data.policy_model_name" data-check-and-go="false" data-apply-btn-label="APPLY"
+        data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="createNewAction" data-data-set-save-to="policy.actions"
+        data-data-set-save-to-on-change="updatePolicyModels" data-data-set-filter="policyModelAvailableForAction" data-placeholder="{{'createpolicy.search.action' | translate}}"
+        data-input-max="255" onfocus="highlightGrammar('componentContaisSub')" data-data-set="$actionOptions" data-static-data-set="true"
+        ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_POLICY']" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']"
+        show-detail="showComponentInPanel" auto-resize-width="true"></go-as-you-type>
+      <user-manual class="cc-user-manual-multi-select cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Action Components" data-ng-model="showUserManual['Action Components']"></user-manual>
+    </div>
+  </div>
+</div>
+<div id="policyConditions" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.AdvancedConditions" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="expression">{{"createpolicy.label.Expression" | translate}}&nbsp;
+      <i id="icon-policy-expression-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Expression=true" data-ng-if="pageOptionList['Expression']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right">
+      <div style="margin-bottom: 10px; position: relative;">
+        <textarea auto-resize-textarea id="expression" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right"
+          style="width:100%;" placeholder="{{'createpolicy.input.placeholder.Expression' | translate}}" auto-suggestion="true"
+          data-suggestion-option="expressionSuggestion" data-show-suggestion-reg-exp-1="'(^$)|(.*[.\\s$]$)'" data-ng-model="policy.expression"
+          ng-trim="false" data-ng-focus="highlightGrammar('policyName')" data-ng-change="clearValidation()"></textarea>
+      </div>
+      <user-manual class="cc-user-manual-textarea cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Expression" data-ng-model="showUserManual.Expression"></user-manual>
+      <input id="btn-policy-advance-validate" class="btn btn-default cc-create-page-add-condition-btn cc-validte-btn" type="button" name="validate" value=" {{'createpolicy.button.validate' | translate}}"
+        data-ng-click="validateExpression(policy.expression)">
+      <span class="cc-ps-policy-create-exp-valid">
+        <i class="fa fa-check-circle-o cc-ps-policy-create-exp-valid-green" data-ng-show="showValidExp"></i>
+        <i class="fa fa-times-circle-o cc-ps-policy-create-exp-valid-red" data-ng-show="showInValidExp"></i>
+      </span>
+      <span style="color:red" data-ng-show="showInValidExp">{{"createpolicy.validation.error" | translate}}</span>
+    </div>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="connectionType">{{"Connection Type" | translate}}&nbsp;
+      <i id="icon-policy-connection-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Connection Type']=true" data-ng-if="pageOptionList['Connection Type']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right">
+    <select id="selectConnectionType" class="form-control cc-create-page-common-select" data-ng-model="policy.connectionType"
+        data-ng-options="cType.value as cType.label for cType in connectionTypeOptions"
+        ng-init='!policy.connectionType && (policy.connectionType = connectionTypeOptions[0].value)'
+        data-ng-focus="highlightGrammar('policyName')" ng-class="policy.connectionType == '' ? 'cc-placeholder-selected': ''" style="width: 180px;">
+    </select>
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Connection Type" data-ng-model="showUserManual['Connection Type']"></user-manual>
+    </div>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="connectionType">{{"Heartbeat" | translate}}&nbsp;
+      <i id="icon-policy-heartbeat-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Heartbeat=true" data-ng-if="pageOptionList['Heartbeat']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right">
+      <input type="number" min="1" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+        data-ng-model="policy.heartbeat" data-ng-focus="highlightGrammar('policyName')" name="heartbeat" style="width: 70px;">&nbsp;
+      <span>{{::"min" | translate}}</span>
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Heartbeat" data-ng-model="showUserManual.Heartbeat"></user-manual>
+    </div>
+  </div>
+</div>
+<div id="effectiveDuration" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{::"POLICY EFFECTIVE DURATION" | translate}}</span>
+  <i id="icon-policy-effective-duration-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Recur this policy']=true" data-ng-if="pageOptionList['Recur this policy']"></i>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Recur this policy" data-ng-model="showUserManual['Recur this policy']"></user-manual>
+      <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+        <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+          <input type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="policyRecur" data-ng-model="policyRecur.always"
+            data-ng-value="true" data-ng-click="policyRecur.val = 'always'">
+          <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"Always" | translate}}</span>
+        </label>
+        <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+          <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="policyRecur" data-ng-model="policyRecur.specificDays"
+            data-ng-value="true" data-ng-click="policyRecur.val = 'specificDays'">
+          <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"Specific days" | translate}}</span>
+        </label>
+      </div>
+      <div data-ng-show="policyRecur.val == 'specificDays'">
+        <div class="cc-create-page-editor-data cc-user-manual-anchor">
+          <div class="cc-create-page-valid-period">
+            <div class="cc-create-page-valid-period-title">
+              <label>{{::"Valid from" | translate}}&nbsp;
+                <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Valid From']=true" data-ng-if="pageOptionList['Valid From']"></i>
+              </label>
+            </div>
+            <div class="cc-create-page-valid-period-date cc-user-manual-anchor">
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right cc-user-manual-on-half" data-app="{{userManualOption.app}}"
+                data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Valid From" data-ng-model="showUserManual['Valid From']"></user-manual>
+              <div class="input-group">
+                <input name="policyValidityFrom" type="text" class="form-control" uib-datepicker-popup="mediumDate" ng-model="policy.validFrom.date"
+                  is-open="policyValidity.from.popupOpen" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                  readonly max-date="policy.validTo.date">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="policyValidity.from.popupOpen = true">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+              </div>
+              <div class="cc-validation-block" ng-messages="policyForm.val.policyValidityFrom.$error" ng-if="policyForm.val.policyValidityFrom.$touched">
+                <p ng-message="required">{{::"Valid from date" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+              </div>
+            </div>
+            <div class="cc-create-page-valid-period-title to">
+              <label>{{::"to" | translate}}&nbsp;
+                <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Valid To']=true" data-ng-if="pageOptionList['Valid To']"></i>
+              </label>
+            </div>
+            <div class="cc-create-page-valid-period-date cc-user-manual-anchor">
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right cc-user-manual-on-half" data-app="{{userManualOption.app}}"
+                data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Valid To" data-ng-model="showUserManual['Valid To']"></user-manual>
+              <div class="input-group">
+                <input name="policyValidityTo" type="text" class="form-control" uib-datepicker-popup="mediumDate" ng-model="policy.validTo.date"
+                  is-open="policyValidity.to.popupOpen" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                  readonly min-date="policy.validFrom.date" max-date="lastDateOfThisCentury">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="policyValidity.to.popupOpen = true">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+              </div>
+              <div class="cc-validation-block" ng-messages="policyForm.val.policyValidityTo.$error" ng-if="policyForm.val.policyValidityTo.$touched">
+                <p ng-message="required">{{::"Valid to date" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+            <!-- <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+              <select class="form-control cc-create-page-common-select" data-ng-model="policyRecur.recurBy" data-ng-options="recurType.label for recurType in recurrenceOptions" ng-init='!policyRecur.recurBy && (policyRecur.recurBy = recurrenceOptions[0])' data-ng-focus="highlightGrammar('policyName')" style="width: 180px;"> </select>
+            </div> -->
+            <div data-ng-if="policyRecur.recurBy.value == 'recurByDays'" class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+              <div data-ng-repeat="recurBy in recurByDaysOptions" class="btn btn-default cc-ps-policy-recur-by-date" data-ng-class="{checked:recurBy.checked}"
+                data-ng-click="recurBy.checked = !recurBy.checked; setDirty(policyForm.val);">{{recurBy.label}}</div>
+            </div>
+            <!-- <div data-ng-if="policyRecur.recurBy.value == 'recurByDates'" class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+              <span>{{'createpolicy.recur.by.date.part1' | translate}}</span>&nbsp;
+              <input type="number" data-ng-model="policyRecur.recurrenceDateOfMonth" class="cc-create-page-common-input" min="1" max="31" value="1" style="width: 55px;">&nbsp;
+              <span>{{'createpolicy.recur.by.date.part2' | translate}}</span>
+            </div> -->
+          </div>
+          <div class="cc-user-manual-anchor cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+            <div class="cc-create-page-valid-period">
+              <div class="cc-create-page-valid-period-title">
+                <label>{{"Starting from" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Recurrence From']=true" data-ng-if="pageOptionList['Recurrence From']"></i>
+                </label>
+              </div>
+              <div class="cc-create-page-valid-period-date">
+                <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-input cc-user-manual-position-right cc-user-manual-on-half" data-app="{{userManualOption.app}}"
+                    data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Recurrence From"
+                    data-ng-model="showUserManual['Recurrence From']"></user-manual>
+                  <div uib-timepicker ng-model="policyRecur.from" hour-step="1" minute-step="10" show-meridian="true" show-spinners="false"></div>
+                </div>
+              </div>
+              <div class="cc-create-page-valid-period-title to">
+                <label>{{"to" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Recurrence To']=true" data-ng-if="pageOptionList['Recurrence To']"></i>
+                </label>
+              </div>
+              <div class="cc-create-page-valid-period-date">
+                <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-input cc-user-manual-position-right cc-user-manual-on-half" data-app="{{userManualOption.app}}"
+                    data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Recurrence To" data-ng-model="showUserManual['Recurrence To']"></user-manual>
+                  <div uib-timepicker ng-model="policyRecur.to" hour-step="1" minute-step="10" show-meridian="true" show-spinners="false"></div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="cc-validation-block" ng-messages="policyForm.val.policyValidityTo.$error" ng-if="policyForm.val.policyValidityTo.$touched || policyForm.val.policyValidityFrom.$touched">
+              <p ng-message="effectivePeriod">{{"createpolicy.validation.error.time" | translate}}</p>
+            </div>
+          </div>
+          <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+              <input type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="policyTimezone" data-ng-model="policyRecur.pdpPepTimezone"
+                     data-ng-value="true">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"Policy controller/ enforcer time zone" | translate}}</span>
+            </label>
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+              <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="policyTimezone" data-ng-model="policyRecur.pdpPepTimezone"
+                     data-ng-value="false">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"Choose a time zone" | translate}}</span>
+            </label>
+          </div>
+          <div class="cc-user-manual-anchor cc-create-page-editor-data-content cc-create-page-editor-data-content-sub" data-ng-show="!policyRecur.pdpPepTimezone">
+            <label for="selectTimezone">{{"Time Zone" | translate}}</label>
+            <div class="cc-create-page-editor-data-right">
+              <select id="selectTimezone" class="form-control cc-create-page-common-select" data-ng-model="policyRecur.timezone"
+                      data-ng-options="timezone.tzCode as (timezone.tzCode == 'default'? timezone.label: timezone.label + ' ' + timezone.tzCode) for timezone in timezoneList">
+              </select>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                           data-page="{{userManualOption.page}}" key="Connection Type" data-ng-model="showUserManual['Policy Time Zone']"></user-manual>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="policyObligations" class="cc-ps-create-page-editor-title">
+  <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.Obligations" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+  <div class="cc-user-manual-anchor">
+    <label>{{"createpolicy.label.onAllow" | translate}}
+      <i id="icon-policy-obligation-onAllow-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Obligation On Allow']=true"
+        data-ng-if="pageOptionList['Obligation On Allow']"></i>
+    </label>
+    <div class="cc-create-page-editor-data">
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Obligation On Allow" data-ng-model="showUserManual['Obligation On Allow']"></user-manual>
+      <div class="cc-ps-create-page-editor-obligation-box" ng-init="allowDiv = true" data-ng-repeat="(policyModelId, obligationGroup) in policy.allowObligationMap"
+        ng-include="'ui/app/PolicyStudio/Policy/partials/policy-obligation-template.html'" onload="effect='ALLOW'"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="cc-user-manual-anchor">
+    <label>{{"createpolicy.label.onDeny" | translate}}
+      <i id="icon-policy-obligation-onAllow-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Obligation On Deny']=true" data-ng-if="pageOptionList['Obligation On Deny']"></i>
+    </label>
+    </label>
+    <div class="cc-create-page-editor-data">
+      <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Obligation On Deny" data-ng-model="showUserManual['Obligation On Deny']"></user-manual>
+      <div class="cc-ps-create-page-editor-obligation-box" data-ng-repeat="(policyModelId, obligationGroup) in policy.denyObligationMap"
+        ng-include="'ui/app/PolicyStudio/Policy/partials/policy-obligation-template.html'" onload="effect='DENY'"></div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline"> {{"createpolicy.subtitle.DeploymentTargets" | translate}}</span>
+    <i id="icon-policy-deployment-target-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Deployment Targets']=true" data-ng-if="pageOptionList['Deployment Targets']"></i>
+  </div>
+  <div class="cc-ps-create-page-editor-info bottom-input-container">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+      <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+          data-page="{{userManualOption.page}}" key="Deployment Targets" data-ng-model="showUserManual['Deployment Targets']"></user-manual>
+        <div class="cc-create-page-editor-data-content cc-create-page-editor-data-content-sub ">
+          <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+            <input type="radio" checked="checked" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="deployment-type" data-ng-model="policy.manualDeploy"
+            data-ng-value="false">
+            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"createpolicy.label.AutoDeployment" | translate}}</span>
+          </label>
+          <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+            <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="deployment-type" data-ng-model="policy.manualDeploy"
+              data-ng-value="true" data-slide-toggle=".cc-ps-container-deployment-manual" >
+            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"createpolicy.label.ManualDeployment" | translate}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="cc-ps-container-deployment-manual">
+        <div>
+          <go-as-you-type data-item-label="host" data-item-sub-label="typeName" data-check-and-go="false" data-apply-btn-label="APPLY" data-input-max="10000" ng-if="userAccessMap"
+            data-placeholder="{{'createpolicy.input.placeholder.SearchForAvailableEnforcers' | translate}}" onfocus="highlightGrammar('deploymentTargets')"
+            data-char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?', '{', '}']" data-item-key-field="id" data-data-set-save-to="policy.deploymentTargets"
+            data-filters="agentTypes" data-get-latest-options="findAgents" data-show-select-all="true" 
+            data-required="policy.manualDeploy">
+          </go-as-you-type>
+        </div>
+          <div class="cc-validation-block" ng-if="policy.showValidationMessages && policy.deploymentTargets.length == 0">
+            <p>{{"createpolicy.validation.empty.deployment.targets" | translate}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

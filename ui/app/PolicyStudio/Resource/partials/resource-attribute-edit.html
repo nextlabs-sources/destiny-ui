@@ -1,0 +1,55 @@
+<td>
+    <input id="tf-component-type-attribute-name{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="form-control cc-ps-create-page-common-name cc-create-page-common-input" type="text" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="attr.name" data-ng-focus="highlightGrammar('attributesInfo')" name="attributeName_{{$index}}" required ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['attributeName_' + $index].$error" ng-if="resourceTypeForm.val['attributeName_' + $index].$touched">
+    <p ng-message="maxlength"> {{"createResource.attributeName.validation.maxLength" | translate}} </p>
+    <p ng-message="required" id="label-component-type-name-required{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}"> {{"createResource.attributeName.validation.required" | translate}} </p>
+    <p ng-message="pattern"> {{"createResource.attributeName.validation.pattern" | translate}} </p>
+  </div>
+</td>
+<td>
+    <input id="tf-component-type-attribute-shortname{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="form-control cc-ps-create-page-common-sname cc-create-page-common-input" type="text" data-ng-model="attr.shortName" data-ng-focus="highlightGrammar('attributesInfo')" name="attributeShorName_{{$index}}" required ng-maxlength="255" maxlength="255" data-ng-pattern="'[a-zA-Z]+[ -9:;-~]*'" data-ng-disabled = "!attr.editableShortName" data-ng-blur="attr.shortName = attr.shortName && attr.shortName.toLowerCase()" data-ng-changedisabled = "resetInvalidSname()"/>
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['attributeShorName_' + $index].$error" ng-if="resourceTypeForm.val['attributeShorName_' + $index].$touched">
+    <p ng-message="maxlength"> {{"createResource.attributeSName.validation.maxLength" | translate}} </p>
+    <p ng-message="required" id="label-component-type-shortname-required{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}"> {{"createResource.attributeSName.validation.required" | translate}} </p>
+    <p ng-message="pattern"> {{"createResource.shortname.validation.pattern" | translate}} </p>
+    <!-- <p ng-if = "IsSnameValid(attr.shortName)"> "{{attr.shortName}}" {{"createResource.shortname.reservedKeyword" | translate}} </p> -->
+  </div>
+</td>
+<td>
+    <div id="dataType" data-uib-dropdown>
+      <select id="select-component-type-data-type{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="form-control cc-create-page-common-select" data-ng-model="attr.dataType" data-ng-options="type for type in DataTypes" data-ng-focus="highlightGrammar('attributesInfo')" data-ng-change="changeDataType(attr.dataType,$index)"> </select>
+    </div>
+</td>
+<td>
+    <div class="btn-group btn-block" data-uib-dropdown >
+      <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle style="width: 100%; height:34px">
+        <span id="select-component-type-operators{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="cc-ps-dropdown-btn-label">
+       
+        <span class="cc-ps-dropdown-btn-label-content"> {{attr.$operatorLabel}} </span>
+        </span>
+        <span class="cc-ps-dropdown-btn-expand-icon"> </span>
+      </button>
+      <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu user-operator-dropdown" role="menu" data-ng-click="dropdownClicked($event)">
+        <li role="menuitem" data-ng-repeat='op in attr.$dataTypeOperators'>
+          <label class="nobold cc-green-checkbox-radio-label">
+            <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="op.$_checked" value="{{op.label}}" data-ng-true-value="true" name="attributeOperators_{{attrIndex}}" ng-required="attr.operatorConfigs.length == 0" data-ng-change="updateOperator(attr)" />
+            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+              <span class="cc-green-checkbox-radio-bgrd-holder"> </span> {{op.label}} </span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['attributeOperators_' + attrIndex].$error">
+    <p ng-message="required" id="label-component-type-operators-required{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}"> {{"createResource.attributeOperators.validation.required" | translate}} </p>
+  </div>
+</td>
+<td data-ng-hide="true">
+    <input id="expression" class="form-control" type="text" data-ng-model="attr.regExPattern" data-ng-focus="highlightGrammar('attributesInfo')" />
+</td>
+<td class="td-icon">
+  <!-- <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="saveEdit(1)">{{'Update' | translate}}</button>
+  <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="removeAttribute($index)">{{'Cancel' | translate}}</button> -->
+  <i id="btn-component-type-add-to-table{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit(1, attr)" title="Add to table"></i>
+  <i id="btn-component-type-cancel-to-table{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit()" title="Cancel"></i>
+  <!-- <i class="fa fa-trash-o cc-ps-bigger-icon" data-ng-click=""> </i> -->
+</td>

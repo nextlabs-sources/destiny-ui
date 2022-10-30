@@ -1,0 +1,84 @@
+<td>
+  <input class="form-control cc-ps-create-page-common-name cc-create-page-common-input" type="text" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="para.name" name="obligation_{{obliIndex}}_para_{{$index}}_name" required ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']"> </label>
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_name'].$error" ng-if="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_name'].$touched">
+    <p ng-message="maxlength"> {{"createResource.obligation.attr.name.validation.maxLength" | translate}} </p>
+    <p ng-message="required"> {{"createResource.obligation.attr.name.validation.required" | translate}} </p>
+    <p ng-message="pattern"> {{"createResource.obligation.attr.name.validation.pattern" | translate}} </p>
+  </div>
+</td>
+<td>
+  <input class="form-control cc-ps-create-page-common-sname cc-create-page-common-input" type="text" data-ng-model="para.shortName" name="obligation_{{obliIndex}}_para_{{$index}}_sname" required ng-maxlength="255" maxlength="255" data-ng-pattern-disabled="'[a-zA-Z-]+[ -9:;-~]*'" data-ng-disabled="!para.editableShortName" data-ng-changedisabled = "resetInvalidSname()"/> </label>
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_sname'].$error" ng-if="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_sname'].$touched">
+    <p ng-message="maxlength"> {{"createResource.obligation.attr.sname.validation.maxLength" | translate}} </p>
+    <p ng-message="required"> {{"createResource.obligation.attr.sname.validation.required" | translate}} </p>
+    <!-- <p ng-if = "IsSnameValid(para.shortName)"> "{{para.shortName}}" {{"createResource.shortname.reservedKeyword" | translate}} </p> -->
+    <!-- <p ng-message="pattern"> {{"createResource.shortname.validation.pattern" | translate}} </p> -->
+  </div>
+</td>
+<td>
+  <!-- <input class="form-control" type="text" data-ng-model="para.type"/> -->
+  <div data-uib-dropdown>
+    <select class="form-control cc-create-page-common-select" data-ng-model="para.type" data-ng-options="type as type.label for type in ParameterTypes" ng-init='initObligationParamType(para)' data-ng-focus="highlightGrammar('obligationInfo')"> </select>
+  </div>
+  </label>
+</td>
+<td>
+  <div class="" data-ng-if="para.type.val == ParameterTypes[2].val">
+    <input class="form-control cc-create-page-common-input" type="text" data-ng-model="para.listValues" ng-required="true" name="obligation_{{obliIndex}}_para_{{$index}}_listvalue" placeholder="{{'createResource.label.ListValue.placeholder' | translate}}"> </label>
+    <div class="cc-validation-block" ng-messages="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_listvalue'].$error" ng-if="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_listvalue'].$touched">
+      <p ng-message="maxlength"> {{"createResource.obligation.attr.listvalue.validation.maxLength" | translate}} </p>
+      <p ng-message="required"> {{"createResource.obligation.attr.listvalue.validation.required" | translate}} </p>
+    </div>
+</td>
+<td>
+  <input class="form-control cc-create-page-common-input" type="text" data-ng-model="para.defaultValue" name="obligation_{{obliIndex}}_para_{{$index}}_defaultvalue" ng-required="false && para.mandatory"  maxlength="2000"/> </label>
+  <!-- <div class="cc-validation-block" ng-messages="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_defaultvalue'].$error" ng-if="resourceTypeForm.val['obligation_' + obliIndex + '_para_' + $index + '_defaultvalue'].$touched"> -->
+    <!-- <p ng-message="required">{{"createResource.obligation.attr.defaultvalue.validation.required" | translate}}</p> -->
+  <!-- </div> -->
+</td>
+<td>
+    <center>
+      <div class="cc-green-checkbox-radio-box height-100-percent">
+        <label class="nobold ">
+          <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="para.hidden" data-ng-change="resourceTypeForm.val.$setDirty();setDirty()" 
+          data-ng-disabled="!para.hidden && (para.mandatory || para.editable)">
+          <span>
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+          </span>
+        </label>
+      </div>
+    <center>
+</td>
+<td>
+  <center>  
+  <div class="cc-green-checkbox-radio-box height-100-percent">
+    <label class="nobold ">
+      <input type="checkbox" class="cc-green-checkbox-radio" data-ng-change="resourceTypeForm.val.$setDirty();setDirty()" data-ng-model="para.editable" 
+      data-ng-disabled="!para.editable && para.hidden">
+      <span>
+        <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+      </span>
+    </label>
+  </div> 
+  </center> 
+</td>
+<td>
+  <center>  
+  <div class="cc-green-checkbox-radio-box height-100-percent">
+    <label class="nobold ">
+      <input type="checkbox" class="cc-green-checkbox-radio" data-ng-change="resourceTypeForm.val.$setDirty();setDirty()" data-ng-model="para.mandatory" 
+      data-ng-disabled="!para.mandatory && para.hidden">
+      <span>
+        <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+      </span>
+    </label>
+  </div>
+  </center>
+</td>
+<td class="td-icon">
+  <!-- <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="saveEdit(3)">{{'Update' | translate}}</button>
+  <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="removeParameter(obli, $index)">{{'Cancel' | translate}}</button> -->
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit(3, para)" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit()" title="Cancel"></i>
+  
+</td>

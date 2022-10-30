@@ -1,0 +1,111 @@
+<div class="sticky-left-container">
+  <div class="left-container">
+    <a href="" data-ng-click="scrollTo('storeName')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('storeName')}">
+        <label for="storeNameSection"> {{"secureStore.truststore.grammar.section.storeName" | translate}}: </label>
+        <div class="wrapper">
+          <span ng-hide="storeEntry.storeName.length" class="cc-grammar-placeholder">
+            <{{ "secureStore.truststore.grammar.placeHolder.storeName" | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="storeEntry.storeName.length">
+            {{storeEntry.storeName}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('alias')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('alias')}">
+        <label for="aliasSection"> {{"secureStore.truststore.grammar.section.alias" | translate}}: </label>
+        <div class="wrapper">
+          <span ng-hide="storeEntry.alias.length" class="cc-grammar-placeholder">
+            <{{ "secureStore.truststore.grammar.placeHolder.alias" | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="storeEntry.alias.length">
+            {{storeEntry.alias}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('keyAlgorithm')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('keyAlgorithm')}">
+        <label for="keyAlgorithmSection"> {{"secureStore.truststore.grammar.section.keyAlgorithm" | translate}}: </label>
+        <div class="wrapper">
+          <span ng-hide="storeEntry.keyAlgorithm.length" class="cc-grammar-placeholder">
+            <{{ "secureStore.truststore.grammar.placeHolder.keyAlgorithm" | translate}}>
+          </span>
+          <span class="cc-ps-create-page-grammar-content" ng-show="storeEntry.keyAlgorithm.length">
+            {{storeEntry.keyAlgorithm}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('keySize')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('keySize')}">
+        <label for="keySizeSection"> {{"secureStore.truststore.grammar.section.keySize" | translate}}: </label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content">
+            {{storeEntry.keySize}} {{::"bits" | translate}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('signatureAlgorithm')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('signatureAlgorithm')}">
+        <label for="signatureAlgorithmSection"> {{"secureStore.truststore.grammar.section.signatureAlgorithm" | translate}}: </label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content">
+            {{storeEntry.signatureAlgorithm.label}}
+          </span>
+        </div>
+      </div>
+    </a>
+  
+    <a href="" data-ng-click="scrollTo('issuer')" data-ng-show="storeEntry.issuer">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('issuer')}">
+        <label for="issuerSection"> {{"secureStore.truststore.grammar.section.issuer" | translate}}: </label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content">
+            {{storeEntry.issuer}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('validity')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('validity')}">
+        <label for="validitySection"> {{"secureStore.truststore.grammar.section.validityPeriod" | translate}}: </label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content" data-ng-if="!isViewMode">
+            {{storeEntry.validity}} day, start from {{storeEntry.validFrom | date : 'medium'}} 
+          </span>
+          <span class="cc-ps-create-page-grammar-content" data-ng-if="isViewMode">
+            Start from {{storeEntry.validFrom | date : 'medium'}} until {{storeEntry.validUntil | date : 'medium'}}
+          </span>
+        </div>
+      </div>
+    </a>
+    <a href="" data-ng-click="scrollTo('distinguishedName')">
+      <div class="cc-ps-create-page-grammar-row"
+        data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('distinguishedName')}">
+        <label for="distinguishedNameSection"> {{"secureStore.truststore.grammar.section.distinguishedName" | translate}}: </label>
+        <div class="wrapper">
+          <span class="cc-ps-create-page-grammar-content">
+            <span ng-hide="storeEntry.subjectDN.length" class="cc-grammar-placeholder">
+              <{{ "secureStore.truststore.grammar.placeHolder.distinguishedName" | translate}}>
+            </span>
+            <span class="cc-ps-create-page-grammar-content" ng-show="storeEntry.subjectDN.length">
+              {{storeEntry.subjectDN}}
+            </span>
+            </span>
+        </div>
+      </div>
+    </a>
+    
+  </div>
+</div>

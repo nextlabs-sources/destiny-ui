@@ -1,0 +1,16 @@
+<div class="fav-menu-icon" data-ng-mouseenter="showFavMenuList.val=true" data-ng-mouseleave="showFavMenuList.val = false" data-ng-class=" {'highlight':showFavMenuList.val}">
+    <i class="fa fa-star"></i>
+</div>
+<div class="fav-menu-list">
+	<div class="content" data-ng-show="showFavMenuList.val" data-ng-mouseenter="showFavMenuList.val=true" data-ng-mouseleave="showFavMenuList.val = false">
+		<div class="header">
+			<i class="fa fa-plus-circle" style="color:#016701" data-ng-click="addToFav()"></i> <span data-ng-click="addToFav()"> {{'CC.AddToFav' | translate}} </span>
+		</div>
+		<div class="list">
+			<p data-ng-repeat = "page in favList track by $index">
+				<i class="fa fa-minus-circle" data-ng-click="removeFromFav($index)"></i>
+				<a href="javascript:void(0)" data-ng-click="goToFavoritePage(page)" title="{{page.pageTitle}}">{{(page.pageTitle) ? page.pageTitle:page.name}}</a>
+			</p>
+		</div>
+	</div>	
+</div>

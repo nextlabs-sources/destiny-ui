@@ -1,0 +1,256 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="createDelegationPolicyController">
+  <div class="cc-dlg-create-page-container cc-layout-full-height">
+    <div class="no-margin cc-dlg-create-page-title-panel">
+      <div class="cc-dlg-create-page-back-btn-div">
+        <a>
+          <button class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active"
+            data-ng-click="backToDelegationList()">
+            <i class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-dlg-create-page-title">
+        <span data-ng-if="!isEditMode"> {{"delegation.create.title.CreateDelegation" | translate}} </span>
+        <span data-ng-if="isEditMode"> {{ delegation.name }} </span>
+      </div>
+      <div class="cc-dlg-create-page-btn-div">
+        <a class="btn btn-default cc-btn-discard" data-ng-click="discardDelegation()">
+          &nbsp;&nbsp;{{"common.discard" | translate}} </a>
+        <a class="btn btn-default cc-btn-primary" data-ng-click="!saveEnabled || saveDelegation()" data-ng-disabled="!saveEnabled">
+          &nbsp;&nbsp;{{"common.save" | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-dlg-create-page-bottom-panel">
+      <div class="cc-ps-create-page-grammar-div cc-layout-full-height"
+        data-ng-include="'ui/app/Delegation/Policies/partials/grammarSection.html'"></div>
+      <div class="cc-dlg-create-page-editor-div cc-dlg-create-page-editor-content " auto-scroll-to
+        scroll-target-selector=".cc-validation-block>p:first" scroll-top-margin="80">
+        <form class="cc-dlg-create-page-editor-form" name="delegationForm.val" novalidate>
+          <div id="ruleinfo" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{::"delegation.create.subtitle.ruleInfo" | translate}}
+            </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info">
+            <div class="cc-create-page-editor-data cc-user-manual-anchor"
+              ng-class="{ 'has-error': delegationForm.val.delegationName.$touched && delegationForm.val.delegationName.$invalid }">
+              <label for="name"> {{::"common.name" | translate}}:
+                <i id="icon-delegation-name-manual" class="fa cc-about-individual-question fa-question-circle"
+                  data-ng-click="showUserManual['Name']=true" data-ng-if="pageOptionList['Name']"> </i>
+              </label>
+              <input id="name"
+                class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+                placeholder="{{'delegation.create.placeholder.name' | translate}}" data-ng-pattern="'[^~/*$&?\\\\]*'"
+                data-ng-model="delegation.name" name="delegationName" required ng-maxlength="255" maxlength="255"
+                restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+              <div class="cc-validation-block" ng-messages="delegationForm.val.delegationName.$error"
+                ng-if="delegationForm.val.delegationName.$touched">
+                <p ng-message="required"> {{::"delegation.create.validation.name.required" | translate}} </p>
+                <p ng-message="pattern"> {{::"delegation.create.validation.name.pattern" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right"
+                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Name" data-ng-model="showUserManual['Name']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label for="description"> {{::"common.description" | translate}}:&nbsp;
+                <i id="icon-delegation-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                  data-ng-click="showUserManual['Description']=true" data-ng-if="pageOptionList['Description']"> </i>
+              </label>
+              <textarea id="description"
+                class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-dlg-desc-input"
+                placeholder="{{::'delegation.create.placeholder.description' | translate}}"
+                data-ng-model="delegation.description" name="DelegationDesc" ng-maxlength="4000"
+                maxlength="4000"> </textarea>
+              <div class="cc-validation-block" ng-messages="delegationForm.val.DelegationDesc.$error"
+                ng-if="delegationForm.val.DelegationDesc.$touched">
+                <p ng-message="maxlength"> {{::"delegation.create.DelegationDesc.validation.maxLength" | translate}}
+                </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right"
+                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Description" data-ng-model="showUserManual['Description']">
+              </user-manual>
+            </div>
+          </div>
+          <div id="conditions" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{::"delegation.create.subtitle.conditions" | translate}}
+            </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info ">
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label for="effect">{{::"delegation.create.subtitle.RuleEffect" | translate}}:&nbsp;
+                <i id="icon-delegation-rule-effect-manual" class="fa cc-about-individual-question fa-question-circle"
+                  data-ng-click="showUserManual['Rule Effect']=true" data-ng-if="pageOptionList['Rule Effect']"></i>
+              </label>
+              <p id="effect" class="cc-ps-search-text-container cc-create-page-editor-data-right">
+                <span class="cc-ps-policy-effect-switch">
+                  <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(policyForm)"
+                    data-ng-model="delegation.allow"></switch>
+                </span>
+                <input id="switch-delegation-effect" type="hidden" data-ng-model="delegation.allow" data-ng-focus="highlightGrammar('policyEffect')">
+                <span data-translate="delegation.create.label.effect"
+                  data-translate-value-allow="{{delegation.allow}}"></span>
+              </p>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right"
+                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Rule Effect" data-ng-model="showUserManual['Rule Effect']">
+              </user-manual>
+            </div>
+            <div class="cc-dlg-create-page-editor-data cc-user-manual-anchor">
+              <label class="condition-label" for="effect">
+                <span translate="delegation.create.desc.chooseuser"
+                  translate-value-install-mode="{{installMode}}"></span>
+                <i id="icon-delegation-user-conditions-manual" class="fa cc-about-individual-question fa-question-circle"
+                  data-ng-click="showUserManual['User Conditions']=true"
+                  data-ng-if="pageOptionList['User Conditions']"></i>
+              </label>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right"
+                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="User Conditions"
+                data-ng-model="showUserManual['User Conditions']"></user-manual>
+              <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor">
+                <p class="table-message" data-ng-class="{'success':conditionTable.success,'error':conditionTable.error}"
+                  data-ng-show="conditionTable.notify">{{conditionTable.message}}</p>
+                <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Characteristics of a user that may be referenced in delegation policy creation
+                    </p>
+                    <p class="count" data-ng-if="delegation.user_conditions.length">
+                      {{delegation.user_conditions.length}}
+                      {{(delegation.user_conditions.length > 1) ? 'Conditions': 'Condition'}}</p>
+                  </div>
+                  <input class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD CONDITION"
+                    data-ng-click="addUserAttrCondition(delegation.user_conditions.length+1);conditionTable.dirty = true;"
+                    data-ng-disabled="editItem.$$hashKey" />
+                </div>
+
+                <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+                  <thead>
+                    <tr>
+                      <th style="width:30%">{{"Name" | translate}}</th>
+                      <th style="width:15%">{{"Operator" | translate}}</th>
+                      <th style="width:47%">{{"Value" | translate}}</th>
+                      <th style="width:8%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="" ng-repeat="con in delegation.user_conditions track by $index" ng-init="cIndex = $index"
+                      data-ng-include="editItem.$$hashKey == con.$$hashKey ? 'ui/app/Delegation/Users/template/user-condition-edit.html' : 'ui/app/Delegation/Users/template/user-condition-view.html'">
+                    </tr>
+                    <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                      <td colspan="5">
+                        <a href="javascript:void(0)"
+                          data-ng-click="addUserAttrCondition(delegation.user_conditions.length+1);conditionTable.dirty = true;">+
+                          {{'Add Condition' | translate}}</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="actions">
+                  <p class="notification" data-ng-show="multivalNotification.show"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{multivalNotification.message}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- New UI starts -->
+          <div id="conditions" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{::"MODULES" | translate}} </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info admin-bottom-input-container" style="max-width: calc(100% - 85px);">
+            <uib-tabset class="" id="rules" active="tabs.activeTab" justified="true">
+              <uib-tab id="{{tab.tabName.replace(' ', '_') + '_TAB' | uppercase}}" select="highlightGrammar('attributesInfo');selectTab($index)" deselect="deselectTab($index)"
+                class="" data-ng-repeat="tab in tabConfig">
+                <uib-tab-heading>
+                  <span class="cc-nobreak"> {{tab.tabName}} </span>
+                </uib-tab-heading>
+                <div class="cc-dlg-create-tab-container cc-user-manual-anchor" ng-if="tab.tabIndex === 0"
+                  data-ng-include="'ui/app/Delegation/Policies/partials/foldersTab.html'"></div>
+                <div class="cc-dlg-create-tab-container cc-user-manual-anchor" ng-if="tab.tabIndex !== 0">
+                  <div class="actions">
+                    <div data-ng-repeat="resComp in tab.resourceComponents" class="display-inline"
+                      ng-if="showResourceComponents(resComp)">
+                      <label class="action-label"><span>Permission on
+                          {{(tab.tabIndex <= 3) ? tab.tabName : resComp.name | lowercase}}</span></label>
+                      <div class="action-container">
+                        <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+                          <label class="nobold " data-ng-if="resComp.actionComponents.length > 1">
+                            <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                              data-ng-model="resComp.allActionsSelected" data-ng-change="onCheckActionAll(resComp)">
+                            <span>
+                              <span id="{{resComp.shortName + '_ALL'}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                              All
+                            </span>
+                          </label>
+                        </div>
+                        <div data-ng-class="{'action-container-has-all' : resComp.actionComponents.length > 1}"
+                            data-ng-repeat="actionComp in resComp.actionComponents | orderBy: sortActions">
+                          <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+                            <label class="nobold" data-ng-if="resComp.shortName !== 'POLICY_MODEL'">
+                              <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                              data-ng-model="actionComp.checked" data-ng-disabled="actionComp.disabled"
+                              data-ng-change="onCheckAction(resComp,actionComp,actionComp.checked)">
+                              <span data-ng-if="actionComp.shortName === 'CREATE_POLICY_MODEL_TAG'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{"delegation.create.component.type.tags" | translate}}
+                              </span>
+                              <span data-ng-if="actionComp.shortName !== 'CREATE_POLICY_MODEL_TAG'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{actionComp.name}}
+                              </span>
+                            </label>
+                            <label class="nobold" data-ng-if="resComp.shortName === 'POLICY_MODEL'">
+                              <input type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="actionComp.checked"
+                                data-ng-disabled="actionComp.disabled" data-ng-change="onCheckAction(resComp,actionComp,actionComp.checked)">
+                              <span data-ng-if="actionComp.shortName === 'VIEW_POLICY_MODEL'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{"delegation.view.component.type" | translate}}
+                              </span>
+                              <span data-ng-if="actionComp.shortName === 'CREATE_POLICY_MODEL'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{"delegation.create.component.type" | translate}}
+                              </span>
+                              <span data-ng-if="actionComp.shortName === 'EDIT_POLICY_MODEL'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{"delegation.edit.component.type" | translate}}
+                              </span>
+                              <span data-ng-if="actionComp.shortName === 'DELETE_POLICY_MODEL'">
+                                <span id="{{actionComp.shortName}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                {{"delegation.delete.component.type" | translate}}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p data-ng-show="tabs.hasFolderError" class="error"> In order to select folders, at least one action needs to be
+                        selected </p>
+                    <div class="paramter-block cc-delegation-bottom-padding" data-ng-if="tab.foldersConfig.length">
+                        <div class="cc-ps-search-text-container tag-container tag cc-create-page-common-del-anchor go-as-you-type-has-condition paramter"
+                            data-ng-repeat="foldersObj in tab.foldersConfig">
+                            <div data-ng-include="'ui/app/Delegation/Policies/partials/foldersSection.html'"></div>
+                            <i class="fa fa-times-circle-o cc-create-page-common-del-icon remove-tag-condition" data-ng-show="tab.foldersConfig.length > 1"
+                                data-ng-click="removeFolderCondition(tab.foldersConfig, $index)"></i>
+                            <div class="and-label" data-ng-show="tab.foldersConfig.length > 1  && $index < tab.foldersConfig.length - 1">AND</div>
+                        </div>
+                        <button id="add-folder-{{tab.tabName | id}}-condition" href="javascript:void(0)" class="cc-btn-add-condition" data-ng-if="tab.foldersConfig.length"
+                          data-ng-click="addFolderCondition(tab, tab.tabName)">
+                          {{::'Add Condition' | translate}}</button>
+                        <br>
+                    </div>
+                    <div data-ng-include="'ui/app/Delegation/Policies/partials/tagsSection.html'"></div>
+                    <p data-ng-class="tab.tabName !== 'Reports' ? 'notification-open': 'notification'"
+                      data-ng-show="actionNotification.show"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                      {{actionNotification.message}}</p>
+                    </div>
+                </div>
+              </uib-tab>
+            </uib-tabset>
+          </div>
+          <!-- New UI ends -->
+        </form>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

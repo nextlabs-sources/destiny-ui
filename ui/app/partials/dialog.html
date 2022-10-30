@@ -1,0 +1,15 @@
+<div class="modal-header" data-ng-if="title">
+    <h3 class="modal-title">{{ title }}</h3>
+</div>
+<div class="modal-body" data-ng-if="msg" data-ng-bind-html="msg">
+    <!-- {{ msg }} -->
+</div>
+<div class="modal-footer">
+    <span data-ng-if="buttonList.length">
+	    <button id="btn-{{btn.label | id}}" data-ng-repeat="btn in buttonList" class="btn btn-default" data-ng-class="btn.class" ng-click="clickButton(btn)">{{::btn.label}}</button>
+	</span>
+    <span data-ng-if="!buttonList.length">
+	    <button id="btn-dialog-cancel" class="btn btn-primary" type="button" ng-click="ok()">{{confirmLabel ? confirmLabel : "PS.CONFIRM" | translate}}</button>
+	    <button id="btn-dialog-confirm" class="btn btn-warning" type="button" ng-click="cancel()">{{cancelLabel ? cancelLabel : "PS.CANCEL" | translate}}</button>
+	</span>
+</div>

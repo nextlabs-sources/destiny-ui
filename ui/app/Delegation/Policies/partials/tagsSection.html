@@ -1,0 +1,25 @@
+<p data-ng-show="tabs.hasTagError" class="error"> In order to apply tags, atleast one action needs to be
+    selected </p>
+<div class="paramter-block" data-ng-if="tab.tagsConfig.length">
+    <div class="cc-ps-search-text-container tag-container tag cc-create-page-common-del-anchor go-as-you-type-has-condition paramter"
+        data-ng-repeat="tagsObj in tab.tagsConfig">
+        <div class="btn-group cc-dlg-obligation-condition">
+            <select class="form-control cc-create-page-common-select" data-ng-model="tagsObj.condition"
+                data-ng-options="attribute.attr for attribute in attributes"> </select>
+        </div>&nbsp;&nbsp;
+        <go-as-you-type data-item-label="label" data-check-and-go="false" data-apply-btn-label="APPLY"
+            data-add-new-btn-label="NEW TAG" data-item-key-field="id" data-newitem-function="tab.addTagFunction"
+            data-data-set-save-to="tagsObj.selectedTags"
+            data-placeholder="{{tagsObj.selectedTags.length ? 'Add Tag' : 'All Tags'}}" data-input-max="255"
+            data-get-latest-options="tab.getDelegationTags" data-is-tag="true" ng-if="userAccessMap"
+            create-new="userAccessMap[tab.createTagPermissionKey]"
+            char-list-not-allowed="['~', '/', '*', '&', '\\', '?']"></go-as-you-type>
+        <i class="fa fa-times-circle-o cc-create-page-common-del-icon remove-tag-condition"
+            data-ng-show="tab.tagsConfig.length > 1" data-ng-click="removeTagCondition(tab.tagsConfig, $index)"></i>
+        <div class="and-label" data-ng-show="tab.tagsConfig.length > 1  && $index < tab.tagsConfig.length - 1">AND</div>
+    </div>
+    <button id="add-{{tab.tabName | id}}-tag-condition" href="javascript:void(0)" class="cc-btn-add-condition" data-ng-if="tab.tagsConfig.length"
+        data-ng-click="addTagCondition(tab.tagsConfig)">
+        {{::'Add Condition' | translate}}</button>
+    <br>
+</div>

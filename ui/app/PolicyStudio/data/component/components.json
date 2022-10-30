@@ -1,0 +1,118 @@
+{
+  "data": [{
+    "id": 1,
+    "title": "Restricted Access",
+    "description": "This policy deny unauthorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "effect": "Deny",
+    "status": "deployed",
+    "lastUpdatedDate": 1447316970000,
+    "createdTime": 1447316970000,
+    "hasSubComponents": true,
+    "type": "DOCUMENT",
+    "subComponents": [{
+      "id": 5,
+      "title": "Restricted Access With a long name"
+    }, {
+      "id": 6,
+      "title": "Allowed Access With a really looooooooooooooong name"
+    }, {
+      "id": 7,
+      "title": "Temp Access"
+    }, {
+      "id": 5,
+      "title": "Restricted Access With a long name"
+    }, {
+      "id": 6,
+      "title": "Allowed Access With a really looooooooooooooong name"
+    }, {
+      "id": 7,
+      "title": "Temp Access"
+    }]
+  }, {
+    "id": 2,
+    "title": "Restricted Access 2",
+    "description": "This policy, as well, deny unauthorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "hasParent": true,
+    "parent": {
+      "id": 1,
+      "title": "Restricted Access"
+    },
+    "effect": "Deny",
+    "status": "deployed",
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000,
+    "hasSubComponents": true,
+    "type": "DOCUMENT",
+    "subComponents": [{
+      "id": 3,
+      "title": "Allowed Access With a really looooooooooooooong name"
+    }, {
+      "id": 4,
+      "title": "Temp Access"
+    }]
+  }, {
+    "id": 3,
+    "title": "Allowed Access",
+    "description": "This policy allows authorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "hasSubComponents": false,
+    "type": "SAP",
+    "effect": "Allow",
+    "status": "saved",
+    "lastUpdatedDate": 1447111970000,
+    "createdTime": 1447111970000
+  }, {
+    "id": 4,
+    "title": "Temp Access",
+    "description": "This policy allows tempraray authorized access",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "effect": "Allow",
+    "status": "saved",
+    "lastUpdatedDate": 1447221970000,
+    "lastModifiedBy": "A",
+    "createdTime": 1447221970000,
+    "type": "ENOVIA",
+    "hasSubComponents": false
+  }],
+  "startFrom": 1,
+  "pageSize": 4,
+  "totalNoOfRecords": 9
+}

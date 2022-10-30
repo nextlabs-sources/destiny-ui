@@ -1,0 +1,39 @@
+<div class="cc-ps-policy">
+    <div class="cc-ps-policy-parent">
+        <div class="cc-ps-policy-content-container">
+            <div class="cc-ps-policy-content">
+                <div class="cc-ps-logger-name-desc">
+                    <p class="cc-ps-log-name"><span data-ng-if="logConfig.displayName.length"
+                            title="{{logConfig.displayName}}">{{logConfig.displayName}}</span>
+                    </p>
+                    <p class="cc-ps-log-name"><span data-ng-if="!logConfig.displayName.length"
+                        title="{{logConfig.name}}">{{logConfig.name}}</span>
+                    </p>
+                    <p class="cc-ps-pkg-name" data-ng-if="logConfig.displayName.length"><small title="{{logConfig.name}}">{{logConfig.name}}</small></p>
+                    <div>
+                        <div class="cc-ps-appender" data-ng-repeat="appender in logConfig.appenders">
+                            <div class="cc-ps-appender-text">{{appender.type}} : {{appender.name}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cc-level" class="cc-inline cc-ps-align-right">
+                    <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-log-level"
+                        id="cc-level-select" uib-dropdown>
+                        <button class="form-control cc-ps-log-button" id="cc-log-level" type="button" data-uib-dropdown-toggle>
+                            <span
+                                class="cc-ps-dropdown-btn-label cc-ps-dropdown-btn-level {{logConfig.level | lowercase}}">{{logConfig.level}}</span>
+                            <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                        </button>
+                        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu"
+                            aria-labelledby="">
+                            <li role="menuitem" data-ng-repeat="s in searchOptions.levelOptions"
+                                class="cc-ps-dropdown-btn-level {{s.name | lowercase}}"
+                                data-ng-click="logConfig.level = s.name;setDirty(logConfigForm.val, logConfig);" class="cc-ps-clickable-dropdown">{{s.label}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

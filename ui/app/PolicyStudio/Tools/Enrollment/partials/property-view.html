@@ -1,0 +1,26 @@
+<td>
+    <div data-ng-if="!prop.preSeeded" style="height:40px; padding-top: 10px;">
+        <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+            <input id="checkbox-property-{{prop.label | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="prop.checked"
+                data-ng-checked="allPropertiesChecked" data-ng-change="checkProperty(prop)"><span><span
+                    id="checkbox-span-property-{{prop.label | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+        </label>
+    </div>
+</td>
+<td style="height:40px; padding-top: 10px;">
+    <span id="checkbox-property-parentName-{{prop.label | id}}">{{prop.parentName}}</span>
+</td>
+<td style="height:40px; padding-top: 10px;">
+    <span id="checkbox-property-label-{{prop.label | id}}">{{prop.label}}</span>
+</td>
+<td style="height:40px; padding-top: 10px;">
+    <span id="checkbox-property-name-{{prop.label | id}}">{{prop.name}}</span>
+</td>
+<td style="height:40px; padding-top: 10px;">
+    <span id="checkbox-property-type-{{prop.label | id}}">{{prop.type}}</span>
+ 
+</td>
+<td class="td-icon">
+    <i id="property-btn-edit-{{prop.label | id}}" data-ng-if="!prop.preSeeded" class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="updateProperty(prop)" title="Edit"></i>
+    <i id="property-btn-delete-{{prop.label | id}}" data-ng-if="!prop.preSeeded" class="fa fa-trash-o" data-ng-click="deleteProperty(prop, $index)" title="Delete"> </i>
+</td>

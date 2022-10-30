@@ -1,0 +1,41 @@
+{
+  "statusCode": "1003",
+  "message": "Data found successfully",
+  "data": [{
+    "id": 479,
+    "name": "ITAR Docs De2",
+    "desc": "All ITAR Docs de2 lists ",
+    "criteria": {
+      "fields": [{
+        "field": "effect",
+        "type": "MULTI",
+        "value": ["ALLOW", "DENY"]
+      }, {
+        "field": "status",
+        "type": "SINGLE",
+        "value": "SUBMITTED"
+      }, {
+        "field": "modifiedDate",
+        "type": "DATE",
+        "value": {
+          "fromDate": "2015-10-11",	
+          "toDate": "2015-11-11",
+          "dateOption": "PAST_7_DAYS"
+        }
+      }],
+      "sortFields": [{
+        "field": "name",
+        "order": "ASC"
+      }],
+      "columns": ["Name", "Tags", "Date", "effect"],
+      "startPos": 0,
+      "pageSize": 20
+    },
+    "status": "ACTIVE",
+    "sharedMode": "USERS",
+    "userIds": ["Amila", "Nethma"]
+  }],
+  "startFrom": 0,
+  "pageSize": -1,
+  "totalNoOfRecords": 1
+}

@@ -1,0 +1,33 @@
+<td>
+    <div data-ng-if="selectedConfigType.value == 'OIDC'" class="cc-create-page-editor-data-component-condition-attr cc-ps-dropdown-grp"
+        style="width:100%">
+        <input type="text" name="ea_{{$index}}" style="height:34px;" data-ng-model="attr.externalAttribute" autocomplete="off" uib-typeahead="a for a in externalAttributeList | filter:$viewValue | filter:notSelected | orderBy:$viewValue"
+            typeahead-min-length="0" typeahead-wait-ms="300" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user"
+            required maxlength="255">
+        <div class="cc-validation-block" ng-messages="userForm.val['attribute_key_' + $index].$error" ng-if="userForm.val['attribute_key_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.external.required" | translate}}</p>
+        </div>
+    </div>
+
+   <div data-ng-if = "selectedConfigType.value == 'LDAP'" class="cc-create-page-editor-data-component-condition-attr cc-ps-dropdown-grp" data-uib-dropdown>
+      <select class="form-control cc-create-page-common-select"  data-ng-model="attr.externalAttribute" data-ng-options="a for a in externalAttributeList" ng-init='!attr.externalAttribute && (attr.externalAttribute = externalAttributeList[0])' data-ng-focus="highlightGrammar('users')"  name="ea_{{$index}}" required> </select>
+      <div class="cc-validation-block" ng-messages="configForm.val['ea_' + $index].$error" ng-if="configForm.val['ea_' + $index].$touched">
+          <p ng-message="required">{{::"delegation.loginConfig.validation.attr.external.required" | translate}}</p>
+      </div>
+    </div>    
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <input type="text" name="ia_{{$index}}" style="height:34px;" ng-model="attr.internalAttribute" autocomplete="off" uib-typeahead="a for a in internalAttributeList | filter:$viewValue | filter:notSelected | orderBy:$viewValue" 
+            typeahead-min-length="0" typeahead-wait-ms="300" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255">
+        <div class="cc-validation-block" ng-messages="configForm.val['ia_' + $index].$error" ng-if="configForm.val['ia_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.internal.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td class="td-icon">
+  
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="resetAttributeEdit()" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="removeAttribute($index)" title="Cancel"></i>
+  
+</td>

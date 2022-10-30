@@ -1,0 +1,59 @@
+<div class="modal-header" data-ng-if="title">
+    <h3 class="modal-title">{{ title }}</h3>
+</div>
+<div class="container-fluid cc-environment-container">
+    <div class="row" ng-show="environments.length !== 0">
+        <label for="migrateMechanism" class="col-sm-4 control-label">{{"environment.migrate.mechanism.label" | translate}}</label>
+        <span>
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px; padding-right: 30px;">
+                <input id="partial" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                    data-ng-model="mechanism" value="PARTIAL" data-ng-change="setMechanism('PARTIAL')">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span id="btn-partial-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                    <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                        {{"environment.migrate.mechanism.partial" | translate}}
+                    </span>
+                </span>
+            </label>
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px;">
+                <input id="full" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                    data-ng-model="mechanism" value="FULL" data-ng-change="setMechanism('FULL')">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span id="btn-full-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                    <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                        {{"environment.migrate.mechanism.full" | translate}}
+                    </span>
+                </span>
+            </label>
+        </span>
+    </div>
+    <div class="row" ng-show="environments.length !== 0" style="padding-top: 30px;">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 cc-environment-no-padding"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cc-environment-dialog-header">{{"environment.label.environment" | translate}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cc-environment-dialog-header">{{"environment.label.hostname" | translate }}</div>
+    </div>
+    <div ng-show="environments.length !== 0" class="cc-environment-dialog-row" ng-repeat="environment in environments">
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 cc-environment-no-padding">
+                <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                    <input class="cc-green-checkbox-radio" type="radio"
+                        ng-model="chosenEnvironment.selectedOccurrence" ng-value="environment"
+                        ng-change="migrateBtnEnabled()" name="environmentRadioButton">
+                    <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                        <span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                </label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cc-environment-dialog-list">
+                {{environment.name}}</div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cc-environment-dialog-list">
+                {{environment.host}}</div>
+        </div>
+    </div>
+    <div ng-show="environments.length === 0" id="label-dashboard-enrollment-no-data" class="cc-environment-no-data-dialog">{{'environment.no.data.mask' | translate}} </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-policy-migrate-cancel" class="btn btn-default cc-btn-discard" type="button"
+        ng-click="cancel()">{{cancelLabel ? cancelLabel : "PS.CANCEL" | translate}}</button>
+    <button id="btn-policy-migrate-confirm" ng-disabled="migrateBtn || environments.length === 0" class="btn btn-default cc-btn-primary" type="button"
+        ng-click="ok()">{{confirmLabel ? confirmLabel : "PS.CONFIRM" | translate}}</button>
+</div>

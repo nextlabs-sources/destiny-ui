@@ -1,0 +1,24 @@
+<td>
+  <input class="form-control cc-ps-create-page-common-name cc-create-page-common-input" type="text" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="action.name" data-ng-focus="highlightGrammar('actionInfo')" name="action_{{$index}}_name" required ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['action_' + $index + '_name'].$error" ng-if="resourceTypeForm.val['action_' + $index + '_name'].$touched">
+    <p ng-message="maxlength"> {{"createResource.action.name.validation.maxLength" | translate}} </p>
+    <p ng-message="required"> {{"createResource.action.name.validation.required" | translate}} </p>
+    <p ng-message="pattern"> {{"createResource.action.name.validation.pattern" | translate}} </p>
+  </div>
+</td>
+<td>
+  <input class="form-control cc-ps-create-page-common-sname cc-create-page-common-input" type="text" data-ng-model="action.shortName" data-ng-focus="highlightGrammar('actionInfo')" name="action_{{$index}}_sname" required ng-maxlength="255" maxlength="255" data-ng-pattern="'[a-zA-Z]+[\\d\\w_]*'" data-ng-disabled = "!action.editableShortName" data-ng-blur="action.shortName = action.shortName && action.shortName.toUpperCase()" data-ng-change = "resetInvalidSname()"/>
+  <div class="cc-validation-block" ng-messages="resourceTypeForm.val['action_' + $index + '_sname'].$error" ng-if="resourceTypeForm.val['action_' + $index + '_sname'].$touched">
+    <p ng-message="maxlength"> {{"createResource.action.sname.validation.maxLength" | translate}} </p>
+    <p ng-message="required"> {{"createResource.action.sname.validation.required" | translate}} </p>
+    <p ng-message="pattern"> {{"createResource.shortname.alphanumeric.validation.pattern" | translate}} </p>
+    <p ng-if = "IsSnameValid(action.shortName)"> "{{action.shortName}}" {{"createResource.shortname.reservedKeyword" | translate}} </p>
+  </div>
+</td>
+<td class="td-icon">
+  <!-- <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="saveEdit(2)">{{'Update' | translate}}</button>
+  <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="removeAction($index)">{{'Cancel' | translate}}</button> -->
+  <i class="fa fa-check-circle-o add" aria-hidden="true" data-ng-click="saveEdit(2, action)" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit()" title="Cancel"></i>
+ <!--  <i class="fa fa-trash-o cc-ps-bigger-icon" data-ng-show='resource.actions.length >= 1' data-ng-click="removeAction($index)"> </i> -->
+</td>

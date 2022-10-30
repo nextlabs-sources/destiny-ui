@@ -1,0 +1,137 @@
+<div data-ng-repeat="(configSubCategory, configList) in sysConfig" ng-init="parentIndex = $index" class="cc-pv-create-page-filter-policy-panel">
+    <div id="{{configSubCategory | id}}" class="cc-ps-create-page-editor-title">
+        <span id="label-{{configSubCategory | id}}" class="cc-ps-create-page-title-underline"> {{'sysconfig.' + configSubCategory | translate}}</span>
+    </div>
+    <div data-ng-repeat="config in configList | orderBy:'configOrder' track by $index ">
+        <div class="cc-ps-create-page-editor-info">
+            <div class="cc-edit-page-editor-data cc-user-manual-anchor"
+                data-ng-if="config.fieldType !== 'select' && config.fieldType !== 'checkbox' && config.fieldType !== 'password' && config.fieldType !== 'textarea'">
+                <label id="label-{{config.application | id}}-{{config.configKey | id}}" for="config_{{parentIndex}}{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}
+                    <i id="btn-{{config.application | id}}-{{config.configKey | id}}-manual" class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual[config.configKey]=true"
+                        data-ng-if="pageOptionList[config.configKey]"></i>
+                </label>
+                <input id="tf-{{config.application | id}}-{{config.configKey | id}}" type="{{config.fieldType}}"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+                    placeholder="{{'sysconfig.' + config.application + '.' + config.configKey | translate}}" data-ng-pattern="config.pattern"
+                    data-ng-model="config.value" data-ng-required="config.required"
+                    data-ng-focus="highlightGrammar('{{configSubCategory}}')" name="config_{{parentIndex}}{{$index}}"
+                    data-ng-disabled="{{config.readOnly}}" data-ng-change="config.$dirty = true;"
+                    data-ng-keypress="preventNonNumericalInput($event, config.fieldType)">
+                <div data-ng-show="showUserManual[config.configKey]" class="cc-user-manual cc-user-manual-input cc-user-manual-position-right" data-ng-if="pageOptionList[config.configKey]">
+                    <span>
+                        <span id="label-{{config.application | id}}-{{config.configKey | id}}-manual" data-ng-bind-html="pageOptionList[config.configKey]"></span> <span class="cc-user-manual-close">
+                            <i id="btn-{{config.application | id}}-{{config.configKey | id}}-close-manual" class="fa fa-times-circle" data-ng-click="closeManual(config.configKey)"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="cc-validation-block"
+                    ng-messages="sysConfigForm.val['config_' + parentIndex + $index].$error"
+                    ng-if="sysConfigForm.val['config_' + parentIndex + $index].$touched">
+                    <p ng-message="required">{{"editsysconfig.sysconfig.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"editsysconfig.sysconfig.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+            <div class="cc-edit-page-editor-data cc-user-manual-anchor" data-ng-if="config.fieldType === 'password'">
+                <label id="label-{{config.application | id}}-{{config.configKey | id}}"
+                    for="config_{{parentIndex}}{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}
+                    <i id="btn-{{config.application | id}}-{{config.configKey | id}}-manual"  class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual[config.configKey]=true" data-ng-if="pageOptionList[config.configKey]"></i>
+                </label>
+                <input id="tf-{{config.application | id}}-{{config.configKey | id}}" type="{{config.inputType}}"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+                    placeholder="{{'sysconfig.' + config.application + '.' + config.configKey | translate}}"
+                    data-ng-pattern="config.$dirty ? config.pattern : ''" data-ng-model="config.value"
+                    data-ng-required="config.required"
+                    data-ng-focus="highlightGrammar('{{configSubCategory}}')" name="config_{{parentIndex}}{{$index}}"
+                    data-ng-disabled="{{config.readOnly}}" data-ng-change="showEyeIcon(config);"
+                    data-ng-click="removeDummyMask(config)" data-ng-blur="addDummyMask(config)">
+                <div class="cc-password-input-icons">
+                    <span ng-if="config.showEye" ng-click="toggleShowPassword(config)"
+                        class="cc-show-password-input-eye {{config.showHideClass}}" data-ng-class="{'cc-password-eye-shift-left' : !config.valueEmpty}">
+                    </span>
+                    <span ng-if="!config.valueEmpty && !config.required" ng-click="removePassword(config); setDirty(sysConfigForm.val, config);"
+                        title="Remove existing value" class="glyphicon glyphicon-trash">
+                    </span>
+                </div>
+                <div data-ng-show="showUserManual[config.configKey]"
+                    class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+                    data-ng-if="pageOptionList[config.configKey]">
+                    <span>
+                        <span id="label-{{config.application | id}}-{{config.configKey | id}}-manual" data-ng-bind-html="pageOptionList[config.configKey]"></span> <span class="cc-user-manual-close">
+                            <i id="btn-{{config.application | id}}-{{config.configKey | id}}-close-manual" class="fa fa-times-circle" data-ng-click="closeManual(config.configKey)"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="cc-validation-block" ng-messages="sysConfigForm.val['config_' + parentIndex + $index].$error"
+                    ng-if="sysConfigForm.val['config_' + parentIndex + $index].$touched">
+                    <p ng-message="required">{{"editsysconfig.sysconfig.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"editsysconfig.sysconfig.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+            <div class="cc-edit-page-editor-data cc-user-manual-anchor" data-ng-if="config.fieldType === 'textarea'">
+                <label id="label-{{config.application | id}}-{{config.configKey | id}}" for="config_{{parentIndex}}{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}
+                    <i id="btn-{{config.application | id}}-{{config.configKey | id}}-manual" class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual[config.configKey]=true"
+                        data-ng-if="pageOptionList[config.configKey]"></i>
+                </label>
+                <textarea id="ta-{{config.application | id}}-{{config.configKey | id}}" style="height: 500px;" id="config_{{parentIndex}}{{$index}}"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right"
+                    placeholder="{{'sysconfig.' + config.application + '.' + config.configKey | translate}}" data-ng-model="config.value"
+                    data-ng-focus="highlightGrammar('{{configSubCategory}}')"
+                    data-ng-change="config.$dirty = true;"></textarea>
+                <div data-ng-show="showUserManual[config.configKey]" class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+                    data-ng-if="pageOptionList[config.configKey]">
+                    <span>
+                        <span id="label-{{config.application | id}}-{{config.configKey | id}}-manual" data-ng-bind-html="pageOptionList[config.configKey]"></span> <span class="cc-user-manual-close">
+                            <i id="btn-{{config.application | id}}-{{config.configKey | id}}-close-manual" class="fa fa-times-circle" data-ng-click="closeManual(config.configKey)"></i>
+                        </span>
+                    </span>
+                </div>
+                </user-manual>
+            </div>
+            <div class="cc-edit-page-editor-data cc-user-manual-anchor" data-ng-if="config.fieldType === 'select'">
+                <label id="label-{{config.application | id}}-{{config.configKey | id}}" for="config_{{parentIndex}}{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}
+                    <i id="btn-{{config.application | id}}-{{config.configKey | id}}-manual" class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual[config.configKey]=true"
+                        data-ng-if="pageOptionList[config.configKey]"></i>
+                </label>
+                <div class="cc-create-page-editor-data-right">
+                    <select id="select-{{config.application | id}}-{{config.configKey | id}}" class="form-control cc-create-page-common-select" data-ng-model="config.value"
+                        data-ng-options="'sysconfig.'+ config.configKey + '.' + option | translate for option in config.options"
+                        data-ng-focus="highlightGrammar('{{configSubCategory}}')" style="width: 210px;"
+                        data-ng-change="config.$dirty = true;"> </select>
+                    <div data-ng-show="showUserManual[config.configKey]" class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+                        data-ng-if="pageOptionList[config.configKey]">
+                        <span>
+                            <span id="label-{{config.application | id}}-{{config.configKey | id}}-manual" data-ng-bind-html="pageOptionList[config.configKey]"></span> <span class="cc-user-manual-close">
+                                <i id="btn-{{config.application | id}}-{{config.configKey | id}}-close-manual" class="fa fa-times-circle" data-ng-click="closeManual(config.configKey)"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="cc-edit-page-editor-data cc-user-manual-anchor" data-ng-if="config.fieldType === 'checkbox'">
+                <div class="cc-user-manual-anchor">
+                    <switch id="switch-system-{{config.application | id}}-{{config.configKey | id}}" class="cc-ps-search-switch-include-sub"
+                        data-ng-change="setDirty(sysConfigForm.val, config)" data-ng-model="config.value"
+                        data-slide-toggle=".cc-ps-and-recipient-container"></switch>
+                    &nbsp;
+                    <label id="label-{{config.application | id}}-{{config.configKey | id}}" for="config_{{parentIndex}}{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}&nbsp;
+                        <i id="btn-{{config.application | id}}-{{config.configKey | id}}-manual" class="fa cc-about-individual-question fa-question-circle"
+                            data-ng-click="showUserManual[config.configKey]=true"
+                            data-ng-if="pageOptionList[config.configKey]"></i>
+                    </label>
+                    <div data-ng-show="showUserManual[config.configKey]" class="cc-user-manual cc-user-manual-input cc-user-manual-position-right"
+                        data-ng-if="pageOptionList[config.configKey]">
+                        <span>
+                            <span id="label-{{config.application | id}}-{{config.configKey | id}}-manual" data-ng-bind-html="pageOptionList[config.configKey]"></span> <span class="cc-user-manual-close">
+                                <i id="btn-{{config.application | id}}-{{config.configKey | id}}-close-manual" class="fa fa-times-circle" data-ng-click="closeManual(config.configKey)"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

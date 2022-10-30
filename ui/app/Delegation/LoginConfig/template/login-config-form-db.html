@@ -1,0 +1,52 @@
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.dburl.$touched && configForm.val.dburl.$invalid }">
+    <label for="dburl"> {{"delegation.loginConfig.label.dburl" | translate}}  
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['DB URL']=true" data-ng-if="pageOptionList['DB URL']"> </i>
+    </label>
+    <input id="dburl" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.dburl' | translate}}" data-ng-readonly="config.inUse" data-ng-model="config.dburl" name="dburl" required autocomplete="off" />
+    <div class="cc-validation-block" ng-messages="configForm.val.dburl.$error" ng-if="configForm.val.dburl.$touched" >
+      <p ng-message="required"> {{"delegation.loginConfig.validation.dburl.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="DB URL" data-ng-model="showUserManual['DB URL']"></user-manual>
+  </div>
+
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.dbdriver.$touched && configForm.val.dbdriver.$invalid }">
+    <label for="dbdriver"> {{"delegation.loginConfig.label.dbdriver" | translate}} 
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['DB Driver']=true" data-ng-if="pageOptionList['DB Driver']"> </i>
+    </label>
+    <input id="dbdriver" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.dbdriver' | translate}}" data-ng-readonly="config.inUse" data-ng-model="config.dbdriver" name="dbdriver" required autocomplete="off"/>
+    <div class="cc-validation-block" ng-messages="configForm.val.dbdriver.$error" ng-if="configForm.val.dbdriver.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.dbdriver.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="DB Driver" data-ng-model="showUserManual['DB Driver']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.dbdialect.$touched && configForm.val.dbdialect.$invalid }">
+    <label for="dbdialect"> {{"delegation.loginConfig.label.dbdialect" | translate}} 
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['DB Dialect']=true" data-ng-if="pageOptionList['DB Dialect']"> </i>
+    </label>
+    <input id="dbdialect" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.dbdialect' | translate}}" data-ng-readonly="config.inUse" data-ng-model="config.dbdialect" name="dbdialect" required autocomplete="off"/>
+    <div class="cc-validation-block" ng-messages="configForm.val.dbdialect.$error" ng-if="configForm.val.dbdialect.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.dbdialect.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="DB Dialect" data-ng-model="showUserManual['Db Dialect']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.username.$touched && configForm.val.username.$invalid }">
+    <label for="name"> {{"delegation.loginConfig.label.username" | translate}} 
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Username']=true" data-ng-if="pageOptionList['Username']"> </i>
+    </label>
+    <input id="name" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.username' | translate}}" data-ng-readonly="config.inUse" data-ng-model="config.username" name="username" required autocomplete="off">
+    <div class="cc-validation-block" ng-messages="configForm.val.username.$error" ng-if="configForm.val.username.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.ldapusername.required" | translate}} </p>
+      
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Username" data-ng-model="showUserManual['Username']"></user-manual>
+  </div>
+  <div  class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.password.$touched && configForm.val.password.$invalid }">
+    <label for="password"> {{"delegation.createuser.label.password" | translate}} 
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Password']=true" data-ng-if="pageOptionList['Password']"> </i>
+    </label>
+    <input type="password" id="password" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.createuser.placeholder.password' | translate}}" data-ng-readonly="config.inUse" data-ng-model="config.password" name="password" required autocomplete="off" />
+    <div class="cc-validation-block" ng-messages="configForm.val.password.$error" ng-if="configForm.val.password.$touched">
+      <p ng-message="required"> {{"userprofile.validation.password.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Password" data-ng-model="showUserManual['Password']"></user-manual>
+  </div>

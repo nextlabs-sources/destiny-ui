@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h2 class="cc-ps-list-title">{{ "enrollment.ldif.sync.title" | translate }}</h2>
+</div>
+
+<div class="modal-body cc-ps-dialog-body" data-ng-controller="ldif-sync-dialog-controller">
+    <div role="menu" aria-labelledby="" data-ng-click="$event.stopPropagation()">
+        <div class="cc-inline">
+            <input ng-hide=true type=file id="input-enrollment-ldif-sync-file" accept=".ldif"/>
+            <div class="cc-inline">
+                <input id="input-ldif-sync-browse-text-extra" type="text"
+                    ng-class="ldifProperties['ldif.filename'].value ? 'cc-enrollment-hidden' : 'cc-enrollment-show'"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-enrollment-ldif-upload-sync"
+                    placeholder="Upload a file" data-ng-disabled="true"/>
+                <input id="input-ldif-sync-browse-text-upload-success" type="text"
+                    ng-class="ldifProperties['ldif.filename'].value ? 'cc-enrollment-show' : 'cc-enrollment-hidden'"
+                    placeholder="{{ldifProperties['ldif.filename'].value ? 'LDIF File is uploaded' : 'null'}}"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-enrollment-ldif-upload-sync"
+                    data-ng-disabled="true" />
+                <a id="btn-ldif-sync-browse-button-extra"
+                    class="btn cc-btn-discard cc-tools-browse-button">{{"toolManagement.createTask.options.browse" | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="cc-validation-block" ng-if="!ldifFileReady && !ldifProperties['ldif.filename'].value && saveExecuted">
+        <p>{{ "toolManagement.createTask.validation.required" | translate}}</p>
+    </div>
+    <div style="padding-top: 20px;">
+        <label>{{ "enrollment.ldif.sync.uploadFileType" | translate }}</label>
+        <br>
+        <span>
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                <input type="radio" id="btn-complete-type" class="" ng-model="ldifData.ldifSyncType" value="complete">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span id="btn-partial-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                    <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                        {{ "enrollment.ldif.sync.complete" | translate }}
+                    </span>
+                </span>
+            </label>
+            <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px; padding-left: 15px;">
+                <input type="radio" id="btn-delta-type" class="" ng-model="ldifData.ldifSyncType" value="delta">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span id="btn-full-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                    <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                        {{ "enrollment.ldif.sync.delta" | translate }}
+                    </span>
+                </span>
+            </label>
+        </span>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button id="btn-modal-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{ "CANCEL" | translate }}</button>
+    <button id="btn-modal-disabled-confirm" class="btn btn-default cc-btn-primary" disabled type="button" ng-click="ok()">{{ "SYNC" | translate }}</button>
+    <button id="btn-modal-confirm" style="display: none;" class="btn btn-default cc-btn-primary" type="button" ng-click="ok()">{{ "SYNC" | translate }}</button>
+</div>

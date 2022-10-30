@@ -1,0 +1,44 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeMemberInPanel()"> </div>
+<div class="cc-ps-history-version-meta">
+    <div ng-attr-title="{{memberOverview.name}}" class="cc-ps-history-content cc-ps-history-text-name cc-no-wrap cc-overflow-ellipsis">{{memberOverview.name}}</div>
+    <div ng-attr-title="{{memberOverview.type}}">{{memberOverview.type}}</div>
+</div>
+<div class="cc-ps-history-version-detail cc-ps-history-content">
+    <div class="cc-ps-create-page-grammar-row-1">
+        <div ng-show="!memberOverview.isGroup">
+            <span>{{'component.member.preview.domain.name' | translate}}&nbsp;{{memberOverview.domainName}}</span>
+            <br/><br/>
+            <p ng-show="memberOverview.uniqueName != null"> {{memberOverview.uniqueName}} </p>
+        </div>
+        <div class="cc-ps-history-title" ng-show="memberOverview.isGroup && memberOverview.totalMembers > 0"  data-translate='component.member.preview.group' data-translate-value-length="{{memberOverview.totalMembers}}" data-translate-value-type="{{component.policyModel.name}}"></div>
+        <div class="cc-ps-history-title" ng-show="memberOverview.isGroup && memberOverview.totalMembers === 0" data-translate='component.member.preview.group.no.members'> </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="memberOverview.isGroup && memberOverview.totalMembers > 0">
+        <div>
+            <div class="btn-group btn-block">
+                <p class="cc-ps-search-text-container cc-dlg-search-text-container">
+                    <input data-ng-model="memberOverview.searchText" class="form-control cc-ps-search-text-preview-pane cc-ps-input-common" 
+                        placeholder="{{'component.member.preview.find.placeholder' | translate}}" type="text"
+                        ng-keypress="$event.keyCode == 13 ? filterMembers() : null" />
+                    <i class="fa fa-search cc-ps-search-icon-preview-pane" ng-click="filterMembers()"></i>
+                </p>
+            </div>
+            <div ng-show="memberOverview.totalMembers > memberOverview.pageSize && !memberOverview.searchResult" class="cc-ps-member-preview-pane-pagination" >
+                {{startIndex + 1}} - {{startIndex + memberOverview.members.length}} of {{memberOverview.totalMembers}} &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-chevron-left" ng-click="previous()" ng-class="{'cc-cursor-pointer' : startIndex !== 0}"></span> &nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-chevron-right" ng-click="next()" ng-class="{'cc-cursor-pointer' : !(startIndex + memberOverview.pageSize >= memberOverview.totalMembers)}"></span>
+            </div>
+            <div ng-show="memberOverview.searchResult">
+                {{memberOverview.searchResult}} <a href="javascript:void(0)" ng-click="clearSearchResultsForMember()" class="cc-ps-search-text-clear">{{'component.member.preview.find.clear' | translate}}</a>
+            </div>  
+            <div class="cc-ps-search-seperator-preview-pane"></div>  
+            <table id="membersList">
+                <tr ng-repeat="member in memberOverview.members">
+                <td>{{member}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>        
+</div>
+
+

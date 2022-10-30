@@ -1,0 +1,39 @@
+<div class="cc-ps-create-page-editor-obligation" data-ng-repeat="obligation in obligationGroup" data-ng-init="obligationIndex = $index" ng-hide="obligation.hidden">
+    <p>
+        <span class="cc-ps-create-page-switch">
+              <switch id="switch-policy-obligation-{{effect | lowercase}}-{{obligation.name.split(' ')[0].toLowerCase()}}" class="cc-ps-search-switch-include-sub" data-ng-model="obligation.enabled" data-ng-change="showParameters(obligation)"></switch>
+            </span>
+            <span  class="cc-ps-create-page-editor-obligation-span" title="{{obligation.name}}">{{obligation.name}}</span><span class="cc-ps-create-page-editor-obligation-pm-name" ng-if="obligation.policyModel.name" title="{{obligation.policyModel.name}}">({{obligation.policyModel.name}})</span>
+
+        <a href="" ng-init="hideAllowParams[policyModelId+$index] = obligation.enabled" ng-click="hideAllowParams[policyModelId+$index]=!hideAllowParams[policyModelId+$index]" data-ng-if="(obligation.parameterDefault | filter:{hidden:false}).length && obligation.enabled && allowDiv">
+            <i class="fa cc-ps-obligation-collapse-icon" data-ng-class="{'fa-angle-up':!hideAllowParams[policyModelId+$index], 'fa-angle-down':hideAllowParams[policyModelId+$index]}"></i>
+        </a>
+
+        <a href="" ng-init="hideDenyParams[policyModelId+$index] = obligation.enabled" ng-click="hideDenyParams[policyModelId+$index]=!hideDenyParams[policyModelId+$index]" data-ng-if="(obligation.parameterDefault | filter:{hidden:false}).length && obligation.enabled && !allowDiv">
+                <i class="fa cc-ps-obligation-collapse-icon" data-ng-class="{'fa-angle-up':!hideDenyParams[policyModelId+$index], 'fa-angle-down':hideDenyParams[policyModelId+$index]}"></i>
+            </a>
+    </p>
+    <div class="cc-ps-create-page-editor-obligation-collapse" data-ng-if="(obligation.parameterDefault | filter:{hidden:false}).length && obligation.enabled" data-ng-show="allowDiv? !hideAllowParams[policyModelId+$index] : !hideDenyParams[policyModelId+$index] ">
+        <div class="cc-ps-create-page-editor-param-set" data-ng-repeat="paraSet in obligation.parameterSets" data-ng-init="paraSetIndex = $index" ng-hide="para.hidden">
+            <div class="cc-ps-create-page-editor-sub-line" data-ng-repeat="para in paraSet" data-ng-init="paraIndex = $index" ng-hide="para.hidden">
+                <label title="{{para.name}}">{{para.name}}</label>
+                <div>
+                    <textarea auto-resize-textarea no-enter placeholder="{{(para.suggestions != undefined && !para.suggestions ? 'createpolicy.input.placeholder.parameter.email' : (para.editable ? 'createpolicy.input.placeholder.parameter' : 'createpolicy.input.placeholder.parameter.readonly')) | translate}}" ng-trim="false" type="text" ng-pattern="para.pattern" class="cc-create-page-common-input" data-ng-if="para.type == 'TEXT_SINGLE_ROW'" auto-suggestion="para.suggestions == undefined ? para.editable : para.suggestions" data-suggestion-option="obligationParamSuggestion(policyModelId)" data-show-suggestion-reg-exp-1="'(^$)|(.*[.\\s$]$)'" data-ng-model="para.value" ng-model-options="{allowInvalid: true}" ng-init='!isEditMode && !para.value && (para.value = para.defaultValue)' ng-readonly="!para.editable" ng-required="para.mandatory" maxlength="2000" name="{{effect}}_obli_{{policyModelId}}_{{obligationIndex}}_para_{{paraSetIndex}}_{{paraIndex}}" style="width: 100%;"></textarea>
+                    <textarea auto-resize-textarea placeholder="{{(para.editable ? 'createpolicy.input.placeholder.parameter' : 'createpolicy.input.placeholder.parameter.readonly') | translate}}" ng-trim="false" class="cc-ps-create-page-editor-input-placeholder textarea" auto-suggestion="para.editable" data-suggestion-option="obligationParamSuggestion(policyModelId)" data-show-suggestion-reg-exp-1="'(^$)|(.*[.\\s$]$)'" data-ng-if="para.type == 'TEXT_MULTIPLE_ROW'" data-ng-model="para.value" ng-model-options="{allowInvalid: true}" ng-init='!isEditMode && !para.value && (para.value = para.defaultValue)' ng-readonly="!para.editable" ng-required="para.mandatory" maxlength="2000" name="{{effect}}_obli_{{policyModelId}}_{{obligationIndex}}_para_{{paraSetIndex}}_{{paraIndex}}" style="width: 100%;"></textarea>
+                    <div class="btn-group cc-ps-dropdown-grp " style="margin:1px 0px 10px 0" data-uib-dropdown data-ng-if="para.type == 'LIST'">
+                        <select name="{{effect}}_obli_{{policyModelId}}_{{obligationIndex}}_para_{{paraSetIndex}}_{{paraIndex}}" class="form-control cc-create-page-common-select" data-ng-model="para.value" data-ng-options="val.trim() as val for val in para.listValues.split(',')" ng-init='!isEditMode && !para.value && (para.value = para.defaultValue)' data-ng-focus="highlightGrammar('policyObligations')" ng-required="para.mandatory" ng-disabled="!para.editable"> </select>
+                    </div>
+                </div>
+                <div class="cc-validation-block" ng-messages="policyForm.val[effect + '_obli_' + policyModelId + '_' + obligationIndex + '_para_' + paraSetIndex + '_' + paraIndex].$error" ng-if="policyForm.val[effect + '_obli_' + policyModelId + '_' + obligationIndex + '_para_' + paraSetIndex + '_' + paraIndex].$touched" style="padding-left: 105px; max-width: 100%;">
+                    <p ng-message="required">{{para.name}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+                    <p ng-message="pattern">{{"delegation.create.validation.email.pattern" | translate}}</p>
+                </div>
+            </div>
+            <i class="fa fa-times-circle-o cc-ps-create-policy-component-del-icon" data-ng-click="removeObligationParameter(obligation,$index)" data-ng-if="obligation.parameterSets.length > 1"></i>
+        </div>
+        <div style="margin-bottom: 20px; margin-left: 20px;">
+            <!-- <input class="btn btn-default cc-create-page-add-condition-btn" type="button" value="{{'createpolicy.add.parameter.btn' | translate}}" data-ng-click="addObligationParameter(obligation)" /> </div> -->
+            <a data-ng-click="addObligationParameter(obligation)" class="cc-ps-create-page-editor-add-obligation">+ {{'Add Another' | translate}}&nbsp;<span class="obligation-name" ng-attr-title="{{obligation.name}}"><span>{{obligation.name}}</span></span>&nbsp;obligation</a>
+    </div>
+</div>
+</div>

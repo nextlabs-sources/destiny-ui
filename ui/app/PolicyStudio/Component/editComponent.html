@@ -1,0 +1,61 @@
+<div data-ui-view data-ng-controller="createComponentController" class="cc-layout-full-height">
+  <div class="cc-ps-create-page-container cc-layout-full-height">
+    <form id="componentForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height cc-layout-full-width" name="componentForm.val" novalidate>
+      <div class="no-margin cc-ps-create-page-title-panel">
+        <div class="cc-ps-create-page-back-btn-div">
+          <a data-ng-click="backToComponentList(componentForm.val)">
+            <button id="btn-edit-component-{{type | lowercase}}-back-arrow" class="btn btn-default active cc-ps-create-page-back-btn" type="button">
+              <i class="fa fa-arrow-left" data-ng-class=""></i>
+            </button>
+          </a>
+        </div>
+        <div class="cc-ps-create-page-title"> {{ component.name }} </div>
+        <div class="cc-ps-create-page-btn-div" data-ng-if="permissions">
+          <a id="btn-edit-component-{{type | lowercase}}-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardComponent(componentForm.val)" data-ng-if="component.id" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT" dyn-attr="component.authoritiesParsed.EDIT_COMPONENT ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.Discard" | translate}}</a>
+          <a id="btn-edit-component-{{type | lowercase}}-preview" class="btn btn-default cc-btn-discard" data-ng-show="type.toUpperCase() === 'SUBJECT'" data-ng-click="openComponentPreviewPanel(componentForm.val)" data-ng-if="component.id" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT" dyn-attr="component.authoritiesParsed.EDIT_COMPONENT ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.Preview" | translate}}</a>
+          <a id="btn-edit-component-{{type | lowercase}}-save" class="btn btn-default cc-btn-discard" data-ng-click="saveAndDeployComponent(componentForm.val, true, false)" data-ng-if="component.id" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT" dyn-attr="component.authoritiesParsed.EDIT_COMPONENT ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.SaveComponent" | translate}} </a>
+          <a id="btn-edit-component-{{type | lowercase}}-save-deploy" class="btn btn-default cc-btn-primary" data-ng-click="saveAndDeployComponent(componentForm.val, true, true)" data-ng-if="component.id" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT || !component.authoritiesParsed.DEPLOY_COMPONENT" dyn-attr="(component.authoritiesParsed.EDIT_COMPONENT && component.authoritiesParsed.DEPLOY_COMPONENT) ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.SaveAndDeployComponent" | translate}}</a>
+          <a class="btn btn-default cc-btn-primary" data-ng-click="saveAndDeployComponent(componentForm.val, false, true)" data-ng-if="component.id" dyn-attr-del-unbind-if="component.authoritiesParsed.EDIT_COMPONENT || !component.authoritiesParsed.DEPLOY_COMPONENT" dyn-attr="(!component.authoritiesParsed.EDIT_COMPONENT  && component.authoritiesParsed.DEPLOY_COMPONENT) ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createComponent.button.DeployComponent" | translate}}</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="cc-ps-create-page-bottom-panel cc-ps-container-relative">
+        <div class="cc-ps-edit-component-tabs-div cc-layout-full-height cc-fixed-grammar">
+          <uib-tabset data-ng-class="tabSelected == 1? 'cc-ps-edit-page-tabs cc-ps-edit-component-tabs cc-layout-full-height hierarchy-component-left-container':'cc-ps-edit-page-tabs cc-ps-edit-component-tabs cc-layout-full-height component-left-container'" active="tabSelected">
+            <uib-tab class="cc-ps-edit-component-tab cc-ps-edit-component-tab-summary" title="{{::'createcomponent.tab.summary' | translate}}">
+              <div class="cc-ps-create-page-grammar-div cc-layout-full-height" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-summary.html'"></div>
+            </uib-tab>
+            <uib-tab select="getComponentHierarchy()" class="cc-ps-edit-component-tab cc-ps-edit-component-tab-hierarchy" title="{{::'createcomponent.tab.hierarchy' | translate}}">
+              <div class="cc-ps-create-page-hierarchy-div cc-layout-full-height" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-hierarchy.html'" ng-if="componentHierarchy"></div>
+            </uib-tab>
+            <uib-tab select="getComponentHistory()" class="cc-ps-edit-component-tab cc-ps-edit-component-tab-history" title="{{::'createcomponent.tab.history' | translate}}">
+              <div class="cc-ps-create-page-history-div cc-layout-full-height" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-history.html'"></div>
+            </uib-tab>
+            <uib-tab select="getPolicyHistory()" data-ng-hide="true" class="cc-ps-edit-component-tab cc-ps-edit-component-tab-graph" title="{{::'PS.INCOMPLETE.FEATURE.MSG' | translate}}">
+              <div class="cc-ps-create-page-history-div cc-layout-full-height">
+                <center><h4 class="cc-ps-banner">{{'PS.INCOMPLETE.FEATURE.MSG' | translate}}</h4></center>
+              </div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+        <div class="cc-ps-create-page-editor-div cc-policy-editor-absolute" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+          <div class="cc-ps-create-page-editor-status">
+            <div class="cc-ps-create-page-editor-status-title" ng-show="component.id">
+              <!-- <p class="cc-ps-create-page-editor-status-title-label">{{'createComponent.label.status' | translate}}</p> -->
+              <!-- <p class="cc-ps-create-page-editor-status-title-content">{{(component.deployed ? 'component.status.active' : 'component.status.inactive') | translate}}</p> -->
+              <span class="cc-ps-deployed" data-ng-class="{'active': component.deployed, 'inactive': !component.deployed}">{{component.deploymentStatus}}</span>
+              <span ng-if="component.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{component.status}}</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="cc-ps-create-page-editor-content" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-editor.html'"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </form>
+    <div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentRevision}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-history-panel.html'"></div>
+    <div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':memberOverview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Component/partials/member-overview-panel.html'"></div>
+    <div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentPreview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Component/partials/component-preview.html'"></div>	    
+    <div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentOverview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Policy/partials/component-overview-panel.html'"></div>
+  </div>
+</div>

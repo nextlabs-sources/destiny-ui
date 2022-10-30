@@ -1,0 +1,21 @@
+<div ui-tree-handle class="tree-node tree-node-content">
+  <label>
+    <input type="checkbox" class="cc-green-checkbox-radio go-as-you-type-checkbox" ng-true-value="true" data-ng-click="toggleSelectAll()"
+      ng-false-value="false" data-ng-model="folder.selected" ng-disabled="folder.disabled">
+    <span class="cc-ps-label-for-checkbox-radio">
+      <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+      <span class="cc-delegation-icon-folder-small"></span>
+      <span class="cc-delegation-folder-name" data-ng-if="folder.id > -1">{{folder.name}}</span>
+      <span class="cc-delegation-folder-name" data-ng-if="folder.id == -1"><i class="fa fa-home" aria-hidden="true"></i></span>
+    </span>
+  </label>
+  <label class="cc-must-float-right">
+    <input type="checkbox" class="go-as-you-type-checkbox" ng-true-value="true" data-ng-click="toggleSelectSubFolders(folder)"
+      ng-false-value="false" data-ng-model="folder.includeSubFolders">
+    <span class="cc-ps-label-for-checkbox-radio">
+      <span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+  </label>
+</div>
+<ol ui-tree-nodes="" ng-model="folder.children" ng-if="folder.children.length" ng-hide="folder.includeSubFolders">
+  <li ng-repeat="folder in folder.children" ui-tree-node ng-include="'ui/app/partials/folder-tree-view.html'"></li>
+</ol>

@@ -1,0 +1,38 @@
+<div class="cc-edit-user-profile">
+	<div class="content">
+		<div style="height:calc(100% - 60px)">
+				<p class="title"> <span>{{'Change Password' | translate}}</span></p>
+				<div class="error-block" data-ng-show="invalidReason" style="color: #F95959;">{{invalidReason}}</div>
+				<p class="username"><span>{{'User' | translate}} : </span> {{currentUser.name}}</p>
+				<form name="profileForm.form">
+					<input type="password" required placeholder="{{'Enter old password' | translate}}" name="oldPassword" data-ng-model="currentUser.oldPassword">
+					<div class="cc-validation-block" ng-messages="profileForm.form.oldPassword.$error" ng-if="profileForm.form.oldPassword.$touched">
+		                <p ng-message="maxlength"> {{"userprofile.validation.password.maxLength" | translate}} </p>
+		                <p ng-message="minlength"> {{"userprofile.validation.password.minLength" | translate}} </p>
+		                <p ng-message="required"> {{"userprofile.validation.password.required" | translate}} </p>
+		            </div>
+					<input type="password" required placeholder="{{'Enter new password' | translate}}" name="newPassword" data-ng-model="currentUser.newPassword" data-ng-pattern="/^(?:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]))(?!.*(.)\1{2,})[A-Za-z0-9!~`<>,;:_=?*+#.\\'\x22&%()\|\[\]\{\}\-\$\^\@\/]{10,128}$/" data-ng-change="validateForm()" autocomplete="off">
+					<div class="cc-validation-block" ng-messages="profileForm.form.newPassword.$error" ng-if="profileForm.form.newPassword.$touched">
+		                <p ng-message="maxlength"> {{"userprofile.validation.newPassword.maxLength" | translate}} </p>
+		                <p ng-message="minlength"> {{"userprofile.validation.newPassword.minLength" | translate}} </p>
+						<p ng-message="required"> {{"userprofile.validation.newPassword.required" | translate}} </p>
+						<p ng-message="pattern"> {{"userprofile.validation.password.pattern" | translate}}
+		            </div>
+					<input type="password" required placeholder="{{'Reenter new password' | translate}}" name="confirmNewPassword" data-ng-model="currentUser.confirmNewPassword" data-ng-change="validateForm()">
+					<div class="cc-validation-block" ng-messages="profileForm.form.confirmNewPassword.$error" ng-if="profileForm.form.confirmNewPassword.$touched">
+		                <p ng-message="maxlength"> {{"userprofile.validation.confirmNewPassword.maxLength" | translate}} </p>
+		                <p ng-message="minlength"> {{"userprofile.validation.confirmNewPassword.minLength" | translate}} </p>
+		                <p ng-message="required"> {{"userprofile.validation.confirmNewPassword.required" | translate}} </p>
+		                <p ng-if="!newPasswordMatching"> {{"userprofile.validation.confirmNewPassword.notMatch" | translate}} </p>
+		            </div>
+				</form>
+				<p class="pwd-req"> (Note: {{'cc.password.requirement' | translate}})</p>
+				<div class="buttons">
+		          <a class="btn btn-default cc-btn-discard" data-ng-click="discardProfileChanges()">DISCARD</a>
+		          <a class="btn btn-default cc-btn-primary" data-ng-disabled-temp="!profileForm.form.$dirty || !currentUser.oldPassword || !currentUser.newPassword || !currentUser.confirmNewPassword || !newPasswordMatching" data-ng-click="changePassword()"> SUBMIT </a>
+		          
+		        </div>
+		       
+        </div>
+	</div>
+</div>

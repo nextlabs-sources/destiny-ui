@@ -1,0 +1,41 @@
+<div class="cc-ps-policy">
+    <div data-ng-if="!sysConfig.lastModifiedOn">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div data-ng-if="sysConfig.lastModifiedOn">
+        <div class="cc-ps-policy-parent">
+            <div class="cc-ps-policy-content-container">
+                <div class="cc-ps-policy-content">
+                    <div class="cc-ps-config-name-desc">
+                        <p class="cc-ps-policy-name"><span id="btn-system-config-{{sysConfig.group | id}}" data-ng-click="editSysConfig(sysConfig)"
+                                title="{{'sysconfig.' + sysConfig.group | translate}}">{{'sysconfig.' + sysConfig.group | translate}}</span></p>
+                        <p class="cc-ps-description"><small id="label-system-config-{{sysConfig.group | id}}-description" data-ng-click="editSysConfig(sysConfig)"
+                                title="{{::sysConfig.description}}">{{::sysConfig.description}}</small></p>
+                        <p>
+                            <span class="cc-ps-list-policy-summary">
+                                <span id="label-system-config-{{sysConfig.group | id}}-modified-time" class="cc-ps-list-modified-time">
+                                    <span id="label-system-config-{{sysConfig.group | id}}-modified" class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                                    <friendly-date id="label-system-config-{{sysConfig.group | id}}-time" data-date="{{sysConfig.lastModifiedOn}}" data-date-type="miliseconds"
+                                        data-title-class="cc-ps-friendly-date-title"
+                                        data-content-class="cc-ps-friendly-date-content" data-prefix=""
+                                        data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a">
+                                    </friendly-date>
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="cc-ps-policy-option-block">
+                    <div class="cc-ps-align-right">
+                        <button
+                        id="btn-system-config-options-{{sysConfig.group | id}}"    
+                        class="btn btn-default cc-ps-policy-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border"
+                            data-ng-click="openOption(sysConfig, !openOption(sysConfig), $event)"></button>
+                    </div>
+                    <div data-ng-include="'ui/app/PolicyStudio/SysConfig/partials/sysConfig-template.html'"
+                        class="cc-ps-option" data-ng-show="sysConfig.optionOpen"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<td>
+    <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+        <input id="checkbox-manager-{{storeEntry.storeName}}-{{storeEntry.alias}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="storeEntry.checked" data-ng-change="storeEntryCheckStatusChanged()">
+        <span><span id="checkbox-span-manager-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+    </label>
+</td>
+<td>
+    <span>{{storeEntry.storeName}}</span>
+</td>
+<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    <span class="cc-ps-effective-dot {{storeEntry.effective}}" title="{{storeEntry.effective ? 'Effective' : 'Not effective'}}"></span>
+    <span data-ng-click="viewEntry(storeEntry)" style="cursor: pointer;" title="{{storeEntry.alias}}">{{storeEntry.alias}}</span>
+</td>
+<td>
+    <span>{{storeEntry.keyAlgorithmName}}</span>
+</td>
+<td>
+    <span>{{storeEntry.keySize}}</span>
+</td>
+<td>
+    <span>{{storeEntry.validFrom | date:'d MMM yyyy h:mm:ss a'}}</span>
+</td>
+<td>
+    <span>{{storeEntry.validUntil | date:'d MMM yyyy h:mm:ss a'}}</span>
+ 
+</td>
+<td class="td-icon td-icon-left-align">
+  <i id="view-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="fa fa-info-circle" aria-hidden="true" data-ng-click="viewEntry(storeEntry)" title="View"></i>
+  <i id="csr-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="fa cc-ps-icon-csr-{{csrHovering}}" data-ng-mouseenter="csrHovering='enabled'" data-ng-mouseleave="csrHovering='disabled'" aria-hidden="true" data-ng-click="generateCsr(storeEntry)" title="Generate CSR" data-ng-if="storeType == 'keystore'"></i>
+  <i id="importReply-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="fa cc-ps-icon-import-{{importHovering}}" data-ng-mouseenter="importHovering='enabled'" data-ng-mouseleave="importHovering='disabled'" aria-hidden="true" data-ng-click="openImportCertificateReplyModal(storeEntry)" title="Import CA Reply" data-ng-if="storeType == 'keystore'"></i>
+  <i id="export-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="fa cc-ps-icon-export-{{exportHovering}}" data-ng-mouseenter="exportHovering='enabled'" data-ng-mouseleave="exportHovering='disabled'" aria-hidden="true" data-ng-click="exportCertificate(storeEntry)" title="Export certificate"></i>
+  <i id="delete-{{storeEntry.storeName}}-{{storeEntry.alias}}" class="fa fa-trash-o" data-ng-click="removeEntry(storeEntry)" title="Delete"> </i>
+</td>

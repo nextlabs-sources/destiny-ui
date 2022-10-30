@@ -1,0 +1,84 @@
+<div class="cc-ps-component-included-in-table" cellpadding="0" data-ng-if="componentHierarchy.includedInComponents.length">
+    <div class="cc-ps-component-hierarchy-non-current cc-ps-component-included-in" data-ng-repeat="componentHierarchyParent in componentHierarchy.includedInComponents">
+        <div class="cc-ps-component-included-in-box">
+            <div class="cc-ps-component-hierarchy-has-more-parent" data-ng-if="componentHierarchyParent.hasIncludedIn">---</div>
+            <div class="cc-ps-component-hierarchy-label" data-ng-click="editComponent(componentHierarchyParent, 'hierarchy')" dyn-attr-del-unbind-if="!componentHierarchyParent.authoritiesParsed.VIEW_COMPONENT" dyn-attr="componentHierarchyParent.authoritiesParsed.VIEW_COMPONENT ? permissions.VIEW_COMPONENT.hierarchy.action.ALLOW : permissions.VIEW_COMPONENT.hierarchy.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+                <p class="cc-ps-component-hierarchy-name">{{componentHierarchyParent.name}}</p>
+                <div class="cc-ps-hierarchy-display-on-hover" style="float:right;">
+                  <span class="cc-ps-deployed" data-ng-class="{'active': componentHierarchyParent.deployed, 'inactive': !componentHierarchyParent.deployed}">{{componentHierarchyParent.deployed ? 'Deployed' : 'Inactive'}}</span>
+                  <span ng-if="componentHierarchyParent.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{componentHierarchyParent.status | lowercase}}</span>
+                </div>
+                <div class="cc-ps-component-hierarchy-policy-model-type cc-ps-hierarchy-display-on-hover" data-ng-if="componentHierarchyParent.modelType" title="{{componentHierarchyParent.modelType}}">{{componentHierarchyParent.modelType}}</div>
+                <div class="cc-ps-component-hierarchy-updated-time-label cc-ps-hierarchy-display-on-hover">UPDATED ON</div>
+                <div class="cc-ps-component-hierarchy-updated-time cc-ps-hierarchy-display-on-hover">{{componentHierarchyParent.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+                <!-- <span class="cc-ps-component-hierarchy-updated-by-label cc-ps-hierarchy-display-on-hover">BY &nbsp;</span><span class="cc-ps-component-hierarchy-updated-by cc-ps-hierarchy-display-on-hover">SOME ONE</span> -->
+            </div>
+
+        </div>
+        <div class="cc-ps-component-hierarchy-arrow-left">
+            <div>&nbsp;</div>
+        </div>
+        <div class="cc-ps-component-hierarchy-middle-border">&nbsp;</div>
+        <div class="cc-ps-component-hierarchy-left-border">
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="cc-ps-component-hierarchy-line">
+        <div class="cc-ps-component-included-in-box"></div>
+        <div class="cc-ps-component-hierarchy-arrow-left">&nbsp;</div>
+        <div class="cc-ps-component-hierarchy-middle-border">&nbsp;</div>
+        <div class="cc-ps-component-hierarchy-left-border"><div>&nbsp;</div></div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="cc-ps-component-hierarchy-label cc-ps-component-hierarchy-current">
+    <p class="cc-ps-component-hierarchy-name">{{componentHierarchy.name}}</p>
+    <div style="float:right;">
+      <span class="cc-ps-deployed" data-ng-class="{'active': componentHierarchy.deployed, 'inactive': !componentHierarchy.deployed}">{{componentHierarchy.deployed ? 'Deployed' : 'Inactive'}}</span>
+      <span ng-if="componentHierarchy.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{componentHierarchy.status | lowercase}}</span>
+    </div>
+    <div class="cc-ps-component-hierarchy-policy-model-type" data-ng-if="componentHierarchy.modelType" title="{{componentHierarchy.modelType}}">{{componentHierarchy.modelType}}</div>
+    <div class="cc-ps-component-hierarchy-updated-time-label">UPDATED ON</div>
+    <div class="cc-ps-component-hierarchy-updated-time">{{componentHierarchy.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+    <span class="cc-ps-component-hierarchy-updated-by-label">BY &nbsp;</span><span class="cc-ps-component-hierarchy-updated-by">{{componentHierarchy.modifiedBy}}</span>
+    <div class="cc-ps-component-hierarchy-option"></div>
+    <div class="cc-ps-component-hierarchy-option cc-ps-component-option-block" data-ng-mouseleave="componentHierarchy.optionOpen=false">
+        <div class="cc-ps-align-right cc-ps-component-hierarchy-option-button" style="float: right; width:45px;">
+            <button class="btn btn-default cc-ps-component-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-mouseenter="componentHierarchy.optionOpen=true"></button>
+        </div>
+        <div data-ng-include="'ui/app/PolicyStudio/Component/partials/componentoption-hierarchy-template.html'" class="cc-ps-option" data-ng-show="componentHierarchy.optionOpen" style="float:right; width:120px;"></div>
+    </div>
+</div>
+<div class="cc-ps-component-including-table" cellpadding="0" data-ng-if="componentHierarchy.subComponents.length">
+  <div class="cc-ps-component-hierarchy-line">
+      <div class="cc-ps-component-hierarchy-arrow-up cc-ps-component-hierarchy-right-border">
+          <div>&nbsp;</div>
+      </div>
+      <div class="cc-ps-component-hierarchy-middle-border">&nbsp;</div>
+      <div></div>
+      <div class="clear"></div>
+  </div>
+  <div class="cc-ps-component-hierarchy-non-current cc-ps-component-including" data-ng-repeat="componentHierarchyChild in componentHierarchy.subComponents">
+      <div class="cc-ps-component-hierarchy-right-border">
+          <div>&nbsp;</div>
+      </div>
+      <div class="cc-ps-component-hierarchy-middle-border">&nbsp;</div>
+      <!-- <div class="cc-ps-component-including-left-arrow"></div> -->
+      <div class="cc-ps-component-including-box">
+          <div class="cc-ps-component-hierarchy-label" data-ng-click="editComponent(componentHierarchyChild, 'hierarchy')" dyn-attr-del-unbind-if="!componentHierarchyChild.authoritiesParsed.VIEW_COMPONENT" dyn-attr="componentHierarchyChild.authoritiesParsed.VIEW_COMPONENT ? permissions.VIEW_COMPONENT.hierarchy.action.ALLOW : permissions.VIEW_COMPONENT.hierarchy.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+              <p class="cc-ps-component-hierarchy-name">{{componentHierarchyChild.name}}</p>
+              <div class="cc-ps-hierarchy-display-on-hover" style="float:right;">
+                <span class="cc-ps-deployed" data-ng-class="{'active': componentHierarchyChild.deployed, 'inactive': !componentHierarchyChild.deployed}">{{componentHierarchyChild.deployed ? 'Deployed' : 'Inactive'}}</span>
+                <span ng-if="componentHierarchyChild.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{componentHierarchyChild.status | lowercase}}</span>
+              </div>
+              <div class="cc-ps-component-hierarchy-policy-model-type cc-ps-hierarchy-display-on-hover" data-ng-if="componentHierarchyChild.modelType" title="{{componentHierarchyChild.modelType}}">{{componentHierarchyChild.modelType}}</div>
+              <div class="cc-ps-component-hierarchy-updated-time-label cc-ps-hierarchy-display-on-hover">UPDATED ON</div>
+              <div class="cc-ps-component-hierarchy-updated-time cc-ps-hierarchy-display-on-hover">{{componentHierarchyChild.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+              <!-- <span class="cc-ps-component-hierarchy-updated-by-label cc-ps-hierarchy-display-on-hover">BY &nbsp;</span><span class="cc-ps-component-hierarchy-updated-by cc-ps-hierarchy-display-on-hover">SOME ONE</span> -->
+          </div>
+          <div class="cc-ps-component-hierarchy-has-more-child" data-ng-if="componentHierarchyChild.hasSubComponents">---</div>
+      </div>
+  </div>
+</div>

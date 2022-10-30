@@ -1,0 +1,4 @@
+<div ng-if="match.model.isGroup" style="color:#848A8D" onclick="event.stopPropagation();" >{{match.model.label}}</div>
+<a ng-if="!match.model.isGroup" ng-bind-="match.label | uibTypeaheadHighlight:query">
+    &nbsp;{{match.label}}
+</a>

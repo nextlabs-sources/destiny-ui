@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="export-modal-title">{{"policylist.export.title" | translate}}</h3>
+</div>
+<div class="modal-body" id="export-modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="exportFormatForm" class="cc-ps-dep-time-specify-form">
+                <div class="row">
+                    <div class="col-md-11">
+                        <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                            <input type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                                data-ng-model="data.plainTextNotAllowed" data-ng-value="true">
+                            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                                <span id="btn-policy-export-digital" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                                    {{"policylist.export.sande.option.sande" | translate}}
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                            <input type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                            data-ng-value="false" data-ng-model="data.plainTextNotAllowed">
+                            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                                <span id="btn-policy-export-plain" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                                    {{"policylist.export.sande.option.plain" | translate}}
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-policy-modal-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">
+        {{cancelLabel ? cancelLabel : "PS.CANCEL"| translate}}
+    </button>
+    <button id="btn-policy-modal-confirm" class="btn btn-default cc-btn-primary" type="button" ng-click="ok()">
+        {{confirmLabel ? confirmLabel : "PS.CONFIRM"| translate}}
+    </button>
+</div>

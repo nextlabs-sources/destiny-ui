@@ -1,0 +1,20 @@
+<div data-ng-class="{'advanced-input-div': (condition.values.length), 'advanced-input-div-no-values' : !(condition.values.length)}">
+    <span ng-repeat="value in condition.values track by $index">
+      <span class="advanced-input-added-item auto-resize-target">
+        <span class="advanced-input-added-item-value" title="{{value}}">{{value}}</span>
+        <span class="advanced-input-added-item-delete">
+          <i class="fa fa-times advanced-input-close-img-position" aria-hidden="true" data-ng-click="removeValue($index, condition);"></i>
+        </span>
+      </span>
+    </span>
+    <span data-ng-class="{'advanced-input-to-add-item-icons-span-on-focus': (condition.newVal && showIcons), 'advanced-input-to-add-item-icons-span' : !(condition.newVal && showIcons)}">
+      <input ng-keyup="handleKeyPress($event, condition)" type="text" data-ng-class="{'advanced-input-to-add-item-on-focus': (condition.newVal && showIcons), 'advanced-input-to-add-item' : !(condition.newVal && showIcons)}" placeholder="{{::'requestbuilder.placeholder.addValues' | translate}}" name="{{conditionType}}_attrValues_{{conditionIndex}}" data-ng-model="condition.newVal" data-ng-pattern="condition.attribute.type === 'NUMBER'? '[\\d]*' : ''" data-ng-focus="setIconsFlag();" autocomplete="off" data-ng-blur="addValue(condition)" required/>
+<!--       <i class="fa fa-check-circle add advanced-input-to-add-item-icon" aria-hidden="true" data-ng-if="condition.newVal && showIcons"
+       data-ng-click="addValue(condition.newVal, condition);"></i>
+      <i class="fa fa-times-circle advanced-input-to-add-item-clear-icon" aria-hidden="true" data-ng-if="condition.newVal && showIcons" data-ng-click="clearValue(condition);"></i> -->
+    </span>
+</div>
+<!-- <div>{{reqBuilderForm.val['subCondition_' + $index].$touched}}</div> -->
+<div class="cc-validation-block" data-ng-messages="reqBuilderForm.val['subCondition_' + $index].$error" data-ng-if="!condition.values.length && (condition.attribute.attrName=='subject-id' || condition.attribute.attrName =='resource-id') ">
+  <p>{{::"Value" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+</div>

@@ -1,0 +1,150 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="import-modal-title">{{"secureStore.modal.importKeyPair.title" | translate}}</h3>
+</div>
+<div class="modal-body" id="import-modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="importKeyPairForm" name="importKeyPairForm" class="form-horizontal">
+                <div class="form-group">
+                    <label for="storeName" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.storeName" | translate}}</label>
+                    <select id="storeName" class="form-control cc-create-page-common-select" data-ng-model="data.storeName" 
+                        data-ng-options="storeName for storeName in data.storeNames track by storeName" name="storeName" style="width: 260px;">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="format" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.format" | translate}}</label>
+                    <span>
+                        <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px; padding-right: 30px;">
+                            <input id="pem" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                                data-ng-model="data.format" value="PEM" data-ng-change="setFormat('PEM')">
+                            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                                <span id="btn-pem-format" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                                    {{"secureStore.modal.importKeyPair.pem" | translate}}
+                                </span>
+                            </span>
+                        </label>
+                        <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px;">
+                            <input id="pkcs12" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                                data-ng-model="data.format" value="PKCS12" data-ng-change="setFormat('PKCS12')">
+                            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                                <span id="btn-pkcs12-format" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                <span class="cc-green-checkbox-radio-bgrd-holder-text ">
+                                    {{"secureStore.modal.importKeyPair.pkcs12" | translate}}
+                                </span>
+                            </span>
+                        </label>
+                    </span>
+                </div>
+                <div data-ng-show="data.format == 'PEM'">
+                    <div class="form-group">
+                        <label for="certificate-file" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.certificateFile" | translate}}</label>
+                        <div class="btn btn-default btn-file">
+                            {{'PS.Browse' | translate}} <input type="file" id="certificate-file" accept=".cer,.crt,.pem"/>
+                        </div>
+                        <span>&nbsp;{{data.certificateFileName}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="private-key-file" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.privateKeyFile" | translate}}</label>
+                        <div class="btn btn-default btn-file">
+                            {{'PS.Browse' | translate}} <input type="file" id="private-key-file" accept=".cer,.crt,.key,.pem,.pkcs8"/>
+                        </div>
+                        <span>&nbsp;{{data.privateKeyFileName}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="alias" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.alias" | translate}}</label>
+                        <input id="alias" name="alias" type="test" data-ng-model="data.alias" ng-maxlength="255" maxlength="255" data-ng-change="validateForm()"
+                            class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input" autocomplete="off" style="width: 260px;">
+                    </div>
+                    <div class="form-group" style="border-bottom: thin solid #808080;">
+                        <label class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.overwriteEntry" | translate}}</label>
+                        <p id="pem12OverwriteEntry" class="cc-ps-search-text-container">
+                            <span class="cc-ps-policy-effect-switch">
+                            <switch class="cc-ps-search-switch-include-sub" data-ng-model="data.overwriteEntry"></switch>
+                            </span>
+                            <span>{{"secureStore.modal.importKeyPair.overwrite." + data.overwriteEntry |translate}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div data-ng-show="data.format == 'PKCS12'">
+                    <div class="form-group">
+                        <label for="pkcs12-file" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.fileName" | translate}}</label>
+                        <div class="btn btn-default btn-file">
+                            {{'PS.Browse' | translate}} <input type="file" id="pkcs12-file" accept=".p12,.pfx"/>
+                        </div>
+                        <span>&nbsp;{{data.pkcs12FileName}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pkcs12FilePassword" class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.pkcs12FilePassword" | translate}}</label>
+                        <input id="pkcs12FilePassword" name="pkcs12FilePassword" type="password" placeholder="File password" data-ng-model="data.pkcs12FilePassword" ng-maxlength="255" maxlength="255"
+                            class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input" autocomplete="off" style="width: 260px;">
+                    </div>
+                    <div class="form-group" style="border-bottom: thin solid #808080;">
+                        <label class="col-sm-4 control-label">{{"secureStore.modal.importKeyPair.overwriteEntry" | translate}}</label>
+                        <p id="pkcs12OverwriteEntry" class="cc-ps-search-text-container">
+                            <span class="cc-ps-policy-effect-switch">
+                            <switch class="cc-ps-search-switch-include-sub" data-ng-model="data.overwriteEntry"></switch>
+                            </span>
+                            <span>{{"secureStore.modal.importKeyPair.overwrite." + data.overwriteEntry |translate}}</span>
+                        </p>
+                    </div>
+                    <table style="border-spacing: 10px; border-collapse: separate;">
+                        <tr>
+                            <th style="width: 10%;">
+                                <label class="cc-green-checkbox-radio-label">
+                                    <input type="checkbox" class="cc-green-checkbox-radio" 
+                                        data-ng-model="data.allChecked" data-ng-change="allEntriesStatusChanged(data.allChecked)"
+                                        data-ng-disabled="data.aliases.length == 0">
+                                    <span class="cc-ps-label-for-checkbox-radio">
+                                        <span id="selectAll" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                        <span class="cc-ps-checkbox-label-text">&nbsp;</span>
+                                    </span>
+                                </label>
+                                <span class="cc-ps-label-for-checkbox-radio">
+                                    <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                    <span class="cc-ps-checkbox-label-text"></span>
+                                </span>
+                            </th>
+                            <th style="width: 45%;">{{"secureStore.modal.importKeyPair.sourceAlias" | translate}}</th>
+                            <th style="width: 45%;">{{"secureStore.modal.importKeyPair.destinationAlias" | translate}}</th>
+                        </tr>
+                        <tr data-ng-if="data.aliases.length == 0">
+                            <td colspan="3" style="text-align: center; font-style: italic;">
+                                {{"secureStore.modal.importKeyPair.noEntry" | translate}}
+                            </td>
+                        </tr>
+                        <tr data-ng-repeat="entry in data.aliases | orderBy : 'alias'">
+                            <td>
+                                <label class="cc-green-checkbox-radio-label">
+                                    <input type="checkbox" data-ng-model="entry.checked"
+                                        class="cc-green-checkbox-radio" data-ng-change="entryStatusChanged(entry.checked)">
+                                    <span class="cc-ps-label-for-checkbox-radio">
+                                        <span id="select-{{entry.sourceAlias}}" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                        <span class="cc-ps-checkbox-label-text">&nbsp;</span>
+                                    </span>
+                                </label>
+                                <span class="cc-ps-label-for-checkbox-radio">
+                                    <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                    <span class="cc-ps-checkbox-label-text"></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span>{{entry.sourceAlias}}</span>
+                            </td>
+                            <td>
+                                <input id="alias-{{entry.sourceAlias}}" type="text" data-ng-model="entry.destinationAlias" data-ng-maxlength="255" maxlength="255"
+                                    data-ng-disabled="!entry.checked" data-ng-change="validateForm()"
+                                    class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input" autocomplete="off" style="width: 100%; height: 25px;">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+  <button id="cancelModal" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"PS.CANCEL" | translate}}</button>
+  <button id="submitForm" class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!data.formValidated" ng-click="import()">{{"PS.IMPORT" | translate}}</button>
+  <button id="listAllKeys" class="btn btn-default cc-btn-primary" type="button" data-ng-show="data.format == 'PKCS12' && data.aliases.length == 0" data-ng-disabled="!(data.pkcs12FileName && data.pkcs12FilePassword)" ng-click="listAllKeys()">{{"secureStore.modal.importKeyPair.listAllKeys" | translate}}</button>
+</div>

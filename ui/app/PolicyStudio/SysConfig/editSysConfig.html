@@ -1,0 +1,36 @@
+<div class="cc-ps-create-policy cc-layout-full-height" data-ng-controller="editSysConfigController"
+    ng-animate="'animate'">
+    <div class="cc-ps-create-page-container cc-layout-full-height">
+        <form id="sysConfigForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height"
+            name="sysConfigForm.val" novalidate>
+            <div class="no-margin cc-ps-create-page-title-panel">
+                <div class="cc-ps-create-page-back-btn-div">
+                    <button id="btn-{{mainGroup | id}}-back" class="btn btn-default active cc-ps-create-page-back-btn" type="button"
+                        data-ng-click="backToSysConfigList(sysConfigForm.val)">
+                        <i id="icon-{{mainGroup | id}}-back" class="fa fa-arrow-left" data-ng-class=""></i>
+                    </button>
+                </div>
+                <div class="cc-ps-create-page-title">
+                    <span id="label-{{mainGroup | id}}">{{ 'sysconfig.' + mainGroup | translate}}</span>
+                </div>
+                <div class="cc-ps-create-page-btn-div">
+                    <a id="btn-{{mainGroup | id}}-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardSysConfigChanges(sysConfigForm.val)" dyn-attr-del="['data-ng-click','click']"
+                        dyn-attr-unbind="['click']">{{"editsysconfig.button.discard" | translate}}</a>
+                    <a id="btn-{{mainGroup | id}}-save" class="btn btn-default cc-btn-primary" data-ng-click="save(sysConfigForm.val)" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+                        {{"editsysconfig.button.save" | translate}} </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="cc-ps-create-page-bottom-panel cc-ps-container-relative">
+                <div class="cc-ps-create-page-grammar-div cc-layout-full-height cc-fixed-grammar"
+                    data-ng-include="'ui/app/PolicyStudio/SysConfig/partials/sysConfig-summary.html'"></div>
+                <div class="cc-ps-create-page-editor-div cc-policy-editor-absolute" auto-scroll-to
+                    scroll-target-selector=".cc-validation-block>p:first,.has-error" scroll-top-margin="80">
+                    <div class="cc-ps-create-page-editor-content"
+                        data-ng-include="'ui/app/PolicyStudio/SysConfig/partials/sysConfig-editor.html'"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+    </div>
+</div>

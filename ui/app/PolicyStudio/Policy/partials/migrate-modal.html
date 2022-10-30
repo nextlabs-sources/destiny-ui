@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{::'migration.policy.migrate' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <div class="row" ng-show="data.environments.length !== 0">
+        <form id="migratePolicyForm" name="migratePolicyForm" class="form-horizontal">
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                <label for="environmentOption">{{"environment.migrate.option.label" | translate}}</label>
+                <br>
+                <table class="policy-migrate-environment-table">
+                    <tr class="policy-migrate-environment-table-header">
+                        <th class="migrate-environment-radio-col-header"></th>
+                        <th class="migrate-environment-name-col-header">{{"environment.label.environment" | translate}}</th>
+                        <th class="migrate-environment-host-col-header">{{"environment.label.hostname" | translate }}</th>
+                    </tr>
+                    <tr class="policy-migrate-environment-table-row" ng-repeat="environment in data.environments">
+                        <td class="migrate-environment-radio-row">
+                            <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                                <input class="cc-green-checkbox-radio" type="radio"
+                                    ng-model="data.environment" ng-value="environment"
+                                    ng-change="setDestinationEnvironment(environment)" name="environmentRadioButton">
+                                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                                <span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                            </label>
+                        </td>
+                        <td class="policy-migrate-environment-table-cell">{{environment.name}}</td>
+                        <td class="policy-migrate-environment-table-cell">{{environment.host}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                <label for="importMechanism">{{"environment.migrate.mechanism.label" | translate}}</label>
+                <br>
+                <span>
+                    <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                        <input id="partial" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                            data-ng-model="data.mechanism" value="PARTIAL" data-ng-change="setMechanism('PARTIAL')">
+                        <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                            <span id="btn-partial-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="cc-green-checkbox-radio-bgrd-holder-text">
+                                {{"environment.migrate.mechanism.partial" | translate}}
+                            </span>
+                        </span>
+                    </label>
+                    <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px; padding-left: 15px;">
+                        <input id="full" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                            data-ng-model="data.mechanism" value="FULL" data-ng-change="setMechanism('FULL')">
+                        <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                            <span id="btn-full-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="cc-green-checkbox-radio-bgrd-holder-text">
+                                {{"environment.migrate.mechanism.full" | translate}}
+                            </span>
+                        </span>
+                    </label>
+                </span>
+            </div>
+            <div class="col-md-12">
+                <label for="importCleanup">{{"policylist.import.cleanup.label" | translate}}</label>
+                <br>
+                <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                    <input id="cleanup" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="data.cleanup">
+                    <span class="cc-ps-label-for-checkbox-radio">
+                        <span id="btn-cleanup" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        <span class="cc-ps-checkbox-label-text">
+                            {{"policylist.import.cleanup.message" | translate}}
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </form>
+    </div>
+    <div ng-show="data.environments.length !== 0" style="margin: 10px 0; padding: 5px; display: inline-block; background-color: #fff7cc; border-radius: 5px;">
+		<i class="fa fa-exclamation-triangle cc-ps-warning-symbol" aria-hidden="true" style="margin-left: 5px;"></i><strong style="vertical-align: bottom;">Warning</strong>
+		<p class="cc-ps-warning-p">Importing this data will overwrite any existing component types, components and policies with same names.</p>
+	</div>
+
+    <div ng-show="data.environments.length === 0" id="label-dashboard-enrollment-no-data" class="cc-environment-no-data-dialog">{{'environment.no.data.mask' | translate}} </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-policy-migrate-cancel" class="btn btn-default cc-btn-discard" type="button"
+        ng-click="cancel()">{{cancelLabel ? cancelLabel : "PS.CANCEL" | translate}}</button>
+    <button id="btn-policy-migrate-confirm" ng-disabled="data.environment == null || environments.length === 0" class="btn btn-default cc-btn-primary" type="button"
+        ng-click="migrate()">{{confirmLabel ? confirmLabel : "PS.CONFIRM" | translate}}</button>
+</div>

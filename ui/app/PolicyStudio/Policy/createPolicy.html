@@ -1,0 +1,48 @@
+<div data-ui-view class="cc-ps-create-policy cc-layout-full-height" data-ng-controller="createPolicyController" ng-animate="'animate'">
+  <div class="cc-ps-create-page-container cc-layout-full-height">
+    <form id="policyForm.val" class="cc-ps-create-page-editor-form cc-layout-full-height" name="policyForm.val" novalidate>
+      <div class="no-margin cc-ps-create-page-title-panel">
+        <div class="cc-ps-create-page-back-btn-div">
+          <!-- <a data-ui-sref="PolicyStudio.Policies"> -->
+            <button id="btn-add-policy-back-arrow" class="btn btn-default active cc-ps-create-page-back-btn" type="button" data-ng-click="backToPolicyList(policyForm.val)">
+              <i class="fa fa-arrow-left" data-ng-class=""></i>
+            </button>
+          <!-- </a> -->
+        </div>
+        <div class="cc-ps-create-page-title">
+          <span>{{"createpolicy.title.CreatePolicy" | translate}}</span>
+        </div>
+        <div class="cc-ps-create-page-btn-div" data-ng-if="permissions && !isWorkFlowActive">
+          <a id="btn-add-policy-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardPolicy(policyForm.val)" dyn-attr-del-unbind-if="!permissions.CREATE_POLICY.pageLevel.result" dyn-attr="permissions.CREATE_POLICY.pageLevel.result ? permissions.CREATE_POLICY.pageLevel.action.ALLOW : permissions.CREATE_POLICY.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createpolicy.button.Discard" | translate}}</a>
+          <a id="btn-add-policy-save" class="btn btn-default cc-btn-discard" data-ng-click="validateExpressionAndSave(policyForm.val,false)" dyn-attr-del-unbind-if="!permissions.CREATE_POLICY.pageLevel.result" dyn-attr="permissions.CREATE_POLICY.pageLevel.result ? permissions.CREATE_POLICY.pageLevel.action.ALLOW : permissions.CREATE_POLICY.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createpolicy.button.SavePolicy" | translate}} </a>
+          <a id="btn-add-policy-save-deploy" class="btn btn-default cc-btn-primary" data-ng-click="validateExpressionAndSave(policyForm.val, true)" dyn-attr-del-unbind-if="!permissions.CREATE_POLICY.pageLevel.result || !permissions.DEPLOY_POLICY.pageLevel.result" dyn-attr="(permissions.CREATE_POLICY.pageLevel.result && permissions.DEPLOY_POLICY.pageLevel.result) ? permissions.CREATE_POLICY.pageLevel.action.ALLOW : permissions.CREATE_POLICY.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createpolicy.button.SaveAndDeploy" | translate}}</a>
+          <a class="btn btn-default cc-btn-primary" data-ng-click="saveAndDeployPolicy(policyForm.val, false, true)" dyn-attr-del-unbind-if="permissions.CREATE_POLICY.pageLevel.result || !permissions.DEPLOY_POLICY.pageLevel.result" dyn-attr="(!permissions.CREATE_POLICY.pageLevel.result  && permissions.DEPLOY_POLICY.pageLevel.result) ? permissions.CREATE_POLICY.pageLevel.action.ALLOW : permissions.CREATE_POLICY.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{"createpolicy.button.Deploy" | translate}}</a>
+        </div>
+        <div class="cc-ps-create-page-btn-div" data-ng-if="permissions && isWorkFlowActive" ng-init="getWorkFlowState()">
+          <a id="btn-add-policy-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardPolicy(policyForm.val)" dyn-attr-del-unbind-if="!permissions.CREATE_POLICY.pageLevel.result" dyn-attr="permissions.CREATE_POLICY.pageLevel.result ? permissions.CREATE_POLICY.pageLevel.action.ALLOW : permissions.CREATE_POLICY.pageLevel.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']" ng-if="environmentState.role == 'author'">{{"createpolicy.button.Discard" | translate}}</a>
+          <a id="btn-add-policy-save" class="btn btn-default cc-btn-discard" data-ng-click="validateExpressionAndSave(policyForm.val,false)" ng-if="environmentState.buttonLabels.save">{{environmentState.buttonLabels.save}} </a>
+          <a id="btn-add-policy-next" class="btn btn-default cc-btn-primary" data-ng-click="validateExpressionAndPerformAction(policyForm.val, false)" ng-if="environmentState.permission">{{environmentState.buttonLabels.toNext}}</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="cc-ps-create-page-bottom-panel cc-ps-container-comment">
+        <div class="cc-ps-create-page-grammar-div cc-layout-full-height cc-fixed-grammar" >
+          <div class="sticky-left-container" data-ng-include="'ui/app/PolicyStudio/Policy/partials/policy-summary.html'"></div>
+        </div>
+        <div class="cc-ps-create-page-editor-title-banner " ng-show="workflowStatus.status">
+          <div class="cc-policy-banner-inner-container">
+            <div class="cc-policy-comment-btn" ng-click="showCommentPanel()"><span class="cc-message-icon"></span></div>
+            <div class="cc-policy-status-label">draft</div>
+          </div>
+          <div id="policy-workflow-status" class="cc-policy-banner-inner-container cc-policy-banner-status" ng-show="workflowStatus.status" >
+            <div class="cc-policy-banner-content"><span class="cc-subtitle-bold">{{workflowStatus.status+ ': '}}</span>{{workflowStatus.statusLabel}}</div>
+          </div>
+        </div>
+        <div ng-if="isPanelVisible" data-ng-include="'ui/app/PolicyStudio/Policy/partials/policy-comment-panel.html'"></div>
+        <div class="cc-ps-create-page-editor-div cc-ps-create-page-editor-content cc-policy-editor-absolute" data-ng-include="'ui/app/PolicyStudio/Policy/partials/policy-editor.html'" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.has-error" scroll-top-margin="80"></div>
+        <div class="clear"></div>
+      </div>
+    </form>
+  </div>
+  <div class="cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':componentOverview}" data-ng-click="$event.stopPropagation()" data-ng-include="'ui/app/PolicyStudio/Policy/partials/component-overview-panel.html'"></div>
+</div>

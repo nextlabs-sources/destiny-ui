@@ -1,0 +1,148 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="enrolledDataViewerController">
+    <form id="enrolledDataViewerForm"
+        class="cc-ps-create-page-editor-form cc-layout-full-height cc-layout-full-width"
+        name="enrolledDataViewerForm" novalidate>
+        <div class="no-margin cc-ps-title-on-content cc-ps-sticky">
+            <div class="cc-ps-create-page-back-btn-div title-space">
+                
+            </div>
+            <div id="cc-ps-page-title" class="cc-ps-title-on-content-title cc-ps-enrollment-title">
+                <p data-ng-if="showSearch" class="cc-ps-list-search-subtitle">
+                    {{"toolManagement.enrolledDataViewer.search.title" | translate}}
+                </p>
+                <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : showSearch}">
+                    {{ "toolManagement.enrolledDataViewer.name" | translate}}
+                </p>
+            </div>
+            <div class="cc-ps-saved-search-div cc-ps-title-on-content-title" data-ng-show="showSearch">
+                <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-saved-search-dropdown" data-uib-dropdown
+                    keyboard-nav>
+                    <button id="enrolledData_btn_savedsearch" class="form-control cc-ps-button-common" type="button"
+                        uib-dropdown-toggle ng-disabled="disabled">
+                        <span class="cc-ps-dropdown-btn-label">
+                            <span class="cc-ps-dropdown-btn-title">{{searchCriteria.$_nameDisplay}}</span>
+                        </span>
+                        <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                    </button>
+                    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-saved-search-list">
+                        <li role="menuitem" data-ng-repeat="o in savedSearchList" data-ng-click="setSearch(o)"
+                            class="cc-ps-clickable-dropdown cc-saved-search-list-item">
+                            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a">
+                                <span class="cc-saved-search-list-item-name" uib-tooltip="{{::o.desc}}"
+                                    tooltip-placement="top-left">{{o.name}}</span>
+                                <i class="fa fa-times cc-ps-del-search" data-ng-click="delSearch($index, $event)"
+                                    title="Delete this search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cc-ps-filter-applied-div"
+                data-ng-show="!showSearch && (searchCriteria.name || !searchCriteria.pristine)">
+                <div class="cc-ps-filter-applied-label"
+                    data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+                    <p class="cc-ps-list-filter-label">{{"resourcelist.title.FilterApplied" | translate}}</p>
+                    <p class="cc-ps-list-filter-name" data-ng-if="searchCriteria.name">{{searchCriteria.name}}</p>
+                </div>
+                <div class="cc-ps-filter-applied-clear-icon">
+                    <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+                </div>
+            </div>
+            <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn">
+                <button id="enrolled-data-btn-search" type="button" class="btn btn-default active cc-search-btn"
+                    data-ng-class="{'cc-search-open':!showSearch, 'cc-search-close':showSearch}"
+                    data-ng-click="showSearch = !showSearch;showSearch && $broadcast('searchFormOpen')">
+                </button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="cc-ps-search-and-list-box" scroll-to-top-when="searchFormOpen">
+            <div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!showSearch">
+                <div class="cc-ps-main-search-section-content"
+                    data-ng-include="'ui/app/PolicyStudio/Tools/EnrolledDataViewer/partials/enrolled-data-search.html'">
+                </div>
+            </div>
+            <div data-ng-class="!showSearch?' cc-ps-resource-list-table cc-ps-resource-list-table-btm-padding list-container' : 'cc-ps-resource-list-table cc-ps-resource-list-table-btm-padding search-opened-list-container' " style="margin-top: 80px;"
+                id="enrolled-data-list-table">
+                <div class="cc-ps-operation">
+                    <div class="cc-ps-breadcrumb-container cc-ps-list-title">
+                        <a id="btn-enrolled-data-home" title="Home" data-ng-click="goToHome()" href="">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </a>
+                        <span data-ng-if="groups.selected && groups.selected.id > -1">&gt;</span>
+                        <span class="cc-ps-list-title" data-ng-if="groups.selected && groups.selected.id > -1"
+                            ng-repeat="group in groups.path">
+                            <span data-ng-if="$index > 0"> &gt; </span>
+                            <a id="enrolled-data-group-breadcrumb-link-{{group.id}}" href=""
+                                data-ng-click="goBack(group)">
+                                {{group.displayName}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <table class="table table-hover table-medium-spacing table-pointer attributes-table">
+                    <thead>
+                        <tr class="active">
+                            <th style="width:10%">
+                                {{"toolManagement.enrolledDataViewer.tableColumns.type" | translate}}
+                            </th>
+                            <th style="width:30%">
+                                {{"toolManagement.enrolledDataViewer.tableColumns.uniqueName" | translate}}
+                            </th>
+                            <th style="width:40%">
+                                {{"toolManagement.enrolledDataViewer.tableColumns.displayName" | translate}}
+                            </th>
+                            <th style="width:20%">
+                                {{"toolManagement.enrolledDataViewer.tableColumns.enrollmentName" | translate}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-click="open(element)" id="enrolled-data-row-{{element.uniqueName | id}}"
+                            ng-repeat="element in elementList track by $index" ng-init="cIndex = $index">
+                            <td id="enrolled-data-table-row-type-{{element.uniqueName | id}}">
+                                <span data-ng-if="element.type == 'APPLICATION'"
+                                    class="enrolled-data-icon enrolled-data-application"></span>
+                                <span data-ng-if="element.type == 'CLIENT_INFO'"
+                                    class="enrolled-data-icon enrolled-data-user"></span>
+                                <span data-ng-if="element.type == 'CONTACT'"
+                                    class="enrolled-data-icon enrolled-data-contact"></span>
+                                <span data-ng-if="element.type == 'GROUP'"
+                                    class="enrolled-data-icon enrolled-data-group"></span>
+                                <span data-ng-if="element.type == 'HOST'"
+                                    class="enrolled-data-icon enrolled-data-computer"></span>
+                                <span data-ng-if="element.type == 'SITE'"
+                                    class="enrolled-data-icon enrolled-data-user"></span>
+                                <span data-ng-if="element.type == 'USER'"
+                                    class="enrolled-data-icon enrolled-data-user"></span>
+                                {{element.type}}
+                            </td>
+                            <td id="enrolled-data-table-row-uqiue-name-{{element.uniqueName | id}}"
+                                class="cc-ps-policy-name">{{element.uniqueName}}</td>
+                            <td id="enrolled-data-table-row-display-name-{{element.uniqueName | id}}"
+                                class="cc-ps-policy-name">{{element.displayName}}</td>
+                            <td id="enrolled-data-table-row-enrollment-name-{{element.uniqueName | id}}">
+                                {{element.enrollment}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p data-ng-if="elementList.length < totalElements">
+                    <button id="btn-enrolled-data-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore"
+                        data-ng-click="loadMore()">{{"toolManagement.enrolledDataViewer.loadMore" | translate}}
+                    </button>
+                </p>
+                <div data-ng-if="!elementList.length" class="cc-ps-empty-resource-list-box">
+                    <p style="text-align:center"> {{"toolManagement.enrolledDataViewer.empty" | translate}}</p>
+                    <br />
+                </div>
+            </div>
+            <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+        </div>
+    </form>
+    <div class=" cc-ps-overview cc-ps-right-panel" data-ng-class="{'cc-ps-right-panel-show':selectedElement}"
+        data-ng-click="$event.stopPropagation()"
+        data-ng-include="'ui/app/PolicyStudio/Tools/EnrolledDataViewer/partials/enrolled-element-overview-panel.html'">
+    </div>
+
+</div>

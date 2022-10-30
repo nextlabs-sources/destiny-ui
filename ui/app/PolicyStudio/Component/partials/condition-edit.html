@@ -1,0 +1,33 @@
+<td>
+    <select class="form-control cc-create-page-common-select" data-ng-model="editItem.attribute" data-ng-options="key.name for key in allAttrOptions() track by key.name" ng-init='!editItem.attributeRemoved && !editItem.attribute && (editItem.attribute = allAttrOptions()[0])' data-ng-focus="highlightGrammar('componentCondition')" data-ng-change="editItem.operator = editItem.attribute.operatorConfigs[0]" name="con_{{$index}}">
+      </select>
+</td>
+<td>
+    <select class="form-control cc-create-page-common-select" data-ng-model="editItem.operator" data-ng-options="attr.label for attr in editItem.attribute.operatorConfigs" ng-init='!editItem.operator && (editItem.operator = editItem.attribute.operatorConfigs[0])' data-ng-focus="highlightGrammar('componentCondition')" name="operator_{{$index}}"> 
+      </select>
+</td>
+<td >
+    <div style="position: relative;">
+      <textarea no-enter class=" form-control cc-create-page-common-input" name="condition_value_{{$index}}" data-ng-if="editItem.attribute.dataType != 'MULTIVAL' && editItem.attribute.dataType != 'DATE'" data-ng-pattern="editItem.attribute.dataType === 'NUMBER'? '[\\d]*' : ''" placeholder="{{'createComponent.input.placeholder.Value' | translate}}" data-ng-model="editItem.value" data-ng-focus="highlightGrammar('componentCondition')" auto-suggestion="true" data-suggestion-option="conditionValueSuggestion" required></textarea>
+      
+      <multi-input data-input-name="condition_value_{{$index}}" data-ng-focus="highlightGrammar('componentCondition')" data-ng-if="editItem.attribute.dataType == 'MULTIVAL'"
+        data-read-only="false" data-value="editItem.value" data-type="editItem.attribute.dataType" required data-suggestion-option="conditionValueSuggestion"></multi-input>
+      
+      <p class="input-group" data-ng-if="editItem.attribute.dataType == 'DATE'">
+        <input type="text" name="condition_value_{{$index}}" data-ng-required="true" data-ng-focus="highlightGrammar('componentCondition')" class="form-control cc-create-page-common-input" placeholder="M/d/yy" data-uib-datepicker-popup="shortDate" is-open="datePopup.opened" data-close-text="Close" data-ng-model="editItem.value" readonly>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" data-ng-click="datePopup.opened = true" ><i class="fa fa-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+    <div class="cc-validation-block" ng-messages="componentForm.val['condition_value_' + $index].$error" ng-if="componentForm.val['condition_value_' + $index].$touched">
+      <p ng-message="required" style="margin-bottom: -5px; margin-left: 5px;">{{"component.condition.value.validation.required" | translate}}</p>
+      <p ng-message="pattern" style="margin-bottom: -5px; margin-left: 5px;"> {{"component.condition.value.validation.pattern" | translate}} </p>
+      
+    </div>
+</td>
+<td class="td-icon" style="padding-top: 12px;">
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveCondition(con)" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="resetEdit()" title="Cancel"></i>
+  
+</td>

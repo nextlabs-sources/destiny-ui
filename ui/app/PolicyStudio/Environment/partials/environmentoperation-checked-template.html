@@ -1,0 +1,17 @@
+<div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+    <label class="nobold cc-green-checkbox-radio-label">
+        <input id="checkbox-environment-selectAll" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+            data-ng-model="checkStatus.allEnvironmentChecked"
+            data-ng-change="checkAllEnvironment(checkStatus.allEnvironmentChecked)"><span><span
+                id="checkbox-span-environment-selectAll" class="cc-green-checkbox-radio-bgrd-holder" data-ng-if="permissions"
+                dyn-attr="permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result ? permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.ALLOW : permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.DENY"
+                dyn-attr-del="['ui-sref','href']"
+                dyn-attr-del-unbind-if="!permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result"></span></span></label>
+</div>
+<div class="cc-inline .cc-ps-environment-operation-btn">
+    <button id="btn-environment-delete" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete"
+        data-ng-disabled="!(checkStatus.hasEnvironmentChecked)" data-ng-if="permissions"
+        dyn-attr="permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result ? permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.ALLOW : permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.DENY"
+        dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+        data-ng-click="deleteEnvironments()"><i class="fa fa-trash"></i></button>
+</div>

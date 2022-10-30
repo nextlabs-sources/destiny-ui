@@ -1,0 +1,82 @@
+<div id="policy-comment-dialog" class="cc-policy-comment-dialog"
+    ng-class="isPanelActive ? 'cc-comment-open-panel-animate': 'cc-comment-close-panel-animate'"
+    ng-init="searchComments()">
+    <div class="cc-comment-container">
+        <div class="cc-comment-item-1">
+            <div class="cc-comment-close-btn cc-cross-icon" ng-click="closeCommentPanel()"></div>
+            <div class="cc-comment-label">Comment</div>
+            <div class="cc-comment-line"></div>
+        </div>
+        <!-- <div class="cc-comment-item-2">
+            <div class="cc-comment-select-view">View: {{commentViews[0]}}</div>
+            <div class="cc-select-arrow-icon" ng-click="showViews()"></div>
+            <div id="policy-comment-view-panel" ng-if="isSelectViewActive" class="cc-view-container">
+                <div class="cc-view-item">All</div>
+                <div class="cc-view-item">Generic</div>
+                <div class="cc-view-item">Amendment</div>
+            </div>
+            <div class="cc-comment-line"></div>
+        </div> -->
+        <div class="cc-comment-item-3">
+            <div ng-if="!comments.length">
+                <div class="cc-comment-item-3-inner-container">
+                    <div class="cc-comment-item-comment-image"></div>
+                </div>
+                <div class="cc-comment-item-comment-label">
+                    Start the conversation by adding the first comment
+                </div>
+            </div>
+            <div class="cc-comment" ng-repeat="comment in comments | orderBy:'-'">
+                <div class="cc-comment-header">
+                    <div class="cc-comment-header-container">
+                        <div class="cc-comment-user-logo">{{getFirstLetter(comment.ownerDisplayName)}}</div>
+                        <div class="cc-comment-user-desc">
+                            <div class="cc-comment-user-name">{{comment.ownerDisplayName}}</div>
+                            <!-- <div class="cc-comment-user-role">{{comment.role}}</div> -->
+                        </div>
+                        <div class="cc-comment-date-created">
+                            <friendly-date data-date="{{comment.createdDate}}" data-date-type="miliseconds"
+                                data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix=""
+                                data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a">
+                            </friendly-date>
+                        </div>
+                    </div>
+                </div>
+                <div class="cc-comment-body">
+                    <div class="cc-comment-body-container">
+                        <div class="cc-comment-text">{{comment.content}}</div>
+                        <!-- <div class="cc-comment-delete" ng-click="deleteComment()"></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="cc-comment-line" ng-class="{'none': comments.length > 4}"></div>
+        </div>
+        <div class="cc-comment-item-4">
+            <form name="commentForm">
+                <!-- <div class="comment-comment-type-label">Comment type</div>
+                <div class="comment-radio-container">
+                    <div class="cc-comment-radio-background">
+                        <div class="cc-comment-radio-active" ng-if="selectedCommentType.value == 'generic'"></div>
+                        <input class="cc-comment-browser-btn" type="radio" id="radio-policy-comment-generic"
+                            ng-change="filterComments()" ng-model="selectedCommentType.value" name="commentTypeRadio"
+                            value="generic" checked>
+                    </div>
+                    <label for="generic" class="cc-comment-radio-label">Generic</label><br>
+                    <div class="cc-comment-radio-background">
+                        <div class="cc-comment-radio-active" ng-if="selectedCommentType.value == 'amendment'"></div>
+                        <input class="cc-comment-browser-btn" type="radio"
+                            id="radio-policy-comment-amendement" ng-change="filterComments()"
+                            ng-model="selectedCommentType.value" name="commentTypeRadio" value="amendment">
+                    </div>
+                    <label for="amendment" class="cc-comment-radio-label">Amendment</label><br>
+                </div>
+                <div class="cc-comment-exclamation-background">
+                    <div class="cc-comment-exclamation"></div>
+                </div> -->
+
+                <textarea name="commentInput" id="ta-comment-content" ng-model="commentContent" placeholder="Leave your comments here..." class="cc-comment-text-area">{{commentContent}}</textarea>
+                <div class="cc-send-comment-btn" ng-click="sendComment(commentContent)"></div>
+            </form>
+        </div>
+    </div>
+</div>

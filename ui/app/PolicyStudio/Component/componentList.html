@@ -1,0 +1,150 @@
+<div class="cc-layout-full-height folder-list" data-ui-view data-ng-controller="ComponentListController as componentListCtrl">
+  <div class="no-margin cc-ps-title-on-content ">
+    <div id="cc-ps-page-title" class="cc-ps-title-on-content-title">
+      <p data-ng-if="show_search" class="cc-ps-list-search-subtitle">{{"componentlist.title.Search" | translate}}</p>
+      <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : show_search}">
+        {{ "componentlist.title.ComponentManagement." + type | translate}}</p>
+    </div>
+    <div class="cc-ps-saved-search-div cc-ps-title-on-content-title" data-ng-show="show_search">
+      <!-- <select data-ng-model="searchHistory" data-ng-options="o as o.name for o in searchOptions" data-ng-change="changeSearchSelection(searchHistory)" class="form-control">
+      <option value="">Select search</option>
+      </select> -->
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-saved-search-dropdown" data-uib-dropdown keyboard-nav>
+        <button class="form-control cc-ps-button-common" id="" type="button" uib-dropdown-toggle ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span
+              class="cc-ps-dropdown-btn-title">{{searchCriteria.$_nameDisplay}}</span></span><span
+            class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-saved-search-list">
+          <li role="menuitem" data-ng-repeat="o in savedSearchList" data-ng-click="setSearch(o)"
+            class="cc-ps-clickable-dropdown cc-saved-search-list-item">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a">
+              <span class="cc-saved-search-list-item-name" uib-tooltip="{{::o.desc}}"
+                tooltip-placement="top-left">{{o.name}}</span>
+              <i class="fa fa-times cc-ps-del-search" data-ng-click="delSearch($index, $event)" title="Delete this search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- {{searchCriteria}} -->
+    <div class="cc-ps-filter-applied-div"
+      data-ng-show="!show_search && (searchCriteria.name || !searchCriteria.pristine)">
+      <div class="cc-ps-filter-applied-label"
+        data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+        <p class="cc-ps-list-filter-label">{{"componentlist.title.FilterApplied" | translate}}</p>
+        <p class="cc-ps-list-filter-name" data-ng-if="searchCriteria.name">{{searchCriteria.name}}</p>
+      </div>
+      <div class="cc-ps-filter-applied-clear-icon">
+        <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+      </div>
+    </div>
+    <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn">
+      <button id="btn-component-{{type | lowercase}}-search" type="button" class="btn btn-default active cc-search-btn"
+        data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}"
+        data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')">
+      </button>
+    </div>
+    <a id="btn-add-components-{{type | lowercase}}" data-ui-sref='PolicyStudio.createComponent({type:"{{type}}", folderId: folders.selectedFolder && folders.selectedFolder.id > -1 ? folders.selectedFolder.id : null, folderPath: folders.selectedFolder && folders.selectedFolder.id > -1 ? folders.selectedFolder.folderPath : null})'
+      class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-if="permissions"
+      dyn-attr="permissions.CREATE_COMPONENT.pageLevel.result ? permissions.CREATE_COMPONENT.pageLevel.action.ALLOW : permissions.CREATE_COMPONENT.pageLevel.action.DENY"
+      dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!permissions.CREATE_COMPONENT.pageLevel.result"><i
+        class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"componentlist.title.createComponent" | translate}}</a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-ps-folder-list-container">
+    <div class="cc-ps-folder-tree-container" data-ng-if="folders.open">
+      <div class="cc-ps-folder-tree-container-title">
+        <p class="cc-ps-list-title cc-ps-folder-list-title">Folder</p>
+      </div>
+      <div class="cc-ps-folder-tree-content" data-ng-if="folders.tree.length > 0">
+        <div class="cc-ps-root-folder"><i class="fa fa-home fa-2x cc-ps-root-home-icon" aria-hidden="true"
+            data-ng-click="collapseFolders(); deselectFolders();"></i></div>
+        <div ui-tree class="cc-ps-folder-tree" id="policy-folder-tree">
+          <ol ui-tree-nodes="" ng-model="folders.tree">
+            <li ui-tree-node data-collapsed="folder.collapsed" ng-repeat="folder in folders.tree | orderBy: searchCriteria.sortBy.name  : searchCriteria.sortBy.order === 'DESC'"
+              data-ng-include="'ui/app/partials/folder-tree-item.html'" data-ng-if="folder.id > -1">
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="cc-ps-search-and-list-box folder-list" scroll-to-top-when="searchFormOpen"
+      data-ng-class="folders.open ? 'folder-view-open' : ''">
+      <div class="cc-ps-main-search-section cc-ps-sticky-search policy-component-search" data-uib-collapse="!show_search">
+        <div class="cc-ps-main-search-section-content"
+          data-ng-include="'ui/app/PolicyStudio/Component/componentSearch.html'"></div>
+      </div>
+      <div data-ng-class="!show_search? 'cc-ps-component-list-table folder-list-bottom-space list-container' : folders.open ? 'cc-ps-component-list-table folder-list-bottom-space search-opened-folder-list-container' : 'cc-ps-component-list-table folder-list-bottom-space search-opened-list-container'">
+        <div class="cc-ps-policy-list-container">
+          <div class="cc-ps-operation">
+            <div class="cc-ps-breadcrumb-container cc-ps-list-title">
+                <a id="btn-component-{{type | lowercase}}-home-list" title="Home" data-ng-click="deselectFolders()" data-ng-if="folders.open" href="">
+                  <i class="fa fa-home" aria-hidden="true"></i>
+                </a>
+                <span data-ng-if="folders.open && folders.selectedFolder && folders.selectedFolder.id > -1">&gt;</span>
+              <span class="cc-ps-list-title" data-ng-if="folders.open && folders.selectedFolder && folders.selectedFolder.id > -1"
+                ng-repeat="folder in folders.selectedFolder.pathFolders">
+                <span data-ng-if="$index > 0"> &gt; </span>
+                <a id="folder-breadcrumb-link-{{folder.id}}" href=""
+                  data-ng-click="openFolder(folder)">{{folder.name}}</a>
+              </span>
+            </div>
+            <div id="cc-sort-by" class="cc-inline cc-ps-align-right">
+              <div class="cc-inline" id="cc-sort-by-title">{{"componentsearch.label.sortby"|translate}}</div>
+              <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" id="cc-sort-by-select"
+              uib-dropdown keyboard-nav>
+              <button class="form-control cc-ps-button-common" id="" type="button" data-uib-dropdown-toggle
+                ng-disabled="disabled">
+                <span class="cc-ps-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span> <span
+                  class="cc-ps-dropdown-btn-expand-icon"></span>
+              </button>
+              <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+                <li role="menuitem" data-ng-repeat="s in searchOptions.sortOptions"
+                  data-ng-click="setComponentSortBy(s)" class="cc-ps-clickable-dropdown"><a class="cc-ps-clickable-dropdown-a" href="javascript:void(0)">{{s.label}}</a></li>
+              </ul>
+              </div>
+            </div>
+            <div class="cc-ps-policy-list-view-container">
+              <div class="btn-group" style="z-index: 0">
+                <button id="btn-components-{{type | lowercase}}-folder-view" type="button" class="btn btn-secondary cc-ps-folder-view-button"
+                  data-ng-click="folders.open = true;refreshFolders();"
+                  data-ng-disabled="!permissions.VIEW_COMPONENT_FOLDER.rowLevel.result"
+                  data-ng-style="folders.open && {'background-color': '#EEE'} || {'background-color': '#FFF'}"
+                  title="{{'folders.folderView.title' | translate}}"><span></span></button>
+                <button id="btn-components-{{type | lowercase}}-list-view" type="button" class="btn btn-secondary cc-ps-list-view-button"
+                  data-ng-click="folders.open = false;resetFolders();refreshComponentList();"
+                  data-ng-style="!folders.open && {'background-color': '#EEE'} || {'background-color': '#FFF'}"
+                  title="{{'folders.listView.title' | translate}}"><span></span></button>
+              </div>
+            </div>
+          </div>
+          <div class="cc-ps-operation"
+            data-ng-include="'ui/app/PolicyStudio/Component/partials/componentoperation-checked-template.html'"></div>
+          <ul class="no-padding no-decoration cc-ps-policy-list-table-ul" data-ng-if="folders.open"
+            style="margin-bottom: -1px;">
+            <li class="cc-ps-list-item" data-ng-repeat="folder in folders.selectedFolder && folders.selectedFolder.id < 0 ? folders.tree : folders.selectedFolder.children | orderBy: searchCriteria.sortBy.name  : searchCriteria.sortBy.order === 'DESC'" data-ng-if="folder.id > -1">
+              <div data-ng-include="'ui/app/partials/folder-template.html'"> </div>
+            </li>
+          </ul>
+          <ul class="no-padding no-decoration cc-ps-component-list-table-ul">
+            <li class="cc-ps-list-item" data-ng-repeat="component in componentList"
+              ng-init="$componentId=component.id;">
+              <div data-ng-include="'ui/app/PolicyStudio/Component/partials/componenttemplate.html'">
+              </div>
+            </li>
+          </ul>
+        </div>
+        <p data-ng-if="componentList.length < componentTotal">
+          <button id="btn-{{type | lowercase}}-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore"
+            data-ng-click="loadMore()">{{"componentlist.title.LoadMore" | translate}}
+          </button>
+        </p>
+        <div data-ng-if="!componentList.length" class="cc-ps-empty-resource-list-box">
+          <p style="text-align:center"> {{"component.empty.list.msg" | translate}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'" data-ng-style="folders.open && {'width': 'calc(100% - 400px)', 'right': '0px'}"></div> -->
+  </div>
+</div>

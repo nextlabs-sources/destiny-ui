@@ -1,0 +1,33 @@
+<div class="cc-ps-history" data-ng-class="{'cc-ps-history-latest-version':$first,'cc-ps-history-active':componentRevision && revision.revision==componentRevision.revision}" data-ng-click="openVersionPanel(revision, $first)" data-ng-repeat="revision in policyHistory">
+  <div class="cc-ps-history-version">
+    <span data-ng-if="!$first">{{revision.revision}}</span>
+    <span class="cc-ps-history-latest-icon" ng-class="{active:policy.deployed, inactive:!policy.deployed}" data-ng-if="$first"></span>
+  </div>
+  <div class="cc-ps-history-detail">
+    <div class="cc-ps-history-authro-operation">
+      <span class="cc-ps-history-author">{{revision.modifiedBy}}</span>
+      <span class="cc-ps-history-operation" data-ng-if="'DE' == revision.actionType">{{'createpolicy.history.deployedThePolicy' | translate}}</span>
+      <span class="cc-ps-history-operation" data-ng-if="'UN' == revision.actionType">{{'createpolicy.history.undeployedThePolicy' | translate}}</span>
+    </div>
+    <div class="cc-ps-history-time">{{revision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+    <div class="cc-ps-history-title" data-ng-if="$first">{{'history.version' | translate}}&nbsp;{{revision.revision}}</div>
+    <div class="cc-ps-history-revert" data-ng-if="(!$first || policy.status == 'DRAFT') && revision.actionType == 'DE'">
+      <span data-ng-click="revertToRevision(revision, $event)" data-ng-if="policy.id" data-ng-click="revertToRevision(policyRevision, $event)"  dyn-attr="policy.authoritiesParsed.EDIT_POLICY ? permissions.EDIT_POLICY.pageLevel.action.ALLOW : permissions.EDIT_POLICY.pageLevel.action.DENY" dyn-attr-del-unbind-if="!policy.authoritiesParsed.EDIT_POLICY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{'history.revert' | translate}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-open-panel" data-ng-if="true || !$first">
+    <div class="cc-ps-history-open-panel-arrow"></div>
+  </div>
+</div>
+<div class="cc-ps-history cc-ps-history-creation">
+  <div class="cc-ps-history-version">
+    <div class="cc-ps-history-creation-icon"></div>
+  </div>
+  <div class="cc-ps-history-detail">
+    <div class="cc-ps-history-authro-operation">
+      <span class="cc-ps-history-author">{{policy.ownerDisplayName}}</span>
+      <span class="cc-ps-history-operation">{{'createpolicy.history.createdThePolicy' | translate}}</span>
+    </div>
+    <div class="cc-ps-history-time">{{policy.createdDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+  </div>
+</div>

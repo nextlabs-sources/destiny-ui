@@ -1,0 +1,22 @@
+<div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+  <label class="nobold cc-green-checkbox-radio-label">
+    <input id="checkbox-resource-selectAll" type="checkbox" ng-disabled="resourceList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allResourceChecked" data-ng-change="checkAllResource(checkStatus.allResourceChecked)"><span><span id="checkbox-span-resource-selectAll" class="cc-green-checkbox-radio-bgrd-holder"></span></span></label>
+</div>
+<div class="cc-inline cc-ps-operation-btn">
+  <button id="checkbox-resource-deleteAll" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.allCheckedItemDeletable || !checkStatus.hasResourceChecked" title="Delete" data-ng-click="bulkDelResourceType($event)"><i class="fa fa-trash"></i></button>
+  <!-- <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!hasResourceChecked" title="Deploy"><i class="fa fa-arrow-circle-o-down"></i></button> -->
+  <!-- <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!hasResourceChecked" title="Export"><i class="fa fa-upload"></i></button> -->
+</div>
+<div id="cc-sort-by" class="cc-inline cc-ps-align-right">
+  <div class="cc-inline" id="cc-sort-by-title">{{"resourcesearch.label.sortby"|translate}}</div>
+  <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" id="cc-sort-by-select" uib-dropdown keyboard-nav>
+    <button class="form-control cc-ps-button-common" id="btn-resourceList-sortby" type="button" data-uib-dropdown-toggle>
+      <span id="span-resourceList-sortby" class="cc-ps-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+      <li role="menuitem" data-ng-repeat="s in searchOptions.sortOptions"
+        data-ng-click="setResourceSortBy(s)" class="cc-ps-clickable-dropdown"><a id="resource-sortBy-{{s.label | id}}"class="cc-ps-clickable-dropdown-a"
+          href="javascript:void(0)">{{s.label}}</a></li>
+    </ul>
+  </div>
+</div>

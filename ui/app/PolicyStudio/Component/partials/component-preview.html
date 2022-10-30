@@ -1,0 +1,31 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeComponentPreviewPanel()"> </div>
+<div class="cc-ps-history-version-meta">
+    <div ng-attr-title="{{component.name}}" class="cc-ps-history-content cc-ps-history-text-name cc-no-wrap cc-overflow-ellipsis">{{component.name}}
+        <span ng-hide="component.name.length"><{{'createComponent.grammar.placeholder.ComponentName' | translate}}></span>
+    </div>
+    <div ng-attr-title="{{component.type}}">{{component.policyModel.name}}</div>
+</div>
+<div class="cc-ps-history-version-detail cc-ps-history-content">
+    <div class="cc-ps-create-page-grammar-row-1">
+        <div class="cc-ps-history-title" ng-show="componentPreview.totalEnrolledSubjects > 0"  data-translate='component.preview' data-translate-value-length="{{componentPreview.totalEnrolledSubjects}}" data-translate-value-type="{{component.policyModel.name}}"></div>
+        <div class="cc-ps-history-title" ng-show="componentPreview.totalEnrolledSubjects === 0" data-translate='component.preview.no.members'> </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="componentPreview.totalEnrolledSubjects > 0">
+        <div ng-show="componentPreview.totalEnrolledSubjects > compPreviewPageSize" class="cc-ps-preview-pane-pagination" >
+            {{compPreviewStartIndex + 1}} - {{compPreviewStartIndex + componentPreview.enrolledSubjects.length}} of {{componentPreview.totalEnrolledSubjects}} &nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-chevron-left" ng-click="previousCompPage()" ng-class="{'cc-cursor-pointer' : compPreviewStartIndex !== 0}"></span> &nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-chevron-right" ng-click="nextCompPage()" ng-class="{'cc-cursor-pointer' : !((compPreviewStartIndex + compPreviewPageSize) >= componentPreview.totalEnrolledSubjects)}"></span>
+        </div> 
+    </div>   
+    <div class="cc-ps-seperator-preview-pane" ng-show="componentPreview.totalEnrolledSubjects > 0"></div>  
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="componentPreview.totalEnrolledSubjects > 0">
+        <table id="enrolledSubjects">
+            <tr ng-repeat="enrolledSubject in componentPreview.enrolledSubjects">
+                <td data-ng-show="enrolledSubject.name !== null">{{enrolledSubject.name}}</td>
+                <td data-ng-show="enrolledSubject.name === null && enrolledSubject.uniqueName !== null">{{enrolledSubject.uniqueName}}</td>
+            </tr>
+        </table>  
+    </div>   
+</div>
+
+

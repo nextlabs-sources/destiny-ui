@@ -1,0 +1,63 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="environmentListController">
+    <div class="no-margin cc-ps-title-on-content ">
+        <div id="cc-ps-page-title" class="cc-ps-title-on-content-title">
+            <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : !show_search}">
+                {{"environmentList.title.environmentManager" | translate}}</p>
+        </div>
+        <a id="btn-environment-add-environment"
+            class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn cc-ps-add-environment-btn"
+            ui-sref="PolicyStudio.CreateEnvironment()" data-ng-if="permissions"
+            ng-class="{'cc-environment-hidden': !permissions.CREATE_ENVIRONMENT_CONFIGURATION.pageLevel.result}"
+            dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!permissions.CREATE_ENVIRONMENT_CONFIGURATION.pageLevel.result">
+            <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"environmentList.title.createEnvironment" | translate}}</a>
+        <div class="clear"></div>
+    </div>
+    <div class="cc-ps-search-and-list-box" ng-init="refreshEnvironmentList()">
+        <div class="cc-ps-environment-list-table list-container top-space">
+            <div class="cc-ps-environment-list-container">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="cc-ps-operation col-lg-6 col-md-6 col-sm-6"
+                            data-ng-include="'ui/app/PolicyStudio/Environment/partials/environmentoperation-checked-template.html'">
+                        </div>
+                        <div class="cc-ps-operation col-lg-6 col-md-6 col-sm-6">
+                            <div id="cc-sort-by" class="cc-inline cc-ps-align-right">
+                                <div class="cc-inline" id="cc-sort-by-title">
+                                    {{"environment.label.sortby"|translate}}</div>
+                                <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status"
+                                    id="cc-sort-by-select" uib-dropdown keyboard-nav>
+                                    <button class="form-control cc-ps-button-common" id="" type="button"
+                                        data-uib-dropdown-toggle>
+                                        <span class="cc-ps-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span>
+                                        <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                                    </button>
+                                    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu"
+                                        aria-labelledby="">
+                                        <li role="menuitem" data-ng-repeat="s in sortOptions"
+                                            data-ng-click="refreshSearch(s);" class="cc-ps-clickable-dropdown">
+                                            <a class="cc-ps-clickable-dropdown-a"
+                                                href="javascript:void(0)">{{s.label}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="no-padding no-decoration cc-ps-environment-list-table-ul">
+                    <li class="cc-ps-list-item" data-ng-repeat="environment in environmentList">
+                        <div data-ng-include="'ui/app/PolicyStudio/Environment/partials/environment-template.html'">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div data-ng-if="!isEnvironmentExist"
+                class="cc-ps-empty-resource-list-box">
+                <p style="text-align:center"> {{"environment.no.data.mask" | translate}}</p>
+            </div>
+            <div class="cc-environment-gap"></div>
+        </div>
+        <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"> -->
+        </div>
+    </div>
+</div>

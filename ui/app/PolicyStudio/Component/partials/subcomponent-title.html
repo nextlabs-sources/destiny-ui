@@ -1,0 +1,23 @@
+<div class="cc-ps-subcomponents-title" data-ng-if="component.hasSubComponents">
+  <div class="cc-ps-subcomponents-title-showbtn" data-ng-click="showSubcomponent(component)" data-ng-show="!component.showsubcomponent">
+    <table>
+      <tbody>
+        <tr>
+          <td class="cc-ps-subcomponent-label">{{"componentlist.label.SubComponents" | translate}}:</td>
+          <td class="cc-ps-subcomponent-titles-box">
+            <div class="cc-ps-subcomponent-titles{{component.subcomponentTitleHide}}">
+              <!-- <cc-ps-subcomponent-label data-subcomponents="{{component.subComponents}}" data-maxwidth="404"></cc-ps-subcomponent-label> -->
+              <div class="cc-ps-subcomponent-titles">
+              <span data-ng-repeat="subcomponent in component.subComponents" title="{{subcomponent.name}}">{{subcomponent.name}}<span data-ng-if="!$last">,&nbsp;</span></span>
+              </div>
+            </div>
+          </td>
+          <td style="padding: 5px 10px 0 0;" data-ng-if="component.moreLabel" class="cc-ps-subcomponent-title-more{{component.subcomponentTitleHide}}">{{component.moreLabel}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cc-ps-subcomponent-label cc-ps-subcomponent-label-hide" data-ng-click="hideSubcomponent(component)" data-ng-show="component.showsubcomponent">
+    <span>{{"componentlist.label.HideSubComponents" | translate}}</span>
+  </div>
+</div>

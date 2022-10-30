@@ -1,0 +1,50 @@
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <select style="height:34px;" class="form-control cc-create-page-common-select" data-ng-model="attr.required" data-ng-options="option.name for option in requiredAttributeOptions track by option.value" 
+            ng-init='!editItem.attributeRemoved && !editItem.required' 
+            name="complex_attr_required_{{$index}}"></select>
+        <div class="cc-validation-block" ng-messages="configForm.val['complex_attr_required_' + $index].$error" ng-if="configForm.val['complex_attr_required_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.required.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <input type="text" name="complex_attr_name_{{$index}}" style="height:34px;" ng-model="attr.name" autocomplete="off" 
+            class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255">
+        <div class="cc-validation-block" ng-messages="configForm.val['complex_attr_name_' + $index].$error" ng-if="configForm.val['complex_attr_name_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.name.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <input type="text" name="complex_attr_friendly_name_{{$index}}" style="height:34px;" ng-model="attr.friendlyName" autocomplete="off"
+            class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255">
+        <div class="cc-validation-block" ng-messages="configForm.val['complex_attr_friendly_name_' + $index].$error" ng-if="configForm.val['complex_attr_friendly_name_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.friendlyName.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <input type="text" name="complex_attr_name_format_{{$index}}" style="height:34px;" ng-model="attr.nameFormat" autocomplete="off" uib-typeahead="a for a in attributeNameFormats | filter:$viewValue | filter:notSelected | orderBy:$viewValue" 
+            typeahead-min-length="0" typeahead-wait-ms="300" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255">
+        <div class="cc-validation-block" ng-messages="configForm.val['complex_attr_name_format_' + $index].$error" ng-if="configForm.val['complex_attr_name_format_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.nameFormat.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td>
+    <div class="cc-create-page-editor-data-component-condition-value cc-delegation-usersource-attribute">
+        <input type="text" name="complex_attr_internal_{{$index}}" style="height:34px;" ng-model="attr.mappedAs" autocomplete="off" uib-typeahead="a for a in internalAttributeList | filter:$viewValue | filter:notSelected | orderBy:$viewValue" 
+            typeahead-min-length="0" typeahead-wait-ms="300" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" required maxlength="255">
+        <div class="cc-validation-block" ng-messages="configForm.val['complex_attr_mapped_as_' + $index].$error" ng-if="configForm.val['complex_attr_mapped_as_' + $index].$touched">
+            <p ng-message="required">{{::"delegation.loginConfig.validation.attr.internal.required" | translate}}</p>
+        </div>
+    </div>
+</td>
+<td class="td-icon">
+  <i class="fa fa-check-circle add" aria-hidden="true" data-ng-click="resetComplexAttributeEdit()" title="Add to table"></i>
+  <i class="fa fa-times-circle" aria-hidden="true" data-ng-click="removeComplexAttribute($index)" title="Cancel"></i>
+</td>

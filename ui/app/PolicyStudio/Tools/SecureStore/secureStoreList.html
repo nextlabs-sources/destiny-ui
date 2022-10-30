@@ -1,0 +1,56 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="secureStoreListController">
+    <div class="no-margin cc-ps-title-on-content ">
+        <div class="cc-dlg-create-page-back-btn-div">
+            <a ui-sref="PolicyStudio.SecureStore">
+              <button id="goBack" class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active">
+                <i class="fa fa-arrow-left" data-ng-class=""> </i>
+              </button>
+            </a>
+        </div>
+        <div class="cc-dlg-create-page-title">
+          <span style="font-size: 18px;">{{"secureStore." + storeType + ".title.main" | translate}}</span>
+        </div>
+        <a id="addKey" data-ui-sref="PolicyStudio.createKey" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-if="storeType == 'keystore'">
+          <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"secureStore.keystore.action.addEntry" | translate}}</a>
+        <a id="importKeyPair" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-click="openImportKeyPairModal();" data-ng-if="storeType == 'keystore'">
+            <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"secureStore.keystore.action.importKeyPair" | translate}}</a>
+        <a id="importCertificate" class="btn cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-click="openImportCertificateModal();" data-ng-if="storeType == 'truststore'">
+          <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"secureStore.truststore.action.addEntry" | translate}}</a>
+        <div class="cc-ps-policy-import-export-div cc-ps-page-operation-btn">
+          <button id="changeStorePassword" class="btn btn-default cc-ps-btn cc-btn-change-password cc-ps-btn-cc-big cc-ps-import-export-line" data-ng-click="openChangePasswordModal();" title="{{'secureStore.' + storeType + '.action.changePassword' | translate}}"> </button>
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="cc-ps-search-and-list-box" scroll-to-top-when="searchFormOpen">
+        <div class="cc-ps-policy-list-table list-container top-space">
+            <div class="cc-ps-policy-list-container">
+                <div class="cc-ps-operation"
+                data-ng-include="'ui/app/PolicyStudio/Tools/SecureStore/partials/operation-checked-template.html'"></div>
+                
+                <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table" datatable="">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%;">&nbsp;</th>
+                            <th style="width: 15%;">{{"secureStore.table.header.storeName" | translate}}</th>
+                            <th style="width: 22%;">{{"secureStore.table.header.entryName" | translate}}</th>
+                            <th style="width: 8%;">{{"secureStore.table.header.algorithm" | translate}}</th>
+                            <th style="width: 8%;">{{"secureStore.table.header.keySize" | translate}}</th>
+                            <th style="width: 13%;">{{"secureStore.table.header.validFrom" | translate}}</th>
+                            <th style="width: 13%;">{{"secureStore.table.header.validUntil" | translate}}</th>
+                            <th style="width: 15%;">{{"secureStore.table.header.moreActions" | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="storeEntry in storeEntries | orderBy:'storeName'" ng-init="attrIndex = $index" data-ng-include="'ui/app/PolicyStudio/Tools/SecureStore/partials/secure-entry-template.html'">
+                        </tr>
+                    </tbody>
+                </table>
+                <div data-ng-if="!storeEntries.length" class="cc-ps-empty-resource-list-box">
+                    <p style="text-align:center"> {{"secureStore.empty.list.msg" | translate}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+    </div>
+</div>

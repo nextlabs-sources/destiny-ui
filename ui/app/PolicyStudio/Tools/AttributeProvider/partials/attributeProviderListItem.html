@@ -1,0 +1,40 @@
+<div class="cc-ps-resource" data-ng-class="{'cc-ps-subject-type':resource.type == 'SUBJECT', 'cc-ps-checked':resource.checked}">
+  <div data-ng-if="!resource.lastUpdatedDate">
+    <i class="fa fa-spinner fa-pulse"></i>
+  </div>
+  <div data-ng-if="resource.lastUpdatedDate">
+    <div class="cc-ps-resource-parent">
+      <div class="cc-ps-effect-status">
+        <!-- <div class="cc-ps-effect {{resource.effect | lowercase}}"></div> -->
+        <!-- <div class="cc-ps-status {{resource.status | lowercase}} text-uppercase"></div> -->
+      </div>
+      <div class="cc-ps-resource-content-container">
+        <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-resource-check">
+          <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half" ng-if="resource.type != 'SUBJECT'">
+            <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="resource.checked" data-ng-change="resourceCheckStatusChange()"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+          </label>
+        </div>
+        <div class="cc-ps-resource-content">
+          <div class="cc-ps-resource-name-desc">
+            <p class="cc-ps-resource-name"><span data-ng-click="editResource(resource)" title="{{resource.name}}">{{resource.name}}</span></p>
+            <p class="cc-ps-description"><small data-ng-click="editResource(resource)" title="{{resource.description}}">{{resource.description}}</small></p>
+            <p>
+              <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+              <friendly-date data-date="{{resource.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+            </p>
+            <div><div class="cc-ps-tag" data-ng-repeat="tag in resource.tags"><div class="cc-ps-tag-pre"></div><div class="cc-ps-tag-text">{{tag.label}}</div></div></div>
+          </div>
+          <div class="text-uppercase cc-ps-resource-type"><span class="cc-ps-policy-model-badge">{{resource.type}}</span></div>
+          <div class="text-uppercase cc-ps-resource-update">
+          </div>
+          <div class="cc-ps-resource-option-block">
+            <p class="cc-ps-align-right">
+              <button class="btn btn-default cc-ps-resource-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(resource, !openOption(resource))"></button>
+            </p>
+            <div data-ng-include="'ui/app/PolicyStudio/Tools/AttributeProvider/partials/table-row-actions.html'" class="cc-ps-option" data-ng-show="resource.optionOpen"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

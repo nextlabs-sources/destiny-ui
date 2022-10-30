@@ -1,0 +1,27 @@
+<div class="cc-pv-tabset-separator-div"></div>
+<uib-tabset id="respInterface" class="cc-pv-inner-tab" >
+    <uib-tab select="selectTab(6); " id="responseInfo" class="cc-pv-tab-response">
+        <uib-tab-heading style="font-size:12px">
+            <span class="">  </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/eval-response.html'"></div>
+    </uib-tab>
+    <uib-tab  id="jsonResponse" select="selectTab(7); " class="cc-pv-tab-response-json">
+        <uib-tab-heading style="font-size:12px">
+            <span class="">  </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/response-json.html'"></div>
+    </uib-tab>
+    <uib-tab  id="xmlResponse" select="selectTab(8); " class="cc-pv-tab-response-xml">
+        <uib-tab-heading style="font-size:12px">
+            <span class="">  </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/response-xml.html'"></div>
+    </uib-tab>
+    <div class="cc-pv-eval-log-switch-holder-div evalog">
+        <span data-ng-hide="true" class="cc-ps-search-include-subpolicy">
+            <span style="color:#FF6101">{{::"requestbuilder.label.showEvalLogs" | translate }}</span>
+            <switch class="cc-ps-search-switch-include-sub" data-ng-model="showEvalLogs.val"></switch>
+        </span>
+    </div>
+</uib-tabset>

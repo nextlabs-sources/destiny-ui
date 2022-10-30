@@ -1,0 +1,19 @@
+<div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+  <label class="nobold cc-green-checkbox-radio-label">
+    <input id="checkbox-component-{{type | lowercase}}-selectAll" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allComponentChecked" data-ng-change="checkAllComponent(checkStatus.allComponentChecked)"><span><span id="checkbox-span-component-{{type | lowercase}}-selectAll" class="cc-green-checkbox-radio-bgrd-holder"></span></span></label>
+</div>
+<div class="cc-inline cc-ps-operation-btn">
+  <button id="btn-components-{{type | lowercase}}-delete" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.allCheckedItemDeletable || !(checkStatus.hasComponentChecked || checkStatus.hasFolderChecked)" title="Delete" data-ng-click="bulkDelete($event)"><i class="fa fa-trash"></i></button>
+  <button id="btn-components-{{type | lowercase}}-deploy" class="btn btn-default cc-ps-btn cc-btn-deploy cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.allCheckedItemDeployable || !checkStatus.hasComponentChecked" title="Deploy" data-ng-click="deploySelectedComponents($event)"></button>
+  <div class="cc-ps-folder-operations">
+    <button id="btn-components-{{type | lowercase}}-move" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Move" data-ng-if="folders.open"
+      data-ng-disabled="!checkStatus.allCheckedItemMoveable || !(checkStatus.hasComponentChecked || checkStatus.hasFolderChecked) || folders.tree.length == 0" data-ng-click="bulkMove()"><i
+        class="cc-ps-icon-move"></i>
+    </button>
+    <button id="btn-components-{{type | lowercase}}-new-folder" class="btn btn-default cc-ps-btn cc-btn-new-folder cc-ps-btn-cc-big" title="New Folder"
+      data-ng-if="folders.open" data-ng-click="createFolder();folderTreeCache();"
+      data-ng-disabled="!folders.selectedFolder.authoritiesParsed.CREATE_COMPONENT_FOLDER">
+      <i class="cc-ps-icon-new-folder"></i>
+    </button>
+  </div>
+</div>

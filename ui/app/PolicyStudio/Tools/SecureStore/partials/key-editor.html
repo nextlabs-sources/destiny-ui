@@ -1,0 +1,318 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="keyStoreController">
+  <div class="cc-dlg-create-page-container cc-layout-full-height">
+    <div class="no-margin cc-dlg-create-page-title-panel">
+      <div class="cc-dlg-create-page-back-btn-div">
+        <a ui-sref="PolicyStudio.listSecureStore({storeType:'keystore'})">
+          <button id="goBack" class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active">
+            <i class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-dlg-create-page-title">
+        <span data-ng-if="!isViewMode"> {{"secureStore.keystore.title.add" | translate}} </span>
+        <span data-ng-if="isViewMode"> {{ storeEntry.alias }} </span>
+      </div>
+      <div class="cc-dlg-create-page-btn-div">
+        <a id="discardForm" class="btn btn-default cc-btn-discard" data-ng-click="reset()" data-ng-hide="isViewMode"> &nbsp;&nbsp;{{"common.discard" | translate}} </a>
+        <a id="submitForm" class="btn btn-default cc-btn-primary" data-ng-click="createKeyPair(keyPairForm.val)" data-ng-hide="isViewMode"> &nbsp;&nbsp;{{"common.save" | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-dlg-create-page-bottom-panel">
+      <div class="cc-ps-create-page-grammar-div cc-layout-full-height" data-ng-include="'ui/app/PolicyStudio/Tools/SecureStore/partials/key-grammar-section.html'"></div>
+      <div class="cc-dlg-create-page-editor-div cc-dlg-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+        <form id="keyPairForm.val" class="cc-dlg-create-page-editor-form" name="keyPairForm.val" novalidate>
+          <div id="keyPairBasic" class="cc-dlg-create-page-editor-title">
+            <span class="cc-dlg-create-page-title-underline"> {{"secureStore.keystore.section.info" | translate}} </span>
+          </div>
+          <div class="cc-dlg-create-page-editor-info">
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="version">{{"secureStore.keystore.label.version" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.version}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="serialNumber">{{"secureStore.keystore.label.serialNumber" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.serialNumber}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label class="display-inline" for="issuer">{{"secureStore.keystore.label.issuer" | translate}}:</label>
+              <span class="display-inline field-as-label">{{storeEntry.issuer}}</span>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" id="storeName-container" ng-class="{ 'has-error': keyPairForm.val.storeName.$touched && keyPairForm.val.storeName.$invalid }">
+              <label for="storeName"> {{"secureStore.keystore.label.storeName" | translate}}:
+                <i id="icon-key-store-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Store Name']=true" data-ng-if="pageOptionList['Store Name']"> </i>
+              </label>
+              <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" style="width: 280px;" data-uib-dropdown>
+                <button id="storeName" class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle 
+                    data-ng-focus="highlightGrammar('storeName')" data-ng-disabled="isViewMode">
+                  <span class="cc-ps-dropdown-btn-label">{{storeEntry.storeName}}
+                    <span class="cc-ps-dropdown-btn-label-content"></span>
+                  </span>
+                  <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                </button>
+                <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+                  <li role="menuitem" data-ng-repeat='store in storeNames'> 
+                    <a href="javascript:void(0)" data-ng-click="storeEntry.storeName != store && changeStoreName(store)">{{store}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.storeName.$error" ng-if="keyPairForm.val.storeName.$touched">
+                <p ng-message="required"> {{"secureStore.keystore.validation.storeName.required" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Store Name" data-ng-model="showUserManual['Store Name']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" id="alias-container">
+              <label for="alias">{{"secureStore.keystore.label.alias" | translate}}:
+                <i id="icon-key-alias-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Alias'] = true" data-ng-if="pageOptionList['Alias']"></i>
+              </label>
+              <input id="alias" type="text" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis" placeholder="{{'secureStore.keystore.placeHolder.alias' | translate}}" 
+                  data-ng-model="storeEntry.alias" data-ng-focus="highlightGrammar('alias')" name="alias" required data-ng-disabled="isViewMode" ng-maxlength="255" maxlength="255"
+                  restrict-input="['~', '/', '*', '$', '&', '\\', '?']" title="{{storeEntry.alias}}">
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.alias.$error" ng-if="keyPairForm.val.alias.$touched">
+                <p ng-message="required">{{"secureStore.keystore.validation.requireAlias" | translate}}</p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Alias" data-ng-model="showUserManual['Alias']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" id="keyAlgorithm-container" ng-class="{ 'has-error': keyPairForm.val.keyAlgorithm.$touched && keyPairForm.val.keyAlgorithm.$invalid }">
+              <label for="keyAlgorithm"> {{"secureStore.keystore.label.keyAlgorithm" | translate}}: 
+                <i id="icon-key-key-algorithm-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Key Algorithm']=true" data-ng-if="pageOptionList['Key Algorithm']"> </i>
+              </label>
+              <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+                <button id="keyAlgorithm" class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle 
+                    data-ng-focus="highlightGrammar('keyAlgorithm')" data-ng-disabled="isViewMode">
+                  <span class="cc-ps-dropdown-btn-label">{{storeEntry.keyAlgorithm}}
+                    <span class="cc-ps-dropdown-btn-label-content"></span>
+                  </span>
+                  <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                </button>
+                <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+                  <li role="menuitem" data-ng-repeat='algorithm in keyAlgorithms'> 
+                    <a href="javascript:void(0)" data-ng-click="storeEntry.keyAlgorithm != algorithm && changeKeyAlgorithm(algorithm)">{{algorithm}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.keyAlgorithm.$error" ng-if="keyPairForm.val.keyAlgorithm.$touched">
+                <p ng-message="required"> {{"secureStore.keystore.validation.algorithm.required" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Key Algorithm" data-ng-model="showUserManual['Key Algorithm']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" id="keySize-container">
+              <label for="keySize">{{"secureStore.keystore.label.keySize" | translate}}:
+                <i id="icon-key-key-size-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Key Size'] = true" data-ng-if="pageOptionList['Key Size']"></i>
+              </label>
+              <input id="keySize" type="number" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-user-manual-anchor" 
+                  data-ng-model="storeEntry.keySize" data-ng-min="512" data-ng-max="keySizeMaximum" data-ng-pattern="keySizeRegex" step={{keySizeStep}} data-ng-step="keySizeStep"
+                  data-ng-focus="highlightGrammar('keySize')" name="keySize" required data-ng-disabled="isViewMode" restrict-input="['.']" style="width: 90px;">
+              <span>{{::"bits" | translate}}</span>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.keySize.$error" ng-if="keyPairForm.val.keySize.$touched">
+                <p ng-message="required">{{"secureStore.keystore.validation.requireKeySize" | translate}}</p>
+                <p ng-message="pattern">{{"secureStore.keystore.validation." + storeEntry.keyAlgorithm + ".keySizePattern" | translate}}</p>
+                <p ng-message="step">{{"secureStore.keystore.validation.keySizeStep" | translate}}</p>
+                <p ng-message="min">{{"secureStore.keystore.validation.keySizeMin" | translate}}</p>
+                <p ng-message="max">{{"secureStore.keystore.validation.keySizeMax" | translate}}{{keySizeMaximum}}</p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Key Size" data-ng-model="showUserManual['Key Size']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-hide="isViewMode" id="selfSign-container">
+              <label for="selfSign">{{"secureStore.keystore.label.selfSign" | translate}}:
+                <i id="icon-key-self-sign-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Self Sign']=true" data-ng-if="pageOptionList['Self Sign']"></i>
+              </label>
+              <p id="selfSign" class="cc-ps-search-text-container cc-user-manual-anchor">
+                <span class="cc-ps-policy-effect-switch">
+                  <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty()" data-ng-model="storeEntry.selfSign"></switch>
+                </span>
+                <input id="switch-cetificate-key-selfSign" type="hidden" data-ng-model="storeEntry.selfSign" data-ng-focus="highlightGrammar('selfSign')">
+                <span>{{"secureStore.keystore.label.selfSign." + storeEntry.selfSign |translate}}</span>
+              </p>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Self Sign" data-ng-model="showUserManual['Self Sign']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': keyPairForm.val.signatureAlgorithm.$touched && keyPairForm.val.signatureAlgorithm.$invalid }" data-ng-if="storeEntry.selfSign">
+              <label for="signatureAlgorithm"> {{"secureStore.keystore.label.signatureAlgorithm" | translate}}:
+                <i id="icon-key-signature-algorithm-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Signature Algorithm']=true" data-ng-if="pageOptionList['Signature Algorithm']"> </i>
+              </label>
+              <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+                <button id="signatureAlgorithm" class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle 
+                    data-ng-focus="highlightGrammar('selfSign')" data-ng-disabled="isViewMode">
+                  <span class="cc-ps-dropdown-btn-label">{{storeEntry.signatureAlgorithm.label}}
+                    <span class="cc-ps-dropdown-btn-label-content"></span>
+                  </span>
+                  <span class="cc-ps-dropdown-btn-expand-icon"></span>
+                </button>
+                <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+                  <li role="menuitem" data-ng-repeat='algorithm in signatureAlgorithms'> 
+                    <a href="javascript:void(0)" data-ng-click="storeEntry.signatureAlgorithm.name != algorithm.name && changeSignatureAlgorithm(algorithm)">{{algorithm.label}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.signatureAlgorithm.$error" ng-if="keyPairForm.val.signatureAlgorithm.$touched">
+                <p ng-message="required"> {{"secureStore.keystore.validation.algorithm.required" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Signature Algorithm" data-ng-model="showUserManual['Signature Algorithm']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-hide="isViewMode">
+              <label for="validity">{{"secureStore.keystore.label.validity" | translate}}:
+                <i id="icon-key-validity-period-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Validity Period'] = true" data-ng-if="pageOptionList['Validity Period']"></i>
+              </label>
+              <input id="validity" type="number" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" 
+                  data-ng-model="storeEntry.validity" data-ng-min="1" data-ng-max="3650" data-ng-pattern="/^\d+$/"
+                  data-ng-focus="highlightGrammar('validity')" name="validity" required data-ng-disabled="isViewMode" restrict-input="['.']" style="width: 90px;">
+              <span>{{::"day" | translate}}</span>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.validity.$error" ng-if="keyPairForm.val.validity.$touched">
+                <p ng-message="required">{{"secureStore.keystore.validation.requireValidity" | translate}}</p>
+                <p ng-message="pattern">{{"secureStore.keystore.validation.validityPattern" | translate}}</p>
+                <p ng-message="min">{{"secureStore.keystore.validation.validityMin" | translate}}</p>
+                <p ng-message="max">{{"secureStore.keystore.validation.validityMax" | translate}}</p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Validity Period" data-ng-model="showUserManual['Validity Period']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label for="validFromDate">{{"secureStore.keystore.label.validFrom" | translate}}:
+                <i id="icon-key-valid-from-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Valid From'] = true" data-ng-if="pageOptionList['Valid From']"></i>
+              </label>
+              <div class="input-group" style="width: 420px;">
+                <input id="validFromDate" name="validFromDate" type="text" class="form-control" uib-datepicker-popup="mediumDate" ng-model="storeEntry.validFrom"
+                  is-open="datePopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                  readonly min-date="currentDate">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="datePopup.opened = true" data-ng-disabled="isViewMode">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+                <div uib-timepicker id="validFromTime" ng-model="storeEntry.validFrom" show-meridian="true" show-spinners="false" style="margin-left: 10px;" data-ng-disabled="isViewMode"></div>
+              </div>
+              <div class="cc-validation-block" ng-messages="keyPairForm.val.validFromDate.$error" ng-if="keyPairForm.val.validFromDate.$touched">
+                <p ng-message="pattern">{{"secureStore.keystore.validation.validFromDatePattern" | translate}}</p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Valid From" data-ng-model="showUserManual['Valid From']"></user-manual>
+            </div>
+
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-show="isViewMode">
+              <label for="validUntilDate">{{"secureStore.keystore.label.validUntil" | translate}}:
+                <i id="icon-key-valid-until-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Valid Until'] = true" data-ng-if="pageOptionList['Valid Until']"></i>
+              </label>
+              <div class="input-group" style="width: 420px;">
+                <input id="validUntilDate" name="validUntilDate" type="text" class="form-control" uib-datepicker-popup="mediumDate" ng-model="storeEntry.validUntil"
+                  is-open="datePopup.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats"
+                  readonly min-date="currentDate">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="datePopup.opened = true" data-ng-disabled="isViewMode">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+                <div uib-timepicker id="validUntilTime" ng-model="storeEntry.validUntil" show-meridian="true" show-spinners="false" style="margin-left: 10px;" data-ng-disabled="isViewMode"></div>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Valid Until" data-ng-model="showUserManual['Valid Until']"></user-manual>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="distinguishedName" name="distinguishedName" class="cc-dlg-create-page-editor-title cc-user-manual-anchor">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.keystore.section.distinguishedName" | translate}} </span>
+              <i id="icon-key-distinguished-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Distinguished Name'] = true" data-ng-if="pageOptionList['Distinguished Name']"></i>
+            </div>
+            <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Distinguished Name" data-ng-model="showUserManual['Distinguished Name']"></user-manual>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-class="{'custom-validation-error':nameFieldTable.error}">
+              <p class="table-message" data-ng-class="{'success':nameFieldTable.success,'error':nameFieldTable.error}" data-ng-show="nameFieldTable.notify">{{nameFieldTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Name of a key pair that describes the identifying information of itself</p>
+                    <p class="count" data-ng-if="storeEntry.nameFields.length">{{storeEntry.nameFields.length}} {{(storeEntry.nameFields.length > 1) ? 'Entries': 'Entry'}}</p>
+                  </div>
+                  <input id="addNameField" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD FIELD" data-ng-click="addNameField(); nameFieldTable.dirty = true;" data-ng-disabled="dnEditItem.$$hashKey" data-ng-hide="isViewMode"/> 
+                </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">{{"Field" | translate}}</th>
+                  <th style="width:67%">{{"Value" | translate}}</th>
+                  <th style="width:8%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="nameField in storeEntry.nameFields track by $index" data-ng-include="dnEditItem.$$hashKey == nameField.$$hashKey ? 'ui/app/PolicyStudio/Tools/SecureStore/partials/name-field-edit.html' : 'ui/app/PolicyStudio/Tools/SecureStore/partials/name-field-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!dnEditItem.$$hashKey && !isViewMode">
+                  <td colspan="5">
+                    <a href="javascript:void(0)" data-ng-click="addNameField(); nameFieldTable.dirty = true;" >+ {{'Add Field' | translate}}</a>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="namedExtension" name="namedExtension" class="cc-dlg-create-page-editor-title cc-user-manual-anchor">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.keystore.section.namedExtension" | translate}} </span>
+              <i id="icon-key-distinguished-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Named Extension'] = true" data-ng-if="pageOptionList['Named Extension']"></i>
+            </div>
+            <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Named Extension" data-ng-model="showUserManual['Named Extension']"></user-manual>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-class="{'custom-validation-error':namedExtensionTable.error}">
+              <p class="table-message" data-ng-class="{'success':namedExtensionTable.success,'error':namedExtensionTable.error}" data-ng-show="namedExtensionTable.notify">{{namedExtensionTable.message}}</p>
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Denotes an X.509 certificate extension</p>
+                    <p class="count" data-ng-if="storeEntry.namedExtensions.length">{{storeEntry.namedExtensions.length}} {{(storeEntry.namedExtensions.length > 1) ? 'Entries': 'Entry'}}</p>
+                  </div>
+                  <input id="addNamedExtension" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD EXTENSION" data-ng-click="addNamedExtension(); namedExtension.dirty = true;" data-ng-disabled="extEditItem.$$hashKey || storeEntry.namedExtensions.length > 0" data-ng-hide="isViewMode"/> 
+                </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">{{"Name" | translate}}</th>
+                  <th style="width:67%">{{"Value" | translate}}</th>
+                  <th style="width:8%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="namedExtension in storeEntry.namedExtensions track by $index" data-ng-include="extEditItem.$$hashKey == namedExtension.$$hashKey ? 'ui/app/PolicyStudio/Tools/SecureStore/partials/named-extension-edit.html' : 'ui/app/PolicyStudio/Tools/SecureStore/partials/named-extension-view.html'"></tr>
+                <tr class="last-row" data-ng-show="!extEditItem.$$hashKey && !isViewMode && storeEntry.namedExtensions.length == 0">
+                  <td colspan="5">
+                    <a href="javascript:void(0)" data-ng-click="addNamedExtension(); namedExtension.dirty = true;" >+ {{'Add Named Extension' | translate}}</a>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cc-user-manual-anchor">
+            <div id="thumbprints" class="cc-dlg-create-page-editor-title" data-ng-show="isViewMode">
+              <span class="cc-dlg-create-page-title-underline"> {{"secureStore.keystore.section.thumbprint" | translate}} </span>
+              <i id="icon-key-thumbprint-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Thumbprint'] = true" data-ng-if="pageOptionList['Thumbprint']"></i>
+            </div>
+            <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Thumbprint" data-ng-model="showUserManual['Thumbprint']"></user-manual>
+          </div>
+          <div class="cc-ps-create-page-editor-info cc-user-manual-anchor" data-ng-show="isViewMode">
+            <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor">
+              <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  <div class="table-header">
+                    <p class="heading">Thumbprint of key pair with message digest algorithm</p>
+                  </div>
+                </div>             
+              <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">{{"Digest Algorithm" | translate}}</th>
+                  <th style="width:75%">{{"Value" | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="thumbprint in storeEntry.thumbprints">
+                  <td style="vertical-align: middle;">
+                    <span>{{thumbprint.algorithm}}</span>
+                  </td>
+                  <td style="vertical-align: middle;">
+                    <span>{{thumbprint.value}}</span>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

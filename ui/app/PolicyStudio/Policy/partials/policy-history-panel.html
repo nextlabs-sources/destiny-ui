@@ -1,0 +1,188 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeVersionPanel()"> </div>
+<div class="cc-ps-history-version-meta">
+  <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version' | translate}}</div>
+  <div class="cc-ps-history-content cc-ps-history-text-version cc-ps-history-line-height-1">{{policyRevision.revision}}</div>
+  <div class="cc-ps-history-content cc-ps-history-text-name" title="{{policyRevision.policyDetail.name}}">{{policyRevision.policyDetail.name}}</div>
+</div>
+<div class="cc-ps-history-version-time">
+  <div class="cc-ps-history-version-last-updated-by">
+    <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version.lastUpdatedBy' | translate}}</div>
+    <div class="cc-ps-history-content cc-ps-history-line-height-1">{{policyRevision.modifiedBy}}</div>
+    <div>
+      <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+      <span class="cc-ps-history-content">{{policyRevision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-version-last-deployed-by">
+    <div class="cc-ps-history-title cc-ps-history-line-height-1" data-ng-if="policyRevision.actionType == 'DE'">{{'history.version.deployedBy' | translate}}</div>
+    <div class="cc-ps-history-title cc-ps-history-line-height-1" data-ng-if="policyRevision.actionType == 'UN'">{{'history.version.undeployedBy' | translate}}</div>
+    <div class="cc-ps-history-content cc-ps-history-line-height-1">{{policyRevision.modifiedBy}}</div>
+    <div>
+      <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+      <span class="cc-ps-history-content">{{policyRevision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+    </div>
+  </div>
+</div>
+<div class="cc-ps-history-version-revert-button-box" data-ng-if="policyRevision && ((!policyRevision.latest || policy.status == 'DRAFT') && policyRevision.actionType == 'DE')">
+  <button class="btn btn-default cc-ps-history-version-revert-button" data-ng-if="policy.id" data-ng-click="revertToRevision(policyRevision, $event)" dyn-attr="policy.authoritiesParsed.EDIT_POLICY ? permissions.EDIT_POLICY.pageLevel.action.ALLOW : permissions.EDIT_POLICY.pageLevel.action.DENY" dyn-attr-del-unbind-if="!policy.authoritiesParsed.EDIT_POLICY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{'history.version.revertToThisBtn' | translate}}</button>
+</div>
+<div class="cc-ps-history-version-detail">
+  <div class="cc-ps-history-title" data-ng-if="policyRevision.policyDetail.description.length">{{'createpolicy.version.contain.desc' | translate}}:</div>
+  <div data-ng-if="policyRevision.policyDetail.description.length">
+    <div class="indent">
+      <span class="detail-info" >{{policyRevision.policyDetail.description}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-title" data-ng-if="policyRevision.policyDetail.tags.length">{{'createpolicy.version.contain.tags' | translate}}:</div>
+  <div data-ng-if="policyRevision.policyDetail.tags.length">
+    <div class="indent">
+      <span class="detail-info" data-ng-repeat="tag in policyRevision.policyDetail.tags">{{tag.label}}
+        <span data-ng-if="!$last">,&nbsp;</span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="cc-ps-history-title">{{(policyRevision.policyDetail.tags.length ? 'createpolicy.version.and.will' : 'createpolicy.version.will') | translate}}:</div>
+    <div class="indent">
+      <span class="detail-info">{{policyRevision.policyDetail.effectType}}</span>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.subjectComponents.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.version.users' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="subjectComp in policyRevision.policyDetail.subjectComponents">
+        <span data-ng-if="$first && subjectComp.operator != 'IN'">{{'createpolicy.grammar.subject.not.in.1st' | translate}}</span>
+        <span class="cc-ps-history-title" data-ng-if="!$first"> {{(subjectComp.operator == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+        <span data-ng-repeat="subject in subjectComp.components" class="detail-info"> {{ subject.name}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.toSubjectComponents.length" style="margin-left: 15px;">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.subject.Recipient' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="subjectComp in policyRevision.policyDetail.toSubjectComponents">
+        <span data-ng-if="$first && subjectComp.operator != 'IN'"  class="cc-ps-history-title" >{{'createpolicy.grammar.subject.not.in.1st' | translate}}</span>
+        <span class="cc-ps-history-title" data-ng-if="!$first"> {{(subjectComp.operator == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+        <span data-ng-repeat="subject in subjectComp.components" class="detail-info"> {{ subject.name}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.actionComponents.length && policyRevision.policyDetail.actionComponents[0].components.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.ToPerform' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <span data-ng-repeat="action in policyRevision.policyDetail.actionComponents[0].components" class="detail-info"> {{ action.name}}
+        <span data-ng-if="!$last">,&nbsp;</span>
+      </span>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.fromResourceComponents.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.On' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="resourceComp in policyRevision.policyDetail.fromResourceComponents">
+        <span data-ng-if="$first && resourceComp.operator != 'IN'"  class="cc-ps-history-title" >{{'createpolicy.grammar.subject.not.in.1st' | translate}}</span>
+        <span class="cc-ps-history-title" data-ng-if="!$first"> {{(resourceComp.operator == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+        <span data-ng-repeat="resource in resourceComp.components" class="detail-info"> {{ resource.name}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.toResourceComponents.length" class="indent">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.resources.TargetLocation' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="resourceComp in policyRevision.policyDetail.toResourceComponents">
+        <span data-ng-if="$first && resourceComp.operator != 'IN'"  class="cc-ps-history-title" >{{'createpolicy.grammar.subject.not.in.1st' | translate}}</span>
+        <span class="cc-ps-history-title" data-ng-if="!$first"> {{(resourceComp.operator == 'IN' ? 'createpolicy.grammar.subject.in' : 'createpolicy.grammar.subject.not.in') | translate}} </span>
+        <span data-ng-repeat="resource in resourceComp.components" class="detail-info"> {{ resource.name}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="cc-ps-history-title" data-ng-if="policyRevision.policyDetail.expression.length">{{'createpolicy.grammar.Under' | translate}}:</div>
+  <div data-ng-if="policyRevision.policyDetail.expression.length">
+    <div class="indent">
+      <span class="detail-info" >{{policyRevision.policyDetail.expression}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-title" data-ng-if="connectionType.length">{{'createpolicy.version.contain.connection.type' | translate}}:</div>
+  <div data-ng-if="connectionType.length">
+    <div class="indent">
+      <span class="detail-info" >{{connectionType}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-title" data-ng-if="heartbeat !== -1">{{'createpolicy.version.contain.heartbeat' | translate}}:</div>
+  <div data-ng-if="heartbeat !== -1">
+    <div class="indent">
+      <span class="detail-info" >{{heartbeat}}&nbsp;min</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-title" data-ng-if="policyRevision.policyDetail.scheduleConfig !== null">{{'createpolicy.version.contain.policy.eff.valid.from' | translate}}:</div>
+  <div data-ng-if="policyRevision.policyDetail.scheduleConfig !== null">
+    <div class="indent">
+      <span class="detail-info" >{{policyRevision.policyDetail.scheduleConfig.startDateTime | date:'mediumDate'}}</span>
+      <span class="cc-ps-history-title">{{'createpolicy.version.contain.policy.eff.valid.to' | translate}}</span>
+      <span class="detail-info" >{{policyRevision.policyDetail.scheduleConfig.endDateTime | date:'mediumDate'}}</span>
+    </div>
+    <div class="indent">
+      <div class="cc-ps-history-title" data-ng-if="hasDays">{{'createpolicy.version.contain.policy.eff.valid.on' | translate}}</div>
+      <div class="indent">
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.sunday">{{'createpolicy.policy.eff.days.sun' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.monday">{{'createpolicy.policy.eff.days.mon' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.tuesday">{{'createpolicy.policy.eff.days.tue' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.wednesday">{{'createpolicy.policy.eff.days.wed' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.thursday">{{'createpolicy.policy.eff.days.thu' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.friday">{{'createpolicy.policy.eff.days.fri' | translate}}&nbsp;</span>
+        <span class="detail-info" data-ng-if="policyRevision.policyDetail.scheduleConfig.saturday">{{'createpolicy.policy.eff.days.sat' | translate}}</span>
+      </div>
+    </div>
+    <div class="indent">
+      <div class="cc-ps-history-title">{{'createpolicy.version.contain.policy.eff.valid.starting' | translate}}:</div>
+      <div class="indent">
+          <span class="detail-info" >{{policyRevision.policyDetail.scheduleConfig.recurrenceStartTime}}</span>
+          <span class="cc-ps-history-title">{{'createpolicy.version.contain.policy.eff.valid.to' | translate}}</span>
+          <span class="detail-info" >{{policyRevision.policyDetail.scheduleConfig.recurrenceEndTime}}</span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.allowObligations.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.IfAllowedPerform' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="allowObli in policyRevision.policyDetail.allowObligations">
+        <span  class="detail-info"> {{ allowObli.name}}
+          <div data-ng-repeat="(key, value) in allowObli.params">
+            <span  class="indent detail-info"> {{key}} : &nbsp;{{value}}
+            <span data-ng-if="!$last">,&nbsp;</span>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.denyObligations.length">
+    <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.grammar.OnDeniedPerform' | translate}}:</div>
+    <div class="cc-ps-history-users-content cc-ps-history-content">
+      <div data-ng-repeat="denyObli in policyRevision.policyDetail.denyObligations">
+        <span  class="detail-info"> {{ denyObli.name}}
+        <div data-ng-repeat="(key, value) in denyObli.params">
+          <span  class="indent detail-info"> {{key}} : &nbsp;{{value}}
+          <span data-ng-if="!$last">,&nbsp;</span>
+        </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="policyRevision.policyDetail.deploymentTargets.length">
+      <div class="cc-ps-history-users-title cc-ps-history-title">{{'createpolicy.version.contain.policy.deployment.target' | translate}}:</div>
+      <div class="cc-ps-history-users-content cc-ps-history-content">
+        <div data-ng-repeat="target in policyRevision.policyDetail.deploymentTargets">
+          <span  class="detail-info"> {{ target.host}} ({{target.type.toLowerCase()}})
+          <span data-ng-if="!$last">,&nbsp;</span>
+          </span>
+        </div>
+      </div>
+    </div>
+</div>

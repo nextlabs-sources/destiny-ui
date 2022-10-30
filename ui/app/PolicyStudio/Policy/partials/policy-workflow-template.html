@@ -1,0 +1,77 @@
+<div class="cc-ps-policy" data-ng-class="{'cc-ps-policy-parent-with-subpolicy':policy.subPolicies.length > 0,'cc-ps-checked':policy.checked}">
+  <div data-ng-if="!policy.lastUpdatedDate">
+    <i class="fa fa-spinner fa-pulse"></i>
+  </div>
+  <div data-ng-if="policy.lastUpdatedDate">
+    <div class="cc-ps-policy-parent">
+      <div class="cc-ps-policy-content-container">
+        <div class="cc-ps-parent-policy-title" data-ng-if="policy.hasParent">
+          <div data-ng-click="editPolicy(policy.parentPolicy)" dyn-attr="policy.parentPolicy.authoritiesParsed.VIEW_POLICY ? permissions.VIEW_POLICY.rowLevel.action.ALLOW : permissions.VIEW_POLICY.rowLevel.action.DENY" dyn-attr-del-unbind-if="!policy.parentPolicy.authoritiesParsed.VIEW_POLICY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+          <table>
+            <tbody>
+              <tr>
+                <td class="cc-ps-policy-parent-label">{{"policylist.label.Parent" | translate}}:</td>
+                <td class="cc-ps-policy-parent-title cc-ps-policy-parent-title-box" title="{{policy.parentPolicy.name}}">
+                  <div>{{policy.parentPolicy.name}}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-policy-check">
+          <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+            <input id="checkbox-policy-select-{{policy.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="policy.checked" data-ng-change="policyCheckStatusChange()"><span><span id="checkbox-span-policy-select-{{policy.name | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+          </label>
+        </div>
+        <div class="cc-ps-policy-workflow-content">
+          <div class="cc-ps-policy-workflow-name-desc">
+            <p class="cc-ps-policy-name"><span data-ng-click="editPolicy(policy)" title="{{::policy.name}}">{{::policy.name}}</span></p>
+            <p class="cc-ps-description"><small data-ng-click="editPolicy(policy)" title="{{::policy.description}}">{{::policy.description}}</small></p>
+            <p>
+              <span class="cc-ps-effect {{policy.effectType | lowercase}}" style="width: 55px; text-align: center;">{{policy.effectType | lowercase}}</span>
+              <span class="cc-ps-list-policy-summary">
+                <span class="cc-ps-list-modified-time">
+                  <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                  <friendly-date data-date="{{policy.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title"
+                    data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                </span>
+                <span class="cc-ps-list-deployment-target" data-ng-if="policy.manualDeploy">
+                  {{"policylist.label.DeploymentTargets" | translate}}: <span>{{"policylist.label.ManualDeployment" | translate}}</span>
+                </span>
+              </span>
+            </p>
+            <div><div class="cc-ps-tag" data-ng-repeat="tag in policy.tags"><div class="cc-ps-tag-pre"></div><div class="cc-ps-tag-text">{{::tag.label}}</div></div></div>
+          </div>
+          <!-- status -->
+          <div class="cc-ps-policy-status">
+            <div class="cc-ps-workflow-deployed" data-ng-class="{'active': policy.deployed, 'inactive': !policy.deployed , 'margin-folder': folders.open}">{{policy.deploymentStatus}}</div>
+            <div ng-if="policy.status.toUpperCase() !== 'OBSOLETE' && policy.status.toUpperCase() === 'DRAFT'" title="The status of this policy remains the same until the changes is deployed" class="cc-generate-policy-alert"></div>
+          </div>
+          <div class="cc-ps-policy-workflow-status">
+              <div ng-if="policy.activeEntityWorkflowRequestStatus" class="cc-policy-active-workflow-status"
+                data-ng-class="{'pending': policy.activeWorkflowRequestLevelStatus === 'PENDING', 'approved': policy.activeEntityWorkflowRequestStatus === 'APPROVED' , 'amendment': policy.activeWorkflowRequestLevelStatus === 'REQUESTED_AMENDMENT'}">
+                {{getActiveWorkflowStatusLabel(policy)}}
+              </div>
+
+          </div>
+          <!-- / -->
+          <div class="cc-ps-policy-workflow-option-block">
+            <div class="cc-ps-align-right">
+              <button id="btn-policy-option-dots-{{policy.name | id}}" class="btn btn-default cc-ps-policy-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(policy, !openOption(policy), $event)"></button>
+            </div>
+            <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/policyoption-template.html'" class="cc-ps-option" data-ng-show="policy.optionOpen"></div>
+          </div>
+        </div>
+        <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/subpolicy-title.html'"></div>
+      </div>
+    </div>
+    <div class="cc-ps-subpolicies cc-ps-subpolicy-alternate-1" data-ng-if="policy.hasSubPolicies" data-ng-show="policy.showsubpolicy">
+      <ul class="no-padding no-decoration">
+        <li data-ng-repeat="policy in policy.subPolicies" data-ng-init="alternate=0">
+          <div class="cc-ps-subpolicy" data-ng-include="'ui/app/PolicyStudio/Policy/partials/subpolicy.html'"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

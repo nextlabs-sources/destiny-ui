@@ -1,0 +1,18 @@
+<div class="tree-node tree-node-content cc-ps-tree-node-content"
+    data-ng-class="folders.selectedFolder.id == folder.id ? 'selected' : ''">
+    <a data-ng-if="!folder.disabled" data-nodrag ng-click="toggle(this); folder.collapsed = !folder.collapsed; openFolder(folder); $event.stopPropagation(); collapseAll(folder.id);" data-ng-style="{'padding-left': (folder.parentIds.length * 20 + 10) + 'px'}">
+        <span style="top: 2px;width:14px;" class="glyphicon" data-ng-class="{'glyphicon-menu-right': (collapsed && folder.children.length > 0), 'glyphicon-menu-down': (!collapsed  && folder.children.length > 0) }"></span>
+        <span class="cc-ps-icon-folder-small"></span>
+        <span class="cc-ps-policy-name cc-folder-name" style="margin-left: 10px;" data-ng-if="folder.id > -1">{{folder.name}}</span>
+        <span class="cc-ps-policy-name cc-folder-name" style="margin-left: 10px;" data-ng-if="folder.id == -1"><i class="fa fa-home" aria-hidden="true"></i></span>
+    </a>
+    <p data-ng-if="folder.disabled" data-ng-style="{'padding-left': (folder.parentIds.length * 20 + 10) + 'px'}">
+        <span style="top: 2px;width:14px;" class="glyphicon" data-ng-class="{'glyphicon-menu-right': (collapsed && folder.children.length > 0), 'glyphicon-menu-down': (!collapsed  && folder.children.length > 0) }"></span>
+        <span class="cc-ps-icon-folder-small"></span>
+        <span class="cc-ps-policy-name cc-folder-name" style="margin-left: 10px;">{{folder.name}}</span>
+    </p>
+</div>
+<ol ui-tree-nodes="" class="cc-ps-ui-tree-nodes" ng-model="folder.children" ng-class="{hidden: collapsed}" data-ng-if="folder.children.length > 0">
+    <li ui-tree-node data-collapsed="folder.collapsed" data-ng-repeat="folder in folder.children | orderBy: searchCriteria.sortBy.name  : searchCriteria.sortBy.order === 'DESC'"  data-ng-include="'ui/app/partials/folder-tree-item.html'">
+    </li>
+</ol>

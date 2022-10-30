@@ -1,0 +1,105 @@
+<div class="cc-dashboard-widget" ng-if="dashboardConfig.enableSystemConfig">
+    <div id="label-dashboard-system-config-status" class="cc-dashboard-widget-title">
+        {{'System configuration status' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body pdp-widget" ng-include="'ui/app/Dashboard/partials/pdp_widget.html'">
+    </div>
+</div>
+<div class="cc-dashboard-widget" data-ng-if="appAccess.Reporter.result">
+    <div id="label-dashboard-activity-alerts" class="cc-dashboard-widget-title">
+        {{'Activity alerts in last 7 days' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body cc-dashboard-widget-alert">
+        <nvd3 id="dashboard-activity-alerts-graph" options="alertChartD3.options" data="alertChartD3.data"></nvd3>
+        <div id="dashboard-activity-alerts-no-data" data-ng-if="alertChartD3.noData" class=" cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+    </div>
+</div>
+<div class="cc-dashboard-widget" data-ng-if="appAccess.Administrator.result">
+    <div id="label-dashboard-pdp-throughput" class="cc-dashboard-widget-title">
+        {{'PDP throughput in last 24 hours' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body cc-dashboard-widget-throughput">
+        <div id="label-dashboard-pdp-throughput-request" style="padding: 5px 10px;">
+            <span style="color: #3BB8E1; font-weight: 700; font-size: 18px;">&nbsp;{{throughputTotal}} </span>{{'total requests in last 24 hours' | translate}}
+        </div>
+        <nvd3 id="dashboard-pdp-throughput-graph" options="throughputD3.options" data="throughputD3.data"></nvd3>
+        <div  id="label-dashboard-pdp-throughput-no-data" data-ng-if="throughputD3.noData" class="cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+    </div>
+</div>
+<div class="cc-dashboard-widget cc-dashboard-widget-2-col" data-ng-if="(appAccess.Reporter.result || appAccess.PolicyStudio.result)">
+    <div id="label-dashboard-active-users" class="cc-dashboard-widget-title">
+        {{'Top 10 active users in last 7 days' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body">
+        <div class="cc-dashboard-widget">
+            <nvd3 id="dashboard-pdp-allow-graph" options="userAllowActivitiesD3.options" data="userAllowActivitiesD3.data" class="horizontal"></nvd3>
+            <div id="label-dashboard-users-allow-no-data" data-ng-if="userAllowActivitiesD3.noData" class="cc-dashboard-widget-body cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}}</div>
+        </div>
+        <div class="cc-dashboard-widget" style="margin-left: 20px; padding-left: 15px;">
+            <nvd3 id="dashboard-pdp-deny-graph" options="userDenyActivitiesD3.options" data="userDenyActivitiesD3.data" class="horizontal"></nvd3>
+            <div id="label-dashboard-users-deny-no-data" data-ng-if="userDenyActivitiesD3.noData" class="cc-dashboard-widget-body cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}}</div>
+        </div>
+    </div>
+</div>
+<div class="cc-dashboard-widget" data-ng-if="(appAccess.Reporter.result || appAccess.PolicyStudio.result)">
+    <div id="label-dashboard-activities-resource" class="cc-dashboard-widget-title">
+        {{'Top 10 activities by resource in last 7 days' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body">
+        <nvd3 id="label-dashboard-activities-resource-graph" options="activitiesByResourceD3.options" data="activitiesByResourceD3.data" class="horizontal"></nvd3>
+        <div id="label-dashboard-activities-resource-no-data" data-ng-if="activitiesByResourceD3.noData" class="cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+    </div>
+</div>
+<div class="cc-dashboard-widget" data-ng-if="(appAccess.Reporter.result || appAccess.PolicyStudio.result)">
+    <div id="label-dashboard-evaluated-policies" class="cc-dashboard-widget-title">
+        {{'Frequently evaluated policies in last 7 days' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body">
+        <nvd3 id="dashboard-evaluated-policies-graph" options="frequentlyPoliciesD3.options" data="frequentlyPoliciesD3.data" class="horizontal"></nvd3>
+        <div id="label-dashboard-evaluated-policies-no-data" data-ng-if="frequentlyPoliciesD3.noData" class="cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+    </div>
+</div>
+<!-- <div class="cc-dashboard-widget" data-ng-if="usage">
+    <div class="cc-dashboard-widget-title">
+        {{'Usage metrics' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body">
+    </div>
+</div> -->
+<div class="cc-dashboard-widget" style="height: 460px;" ng-if="appAccess.Reporter.result || appAccess.PolicyStudio.result">
+    <div id="label-dashboard-policies-not-matched" class="cc-dashboard-widget-title">
+        {{'Policies not matched in any request in last 7 days' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body" style="height: 410px; overflow-y: auto;">
+        <div class="cc-dashboard-widget-body-item">
+            <!-- <div class="cc-dashboard-policy-title" style="float: left;">{{'Policy' | translate}}</div> -->
+            <div id="label-dashboard-policies-not-matched-deployed" class="cc-dashboard-policy-title" style="float: right;">{{'Deployed by' | translate}}</div>
+            <div class="clear"></div>
+        </div>
+        <div class="cc-dashboard-widget-body-item" data-ng-repeat="policy in (policiesNotMatched | limitTo:policiesNotMatchedShowSize.val)">
+            <div id="label-dashboard-policies-not-matched-name-{{policy.policy_name | id}}" class="cc-dashboard-policy-name">{{policy.policy_name}}</div>
+            <div id="label-dashboard-policies-not-matched-deployer-{{policy.policy_name | id}}" class="cc-dashboard-policy-deployed-by">{{policy.deployer}}</div>
+            <div class="clear"></div>
+        </div>
+        <div id="dashboard-policies-not-matched-no-data" data-ng-if="showNoDataMask && !policiesNotMatched.length" class="cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}} </div>
+        <!-- <div data-ng-if="policiesNotMatchedShowSize.val < policiesNotMatched.length">
+                        <div class="btn btn-default" data-ng-click="policiesNotMatchedShowSize.val = policiesNotMatched.length">{{'show all' | translate}}&nbsp;{{policiesNotMatched.length - policiesNotMatchedShowSize.val}}&nbsp;more</div>
+                    </div> -->
+    </div>
+</div>
+<div class="cc-dashboard-widget" data-ng-if="appAccess.Reporter.result || appAccess.PolicyStudio.result">
+    <div class="cc-dashboard-widget-title">
+        {{'Top 10 policies grouped by tags' | translate}}
+    </div>
+    <div class="cc-dashboard-widget-body">
+        <nvd3 id="dashboard-policies-group-graph" data="policyByTagsD3.data" options="policyByTagsD3.options"></nvd3>
+        <div id="dashboard-policies-group-no-data" data-ng-if="policyByTagsD3.noData" class="cc-dashboard-widget-body cc-dashboard-no-data">{{'dashboard.title.no.data.mask' | translate}}</div>
+        <div class="cc-dashboard-legend" style="right: 20px;">
+            <div class="cc-dashboard-pdp-legend-item" data-ng-repeat="legend in tagsD3Legend" style="margin-top: 0px;" ng-if="legend.count">
+                <div id="dashboard-policies-group-legend-icon-{{legend.tag | id}}" style="float: left; width: 14px; height: 14px;" ng-style="legend.style">&nbsp;</div>
+                <span id="dashboard-policies-group-legend-count-{{legend.tag | id}}" class="cc-widget-tags-legend-number" ng-style="legend.contentStyle">{{legend.count}}</span>
+                <span id="dashboard-policies-group-legend-tag-{{legend.tag | id}}" class="cc-widget-tags-legend-icon" style="display: inline-block;" title="{{legend.tag}}"> {{legend.tag}}</span>
+            </div>
+        </div>
+    </div>
+</div>

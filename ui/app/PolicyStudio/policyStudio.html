@@ -1,0 +1,34 @@
+<div class="no-margin cc-layout-full-height" data-ng-class="{'cc-ps-create-page-container-parent':isCreatePage}" data-ng-controller="policyStudioController">
+  <div class="cc-ps-menu" data-ng-if="currentUser">
+    <div data-ng-repeat="tab in tabs">
+      <div data-ng-if="!tab.children" class="cc-ps-menu-item-box">
+        <a class="cc-ps-menu-item" data-ng-class="{'cc-ps-menu-selected':isActiveTab(tab.url)}" data-ng-click="onClickTab(tab)" ui-sref="{{tab.url}}" dyn-attr="tab.dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!tab.menuAccessible" data-ng-if="tab.dynaAttr">
+          <i class="{{tab.iconCls}}"></i>{{tab.title | translate}} </a>
+      </div>
+      <div data-ng-if="tab.children" class="cc-ps-sub-menu-item-box" dyn-attr="tab.dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!tab.menuAccessible" data-ng-if="tab.dynaAttr">
+        <div data-ng-class="{'cc-ps-menu-item-expanded':tab.expanded}">
+          <a class="cc-ps-menu-item" data-ng-class="{'cc-ps-menu-selected':isActiveTab(tab.url)}" data-ng-click="tab.expanded = !tab.expanded">
+            <i class="{{tab.iconCls}}"></i>{{tab.title | translate}}
+            <span class="cc-ps-menu-expand-icon">
+              <i class="fa" data-ng-class="{'fa-angle-up':tab.expanded, 'fa-angle-down':!tab.expanded}"></i>
+            </span>
+          </a>
+        </div>
+        <div class="cc-ps-sub-menu" uib-collapse="!tab.expanded">
+          <div data-ng-repeat="subtab in tab.children" class="cc-ps-menu-item-box">
+            <a class="cc-ps-menu-item" data-ng-class="{'cc-ps-menu-selected':isActiveTab(subtab.url)}" data-ng-click="onClickTab(subtab)" ui-sref="{{subtab.url}}">
+              <i class="{{subtab.iconCls}}" data-ng-class="{'cc-ps-menu-empty-icon' : !subtab.iconCls}"></i>{{subtab.title | translate}} </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="no-padding cc-layout-full-width cc-layout-full-height" data-ng-class="transition" id="cc-ps-main-content">
+    <div class="cc-layout-full-height" data-ng-class="transition" ui-view ></div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+  <!-- <div class="cc-ps-spinner" data-ng-class="{'cc-ps-spinner-show' : ongoingAjaxRequest > 0}"> -->
+  <div class="cc-ps-spinner" data-ng-show="ongoingAjaxRequest > 0">
+    <center><i class="fa fa-spinner fa-pulse"></i></center>
+  </div>
+</div>

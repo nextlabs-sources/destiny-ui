@@ -1,0 +1,32 @@
+<div class="sticky-left-container">
+    <div data-ng-repeat="(configSubCategory, configList) in sysConfig" class="left-container">
+        <a href="" data-ng-click="scrollTo(configSubCategory)">
+            <div class="cc-ps-create-page-grammar-row"
+                data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('{{configSubCategory}}')}">
+                <div data-ng-repeat="config in configList | orderBy:'configOrder' track by $index">
+                    <label id="label-summary-{{ config.application | id}}-{{config.configKey | id}}" for="config_{{$index}}">{{'sysconfig.' + config.application + '.' + config.configKey | translate}}:</label>
+                    <div>
+                        <div class="wrapper" ng-if="config.fieldType !== 'number' && config.fieldType !== 'checkbox'">
+                            <span id="label-config-app-{{ config.application | id}}-{{config.configKey | id}}" ng-hide="config.value.length" class="cc-grammar-placeholder">
+                                <{{'sysconfig.' + config.application + '.' + config.configKey | translate}}>
+                            </span>
+                            <span id="label-config-value-{{ config.application | id}}-{{config.configKey | id}}" class="cc-ps-create-page-grammar-content"
+                                ng-show="config.value.length">{{config.value}}</span>
+                        </div>
+                        <div class="wrapper" ng-if="config.fieldType === 'number'">
+                            <span id="label-config-app-{{ config.application | id}}-{{config.configKey | id}}" ng-hide="config.value.toString.length" class="cc-grammar-placeholder">
+                                <{{'sysconfig.' + config.application + '.' + config.configKey | translate}}>
+                            </span>
+                            <span id="label-config-value-{{ config.application | id}}-{{config.configKey | id}}" class="cc-ps-create-page-grammar-content"
+                                ng-show="config.value.toString.length">{{config.value}}</span>
+                        </div>
+                        <div class="wrapper" ng-if="config.fieldType === 'checkbox'">
+                            <span id="switch-value-{{ config.application | id}}-{{config.configKey | id}}" class="cc-ps-create-page-grammar-content">{{'editsysconfig.sysconfig.value.' + config.value |translate}}</span>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

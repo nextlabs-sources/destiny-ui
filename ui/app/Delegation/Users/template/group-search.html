@@ -1,0 +1,43 @@
+<div class="cc-ps-search-form">
+  <form name="groupSearchForm" id="groupSearchForm" novalidate>
+    <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-type" data-uib-dropdown keyboard-nav auto-close="outsideClick" is-open="open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"delegation.search.usersource.label" | translate}}:</span>
+          <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.typeLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="checkbox-group-search-selectAllSource" data-ng-model="searchOptions.$allGroupTypeChecked" data-ng-disabled="searchOptions.$allGroupTypeChecked" data-ng-change="allGroupTypeChanged()" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"delegation.search.usertype.all"|translate}}</span>
+            </label></a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='type in searchOptions.groupTypeOptions'>
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="checkbox-group-search-selectSource-{{type.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="type.$_checked" data-ng-change="groupTypeChanged()" value="{{type.name}}" data-ng-true-value="true">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{type.label}}</span>
+            </label></a>
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-dlg-search-text">
+        <p class="cc-ps-search-text-container cc-dlg-search-text-container">
+          <input data-ng-model="groupSearchCriteria.text" data-ng-model-options="{ debounce: 300 }" class="form-control cc-ps-search-text cc-ps-input-common" placeholder="{{'delegation.search.groupname.placeholder' | translate}}" type="text" data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;" data-ng-change="setDirty()" />
+          <i class="fa fa-search cc-ps-search-icon"></i>
+        </p>
+      </div>
+    </div>
+    <p>
+      <button type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn cc-dlg-search-clear-btn" data-ng-click="clearGroupSearch()">{{"policysearch.label.clearSearch"|translate}}</button>
+      <button type="submit" class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="applyGroupSearch()" data-ng-if="!instantSearch">{{"policysearch.label.Apply"|translate}}</button>
+    </p>
+  </form>
+</div>
+  

@@ -1,0 +1,149 @@
+<div ng-init="init()" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline"> {{"createEnvironment.title.destination" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="name">{{"createEnvironment.title.name" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name=true"
+                data-ng-if="pageOptionList['Name']"></i>
+        </label>
+        <input  id="tf-environment-name" type="text" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-name" placeholder=""
+            data-ng-pattern="'[^~/*$&?\\\\]*'" name="name" data-ng-model="environment.name" required ng-maxlength="255"
+            maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Name"
+            data-ng-model="showUserManual.Name"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.name.$error"
+            ng-if="environmentForm.name.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.name.validation.required" | translate}}</p>
+            <p ng-message="maxlength">{{"createEnvironment.environment.name.validation.maxLength" | translate}}</p>
+            <p ng-message="pattern">{{"createenvironment.environment.name.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="hostname">{{"createEnvironment.title.hostname" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Host=true"
+                data-ng-if="pageOptionList['Host']"></i>
+        </label>
+        <input id="tf-environment-hostname" type="text" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-hostname" placeholder=""
+            data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="environment.host" name="hostname" required
+            ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Host"
+            data-ng-model="showUserManual.Host"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.hostname.$error"
+            ng-if="environmentForm.hostname.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.hostname.validation.required" | translate}}</p>
+            <p ng-message="maxlength">{{"createEnvironment.environment.hostname.validation.maxLength" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="port">{{"createEnvironment.title.port" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Port=true"
+                data-ng-if="pageOptionList['Port']"></i>
+        </label>
+        <input id="tf-environment-port" type="number" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-port" placeholder=""
+            data-ng-model="environment.port" name="port" required ng-maxlength="5" maxlength="5" string-to-number>
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Port"
+            data-ng-model="showUserManual.Port"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.port.$error"
+            ng-if="environmentForm.port.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.port.validation.required" | translate}}</p>
+            <p ng-message="maxlength">{{"createEnvironment.environment.port.validation.maxLength" | translate}}</p>
+            <p ng-message="number">{{"createenvironment.environment.port.validation.number" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="username">{{"createEnvironment.title.username" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Username=true"
+                data-ng-if="pageOptionList['Username']"></i>
+        </label>
+        <input id="tf-environment-username" type="text" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-username" placeholder=""
+            data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="environment.username" name="username" required
+            ng-maxlength="255" maxlength="255">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Username"
+            data-ng-model="showUserManual.Username"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.username.$error"
+            ng-if="environmentForm.username.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.username.validation.required" | translate}}</p>
+            <p ng-message="maxlength">{{"createEnvironment.environment.username.validation.maxLength" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="password">{{"createEnvironment.title.password" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Password=true"
+                data-ng-if="pageOptionList['Password']"></i>
+        </label>
+        <input id="tf-environment-password" type="password" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-password" placeholder=""
+            data-ng-pattern="/^(?:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]))(?!.*(.)\1{2,})[A-Za-z0-9!~`<>,;:_=?*+#.\\'\x22&%()\|\[\]\{\}\-\$\^\@\/]{10,128}$/" autocomplete="off" data-ng-model="environment.password" name="password" required
+            ng-maxlength="255" maxlength="255">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Password"
+            data-ng-model="showUserManual.Password"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.password.$error"
+            ng-if="environmentForm.password.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.password.validation.required" | translate}}</p>
+            <p ng-message="maxlength">{{"createEnvironment.environment.password.validation.maxLength" | translate}}</p>
+            <p ng-message="pattern">{{"createEnvironment.environment.password.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="clientID">{{"createEnvironment.title.oidc" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.OIDC=true"
+                data-ng-if="pageOptionList['OIDC Client ID']"></i>
+        </label>
+        <input id="tf-environment-clientID" type="text" ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"
+            class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-oidc" placeholder=""
+            data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="environment.clientId" name="clientId" required
+            ng-maxlength="255" maxlength="255">
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="OIDC Client ID"
+            data-ng-model="showUserManual.OIDC"></user-manual>
+        <div class="cc-validation-block" ng-messages="environmentForm.clientId.$error"
+            ng-if="environmentForm.clientId.$touched || showValidationMessage === true">
+            <p ng-message="required">{{"createEnvironment.environment.clientId.validation.required" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor">
+        <label for="cert">{{"createEnvironment.title.ssl" | translate}}
+            <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.SSL=true"
+                data-ng-if="pageOptionList['SSL  Certificate']"></i>
+        </label>
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+            data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="SSL  Certificate"
+            data-ng-model="showUserManual.SSL"></user-manual>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <input id="name" type="text" ng-disabled="true"
+                        class="cc-ps-create-page-editor-input-placeholder cc-create-page-environment-input-ssl"
+                        placeholder="" data-ng-model="fileToImportName">
+                </div>
+                <div class="col">
+                    <div id="btn-environment-browse" ng-class="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result ? 'btn-file cc-create-environment-browse-btn' : 'btn btn-default btn-file cc-create-environment-browse-btn'" >
+                        {{'createEnvironment.button.browse' | translate}} <input ng-disabled="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result" ng-init="addEventListener()"
+                            type="file" id="import-file" accept=".cer,.crt,.pem" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-create-page-editor-data cc-user-manual-anchor cc-create-environment-tc">
+        <label class="cc-connection-response-label"
+            ng-class="connection.status ? 'cc-connection-response-label-green' : 'cc-connection-response-label-red'">{{connection.responseLabel}}</label>
+        <button ng-disabled="environmentForm.$invalid" id="btn-environment-test-connection" ng-click="testConnection()"
+            class="btn btn-default cc-create-environment-test-connection-btn">
+            <span ng-if="!testAgain">{{'createEnvironment.button.test.connection' | translate}}</span>
+            <span ng-if="testAgain"
+                class="cc-test-connection-again">{{'createEnvironment.button.test.connection.again' | translate}}</span>
+        </button>
+    </div>
+    <!-- <div class="cc-environment-footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+</div>

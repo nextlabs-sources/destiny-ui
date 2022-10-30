@@ -1,0 +1,64 @@
+<td>
+
+</td>
+<td>
+  <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" id="cc-sort-by-select" uib-dropdown>
+    <button  id="property_btn_entityName_{{$index}}" type="button" ng-disabled='!prop.nameEditable' class="form-control cc-ps-button-common" data-uib-dropdown-toggle>
+      <span class="cc-ps-dropdown-btn-label">{{prop.parentName}}</span> <span
+        class="cc-ps-dropdown-btn-expand-icon"></span>
+      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+      <li role="menuitem" data-ng-repeat="s in searchOptions.entityTypeOptions" data-ng-click="prop.parentName = s.label"
+        class="cc-ps-clickable-dropdown">
+        {{s.label}}
+      </li>
+    </ul>
+  </div>
+</td>
+<td>
+  <div class="btn-group btn-block">
+    <input class=" form-control cc-create-page-common-input"
+      id="property-input-label-{{$index}}" name="property_input_label_{{$index}}" style="height:40px;"
+      placeholder="{{::'toolManagement.locationManager.list.placeholder.name' | translate}}" data-ng-model="prop.label"
+      data-ng-focus="highlightGrammar('users')" required>
+    <div class="cc-validation-block" ng-messages="propertyForm.val['property_input_label_' + $index].$error"
+      ng-if="propertyForm.val['property_input_label_' + $index].$touched">
+      <p ng-message="required">{{::"toolManagement.locationManager.list.required.name" | translate}}</p>
+    </div>
+  </div>
+</td>
+<td>
+  <div class="btn-group btn-block">
+    <input class=" form-control cc-create-page-common-input" id="property-input-name-{{$index}}" name="property_input_name_{{$index}}"
+      style="height:40px;" placeholder="{{::'toolManagement.locationManager.list.placeholder.value' | translate}}"
+      data-ng-model="prop.name" data-ng-focus="highlightGrammar('users')" required>
+    <div class="cc-validation-block" ng-messages="propertyForm.val['property_input_name_' + $index].$error"
+      ng-if="propertyForm.val['property_input_name_' + $index].$touched">
+      <p ng-message="required">{{::"toolManagement.locationManager.list.required.value" | translate}}</p>
+      <p ng-message="pattern"> {{::"toolManagement.locationManager.list.pattern.value" | translate}} </p>
+    </div>
+  </div>
+</td>
+<td>
+  <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" id="cc-sort-by-select" uib-dropdown>
+    <button id="property-btn-type-{{$index}}" type="button" ng-disabled='!prop.nameEditable' class="form-control cc-ps-button-common" data-uib-dropdown-toggle>
+      <span class="cc-ps-dropdown-btn-label">{{prop.type}}</span> <span
+        class="cc-ps-dropdown-btn-expand-icon"></span>
+      <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu property-list-dropdown" role="menu" aria-labelledby="">
+      <li role="menuitem" data-ng-repeat="s in searchOptions.dataTypeOptions" data-ng-click="prop.type = s.label"
+        class="cc-ps-clickable-dropdown">
+        {{s.label}}
+      </li>
+    </ul>
+  </div>
+</td>
+<td class="td-icon">
+
+  <i  id="property-btn-save-{{$index}}" class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit(propertyForm.val, prop)"
+    title="Add to table"></i>
+  <i  id="property-btn-cancel-{{$index}}" class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit(prop)" title="Cancel"></i>
+
+</td>

@@ -1,0 +1,54 @@
+<div id="label-title-enrollmentFiles" class="cc-ps-create-page-editor-title cc-user-manual-anchor">
+    <span id="span-title-enrollmentFiles" class="cc-ps-create-page-title-underline">
+        {{"toolManagement.createTask.subtitle.files" | translate}}</span>
+        <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+            data-ng-click="showUserManual['LDIF – LDIF File Upload'] = true"
+            data-ng-if="pageOptionList['LDIF – LDIF File Upload']"></i>
+        <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+            style="left: 180px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+            data-page="{{userManualOption.page}}" key="LDIF – LDIF File Upload"
+            data-ng-model="showUserManual['LDIF – LDIF File Upload']">
+        </user-manual>
+</div>
+<div class="cc-create-page-editor-data cc-ps-create-page-editor-info cc-user-manual-anchor cc-enrollment-upload">
+    <div class="cc-inline btn-group btn-block">
+        <div role="menu" aria-labelledby="" data-ng-click="$event.stopPropagation()">
+            <div class="cc-inline">
+                <input ng-hide=true type=file id="input-enrollment-ldif-fileUploadExtra" accept=".ldif" />
+                <div class="cc-inline">
+                    <input id="input-ldif-browse-text-extra" type="text"
+                        ng-class="ldifProperties['ldif.filename'].value ? 'cc-enrollment-hidden' : 'cc-enrollment-show'"
+                        class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-upload-width"
+                        placeholder="Upload a file" data-ng-disabled="true" />
+                    <input id="input-ldif-browse-text-upload-success" type="text" 
+                        ng-class="ldifProperties['ldif.filename'].value ? 'cc-enrollment-show' : 'cc-enrollment-hidden'"
+                        placeholder="{{ldifProperties['ldif.filename'].value ? 'LDIF File is uploaded' : 'null'}}"
+                        class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-upload-width"
+                        data-ng-disabled="true" />
+                    <a id="btn-ldif-browse-button-extra"
+                        class="btn cc-btn-discard cc-tools-browse-button">{{"toolManagement.createTask.options.browse" | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            const inputButton = document.getElementById("input-enrollment-ldif-fileUploadExtra");
+            const browseButton = document.getElementById("btn-ldif-browse-button-extra");
+            const browseText = document.getElementById("input-ldif-browse-text-extra");
+            const browseSuccess = document.getElementById("input-ldif-browse-text-upload-success");
+
+            browseButton.addEventListener("click", function () {
+                inputButton.click();
+            })
+
+            inputButton.addEventListener("change", function () {
+                browseText.value = inputButton.value ? inputButton.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1] : "Upload a file";
+                if(inputButton.value) {
+                    browseText.style.display = 'inline-block';
+                    browseSuccess.style.display = 'none';
+                } else {
+                    browseText.style.display = 'none';
+                    browseSuccess.style.display = 'inline-block';
+                }
+            })
+        </script>
+    </div>

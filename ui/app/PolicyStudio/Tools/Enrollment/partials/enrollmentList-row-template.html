@@ -1,0 +1,48 @@
+<div class="cc-ps-resource" data-ng-class="{'cc-ps-subject-type':resource.type == 'SUBJECT', 'cc-ps-checked':resource.checked}">
+    <div data-ng-if="!enrollment.lastUpdatedDate">
+      <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div data-ng-if="enrollment.lastUpdatedDate">
+      <div class="cc-ps-resource-parent">
+        <div class="cc-ps-effect-status">
+        </div>
+        <div class="cc-ps-resource-content-container">
+          <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-resource-check">
+          </div>
+          <div class="cc-ps-resource-content">
+            <div class="cc-ps-tool-task-name-desc">
+              <p id="btn-enrollment-{{enrollment.name | id}}" class="cc-ps-resource-name"><span id="span-enrollment-{{enrollment.name | id}}" data-ng-click="editEnrollment(enrollment)" title="{{enrollment.name}}">{{enrollment.name}}</span></p>
+              <p id="btn-enrollment-description-{{enrollment.name | id}}" class="cc-ps-description"><small data-ng-click="editEnrollment(enrollment)" title="{{enrollment.description}}">{{enrollment.description}}</small></p>
+              <p>
+                <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                <friendly-date data-date="{{enrollment.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+              </p>
+            </div>
+            <div class="text-uppercase cc-ps-tool-task-datasource"><span class="cc-ps-tool-task-datasource-value">{{getEnrollmentType(enrollment.type)}}</span></div>
+            <div class="text-uppercase cc-ps-tool-task-status" ng-if="enrollment.status !== 'ENROLLED'">
+              <span class="cc-ps-tool-task-command" data-ng-class="{'draft' : enrollment.status == 'DRAFT', 'enrolled' : enrollment.status == 'ENROLLED', 'failed' : enrollment.status == 'FAILED', 'success' : enrollment.status == 'SUCCESS', 'in-progress' : enrollment.status == 'IN_PROGRESS'}">
+                {{enrollment.status.replace("_", " ")}}</span>
+                <span class="cc-last-sync" ng-if="enrollment.lastSyncDate > 0"><span>Successful sync</span>
+                  <friendly-date data-date="{{enrollment.lastSyncDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                </span>
+                <div ng-if="enrollment.statusMessage" uib-tooltip="{{::enrollment.statusMessage}}" class="cc-generate-policy-alert cc-ps-tool-task-status-reason" ng-class="{'cc-ps-tool-status-reason-sync': enrollment.lastSyncDate > 0}"></div>
+            </div>
+            
+            <div class="text-uppercase cc-ps-resource-update">
+            </div>
+            <div class="cc-ps-component-option-block">
+                <p class="cc-ps-align-right">
+                  <button id="btn-enrollment-option-{{enrollment.name | id}}" class="btn btn-default cc-ps-component-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(enrollment, !openOption(enrollment))"></button>
+                </p>
+                <div class="cc-ps-option" data-ng-show="enrollment.optionOpen">
+                  <button id="btn-enrollment-sync" style="float: right" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="sync" ng-if="enrollment.status != 'DRAFT' && enrollment.status != 'IN_PROGRESS'" data-ng-click="syncEnrollment(enrollment, $event)" dyn-attr-del="['data-ng-click','click']"><i id="icon-enrollment-option-sync" class="cc-ps-icon-execute"></i></button>
+                  <button id="btn-enrollment-edit" style="float: right" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="edit" data-ng-click="editEnrollment(enrollment)" dyn-attr-del="['data-ng-click','click']"><i id="icon-enrollment-option-edit" class="fa fa-pencil"></i></button>
+                  <button id="btn-enrollment-delete" style="float: right" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="delete" ng-if="enrollment.status != 'IN_PROGRESS'" data-ng-click="deleteEnrollment(enrollment, $event)" dyn-attr-del="['data-ng-click','click']"><i id="icon-enrollment-option-delete" class="cc-ps-icon-trash"></i></button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

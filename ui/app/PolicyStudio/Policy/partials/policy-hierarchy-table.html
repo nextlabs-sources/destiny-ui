@@ -1,0 +1,46 @@
+<div class="cc-ps-policy-hierarchy-item-box" data-ng-if="policyHierarchy">
+  <div class="cc-ps-policy-hierarchy-item" data-ng-class="{'cc-ps-policy-hierarchy-current':policyHierarchy.id == policy.id, 'cc-ps-policy-hierarchy-non-current':policyHierarchy.id != policy.id}" data-ng-click="policyHierarchy.id != policy.id && editPolicy(policyHierarchy, 'hierarchy')" dyn-attr-del-unbind-if="!policyHierarchy.authoritiesParsed.VIEW_POLICY" dyn-attr="policyHierarchy.authoritiesParsed.VIEW_POLICY ? permissions.VIEW_POLICY.hierarchy.action.ALLOW : permissions.VIEW_POLICY.hierarchy.action.DENY" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">
+    <div class="cc-ps-policy-hierarchy-hide-on-hover" data-ng-if="policyHierarchy.id != policy.id">
+      <p class="cc-ps-policy-hierarchy-name">{{policyHierarchy.name}}</p>
+    </div>
+    <div data-ng-class="{'cc-ps-policy-hierarchy-current':policyHierarchy.id == policy.id, 'cc-ps-policy-hierarchy-non-current':policyHierarchy.id != policy.id, 'cc-ps-policy-hierarchy-show-on-hover':policyHierarchy.id != policy.id}">
+        <div>
+          <span class="cc-ps-effect {{policyHierarchy.effectType | lowercase}}">{{policyHierarchy.effectType | lowercase}}</span>
+          <div style="float:right;">
+            <span class="cc-ps-deployed" data-ng-class="getPolicyUIStatus(policyHierarchy)">{{policyHierarchy.deployed ? 'Deployed' : 'Inactive'}}</span>
+            <span ng-if="policyHierarchy.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{policyHierarchy.status | lowercase}}</span>
+          </div>
+        </div>
+      <p class="cc-ps-policy-hierarchy-name">{{policyHierarchy.name}}</p>
+        <div>
+            <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+            <friendly-date data-date="{{policyHierarchy.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+        </div>
+      <div class="cc-ps-policy-hierarchy-updated-time-label" data-ng-class="{'cc-ps-hierarchy-display-on-hover':policyHierarchy.id != policy.id}">UPDATED ON</div>
+      <div class="cc-ps-policy-hierarchy-updated-time" data-ng-class="{'cc-ps-hierarchy-display-on-hover':policyHierarchy.id != policy.id}">{{policyHierarchy.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+      <span class="cc-ps-policy-hierarchy-updated-by-label" data-ng-class="{'cc-ps-hierarchy-display-on-hover':policyHierarchy.id != policy.id}">BY</span>
+      <span class="cc-ps-policy-hierarchy-updated-by" data-ng-class="{'cc-ps-hierarchy-display-on-hover':policyHierarchy.id != policy.id}">{{policyHierarchy.modifiedBy}}</span>
+      <div class="cc-ps-policy-hierarchy-option cc-ps-list-option-block" data-ng-if="policyHierarchy.id == policy.id" data-ng-mouseleave="policyHierarchy.optionOpen=false">
+        <div class="cc-ps-align-right cc-ps-policy-hierarchy-option-button" style="float: right; width:45px;">
+          <button class="btn btn-default cc-ps-policy-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-mouseenter="policyHierarchy.optionOpen=true"></button>
+        </div>
+        <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/policyoption-hierarchy-template.html'" class="cc-ps-option" data-ng-show="policyHierarchy.optionOpen" style="float:right; width:120px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="cc-ps-policy-hierarchy-collapse" data-ng-class="{'cc-ps-policy-hierarchy-expand':policyHierarchy.childrenCollapsed}" data-ng-if="policyHierarchy.childNodes.length" data-ng-click="policyHierarchy.childrenCollapsed=!policyHierarchy.childrenCollapsed"></div>
+</div>
+<table class="cc-ps-policy-hierarchy-table" cellpadding="0" data-ng-if="policyHierarchy.childNodes.length" data-ng-hide="policyHierarchy.childrenCollapsed">
+  <tbody>
+    <tr class="cc-ps-policy-hierarchy-line">
+      <td class="cc-ps-policy-hierarchy-right-border"><div>&nbsp;</div></td>
+    </tr>
+    <tr class="cc-ps-policy-hierarchy-line" data-ng-repeat="policyHierarchy in policyHierarchy.childNodes">
+      <td class="cc-ps-policy-hierarchy-right-border">
+        <div><div>&nbsp;</div></div>
+      </td>
+      <td class="cc-ps-policy-hierarchy-middle-border"><div>&nbsp;</div></td>
+      <td data-ng-include="'ui/app/PolicyStudio/Policy/partials/policy-hierarchy-table.html'"></td>
+    </tr>
+  </tbody>
+</table>

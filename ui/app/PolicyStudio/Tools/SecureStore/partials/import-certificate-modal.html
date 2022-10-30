@@ -1,0 +1,44 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="import-modal-title">{{"secureStore.modal.importCertificate.title" | translate}}</h3>
+</div>
+<div class="modal-body" id="import-modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="importCertificateForm" name="importCertificateForm" class="form-horizontal">
+                <div class="form-group">
+                    <label for="storeName" class="col-sm-4 control-label">{{"secureStore.modal.importCertificate.storeName" | translate}}</label>
+                    <select id="storeName" class="form-control cc-create-page-common-select" data-ng-model="data.storeName" 
+                        data-ng-options="storeName for storeName in data.storeNames track by storeName" name="storeName" style="width: 235px;">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="alias" class="col-sm-4 control-label">{{"secureStore.modal.importCertificate.alias" | translate}}</label>
+                    <input id="alias" name="alias" type="text" placeholder="Alias" data-ng-model="data.alias" ng-maxlength="255" maxlength="255"
+                        class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="fileName" class="col-sm-4 control-label">{{"secureStore.modal.importCertificate.fileName" | translate}}</label>
+                    <div class="btn btn-default btn-file">
+                        {{'PS.Browse' | translate}} <input type="file" id="import-file" accept=".cer,.crt,.pem"/>
+                    </div>
+					<span>&nbsp;{{data.fileToImportName}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">&nbsp;</label>
+                    <label class="cc-green-checkbox-radio-label">
+                        <input name="verifyTrustChain" type="checkbox" data-ng-model="data.verifyTrustChain"
+                            class="cc-green-checkbox-radio">
+                        <span class="cc-ps-label-for-checkbox-radio">
+                            <span id="verifyTrustChain" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="cc-ps-checkbox-label-text">{{"secureStore.modal.importCertificate.verifyTrustChain" | translate}}</span>
+                        </span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+  <button id="cancelModal" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"PS.CANCEL" | translate}}</button>
+  <button id="submitForm" class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!(data.fileToImportName && data.alias)" ng-click="ok()">{{"PS.CONFIRM" | translate}}</button>
+</div>

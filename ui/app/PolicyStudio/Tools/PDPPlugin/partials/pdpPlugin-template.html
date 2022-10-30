@@ -1,0 +1,47 @@
+<div class="cc-flex-center-item" style="width: 4%; border: 0px;">
+    <label class="cc-green-checkbox-radio-label">
+        <input id="checkbox-manager-{{plugin.name}}" type="checkbox" class="cc-green-checkbox-radio"
+            data-ng-model="plugin.checked" data-ng-change="pluginCheckStatusChanged()">
+        <span><span id="checkbox-span-manager-{{plugin.name}}" class="cc-green-checkbox-radio-bgrd-holder"
+                style="padding-left: 0 !important;"></span></span>
+    </label>
+</div>
+<div style="width: 66%; border: 0px;">
+    <p class="cc-ps-policy-name">
+        <span data-ng-click="edit(plugin)">&nbsp;{{plugin.name}}</span>
+    </p>
+    <div class="cc-ps-description cc-text-ellipsis" data-ng-if="plugin.description">
+            <span data-ng-click="edit(plugin)">&nbsp;{{plugin.description}}</span>
+    </div>
+    <p>
+        <span class="cc-ps-list-policy-summary">
+            <span class="cc-ps-list-modified-time">
+                <span class="cc-ps-list-keyword">&nbsp;{{'Modified' | translate}}</span>
+                <friendly-date data-date="{{plugin.modifiedDate}}" data-date-type="miliseconds"
+                    data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content"
+                    data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+            </span>
+        </span>
+    </p>
+</div>
+<div style="width: 30%;display: flex;flex-direction: row; justify-content: space-between;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <span class="cc-ps-deployed" style="margin-right: 5px;"
+            data-ng-class="{'active': plugin.deployed, 'inactive': !plugin.deployed}">{{plugin.deploymentStatus}}</span>
+        <span data-ng-if="plugin.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{plugin.status}}</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <div class="cc-dlg-align-right">
+            <button id="deploy-plugin-{{plugin.id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big cc-btn-deploy"
+                title="Activate" data-ng-click="deploy(plugin, $event)"
+                data-ng-if="plugin.status != 'DEPLOYED'"></button>
+            <button id="delete-plugin-{{plugin.id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete"
+                data-ng-click="delete(plugin, $event)"><i class="cc-ps-icon-trash"></i></button>
+            <button id="edit-plugin-{{plugin.id}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Edit"
+                data-ng-click="edit(plugin)"><i class="fa fa-pencil"></i></button>
+            <button id="deactivate-plugin-{{plugin.id}}"
+                class="btn btn-default cc-ps-btn cc-ps-btn-cc-big cc-btn-generate-undeploy" title="Deactivate"
+                data-ng-click="deactivate(plugin, $event)" data-ng-if="plugin.status == 'DEPLOYED'"></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,188 @@
+<!doctype html>
+<!--[if lt IE 11]> <html class="ie-old-version"> <![endif]-->
+<!--[if gt IE 10]><!--> <html> <!--<![endif]-->    
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <link href="ui/lib/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="ui/lib/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="ui/lib/angular-ui-switch/angular-ui-switch.css" rel="stylesheet">
+  <link href="ui/css/style.css" rel="stylesheet">
+  <link href="ui/app/PolicyStudio/css/style.css" rel="stylesheet">
+  <link href="ui/app/PolicyStudio/Tools/css/style.css" rel="stylesheet">
+  <link href="ui/app/Delegation/css/style.css" rel="stylesheet">
+  <link href="ui/app/Dashboard/css/style.css" rel="stylesheet">
+  <link href="ui/lib/angular-chart/angular-chart.min.css" rel="stylesheet">
+  <link href="ui/lib/angular-toaster/toaster.min.css" rel="stylesheet">
+  <link href="ui/lib/nvd3/1.8.3/nv.d3.min.css" rel="stylesheet">
+  <link href="ui/lib/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+  <link href="ui/css/font/fira.css" rel="stylesheet">
+  <link href="ui/lib/angular-jsoneditor/css/jsoneditor.min.css" rel="stylesheet">
+  <link href="ui/lib/ui-codemirror-0.3.0/codemirror.css" rel="stylesheet">
+  <link href="ui/lib/angular-ui-tree/angular-ui-tree.min.css" rel="stylesheet">
+ 
+  <script type="text/javascript" src="ui/lib/formdata-polyfill/formdata.min.js"></script>
+  <script type="text/javascript" src="ui/config/config.js"></script>
+</head>
+
+<body data-ng-app="controlCenterConsoleApp">
+  <noscript class="noscript">
+    JavaScript is not supported on your browser. Please make sure JavaScript is enabled and compatibility view is not supported.
+  </noscript>
+  <div class="cc-main-container " data-ng-controller="controlCenterController" data-ng-include="'ui/app/layout.html'"></div>
+  <script type="text/javascript" src="ui/lib/jquery/1.12.4/jquery.js"></script>
+  <script type="text/javascript" src="ui/lib/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    (function($) {
+        "use strict";
+        // Detecting IE
+        var oldIE;
+        if ($('html').is('.ie-old-version')) {
+          // alert($(document).html());
+          document.write('<div class="noscript">Only Google Chrome 51+, Internet Explorer 11+ and Mozilla Firefox 47+ are supported.</div>');
+          //.append($('<div/>').addClass('noscript').text('Your browser is not supported. Please try upgrading to modern browsers.'))
+        }
+    }(jQuery));
+  </script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/angular.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/i18n/angular-locale_en-us.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/angular-animate.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/angular-messages.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular/1.8.2/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-ui-router/1.0.29/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-ui-router/1.0.29/stateEvents.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-ui/bootstrap/ui-bootstrap-tpls-2.5.6.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-ui-switch/angular-ui-switch.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-translate/2.18.1/angular-translate.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-translate/2.18.1/angular-translate-loader-static-files.min.js"></script>
+  <script type="text/javascript" src="ui/lib/moment/2.29.1/moment.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-moment/angular-moment.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-toaster/toaster.min.js"></script>
+  <script type="text/javascript" src="ui/lib/d3/3.5.17/d3.min.js"></script>
+  <script type="text/javascript" src="ui/lib/nvd3/1.8.3/nv.d3.min.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-nvd3-1.0.7/dist/angular-nvd3.min.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-sortable-0.16.0/angular-ui-sortable/sortable.js"></script>
+  <script type="text/javascript" src="ui/lib/textarea-helper.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-jsoneditor/ng-jsoneditor.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-jsoneditor/jsoneditor.min.js"></script>
+  <script type="text/javascript" src="ui/config/actions.js"></script>
+  <script type="text/javascript" src="ui/build/templates.js"></script>
+  <script type="text/javascript" src="ui/app/app.js"></script>
+  <script type="text/javascript" src="ui/app/constants.js"></script>
+  <script type="text/javascript" src="ui/app/services/userService.js"></script>
+  <script type="text/javascript" src="ui/app/services/viewCacheService.js"></script>
+  <script type="text/javascript" src="ui/app/controlCenterController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/policyStudioApp.js"></script>
+  <script type="text/javascript" src="ui/app/services/networkService.js"></script>
+  <script type="text/javascript" src="ui/app/services/configService.js"></script>
+  <script type="text/javascript" src="ui/app/services/loggerService.js"></script>
+  <script type="text/javascript" src="ui/app/services/dialogService.js"></script>
+  <script type="text/javascript" src="ui/app/services/versionService.js"></script>
+  <script type="text/javascript" src="ui/app/services/userManualTranslateService.js"></script>
+  <script type="text/javascript" src="ui/app/services/apiAssembleService.js"></script>
+  <script type="text/javascript" src="ui/app/services/autoCloseOptionService.js"></script>
+  <script type="text/javascript" src="ui/app/services/commonFunctionService.js"></script>
+  <script type="text/javascript" src="ui/app/services/tagService.js"></script>
+  <script type="text/javascript" src="ui/app/services/folderService.js"></script>
+  <script type="text/javascript" src="ui/app/services/agentService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PolicyValidator/services/xacmlParsingService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PolicyValidator/services/requestBuilderService.js"></script>
+  <script type="text/javascript" src="ui/app/directive/userManual.js"></script>
+  <script type="text/javascript" src="ui/app/directive/dynamicAttributes.js"></script>
+  <script type="text/javascript" src="ui/app/directive/goAsYouType.js"></script>
+  <script type="text/javascript" src="ui/app/directive/autoSize.js"></script>
+  <script type="text/javascript" src="ui/app/directive/friendlyDate.js"></script>
+  <script type="text/javascript" src="ui/app/directive/scrollToTopWhen.js"></script>
+  <script type="text/javascript" src="ui/app/directive/restrictInput.js"></script>
+  <script type="text/javascript" src="ui/app/directive/autoScrollTo.js"></script>
+  <script type="text/javascript" src="ui/app/directive/ccVideo.js"></script>
+  <script type="text/javascript" src="ui/app/directive/autoSuggestion.js"></script>
+  <script type="text/javascript" src="ui/app/directive/noEnter.js"></script>
+  <script type="text/javascript" src="ui/app/directive/multiInput.js"></script>
+  <script type="text/javascript" src="ui/app/directive/autoResizeTextarea.js"></script>
+  <script type="text/javascript" src="ui/app/directive/slideToggle.js"></script>
+  <script type="text/javascript" src="ui/app/directive/folderView.js"></script>
+  <script type="text/javascript" src="ui/app/directive/stringToNumber.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Policy/policyListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Policy/createPolicyController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Policy/services/policyService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Component/componentListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Component/services/componentService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Component/createComponentController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Resource/resourceListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Resource/createResourceController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Resource/services/resourceService.js"></script>  
+  <script type="text/javascript" src="ui/app/PolicyStudio/policyStudioController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Policy/directive/subpolicyLabel.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/delegationApp.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/services/userService.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/services/delegationService.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/services/loginConfigService.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/delegationController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Policies/createDelegationPolicyController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Policies/DelegationPolicyListController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Users/userAndGroupListController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Users/createUserController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Users/importUserController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/Users/importGroupController.js"></script>
+  <script type="text/javascript" src="ui/app/Dashboard/dashboardApp.js"></script>
+  <script type="text/javascript" src="ui/app/Dashboard/dashboardController.js"></script>
+  <script type="text/javascript" src="ui/app/Dashboard/services/dashboardService.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/LoginConfig/loginConfigListController.js"></script>
+  <script type="text/javascript" src="ui/app/Delegation/LoginConfig/createLoginConfigController.js"></script> 
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PolicyValidator/createRequestController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/enrollmentManagementToolsController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/partials/ldif-sync-dialog-controller.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/services/toolEnrollmentService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/services/propertyManagerService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/enrollmentListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/createEnrollmentController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/locationListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/XacmlPolicy/services/xacmlPolicyService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/XacmlPolicy/xacmlPolicyListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/Enrollment/propertyListController.js"></script>
+  <script type="text/javascript" src="ui/lib/xml2json.min.js"></script>
+  <script type="text/javascript" src="ui/lib/vkbeautify.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-codemirror-0.3.0/prettify.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-codemirror-0.3.0/prettifyDirective.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-codemirror-0.3.0/codemirror.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-codemirror-0.3.0/javascript.js"></script>
+  <script type="text/javascript" src="ui/lib/ui-codemirror-0.3.0/ui-codemirror.min.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/AttributeProvider/createAttributeProviderController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/AttributeProvider/attributeProviderListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/SysConfig/services/sysConfigService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/SysConfig/sysConfigListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/SysConfig/editSysConfigController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/LogConfig/services/logConfigService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/LogConfig/logConfigController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/SecureStore/secureStoreController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/SecureStore/secureStoreListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/SecureStore/keyStoreController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/SecureStore/trustStoreController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/SecureStore/services/secureStoreService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/EnrolledDataViewer/enrolledDataViewerController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/EnrolledDataViewer/services/enrolledDataViewerService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PDPPlugin/pdpPluginListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PDPPlugin/pdpPluginController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Tools/PDPPlugin/services/pdpPluginService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Environment/environmentListController.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Environment/services/environmentService.js"></script>
+  <script type="text/javascript" src="ui/app/PolicyStudio/Environment/createEnvironmentController.js"></script>
+  <script type="text/javascript" src="ui/lib/ace/ace.js"></script>
+  <script type="text/javascript" src="ui/lib/ace/ui-ace.js"></script>
+  <script type="text/javascript" src="ui/lib/ace/ext-language_tools.js"></script>
+  <script type="text/javascript" src="ui/lib/ace/mode-xml.js"></script>
+  <script type="text/javascript" src="ui/lib/angular-ui-tree/angular-ui-tree.min.js"></script>
+  <script type="text/javascript" src="ui/lib/stomp-js/stomp.min.js"></script>
+  <script type="text/javascript" src="ui/lib/sockjs/sockjs.min.js"></script>
+  <script type="text/javascript" src="ui/lib/timezone-list/compact-timezone-list.js"></script>
+</body>
+
+</html>
+

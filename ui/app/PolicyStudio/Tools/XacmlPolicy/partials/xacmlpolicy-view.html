@@ -1,0 +1,38 @@
+<div class="cc-ps-resource" data-ng-class="{'cc-ps-checked':xacmlPolicy.checked}">
+    <div data-ng-if="!xacmlPolicy.lastUpdatedDate">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div data-ng-if="xacmlPolicy.lastUpdatedDate">
+        <div class="cc-ps-resource-parent">
+            <div class="cc-ps-effect-status">
+
+            </div>
+            <div class="cc-ps-resource-content-container cc-ps-xacml-resource-content-container">
+                <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-resource-check">
+                    <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half cc-ps-xacml-checkbox-left-half">
+                        <input id="checkbox-xacml-{{xacmlPolicy.name | id}}" type="checkbox" class="cc-green-checkbox-radio ng-pristine ng-untouched ng-valid ng-empty" data-ng-model="xacmlPolicy.checked" data-ng-change="policyCheckStatusChange()"><span><span id="span-xacml-{{xacmlPolicy.name | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                    </label>
+                </div>
+                <div class="cc-ps-resource-content cc-ps-xacml-resource-content">
+                    <div class="cc-ps-xacml-policy-desc-col">
+                        <div id="label-xacml-{{xacmlPolicy.name | id}}-name" title="{{xacmlPolicy.name}}" class="cc-ps-xacml-policy-name">{{xacmlPolicy.name}}</div>
+                        <div id="label-xacml-{{xacmlPolicy.name | id}}-description" title="{{xacmlPolicy.description}}" class="cc-ps-xacml-policy-desc">{{xacmlPolicy.description}}</div>
+                    </div>
+                    <div id="label-xacml-{{xacmlPolicy.name | id}}-doc-type" class="cc-ps-tool-xacml-policy-document-type"><span id="label-xacml-{{xacmlPolicy.name | id}}-doc-type">{{xacmlPolicy.documentType}}</span></div>
+                    <div id="label-xacml-{{xacmlPolicy.name | id}}-last-modified" class="cc-ps-tool-xacml-policy-file-last-update-date">
+                        <span id="span-xacml-{{xacmlPolicy.name | id}}-last-modified">{{xacmlPolicy.lastUpdatedDate | date:'dd MMM yyyy, h:mm a'}}</span>
+                    </div>
+                    <div class="cc-ps-component-option-block">
+                        <p class="cc-ps-align-right">
+                            <button id="btn-xacml-{{xacmlPolicy.name | id}}-options" class="btn btn-default cc-ps-component-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(xacmlPolicy, !openOption(xacmlPolicy))"></button>
+                        </p>
+                        <div class="cc-ps-option" data-ng-show="xacmlPolicy.optionOpen">
+                            <button id="btn-xacml-{{xacmlPolicy.name | id}}-option-delete" style="float: right" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-click="bulkDelete($event, xacmlPolicy)" dyn-attr-del="['data-ng-click','click']"><i class="cc-ps-icon-trash"></i></button>
+                            <button id="btn-xacml-{{xacmlPolicy.name | id}}-option-export" style="float: right" class="btn btn-default cc-ps-btn cc-btn-export cc-ps-btn-cc-big" title="Export" data-ng-click="exportSelectedPolicy(xacmlPolicy)"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

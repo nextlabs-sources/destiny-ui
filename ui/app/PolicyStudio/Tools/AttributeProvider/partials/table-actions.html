@@ -1,0 +1,18 @@
+<div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+  <label class="nobold cc-green-checkbox-radio-label">
+    <input type="checkbox" ng-disabled="resourceList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allResourceChecked" data-ng-change="checkAllResource(checkStatus.allResourceChecked)"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span></label>
+</div>
+<div class="cc-inline cc-ps-operation-btn">
+  <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.allCheckedItemDeletable || !checkStatus.hasResourceChecked" title="Delete" data-ng-click="bulkDelResourceType($event)"><i class="fa fa-trash"></i></button>
+</div>
+<div id="cc-sort-by" class="cc-inline cc-ps-align-right">
+  <div class="cc-inline" id="cc-sort-by-title">{{"resourcesearch.label.sortby"|translate}}</div>
+  <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" id="cc-sort-by-select" uib-dropdown>
+    <button class="form-control cc-ps-button-common" id="" type="button" data-uib-dropdown-toggle>
+      <span class="cc-ps-dropdown-btn-label">{{searchCriteria.sortBy.label}}</span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+    </button>
+    <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+      <li role="menuitem" data-ng-repeat="s in searchOptions.sortOptions" data-ng-click="searchCriteria.sortBy = s" class="cc-ps-clickable-dropdown">{{s.label}}</li>
+    </ul>
+  </div>
+</div>

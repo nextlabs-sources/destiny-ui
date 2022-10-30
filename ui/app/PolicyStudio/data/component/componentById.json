@@ -1,0 +1,41 @@
+{
+"data":{
+		"id": 111,
+		"name": "component name", 
+		"description": "component description", 
+		"tags": [{
+			"id":1,
+			"label":"tag1"
+		},{
+			"id":2,
+			"label":"tag2"
+		},{
+			"id":3,
+			"label":"tag3"
+		},{
+			"id":4,
+			"label":"tag4"
+		}], 
+		"resourceType": "SAP",
+		"conditions": [{
+			"key":"key1",
+			"attr":"In",
+			"value":"somewhere"
+		},{
+			"key":"key2",
+			"attr":"Not In",
+			"value":"somewhere2"
+		},{
+			"key":"key3",
+			"attr":"In",
+			"value":"somewhere3"
+		}],
+		"subComptsContainer": [{
+			"id" : 1,
+			"label" : "sub1"
+		},{
+			"id" : 2,
+			"label" : "sub2"
+		}]
+	}
+}

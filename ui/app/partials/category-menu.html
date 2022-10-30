@@ -1,0 +1,25 @@
+<ul>
+    <li ng-repeat="(key,menu) in categoryMenuList" 
+        data-ng-click="handleNavigateApplication(menu.name,menu.url, handleApplicationPermision(menu),isOnTabIcon); showCategoryList.val = false"
+        data-ng-mouseleave="handleHideNewtabIconDisplay()" data-ng-mouseenter="handleShowNewTabIconDisplay(menu.name)" id="{{handleElementId('app',menu.name)}}">
+
+        <div class="menu-container">
+
+            <div data-ng-show="appWithTabIcon == menu.name" id="{{handleElementId('app',menu.name + '-new-tab')}}" data-ng-class="appWithTabIcon == 'Policy Studio'? 'policy-tab-icon tab-icon': 
+                appWithTabIcon == 'Audit and Report'? 'report-tab-icon tab-icon' : 'administration-tab-icon tab-icon'"
+                data-ng-mouseleave="isOnTabIcon = false" data-ng-mouseenter="isOnTabIcon = true">
+            
+                <span class="tooltip-text">Open in new tab</span>
+            </div>
+
+               
+            <a class="new-tab-container " ng-href="{{handleNavigateNewTab(menu.name,menu.url, handleApplicationPermision(menu))}}">
+                <div style="background: url({{menu.img}});" data-ng-class="handleApplicationPermision(menu)? 'app-tray-icon ':  'app-tray-icon disabled-application'"></div>
+                {{menu.name}}
+            </a>
+            
+
+        </div>
+
+    </li>
+</ul>

@@ -1,0 +1,86 @@
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.ldapurl.$touched && configForm.val.ldapurl.$invalid }">
+    <label for="ldapurl"> {{"delegation.loginConfig.label.ldapurl" | translate}} 
+      <i id="icon-userSource-ldap-url" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP URL']=true" data-ng-if="pageOptionList['LDAP URL']"> </i>
+    </label>
+    <input id="ldapurl" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.ldapurl' | translate}}" 
+        data-ng-model="config.configData.ldapUrl" name="ldapurl" required autocomplete="off" ng-change="updateUseStartTLSCheck()"/>
+    <div class="cc-validation-block" ng-messages="configForm.val.ldapurl.$error" ng-if="configForm.val.ldapurl.$touched" >
+      <p ng-message="required"> {{"delegation.loginConfig.validation.ldapurl.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP URL" data-ng-model="showUserManual['LDAP URL']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="useStartTLS" class="nobold cc-green-checkbox-radio-label">
+      <input id="useStartTLS" name="useStartTLS" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="config.configData.useStartTLS" data-ng-disabled="isSecure"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+      {{"delegation.loginConfig.label.useStartTLS" | translate}} 
+      <i id="icon-userSource-ldap-useStartTLS" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Use StartTLS']=true" data-ng-if="pageOptionList['Use StartTLS']"></i>
+    </label>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Use StartTLS" data-ng-model="showUserManual['Use StartTLS']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.ldapdomain.$touched && configForm.val.ldapdomain.$invalid }">
+    <label for="ldapdomain"> {{"delegation.loginConfig.label.ldapdomain" | translate}} 
+      <i id="icon-userSource-ldap-domain" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP Domain']=true" data-ng-if="pageOptionList['LDAP Domain']"> </i>
+    </label>
+    <input id="ldapdomain" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.ldapdomain' | translate}}" data-ng-model="config.configData.ldapDomain" name="ldapdomain" required autocomplete="off"/>
+    <div class="cc-validation-block" ng-messages="configForm.val.ldapdomain.$error" ng-if="configForm.val.ldapdomain.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.ldapdomain.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP Domain" data-ng-model="showUserManual['LDAP Domain']"></user-manual>
+  </div>      
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.ldaprootdn.$touched && configForm.val.ldaprootdn.$invalid }">
+    <label for="ldaprootdn"> {{"delegation.loginConfig.label.ldaprootdn" | translate}} 
+      <i id="icon-userSource-ldap-root-dn" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP Root DN']=true" data-ng-if="pageOptionList['LDAP Root DN']"> </i>
+    </label>
+    <input id="ldaprootdn" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.ldaprootdn' | translate}}" data-ng-model="config.configData.baseDn" name="ldaprootdn" required autocomplete="off"/>
+    <div class="cc-validation-block" ng-messages="configForm.val.ldaprootdn.$error" ng-if="configForm.val.ldaprootdn.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.ldaprootdn.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP Root DN" data-ng-model="showUserManual['LDAP Root DN']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.username.$touched && configForm.val.username.$invalid }">
+    <label for="username"> {{"delegation.loginConfig.label.username" | translate}} 
+      <i id="icon-userSource-ldap-username" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP Username']=true" data-ng-if="pageOptionList['LDAP Username']"> </i>
+    </label>
+    <input id="username" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.username' | translate}}" data-ng-model="config.configData.username" name="username" required autocomplete="off">
+    <div class="cc-validation-block" ng-messages="configForm.val.username.$error" ng-if="configForm.val.username.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.ldapusername.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP Username" data-ng-model="showUserManual['LDAP Username']"></user-manual>
+  </div>
+  <div  class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.password.$touched && configForm.val.password.$invalid }">
+    <label for="password"> {{"delegation.createuser.label.password" | translate}} 
+      <i id="icon-userSource-ldap-password" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['LDAP Password']=true" data-ng-if="pageOptionList['LDAP Password']"> </i>
+    </label>
+    <input type="password" id="password" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.createuser.placeholder.password' | translate}}" data-ng-model="config.configData.password" name="password" required autocomplete="off" >
+    <div class="cc-validation-block" ng-messages="configForm.val.password.$error" ng-if="configForm.val.password.$touched">
+      <p ng-message="required"> {{"userprofile.validation.password.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="LDAP Password" data-ng-model="showUserManual['LDAP Password']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.userSearchBase.$touched && configForm.val.userSearchBase.$invalid }">
+    <label for="userSearchBase"> {{"delegation.loginConfig.label.userSearchBase" | translate}} 
+      <i id="icon-userSource-ldap-user-search-base" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['User Search Base']=true" data-ng-if="pageOptionList['User Search Base']"> </i>
+    </label>
+    <input id="userSearchBase" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'delegation.loginConfig.placeholder.userSearchBase' | translate}}" data-ng-model="config.configData.userSearchBase" name="userSearchBase" required autocomplete="off" >
+    <div class="cc-validation-block" ng-messages="configForm.val.userSearchBase.$error" ng-if="configForm.val.userSearchBase.$touched">
+      <p ng-message="required"> {{"delegation.loginConfig.validation.userSearchBase.required" | translate}} </p>
+    </div>
+    <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="User Search Base" data-ng-model="showUserManual['User Search Base']"></user-manual>
+  </div>
+  <div class="cc-create-page-editor-data cc-user-manual-anchor">
+    <label for="connectionTimeout">{{"delegation.loginConfig.label.connectionTimeout" | translate}}&nbsp;
+      <i id="icon-userSource-ldap-connection-timeout" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Connection Timeout']=true" data-ng-if="pageOptionList['Connection Timeout']"></i>
+    </label>
+    <div class="cc-create-page-editor-data-right">
+      <input id="connectionTimeout" type="text" maxlength="4" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" string-to-number required autocomplete="off"
+        data-ng-model="config.configData.connectionTimeout" name="connectionTimeout" style="width: 50px;" ng-pattern="'[0-9]*'" ng-keydown="numberOnly($event)">&nbsp;
+      <span>{{::"second" | translate}}</span>
+      <div class="cc-validation-block" ng-messages="configForm.val.connectionTimeout.$error" ng-if="configForm.val.connectionTimeout.$touched">
+        <p ng-message="required"> {{"delegation.loginConfig.validation.connectionTimeout.required" | translate}} </p>
+        <p ng-message="pattern"> {{"delegation.loginConfig.validation.connectionTimeout.pattern" | translate}} </p>
+      </div>
+        <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+        data-page="{{userManualOption.page}}" key="Connection Timeout" data-ng-model="showUserManual['Connection Timeout']"></user-manual>
+    </div>
+  </div>
+  <input class="btn btn-default cc-create-page-add-condition-btn" type="button" value="CONNECT" data-ng-click="connect()" ng-disabled="formInvalid()" /> 

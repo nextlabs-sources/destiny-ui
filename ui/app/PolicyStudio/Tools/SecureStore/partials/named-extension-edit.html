@@ -1,0 +1,23 @@
+<td>
+    <select id="field_{{$index}}" class="form-control cc-create-page-common-select" data-ng-model="extEditItem.field" 
+        data-ng-options="entry for entry in namedExtensions track by entry" 
+        ng-init='!extEditItem.field && (extEditItem.field = namedExtensions[0])'
+        data-ng-focus="highlightGrammar('namedExtension')" name="field_{{$index}}" required>
+    </select>
+    <div class="cc-validation-block" ng-messages="keyPairForm.val['field_' + $index].$error" ng-if="keyPairForm.val['field_' + $index].$touched">
+        <p ng-message="required" style="margin-bottom: -5px; margin-left: 5px;">{{"secureStore.keystore.validation.requireName" | translate}}</p>
+    </div>
+</td>
+<td >
+    <div style="position: relative;">
+        <textarea id="namedExtension_{{$index}}" no-enter class=" form-control cc-create-page-common-input" name="namedExtension_{{$index}}" placeholder="{{'secureStore.keystore.placeHolder.subjectAlternativeName' | translate}}" 
+        data-ng-model="extEditItem.value" data-ng-focus="highlightGrammar('namedExtension')" auto-suggestion="false" required></textarea>
+    </div>
+    <div class="cc-validation-block" ng-messages="keyPairForm.val['namedExtension_' + $index].$error" ng-if="keyPairForm.val['namedExtension_' + $index].$touched">
+        <p ng-message="required" style="margin-bottom: -5px; margin-left: 5px;">{{"secureStore.keystore.validation.requireValue" | translate}}</p>
+    </div>
+</td>
+<td class="td-icon" style="padding-top: 12px;">
+    <i id="save_{{$index}}" class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveNamedExtension(namedExtension)" title="Add to table"></i>
+    <i id="abort_{{$index}}" class="fa fa-times-circle" aria-hidden="true" data-ng-click="abortEditNamedExtension()" title="Cancel"></i>
+</td>

@@ -1,0 +1,14 @@
+<div class="cc-ps-btn-grp cc-inline">
+    <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Edit" data-ng-click="editEnvironment(environment)"
+        data-ng-if="permissions"
+        dyn-attr="permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result ? permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.action.ALLOW : permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.action.DENY"
+        dyn-attr-del="['ui-sref','href']"
+        dyn-attr-del-unbind-if="!permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result"><i
+            class="fa fa-pencil"></i></button>
+    <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete"
+        data-ng-click="deleteCurrentEnvironment(environment)" data-ng-if="permissions"
+        dyn-attr="permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result ? permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.ALLOW : permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.action.DENY"
+        dyn-attr-del="['ui-sref','href']"
+        dyn-attr-del-unbind-if="!permissions.DELETE_ENVIRONMENT_CONFIGURATION.pageLevel.result"><i
+            class="cc-ps-icon-trash"></i></button>
+</div>

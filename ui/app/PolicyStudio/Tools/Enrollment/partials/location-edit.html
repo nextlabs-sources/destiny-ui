@@ -1,0 +1,33 @@
+<td>
+</td>
+<td>
+    <div class="btn-group btn-block">
+        <input id="{{didCreateLocationName(loc, $index)}}" ng-disabled = '!loc.nameEditable' class=" form-control cc-create-page-common-input" name="loc_input_name_{{$index}}" style="height:40px;"
+          placeholder="{{::'toolManagement.locationManager.list.placeholder.name' | translate}}" data-ng-model="loc.name" data-ng-pattern="'[^~/*$&?\\\\]*'"
+          ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']"
+          data-ng-keyup="$event.keyCode == 13 ? saveEdit(locationForm.val, loc) : null;" data-ng-focus="highlightGrammar('users')" required>
+        <div class="cc-validation-block" ng-messages="locationForm.val['loc_input_name_' + $index].$error"
+          ng-if="locationForm.val['loc_input_name_' + $index].$touched">
+          <p ng-message="required">{{::"toolManagement.locationManager.list.required.name" | translate}}</p>
+          <p ng-message="pattern"> {{::"toolManagement.locationManager.list.pattern.name" | translate}} </p>
+        </div>
+      </div>
+</td>
+<td>
+  <div class="btn-group btn-block">
+    <input id="{{didCreateLocationIP(loc, $index)}}" class=" form-control cc-create-page-common-input" name="loc_input_ip_{{$index}}" style="height:40px;"
+      placeholder="{{::'toolManagement.locationManager.list.placeholder.value' | translate}}" ng-pattern="'^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$'" data-ng-model="loc.value"
+      data-ng-keyup="$event.keyCode == 13 ? saveEdit(locationForm.val, loc) : null;" data-ng-focus="highlightGrammar('users')" required>
+    <div class="cc-validation-block" ng-messages="locationForm.val['loc_input_ip_' + $index].$error"
+      ng-if="locationForm.val['loc_input_ip_' + $index].$touched">
+      <p ng-message="required">{{::"toolManagement.locationManager.list.required.value" | translate}}</p>
+      <p ng-message="pattern"> {{::"toolManagement.locationManager.list.pattern.value" | translate}} </p>
+    </div>
+  </div>
+</td>
+<td class="td-icon">
+
+  <i id="btn-location-save-{{loc.name | id}}" class="fa fa-check-circle add" aria-hidden="true" data-ng-click="saveEdit(locationForm.val, loc)" title="Add to table"></i>
+  <i id="btn-location-cancel-{{loc.name | id}}" class="fa fa-times-circle" aria-hidden="true" data-ng-click="cancelEdit(loc)" title="Cancel"></i>
+
+</td>

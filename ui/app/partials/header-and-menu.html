@@ -1,0 +1,31 @@
+<div class="cc-header">
+  <div class="cc-header-logo"></div>
+  <div data-ng-include="'ui/app/partials/user-profile.html'" class="cc-user-profile"></div>
+  <div class="cc-about-menu" data-ng-mouseleave="showAboutMenuList.val = false">
+    <div class="about-menu-icon" data-ng-mouseenter="showAboutMenuList.val=true" data-ng-class="{'highlight':showAboutMenuList.val}"><i class="fa fa-question-circle"></i></div>
+    <div data-ng-show="showAboutMenuList.val" data-ng-include="'ui/app/partials/about-menu.html'" class="about-menu-list" data-ng-class="{'cc-about-discard-menu':showAboutPage}" style=""></div>
+  </div>
+  
+  <div data-ng-include="'ui/app/partials/fav-menu.html'" data-ng-show="false" style="display: inline;"></div>
+  
+  
+</div>
+<div class="row no-margin cc-layout-height">
+  <div class=" col-md-1 cc-products-menu">
+    <a class=" cc-products-menu-icon cc-products-menu-icon-home" ui-sref="Dashboard" data-ng-class="{'cc-products-menu-selected': activeApp.val=='Dashboard'}" uib-tooltip="{{'tooltip.dashboard' | translate}}" tooltip-placement="right" tooltip-class="cc-products-menu-tooltip" data-ng-if="appAccess" dyn-attr="appAccess['Dashboard'].dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!appAccess['Dashboard'].result"></a>
+    <a ui-sref="PolicyStudio.Policies" class="cc-products-menu-icon cc-products-menu-icon-ps" data-ng-class="{'cc-products-menu-selected': activeApp.val=='PolicyStudio'}" uib-tooltip="{{'tooltip.policystudio' | translate}}" tooltip-placement="right" tooltip-class="cc-products-menu-tooltip" data-ng-if="appAccess" dyn-attr="appAccess['PolicyStudio'].dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!appAccess['PolicyStudio'].result"></a>
+    <a href="{{controlCenterHost}}/reporter" target="_blank" class="cc-products-menu-icon cc-products-menu-icon-reporter" uib-tooltip="{{'tooltip.reporter' | translate}}" tooltip-placement="right" tooltip-class="cc-products-menu-tooltip" data-ng-if="appAccess" dyn-attr="appAccess['Reporter'].dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!appAccess['Reporter'].result"></a>
+   <a href="{{controlCenterHost}}/policy-controllers" target="_blank" class="cc-products-menu-icon cc-products-menu-icon-admin" uib-tooltip="{{'tooltip.administrator' | translate}}" tooltip-placement="right" tooltip-class="cc-products-menu-tooltip" data-ng-if="appAccess" 
+      dyn-attr="appAccess['Administrator'].dynaAttr" dyn-attr-del="['ui-sref','href']" 
+      dyn-attr-del-unbind-if="!appAccess['Administrator'].result"></a>
+    <a ui-sref="Delegations.list" class="cc-products-menu-icon" data-ng-class="{'cc-products-menu-selected': activeApp.val=='Delegations'}" uib-tooltip="{{'tooltip.delegation' | translate}}" tooltip-placement="right" tooltip-class="cc-products-menu-tooltip" data-ng-if="appAccess" dyn-attr="appAccess['DelegatedAdministration'].dynaAttr" dyn-attr-del="['ui-sref','href']" dyn-attr-del-unbind-if="!appAccess['DelegatedAdministration'].result"><i class="cc-ps-menu-delegation">&nbsp;</i></a>
+  </div>
+  <div class="col-md-11 no-padding cc-layout-full-height cc-products-console">
+    <div ui-view class="cc-layout-full-height"></div>
+  </div>
+</div>
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+<div data-ng-include="'ui/app/partials/splash-screen.html'"></div>
+<div class="cc-ps-spinner" data-ng-show="ongoingAjaxRequest > 0">
+    <center><i class="fa fa-spinner fa-pulse"></i></center>
+</div>

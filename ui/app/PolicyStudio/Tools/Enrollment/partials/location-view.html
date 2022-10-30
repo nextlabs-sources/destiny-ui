@@ -1,0 +1,20 @@
+<td>
+    <div style="height:40px; padding-top: 10px;">
+        <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+            <input id="checkbox-location-{{loc.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="loc.checked"
+                data-ng-change="checkLocation(loc)"><span><span id="checkbox-span-location-{{loc.name | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+        </label>
+    </div>
+</td>
+<td style="height:40px; padding-top: 10px;" class = "cc-long-text-ellipsis" title="{{loc.name}}">
+    <span id="loc-input-name-{{loc.name | id}}">{{loc.name}}</span>
+</td>
+<td style="height:40px; padding-top: 10px;">
+    <span id="loc-input-ip-{{loc.name | id}}">{{loc.value}}</span>
+ 
+</td>
+<td class="td-icon">
+
+    <i id="btn-location-edit-{{loc.name | id}}" class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="updateLocation(loc)" title="Edit"></i>
+    <i id="btn-location-delete-{{loc.name | id}}" class="fa fa-trash-o" data-ng-click="deleteLocation(loc, $index)" title="Delete"> </i>
+</td>

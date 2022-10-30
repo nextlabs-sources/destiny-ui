@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{"folders.createFolder.title" | translate}}</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="createFolderForm" class="cc-ps-dep-time-specify-form">
+                <div class="form-group">
+                    <input type="text" name="folderName" class="cc-create-page-common-input" style="width: 475px;margin-left: -12px;" data-ng-model="data.name" maxLength="255" autofocus/>
+                    <div class="cc-validation-block" data-ng-if="data.name.indexOf('/') > -1" style="margin-left: -10px;">
+                        {{'folders.validation.error.folderName' | translate}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-policy-create-folder-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">
+        {{cancelLabel ? cancelLabel : "PS.CANCEL"| translate}}
+    </button>
+    <button id="btn-policy-create-folder-confirm" class="btn btn-default cc-btn-primary" type="button" ng-click="ok()" data-ng-disabled="!data.name || data.name.indexOf('/') > -1">
+        {{confirmLabel ? confirmLabel : "PS.CREATE"| translate}}
+    </button>
+</div>

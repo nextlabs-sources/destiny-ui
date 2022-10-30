@@ -1,0 +1,15 @@
+<div data-ng-controller="dasboardController" class="cc-dashboard">
+	<div data-ng-include="'ui/app/Dashboard/partials/header.html'" class="header"></div>
+	<div class="content">
+		<div style="border-bottom: 3px solid #F4F4F4;">
+			<div data-ng-include="'ui/app/Dashboard/partials/policyChart.html'" class="chart-wrapper-left" style="width: 66%;"></div>
+			<div data-ng-include="'ui/app/Dashboard/partials/requestChart.html'" class="chart-wrapper-right" style="width: 34%;"></div>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<div data-ng-include="'ui/app/Dashboard/partials/pdpChart.html'" class="chart-wrapper-left"></div>
+			<div data-ng-include="'ui/app/Dashboard/partials/alertChart.html'" class="chart-wrapper-right" style="width: 34%;"></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

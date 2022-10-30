@@ -1,0 +1,19 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="enrollmentManagementToolsController">
+    <div class="no-margin cc-dlg-title-on-content ">
+        <div id="cc-ps-page-title" class="cc-dlg-title-on-content-title">
+            <p class="cc-ps-list-title">
+                {{ "TAB.TOOLS.ENROLLMENT" | translate}}</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="cc-dlg-search-and-list-box">
+        <div class="cc-dlg-delegation-list-table">
+            <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+                <li class="cc-ps-list-item" data-ng-repeat="tool in toolList" ng-init="$toolId=tool.id;">
+                    <div data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/tools-row-template.html'"></div>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<td>
+    <span>{{attr.key}}</span>
+
+</td>
+<td>
+    <span>{{attr.value}}</span>
+ 
+</td>
+<td class="td-icon" data-ng-show="userEditable">
+  
+  <i class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="setEdit(attr,1)" title="Edit"></i>
+  <i class="fa fa-trash-o" data-ng-click="removeAttribute($index,1)" title="Delete" > </i>
+</td>

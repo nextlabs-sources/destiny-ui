@@ -1,0 +1,64 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="import-modal-title">{{::'policylist.import.title' | translate}}</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+        <form id="importPolicyForm" name="importPolicyForm" class="form-horizontal">
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                <label for="import-file">{{"policylist.import.file" | translate}}</label>
+                <br>
+                <div class="btn btn-default btn-file">
+                    {{'PS.Browse' | translate}} <input type="file" id="import-file" title="{{data.fileToImportName}}" accept=".bin,.ebin"/>
+                </div>
+                <span>&nbsp;{{data.fileToImportName}}</span>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                <label for="importMechanism">{{"policylist.import.mechanism.label" | translate}}</label>
+                <br>
+                <span>
+                    <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                        <input id="partial" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                            data-ng-model="data.mechanism" value="PARTIAL" data-ng-change="setMechanism('PARTIAL')">
+                        <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                            <span id="btn-partial-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="cc-green-checkbox-radio-bgrd-holder-text">
+                                {{"policylist.import.mechanism.partial" | translate}}
+                            </span>
+                        </span>
+                    </label>
+                    <label class="nobold cc-green-checkbox-radio-label cc-align-left" style="padding-top: 7px; padding-left: 15px;">
+                        <input id="full" type="radio" checked class="cc-green-checkbox-radio cc-ps-search-modifieddate"
+                            data-ng-model="data.mechanism" value="FULL" data-ng-change="setMechanism('FULL')">
+                        <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                            <span id="btn-full-mechanism" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="cc-green-checkbox-radio-bgrd-holder-text">
+                                {{"policylist.import.mechanism.full" | translate}}
+                            </span>
+                        </span>
+                    </label>
+                </span>
+            </div>
+            <div class="col-md-12">
+                <label for="importCleanup">{{"policylist.import.cleanup.label" | translate}}</label>
+                <br>
+                <label class="nobold cc-green-checkbox-radio-label cc-align-left">
+                    <input id="cleanup" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="data.cleanup">
+                    <span class="cc-ps-label-for-checkbox-radio">
+                        <span id="btn-cleanup" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        <span class="cc-ps-checkbox-label-text">
+                            {{"policylist.import.cleanup.message" | translate}}
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </form>
+	</div>
+	<div style="margin: 10px 0; padding: 5px; display: inline-block; background-color: #fff7cc; border-radius: 5px;">
+		<i class="fa fa-exclamation-triangle cc-ps-warning-symbol" aria-hidden="true" style="margin-left: 5px;"></i><strong style="vertical-align: bottom;">Warning</strong>
+		<p class="cc-ps-warning-p">Importing this data will overwrite any existing component types, components and policies with same names.</p>
+	</div>
+</div>
+<div class="modal-footer">
+  <button id="btn-policy-import-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"resourcesearch.label.Cancel" | translate}}</button>
+  <button id="btn-policy-import-confirm" class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!data.fileToImportName" ng-click="import()">{{"resourcesearch.label.Save" | translate}}</button>
+</div>

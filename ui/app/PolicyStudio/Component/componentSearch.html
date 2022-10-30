@@ -1,0 +1,198 @@
+<div class="cc-ps-search-form">
+  <!-- <p>{{searchCriteria}}</p> -->
+  <form name="componentSearchForm" id="componentSearchForm" novalidate>
+    <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-type" data-uib-dropdown auto-close="outsideClick" is-open="resource_type_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle data-ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{"componentsearch.label.SubGroup" | translate}}:</span><span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.subGroupLabel}}</span></span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu keyboard-nav  class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-resource-type-dropdown">
+          <div role="menuitem" class="cc-ps-menu-item-left-padding">
+              <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+                  <input data-ng-model="searchOptions.$allSubGroupChecked" data-ng-disabled="searchOptions.$allSubGroupChecked"
+                    data-ng-change="allSubGroupChanged();" type="checkbox" class="cc-green-checkbox-radio"><span
+                    class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio"><span
+                      class="cc-green-checkbox-radio-bgrd-holder"></span>{{"componentsearch.label.AllSubGroup." + type | translate}}</span>
+                </label></a>
+            </div>
+          <div role="separator" class="divider cc-ps-menu-item-left-padding"></div>  
+          <ul class="no-decoration cc-ps-search-resource-type-ul">
+            <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='rType in searchOptions.subGroupOptions'>
+              <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="rType.$_checked"
+                  data-ng-change="subGroupChanged();" data-ng-true-value="true"><span
+                  class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span
+                    class="cc-green-checkbox-radio-bgrd-holder"></span>{{rType.name}}</span>
+              </label></a>
+            </li>
+          </ul>
+          <!-- <div role="separator" class="divider"></div>
+          <div role="menuitem" class="cc-ps-search-btn-line">
+            <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-apply-btn" data-ng-click="updateSubGroup();setDirty();resource_type_search_open=false;">{{"componentsearch.label.Apply" | translate}}</button>&nbsp;&nbsp; <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-cancel-btn" data-ng-click="resource_type_search_open=false">{{"componentsearch.label.Cancel" | translate}}</button>
+          </div> -->
+        </div>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-status" data-uib-dropdown keyboard-nav auto-close="outsideClick" is-open="status_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle data-ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{"componentsearch.label.Status" | translate}}:</span><span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.statusLabel}}</span></span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+                <input data-ng-model="searchOptions.$allStatusChecked" data-ng-disabled="searchOptions.$allStatusChecked"
+                  data-ng-change="allStatusChanged();" type="checkbox" class="cc-green-checkbox-radio"><span
+                  class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio"><span
+                    class="cc-green-checkbox-radio-bgrd-holder"></span>{{"componentsearch.label.AllStatus"|translate}}</span>
+              </label></a>
+          </li>
+          <li class="divider cc-ps-menu-item-left-padding"></li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='s in searchOptions.statusOptions'>
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="s.$_checked" data-ng-change="statusChanged();"
+                  value="{{s.name}}" data-ng-true-value="true"><span
+                  class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span
+                    class="cc-green-checkbox-radio-bgrd-holder"></span>{{s.label}}</span>
+              </label></a>
+          </li>
+          <!-- <li role="separator" class="divider"></li>
+          <li role="menuitem" class="cc-ps-search-btn-line">
+            <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-apply-btn" data-ng-click="updateStatus();setDirty();status_search_open=false">{{"componentsearch.label.Apply" | translate}}</button>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-cancel-btn" data-ng-click="status_search_open=false">{{"componentsearch.label.Cancel" | translate}}</button>
+          </li> -->
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown keyboard-nav auto-close="outsideClick" is-open="tags_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle data-ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{"componentsearch.label.Tags" | translate}}:</span><span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.tagLabel}}</span></span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-dropdown-tags">
+          <div role="presentation">
+            <div class="cc-ps-tag-search">
+              <input type="text" class="form-control" placeholder="Search for tags" data-ng-model="tagQuery" />
+              <i class="fa fa-search cc-ps-tag-search-icon"></i>
+            </div>
+          </div>
+          <div role="menuitem" class="cc-ps-search-tag-item cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input data-ng-model="searchOptions.$allTagChecked" data-ng-disabled="searchOptions.$allTagChecked" data-ng-change="allTagChanged();" type="checkbox" class="cc-green-checkbox-radio"><span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"componentsearch.label.AllTags" | translate}}</span>
+            </label></a>
+          </div>
+
+          <div role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input data-ng-model="searchOptions.$noTagChecked" data-ng-change="noTagChanged();" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"componentsearch.label.NoTags" | translate}}</span>
+            </label></a>
+          </div>
+
+          <div class="divider cc-ps-menu-item-left-padding"></div>
+          <ul role="menu" class="no-decoration cc-ps-search-tag-ul cc-ps-menu-item-left-padding">
+            <li role="menuitem" class="cc-ps-search-tag-item" data-ng-repeat='t in searchOptions.tagOptions | filter:{label: tagQuery}'>
+              <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="t.$_checked" data-ng-change="tagChanged();" value="{{t.id}}" data-ng-true-value="true"><span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{t.label}}</span>
+              </label></a>
+            </li>
+          </ul>
+          <!-- <div role="separator" class="clear divider"></div>
+          <div role="menuitem" class="cc-ps-search-btn-line">
+            <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-apply-btn" data-ng-click="updateTag();setDirty();tags_search_open=false">{{"componentsearch.label.Apply" | translate}}</button>&nbsp;&nbsp; <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-cancel-btn" data-ng-click="tags_search_open=false">{{"componentsearch.label.Cancel" | translate}}</button>
+          </div> -->
+        </div>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-modified-date" data-uib-dropdown keyboard-nav auto-close="outsideClick" is-open="modified_search_open">
+        <button class="form-control cc-ps-button-common" type="button" data-uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{"componentsearch.label.ModifiedDate" | translate}}:</span>&nbsp;<span class="cc-ps-dropdown-btn-label-content">{{searchOptions.modifiedDateLabel}}</span></span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label" data-ng-click="updateCustomPeriod(undefined, $event);checkModifiedDate(searchOptions.specialModifiedDateOption);">
+              <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="filter-by-modified-date" data-ng-model="searchOptions.specialModifiedDateOption.$_checked" data-ng-model-options="{ updateOn: 'modifiedDateApplied' }" data-ng-value="true" data-ng-change=""><span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"componentsearch.label.AnyModifiedDate" | translate}}</span>
+            </label></a>
+          </li>
+          <li role="separator" class="divider cc-ps-menu-item-left-padding"></li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat="d in searchOptions.modifiedDateOptions">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label" data-ng-click="updateCustomPeriod(d, $event);checkModifiedDate(d);;">
+              <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="filter-by-modified-date" data-ng-model="d.$_checked" data-ng-model-options="{ updateOn: 'modifiedDateApplied' }" data-ng-value="true" data-ng-change=""><span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{d.label}}</span>
+            </label></a>
+          </li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-if="isCustomPeriodSelected">
+            <div class="row">
+              <div class="col-md-2">{{'searchform.customperiod.from' | translate}}
+              </div>
+              <div class="col-md-9">
+                <p class="input-group">
+                  <input type="text" class="form-control cc-ps-search-modifieddate" placeholder="Date From" data-uib-datepicker-popup="shortDate" data-is-open="filter_by_date.status.from" data-ng-required="true" data-close-text="Close" max-date="tempCustomDate.modifiedTo" data-ng-model="tempCustomDate.modifiedFrom" readonly>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="filter_by_date.status.from = !filter_by_date.status.from"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">{{'searchform.customperiod.to' | translate}}
+              </div>
+              <div class="col-md-9">
+                <p class="input-group">
+                  <input type="text" class="form-control cc-ps-search-modifieddate" placeholder="Date To" data-uib-datepicker-popup="shortDate" data-is-open="filter_by_date.status.to" data-ng-required="true" data-close-text="Close" min-date="tempCustomDate.modifiedFrom" data-ng-model="tempCustomDate.modifiedTo" readonly>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="filter_by_date.status.to = !filter_by_date.status.to"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+              </div>
+            </div>
+          </li>
+          <!-- <li role="separator" class="divider"></li>
+          <li role="menuitem" class="cc-ps-search-btn-line">
+            <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-apply-btn" data-ng-click="updateModifiedDate();setDirty();modified_search_open=false">{{"componentsearch.label.Apply" | translate}}</button>&nbsp;&nbsp; <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-cancel-btn" data-ng-click="modified_search_open=false">{{"componentsearch.label.Cancel" | translate}}</button>
+          </li>
+        </ul> -->
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-more-option" data-ng-if="searchOptions.moreOptions.length > 0" data-uib-dropdown auto-close="outsideClick" is-open="more_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle data-ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label"><span class="cc-ps-dropdown-btn-title">{{"componentsearch.label.More" | translate}}</span></span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='option in searchOptions.moreOptions | filter:{open:false}'>
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="option.open" value="{{option.name}}" data-ng-true-value="true" data-ng-false-value="false" data-ng-change="more_search_open=false"><span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{option.label}}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-more-option-dropdown" data-uib-dropdown data-ng-repeat='option in searchOptions.moreOptions | filter:{open:true}' data-uib-dropdown auto-close="outsideClick" is-open="more_search_{{$index}}_open">
+        <div class="cc-ps-search-dropdown-close"><i class="fa fa-times-circle fa-2" data-ng-click="option.open = false"></i></div>
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle data-ng-disabled="disabled">
+          <span class="cc-ps-dropdown-btn-label">{{option.label}}</span><span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='option in searchOptions.moreOptions'>
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="s.$_checked" data-ng-change="" value="{{s.name}}" data-ng-true-value="true"><span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio"><span class="cc-green-checkbox-radio-bgrd-holder"></span>{{s.label}}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="cc-ps-search-text-container">
+      <input data-ng-model="searchCriteria.text" data-ng-model-options="{ debounce: 300 }" class="form-control cc-ps-search-text cc-ps-input-common" placeholder="{{'componentsearch.text.placeholder' | translate}}" type="text" data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;" data-ng-change="" />
+      <i class="fa fa-search cc-ps-search-icon"></i>
+      <span class="cc-ps-search-include-subcomponent"><switch class="cc-ps-search-switch-include-sub" data-ng-change="componentSearchForm.$setDirty()" data-ng-model="searchCriteria.withSubcomponents"></switch></span>
+      <input id="switch-{{componentType | lowercase}}-subcomponent"
+        name="withSubcomponentsValue" type="hidden" data-ng-model="searchCriteria.withSubcomponents"
+        value="{{searchCriteria.withSubcomponents}}">
+      <span>{{"componentsearch.searchsubcomponent.label."+searchCriteria.withSubcomponents |translate}}</span>
+      <span class="cc-ps-search-include-subcomponent"><switch class="cc-ps-search-switch-include-sub" data-ng-change="componentSearchForm.$setDirty()" data-ng-model="searchCriteria.onlyEmptyComponents"></switch></span>
+      <input id="switch-{{componentType | lowercase}}-emptyComponent"
+        name="onlyEmptyComponentsValue" type="hidden" data-ng-model="searchCriteria.onlyEmptyComponents"
+        value="{{searchCriteria.onlyEmptyComponents}}">
+      <span translate="componentsearch.onlyEmptyComponents.label" translate-value-with="{{searchCriteria.onlyEmptyComponents}}"></span>
+    </p>
+    <p>
+      <button id="btn-components-{{type | lowercase}}-search-save" type="button" class="btn cc-ps-search-btn cc-ps-search-save-btn" data-ng-click="saveSearch()" data-ng-disabled="searchCriteria.pristine">{{"componentsearch.label.saveSearch"|translate}}</button>
+      <button id="btn-components-{{type | lowercase}}-search-clear" type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn" data-ng-click="clearSearch()">{{"componentsearch.label.clearSearch"|translate}}</button>
+      <button id="btn-components-{{type | lowercase}}-search-apply" type="submit" class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="applySearch()" data-ng-if="!instantSearch">{{"componentsearch.label.Apply"|translate}}</button>
+    </p>
+    </span>
+</div>

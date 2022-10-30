@@ -1,0 +1,70 @@
+<div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!show_search">
+    <div class="cc-ps-main-search-section-content" data-ng-include="'ui/app/Delegation/Users/template/user-search.html'"></div>
+</div>
+<div data-ng-class="!show_search ? 'cc-dlg-delegation-list-table user-list-container dlg-bottom-space' : 'cc-dlg-delegation-list-table search-opened-user-list-container dlg-bottom-space' ">
+    <div data-ng-if="userList.length" class="cc-dlg-operation" >
+        <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+            <label class="nobold cc-green-checkbox-radio-label">
+                <input id="checkbox-user-selectAll" type="checkbox" ng-disabled="userList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allUserChecked" data-ng-change="checkAllUser(checkStatus.allUserChecked)">
+                <span><span id="checkbox-span-user-selectAll"  class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+            </label>
+        </div>
+        <div class="cc-inline cc-dlg-operation-btn">
+            <button id="bulkDelete" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.hasUserChecked" title="Delete" data-ng-click="bulkDelUser($event)"><i class="fa fa-trash"></i></button>
+        </div>
+        <div id="cc-sort-by" class="cc-inline cc-dlg-align-right">
+            <div class="cc-inline" id="cc-sort-by-title">{{"componentsearch.label.sortby"|translate}}</div>
+            <div class="cc-inline btn-group btn-block cc-dlg-dropdown-grp cc-dlg-search-status" id="cc-sort-by-select" uib-dropdown keyboard-nav>
+                <button class="form-control cc-dlg-button-common" id="sortBy" type="button" data-uib-dropdown-toggle>
+                    <span class="cc-dlg-dropdown-btn-label">{{userSearchCriteria.sortBy.label}}</span> <span class="cc-dlg-dropdown-btn-expand-icon"></span>
+                </button>
+                <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+                    <li role="menuitem" data-ng-repeat="s in searchOptions.userSortOptions" data-ng-click="setUserSortBy(s);" class="cc-ps-clickable-dropdown"><a class="cc-ps-clickable-dropdown-a" href="javascript:void(0)">{{s.label}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="user in userList" data-ng-switch = "user.id" >
+            <div class="cc-dlg-delegation" data-ng-class="{'cc-ps-checked':user.checked}">
+                <div class="cc-dlg-delegation-content-container">
+                    <div class="height-100-percent cc-green-checkbox-radio-box cc-dlg-delegation-check">
+                        <label class="nobold cc-green-checkbox-radio-label cc-dlg-checkbox-left-half">
+                            <input id="checkbox-user-{{user.username | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-if="user.id" data-ng-model="user.checked" data-ng-change="userCheckStatusChange()">
+                            <span><span id="checkbox-span-user-{{user.username | id}}" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                        </label>
+                    </div>
+                    <div class="cc-dlg-delegation-content">
+                        <div class="cc-dlg-delegation-name-desc">
+                            <p class="cc-dlg-delegation-name"><span data-ng-click="editUser(user)">{{user.firstName}} {{user.lastName}}</span></p>
+                            <p>
+                                <span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+                                <friendly-date data-date="{{user.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+                            </p>
+                        </div>
+                        <div class="text-uppercase cc-dlg-delegation-type" data-ng-switch-when = "0"><span class="cc-ps-policy-model-badge">{{'Internal' | translate}}</span></div>
+                        <div class="cc-ps-policy-model-badge cc-dlg-delegation-type" data-ng-switch-default>
+                            <span class="text-uppercase">{{user.userType | translate}}</span>
+                            <p title="Source: {{user.authHandlerName | translate}}" class="cc-overflow-ellipsis" style="font-size: 10px; width:170px; margin:0 auto;" data-ng-if="user.userType === 'imported'">Source: {{user.authHandlerName | translate}} ({{user.manualProvision ? 'User' : 'Group'}})</p>
+                        </div>
+                        <div class="cc-dlg-delegation-option-block">
+                            <div class="cc-dlg-align-right">
+                                <button id="{{'unlock_' + user.username}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Unlock" data-ng-click="unlockUser(user)" data-ng-if="user.locked"><i class="cc-ps-icon-unlock"></i></button>
+                                <button id="{{'reset_mfa_' + user.username}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Reset MFA" data-ng-click="resetGAuthToken(user)" data-ng-if="gAuthEnabled && (user.authHandlerProtocol != 'OIDC' && user.authHandlerProtocol != 'SAML2') && user.userCategory != 'API'"><i class="fa fa-repeat"></i></button>
+                                <button id="{{'edit_' + user.username}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Edit" data-ng-click="editUser(user)"><i class="fa fa-pencil"></i></button>
+                                <button id="{{'delete_' + user.username}}" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete" data-ng-click="delUser(user, $event)" data-ng-if="user.id"><i class="cc-ps-icon-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <p data-ng-if="userList.length < userTotal">
+        <button id="btn-users-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore" data-ng-click="loadMore()">{{"delegation.list.title.LoadMore" | translate}} </button>
+    </p>
+    <div data-ng-if="!userList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"delegation.userlist.nouser.msg" | translate}}</p>
+    </div>
+</div>

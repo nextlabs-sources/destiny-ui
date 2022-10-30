@@ -1,0 +1,13 @@
+<div class="cc-ps-tool-list-row">
+  <div class="cc-ps-resource-content-container cc-ps-resource-content cc-ps-resource-name-desc">
+
+    <p class="cc-ps-resource-name password-encryption-title"><span
+        title="{{tool.name}}">{{tool.displayName}}</span></p>
+    <p class="cc-ps-description password-encryption-desc"><small
+        title="{{tool.description}}">{{tool.description}}</small></p>
+    
+    <div data-ng-if="tool.commandName == 'mkpassword' && showCrypt">
+      <div data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/crypt-row-template.html'"></div>
+    </div>
+  </div>
+</div>

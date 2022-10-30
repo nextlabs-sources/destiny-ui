@@ -1,0 +1,27 @@
+<div class="cc-pv-tabset-separator-div"></div>
+<uib-tabset id="reqInterface" class="cc-pv-inner-tab cc-pv-request-inner-editor-page-div">
+    <uib-tab  select="selectTab(3);" id="requestInfo" class="cc-pv-tab-request">
+        <uib-tab-heading>
+            <span class=""> </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/request-editor.html'" onload="getModelsAttributesActions();addDefaultAttributes();"></div>
+    </uib-tab>
+    <uib-tab  id="jsonEditor" select="selectTab(4);getJsonObj();" class="cc-pv-tab-request-json">
+        <uib-tab-heading >
+            <span class=""> </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/request-json-editor.html'"></div>
+    </uib-tab>
+    <uib-tab id="xmlEditor" select="selectTab(5);getXmlObj();" class="cc-pv-tab-request-xml">
+        <uib-tab-heading>
+            <span class="">  </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+        </uib-tab-heading>
+        <div class="" data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/request-xml-editor.html'"></div>
+    </uib-tab>
+    <div class="cc-pv-eval-log-switch-holder-div evalog">
+        <span data-ng-hide="true" class="cc-ps-search-include-subpolicy">
+            <span style="color:#FF6101">{{::"requestbuilder.label.showEvalLogs" | translate }}</span>
+            <switch class="cc-ps-search-switch-include-sub" data-ng-model="showEvalLogs.val"></switch>
+        </span>    
+    </div>
+</uib-tabset>

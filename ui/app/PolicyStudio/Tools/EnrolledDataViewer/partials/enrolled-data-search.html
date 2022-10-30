@@ -1,0 +1,108 @@
+<div class="cc-ps-search-form">
+  <form name="enrolledDataSearchForm" id="enrolledDataSearchForm" novalidate>
+    <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown keyboard-nav
+        auto-close="outsideClick" is-open="type_search_open">
+        <button id="enrolledData_btn_search_type" class="form-control cc-ps-button-common" type="button"
+          uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span
+              class="cc-ps-dropdown-btn-title">{{"toolManagement.enrolledDataViewer.search.fields.type" | translate}}:</span>
+            <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.typeLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu keyboard-nav
+          class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-dropdown-tags">
+          <div role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a">
+              <label class="nobold cc-green-checkbox-radio-label">
+                <input id="checkbox-enrolledData-search-selectAllType" data-ng-model="searchOptions.$allTypesChecked"
+                  data-ng-disabled="searchOptions.$allTypesChecked" data-ng-change="allTypeChanged();" type="checkbox"
+                  class="cc-green-checkbox-radio">
+                <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                  <span class="cc-green-checkbox-radio-bgrd-holder">
+                  </span>
+                  {{"toolManagement.enrolledDataViewer.search.values.allTypes" | translate}}
+                </span>
+              </label>
+            </a>
+          </div>
+          <div class="divider"></div>
+          <ul role="menu" class="no-decoration cc-ps-search-tag-ul">
+            <li role="menuitem" class="cc-ps-menu-item-left-padding" class="cc-ps-search-tag-item"
+              data-ng-repeat='t in searchOptions.typeOptions'>
+              <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label
+                  class="nobold cc-green-checkbox-radio-label">
+                  <input id="checkbox-enrolledData-search-selectType-{{t.name | id}}" type="checkbox"
+                    class="cc-green-checkbox-radio" data-ng-model="t.$_checked" data-ng-change="typeChanged();"
+                    value="{{t.id}}" data-ng-true-value="true">
+                  <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{t.label}}</span>
+                </label></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown auto-close="outsideClick"
+        is-open="enrollment_search_open">
+        <button id="enrolledData_btn_search_enrollment" class="form-control cc-ps-button-common" type="button"
+          uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span
+              class="cc-ps-dropdown-btn-title">{{"toolManagement.enrolledDataViewer.search.fields.enrollment" | translate}}:</span>
+            <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.enrollmentsLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu keyboard-nav
+          class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-dropdown-tags">
+          <div role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label
+                class="nobold cc-green-checkbox-radio-label">
+                <input id="checkbox-enrolledData-search-selectAllEnrollments"
+                  data-ng-model="searchOptions.$allEnrollmentsChecked"
+                  data-ng-disabled="searchOptions.$allEnrollmentsChecked" data-ng-change="allEnrollmentsChanged();"
+                  type="checkbox" class="cc-green-checkbox-radio">
+                <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                  <span
+                    class="cc-green-checkbox-radio-bgrd-holder"></span>{{"toolManagement.enrolledDataViewer.search.values.allEnrollments" | translate}}</span>
+              </label>
+            </a>
+          </div>
+          <div class="divider"></div>
+          <ul role="menu" class="no-decoration cc-ps-search-tag-ul">
+            <li role="menuitem" class="cc-ps-menu-item-left-padding" class="cc-ps-search-tag-item"
+              data-ng-repeat='t in searchOptions.enrollmentOptions'>
+              <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label
+                  class="nobold cc-green-checkbox-radio-label">
+                  <input id="checkbox-enrolledData-search-selectEnrollment-{{t.label | id}}" type="checkbox"
+                    class="cc-green-checkbox-radio" data-ng-model="t.$_checked" data-ng-change="enrollmentChanged();"
+                    value="{{t.id}}" data-ng-true-value="true">
+                  <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                    <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{t.label}}</span>
+                </label></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="cc-ps-search-text-container">
+      <input id="enrolledData_input_search_text" data-ng-model="searchCriteria.text"
+        data-ng-model-options="{ debounce: 300 }" class="form-control cc-ps-search-text cc-ps-input-common"
+        placeholder="{{'toolManagement.enrolledDataViewer.search.fields.text' | translate}}" type="text"
+        data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;" data-ng-change="" />
+      <i class="fa fa-search cc-ps-search-icon"></i>
+    </p>
+    <p>
+      <button id="enrolledData_btn_search_save" type="button" class="btn cc-ps-search-btn cc-ps-search-save-btn"
+        data-ng-click="saveSearch()"
+        data-ng-disabled="searchCriteria.pristine">{{"resourcesearch.label.saveSearch"|translate}}</button>
+      <button id="enrolledData_btn_search_clear" type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn"
+        data-ng-click="clearSearch()">{{"resourcesearch.label.clearSearch"|translate}}</button>
+      <button id="enrolledData_btn_search_submit" type="submit" class="btn cc-ps-search-apply-btn cc-btn-primary"
+        data-ng-click="applySearch()" data-ng-if="!instantSearch">{{"componentsearch.label.Apply"|translate}}</button>
+    </p>
+    </span>
+  </form>
+</div>

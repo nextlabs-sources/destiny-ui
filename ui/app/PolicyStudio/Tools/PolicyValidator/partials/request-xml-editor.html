@@ -1,0 +1,8 @@
+<div data-ng-if="requestObj">
+    <!-- <div ng-jsoneditor="onLoad" data-ng-model="requestObj.jsonData" options="requestObj.options"></div> -->
+    <div style="padding: 50px 20px 50px 20px">
+	    <pre>&lt?xml version="1.0" encoding="UTF-8"?&gt
+{{prettifyXml(requestObj.xmlData)}}
+	    </pre>
+    </div>
+</div>

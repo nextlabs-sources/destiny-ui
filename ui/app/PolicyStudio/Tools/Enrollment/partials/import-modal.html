@@ -1,0 +1,17 @@
+<div class="modal-header">
+	<h2 class="cc-ps-list-title">{{::'policylist.import.title' | translate}}</h2>
+</div>
+<div class="modal-body">
+	<div id="btn-location-import-browse" class="btn btn-default btn-file">
+		{{'PS.Browse' | translate}} <input type="file" accept=".txt" id="import-file" title="{{fileToImportName}}">
+		{{fileToImportName}}
+	</div>
+	<div style="margin: 10px 0; padding: 5px; display: inline-block;">
+		<i class="fa fa-exclamation-triangle cc-ps-warning-symbol" aria-hidden="true"></i>
+		<p class="cc-ps-warning-p"> Please make sure the locations are in the format <br /> &lt;LocationName&gt;  &nbsp;  “&lt;AddressMask&gt;” &nbsp; to avoid parsing errors. </p>
+	</div>
+</div>
+<div class="modal-footer">
+  <button id="btn-location-import-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{"resourcesearch.label.Cancel" | translate}}</button>
+  <button id="btn-location-import-confirm" class="btn btn-default cc-btn-primary" type="button" data-ng-disabled="!fileToImportName" ng-click="import()">{{"resourcesearch.label.Save" | translate}}</button>
+</div>

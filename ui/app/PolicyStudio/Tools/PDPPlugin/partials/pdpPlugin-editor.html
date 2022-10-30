@@ -1,0 +1,147 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="pdpPluginController">
+    <div class="cc-dlg-create-page-container cc-layout-full-height">
+      <div class="no-margin cc-dlg-create-page-title-panel">
+        <div class="cc-dlg-create-page-back-btn-div">
+          <a ui-sref="PolicyStudio.PDPPlugin">
+            <button id="goBack" class="cc-dlg-create-page-back-btn" type="button" class="btn btn-default active">
+              <i class="fa fa-arrow-left" data-ng-class=""> </i>
+            </button>
+          </a>
+        </div>
+        <div class="cc-dlg-create-page-title">
+          <span data-ng-if="!isEditMode"> {{"pdpPlugin.title.add" | translate}} </span>
+          <span data-ng-if="isEditMode"> {{ plugin.name }} </span>
+        </div>
+        <div class="cc-dlg-create-page-btn-div">
+          <a id="discardBtn" class="btn btn-default cc-btn-discard" data-ng-click="reset()"> &nbsp;&nbsp;{{"common.discard" | translate}} </a>
+          <a id="saveBtn" class="btn btn-default cc-btn-discard" data-ng-click="savePlugin(pluginForm.val, false)"> &nbsp;&nbsp;{{"common.save" | translate}} </a>
+          <a id="saveAndActivateBtn" class="btn btn-default cc-btn-primary" data-ng-click="savePlugin(pluginForm.val, true)"> &nbsp;&nbsp;{{"common.saveAndActivate" | translate}} </a>
+        </div>
+        <div class="clear"> </div>
+      </div>
+      <div class="cc-dlg-create-page-bottom-panel">
+        <div class="cc-dlg-create-page-editor-div cc-dlg-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80" style="width: 100%;">
+          <form id="pluginForm.val" class="cc-dlg-create-page-editor-form" name="pluginForm.val" novalidate>
+            <div id="pluginBasic" class="cc-dlg-create-page-editor-title">
+              <span class="cc-dlg-create-page-title-underline"> {{"pdpPlugin.section.info" | translate}} </span>
+            </div>
+            <div class="cc-dlg-create-page-editor-info">
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="name"> {{"pdpPlugin.label.name" | translate}} 
+                  <i id="icon-plugin-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Plugin Name']=true" data-ng-if="pageOptionList['Plugin Name']"> </i>
+                </label>
+                <input id="name" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'pdpPlugin.placeHolder.name' | translate}}" data-ng-model="plugin.name" name="name" data-ng-disabled="disablePolicyName" required autocomplete="off" ng-maxlength="255" maxlength="255"/>
+                <div class="cc-validation-block" ng-messages="pluginForm.val.name.$error" ng-if="pluginForm.val.name.$touched">
+                  <p ng-message="required"> {{"pdpPlugin.validation.name.required" | translate}} </p>
+                </div>
+                <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Plugin Name" data-ng-model="showUserManual['Plugin Name']"></user-manual>
+              </div>
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="description">{{"pdpPlugin.label.description" | translate}}
+                  <i id="icon-plugin-description-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Plugin Description'] = true" data-ng-if="pageOptionList['Plugin Description']"></i>
+                </label>
+                <textarea id="description" style="height: 100px;" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right" placeholder="{{'pdpPlugin.placeHolder.description' | translate}}" data-ng-model="plugin.description" data-ng-focus="highlightGrammar('description')" name="description" ng-maxlength="4000" maxlength="4000"></textarea>
+                <user-manual class="cc-user-manual-textarea cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Plugin Description" data-ng-model="showUserManual['Plugin Description']"></user-manual>
+              </div>
+            </div>
+            <div class="cc-user-manual-anchor">
+              <div id="pluginFiles" name="pluginFiles" class="cc-dlg-create-page-editor-title">
+                <span class="cc-dlg-create-page-title-underline"> {{"pdpPlugin.section.files" | translate}} </span>
+              </div>
+            </div>
+            <div class="cc-dlg-create-page-editor-info">
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="propertiesFile"> {{"pdpPlugin.label.propertiesFile" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Properties File']=true" data-ng-if="pageOptionList['Properties File']"> </i>
+                </label>
+                <div style="display: inline;">
+                  <input id="propertiesFile" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" placeholder="{{'pdpPlugin.placeHolder.propertiesFile' | translate}}" 
+                    style="margin-right: 10px;" data-ng-model="plugin.propertiesFileObject.name" autocomplete="off" data-ng-disabled="true"/>
+                  <button id="download-propertiesFile" class="btn btn-default cc-ps-btn-cc-big" title="Download" data-ng-click="downloadFileResource(plugin, plugin.propertiesFileObject, 'text/plain')" data-ng-if="plugin.propertiesFileObject.id > 0">
+                    <i class="fa fa-download"></i>
+                  </button>
+                  <div class="btn btn-default btn-file cc-btn-discard">
+                    {{'PS.BROWSE' | translate}} <input type="file" id="selectPropertiesFile" accept=".properties" ng-init="addEventListener();"/>
+                  </div>
+                </div>
+                <div class="cc-validation-block" ng-if="propertiesFileRequired">
+                  <p class="ng-binding ng-scope"> {{"pdpPlugin.validation.propertiesFile.required" | translate}} </p>
+                </div>
+                <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Properties File" data-ng-model="showUserManual['Properties File']"></user-manual>
+              </div>
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="mainJar"> {{"pdpPlugin.label.mainJar" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Plugin JAR File']=true" data-ng-if="pageOptionList['Plugin JAR File']"> </i>
+                </label>
+                <div style="display: inline;">
+                  <input id="mainJarFile" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" placeholder="{{'pdpPlugin.placeHolder.mainJar' | translate}}" data-ng-model="plugin.mainJarFileObject.name" 
+                    style="margin-right: 10px;" autocomplete="off" data-ng-disabled="true"/>
+                  <button id="download-mainJarFile" class="btn btn-default cc-ps-btn-cc-big" title="Download" data-ng-click="downloadFileResource(plugin, plugin.mainJarFileObject, 'application/java-archive')" data-ng-if="plugin.mainJarFileObject.id > 0">
+                    <i class="fa fa-download"></i>
+                  </button>
+                  <div class="btn btn-default btn-file cc-btn-discard">
+                    {{'PS.BROWSE' | translate}} <input type="file" id="selectMainJarFile" accept=".jar" ng-init="addEventListener();"/>
+                  </div>
+                </div>
+                <div class="cc-validation-block" ng-if="mainJarFileRequired">
+                  <p class="ng-binding ng-scope"> {{"pdpPlugin.validation.mainJar.required" | translate}} </p>
+                </div>
+                <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Plugin JAR File" data-ng-model="showUserManual['Plugin JAR File']"></user-manual>
+              </div>
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="thirdPartyJar"> {{"pdpPlugin.label.thirdPartyJars" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Third Party JAR File']=true" data-ng-if="pageOptionList['Third Party JAR File']"> </i>
+                </label>
+                <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Third Party JAR File" data-ng-model="showUserManual['Third Party JAR File']"></user-manual>
+                <div style="display: inline;" data-ng-if="!isEditMode || plugin.activeFrom == 0">
+                  <input id="thirdPartyJarFile-placeholder" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" placeholder="{{'pdpPlugin.placeHolder.thirdPartyJars' | translate}}" 
+                    style="margin-right: 10px;" autocomplete="off" data-ng-disabled="true"/>
+                  <div class="btn btn-default btn-file cc-btn-discard">
+                    {{'PS.BROWSE' | translate}} <input type="file" id="selectThirdPartyJarFile" accept=".jar" ng-init="addEventListener();" multiple="true"/>
+                  </div>
+                </div>
+                <div style="margin-top: 10px;" data-ng-repeat="file in plugin.thirdPartyJarFilesObject track by $index" >
+                  <div style="display: inline;" data-ng-if="file.id > 0">
+                    <input id="thirdPartyJarFile-{{$index}}" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" style="margin-right: 10px;" data-ng-model="file.name" autocomplete="off" data-ng-disabled="true"/>
+                    <button id="download-{{$index}}" class="btn btn-default cc-ps-btn-cc-big" title="Download" data-ng-click="downloadFileResource(plugin, file, 'application/java-archive')"><i class="fa fa-download"></i></button>
+                  </div>
+                  <div class="cc-create-page-common-del-anchor" style="display: inline; height: min-content; width: min-content;" data-ng-if="file.id == 0">
+                    <input id="thirdPartyJarFile-{{$index}}" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" style="margin-right: 10px;" data-ng-model="file.name" autocomplete="off" data-ng-disabled="true"/>
+                  </div>
+                  <i id="delete-{{$index}}" class="fa fa-times-circle-o cc-create-page-file-del-icon-no-download" data-ng-click="removeThirdPartyJarFile($index, file.id)" data-ng-if="file.id == 0"></i>
+                  <i id="delete-{{$index}}" class="fa fa-times-circle-o cc-create-page-file-del-icon-download" data-ng-click="removeThirdPartyJarFile($index, file.id)" data-ng-if="file.id > 0 && plugin.activeFrom == 0"></i>
+                </div>
+              </div>
+
+              <div class="cc-create-page-editor-data cc-user-manual-anchor">
+                <label for="other"> {{"pdpPlugin.label.other" | translate}}
+                  <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Other File']=true" data-ng-if="pageOptionList['Other File']"> </i>
+                </label>
+                <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Other File" data-ng-model="showUserManual['Other File']"></user-manual>
+
+                <div style="display: inline;" data-ng-if="!isEditMode || plugin.activeFrom == 0">
+                  <input id="other-placeholder" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" placeholder="{{'pdpPlugin.placeHolder.other' | translate}}"
+                         style="margin-right: 10px;" autocomplete="off" data-ng-disabled="true"/>
+                  <div class="btn btn-default btn-file cc-btn-discard">
+                    {{'PS.BROWSE' | translate}} <input type="file" id="selectOtherFile" accept=".*" ng-init="addEventListener();" multiple="true"/>
+                  </div>
+                </div>
+
+                <div style="margin-top: 10px;" data-ng-repeat="file in plugin.otherFilesObject track by $index" >
+                  <div style="display: inline;" data-ng-if="file.id > 0">
+                    <input id="otherFile-{{$index}}" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" style="margin-right: 10px;" data-ng-model="file.name" autocomplete="off" data-ng-disabled="true"/>
+                    <button id="download-{{$index}}" class="btn btn-default cc-ps-btn-cc-big" title="Download" data-ng-click="downloadFileResource(plugin, file, 'application/java-archive')"><i class="fa fa-download"></i></button>
+                  </div>
+                  <div class="cc-create-page-common-del-anchor" style="display: inline; height: min-content; width: min-content;" data-ng-if="file.id == 0">
+                    <input id="otherFiles-{{$index}}" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-filename-input" style="margin-right: 10px;" data-ng-model="file.name" autocomplete="off" data-ng-disabled="true"/>
+                  </div>
+                  <i id="delete-{{$index}}" class="fa fa-times-circle-o cc-create-page-file-del-icon-no-download" data-ng-click="removeOtherFile($index, file.id)" data-ng-if="file.id == 0"></i>
+                  <i id="delete-{{$index}}" class="fa fa-times-circle-o cc-create-page-file-del-icon-download" data-ng-click="removeOtherFile($index, file.id)" data-ng-if="file.id > 0 && plugin.activeFrom == 0"></i>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

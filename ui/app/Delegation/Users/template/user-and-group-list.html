@@ -1,0 +1,55 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="userAndGroupListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute">
+    <div class="cc-dlg-list-title cc-dlg-title-on-content-title">
+      <p data-ng-if="show_search" class="cc-ps-list-search-subtitle">{{"policylist.title.Search" | translate}}</p>
+      <p class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : !show_search}">{{"delegation.userlist.page.title" | translate}}</p>
+    </div>
+    <div class="cc-ps-filter-applied-div" data-ng-show="!show_search && (userSearchCriteria.name || !userSearchCriteria.pristine)" data-ng-if="tabs.activeTab == 0">
+      <div class="cc-ps-filter-applied-label" data-ng-class="{'cc-ps-filter-applied-label-no-name':userSearchCriteria.name == null}">
+        <p class="cc-ps-list-filter-label">{{"policylist.title.FilterApplied" | translate}}</p>
+      </div>
+      <div class="cc-ps-filter-applied-clear-icon">
+        <i id="clearUserSearch" class="fa fa-times-circle-o" data-ng-click="clearUserSearch()"></i>
+      </div>
+    </div>
+    <div class="cc-ps-filter-applied-div" data-ng-show="!show_search && (groupSearchCriteria.name || !groupSearchCriteria.pristine)" data-ng-if="tabs.activeTab == 1">
+      <div class="cc-ps-filter-applied-label" data-ng-class="{'cc-ps-filter-applied-label-no-name':groupSearchCriteria.name == null}">
+        <p class="cc-ps-list-filter-label">{{"policylist.title.FilterApplied" | translate}}</p>
+      </div>
+      <div class="cc-ps-filter-applied-clear-icon">
+        <i id="clearGroupSearch" class="fa fa-times-circle-o" data-ng-click="clearGroupSearch()"></i>
+      </div>
+    </div>
+    <div class="cc-ps-align-right cc-search-btn-div cc-ps-page-operation-btn">
+      <button id="search" type="button" class="btn btn-default active cc-search-btn" data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}" data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')">
+      </button>
+    </div>
+    <a id="createUser" data-ui-sref="Users.createuser" class="btn btn-default cc-btn-primary cc-create-btn cc-ps-page-operation-btn" data-ng-if="tabs.activeTab == 0">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"delegation.userlist.btn.createUser" | translate}}
+    </a>
+    <a id="importUser" data-ui-sref="Users.importuser" class="btn btn-default cc-btn-discard cc-create-btn cc-ps-page-operation-btn" data-ng-if="tabs.activeTab == 0">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"delegation.userlist.btn.import.from.AD" | translate}}
+    </a>
+    <a id="importGroup" data-ui-sref="Users.importgroup" class="btn btn-default cc-btn-discard cc-create-btn cc-ps-page-operation-btn" data-ng-if="tabs.activeTab == 1">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"delegation.grouplist.btn.import.from.AD" | translate}}
+    </a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-dlg-search-and-list-box cc-dlg-search-and-list-box-margin">
+    <uib-tabset id="userAndGroupTabs" active="tabs.activeTab" style="padding-top: 15px; padding-left: 5px;">
+      <uib-tab id="users_tab" index="0" select="highlightGrammar('attributesInfo');selectTab('users'); navigate('Users/userlist')" deselect="deselectTab('users')">
+        <uib-tab-heading> 
+          <span> {{"delegation.userlist.tab.user" | translate}} </span>
+        </uib-tab-heading>
+        <div data-ng-include="'ui/app/Delegation/Users/template/users.html'"></div>
+      </uib-tab>
+      <uib-tab id="groups_tab" index="1" select="highlightGrammar('attributesInfo');selectTab('groups'); navigate('Users/grouplist')" deselect="deselectTab('groups')">
+        <uib-tab-heading>
+          <span> {{"delegation.grouplist.tab.group" | translate}} </span>
+        </uib-tab-heading>
+        <div data-ng-include="'ui/app/Delegation/Users/template/groups.html'"></div>
+      </uib-tab>
+    </uib-tabset>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

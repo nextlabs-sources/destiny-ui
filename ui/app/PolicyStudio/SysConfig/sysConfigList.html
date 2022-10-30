@@ -1,0 +1,55 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="SysConfigListController as sysConfigListCtrl">
+    <div class="no-margin cc-ps-title-on-content ">
+        <div id="cc-ps-page-title" class="cc-ps-title-on-content-title">
+            <p id="label-system-config-search" data-ng-if="show_search" class="cc-ps-list-search-subtitle">{{"sysconfiglist.title.search" | translate}}
+            </p>
+            <p id="label-system-config" class="cc-ps-list-title" data-ng-class="{'cc-ps-list-title-middle' : !show_search}">
+                {{"sysconfiglist.title.sysConfigManagement" | translate}}</p>
+        </div>
+        <div class="cc-ps-filter-applied-div"
+            data-ng-show="!show_search && (searchCriteria.name || !searchCriteria.pristine)">
+            <div class="cc-ps-filter-applied-label"
+                data-ng-class="{'cc-ps-filter-applied-label-no-name':searchCriteria.name == null}">
+                <p class="cc-ps-list-filter-label">{{"sysconfiglist.title.filterApplied" | translate}}</p>
+            </div>
+            <div class="cc-ps-filter-applied-clear-icon">
+                <i class="fa fa-times-circle-o" data-ng-click="clearSearch()"></i>
+            </div>
+        </div>
+        <div id="cc-ps-policy-search" class="cc-ps-page-operation-btn">
+            <button id="btn-system-config-show-search" type="button" class="btn btn-default active cc-search-btn"
+                data-ng-class="{'cc-search-open':!show_search, 'cc-search-close':show_search}"
+                data-ng-click="show_search = !show_search;show_search && $broadcast('searchFormOpen')"> </button>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="cc-ps-search-and-list-box admin-top-spacing" scroll-to-top-when="searchFormOpen">
+        <div class="cc-ps-main-search-section" data-uib-collapse="!show_search">
+            <div class="cc-ps-main-search-section-content"
+                data-ng-include="'ui/app/PolicyStudio/SysConfig/sysConfigSearch.html'"></div>
+        </div>
+        <div data-ng-class="!show_search? 'cc-ps-policy-list-table list-container' : 'cc-ps-policy-list-table search-opened-list-container'">
+            <div class="cc-ps-operation">
+                <div id="cc-show-adv" class="cc-ps-align-right">
+                    <div class="cc-inline" id="cc-advanced-title">{{"sysconfigsearch.label.advConfig" | translate}}</div>
+                    <switch id="cc-show-adv-switch" class="cc-inline cc-ps-search-switch-include-sub"
+                        data-ng-model="searchCriteria.includeAdvanced" data-ng-change="toggleAdvancedConfigs()"
+                        data-slide-toggle=".cc-ps-and-recipient-container"></switch>
+                </div>
+            </div>
+            <ul class="no-padding no-decoration cc-ps-policy-list-table-ul">
+                <li class="cc-ps-list-item" data-ng-repeat="sysConfig in sysConfigList | orderBy:'mainGroupOrder'">
+                    <div data-ng-include="'ui/app/PolicyStudio/SysConfig/partials/sysConfigtemplate.html'"> </div>
+                </li>
+            </ul>
+            <p data-ng-if="sysConfigList.length < sysConfigTotal">
+                <button id="btn-system-config-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore"
+                    data-ng-click="loadMore()">{{"sysconfiglist.title.LoadMore" | translate}} </button>
+            </p>
+            <div data-ng-if="!sysConfigList.length" class="cc-ps-empty-resource-list-box">
+                <p style="text-align:center"> {{"sysconfig.empty.list.msg" | translate}}</p>
+            </div>
+        </div>
+        <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+    </div>
+</div>

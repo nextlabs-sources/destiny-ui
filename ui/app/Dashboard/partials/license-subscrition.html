@@ -1,0 +1,4 @@
+<div><span id="dashboard-license-days-left" style="color:#07B582; font-size: 14px;">{{sysDetails.license_properties.no_of_days_left + ' Days'}}</span>&nbsp;{{'remaining' | translate}}</div>
+<div id="label-dashboard-license-auto-renew-date">{{'This license will will automatically renew on ' | translate}}&nbsp;<span style="font-weight: bold;">{{sysDetails.license_properties.expiration_milis|date:'dd MMMM yyyy'}}</span></div>
+<div id="label-dashboard-license-change-subscription" class="cc-dashboard-subscribe-title">{{'To change your subscription plan' | translate}}</div>
+<div style="font-size: 12px;"><a id="link-dashboard-email" ng-href="mailto:{{dashboardConfig.subscriptionEmail}}">Email us</a> <span id="label-dashboard-contact-number" ng-show="dashboardConfig.subscriptionCall">{{'or call' | translate}} {{dashboardConfig.subscriptionCall}}</span></div>

@@ -1,0 +1,168 @@
+<div class="cc-ps-search-form">
+  <form name="attributeProviderSearchForm" id="attributeProviderSearchForm" novalidate>
+    <!-- <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown auto-close="outsideClick" is-open="type_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"resourcesearch.label.Type" | translate}}:</span>
+            <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.typeLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-dropdown-tags">
+          <div role="menuitem">
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input data-ng-model="searchOptions.$allTypeChecked" data-ng-disabled="searchOptions.$allTypeChecked" data-ng-change="allTypeChanged();" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"resourcesearch.label.AllTypes" | translate}}</span>
+            </label>
+          </div>
+          <div class="divider"></div>
+          <ul role="menu" class="no-decoration cc-ps-search-tag-ul">
+            <li role="menuitem" class="cc-ps-search-tag-item" data-ng-repeat='t in searchOptions.typeOptions'>
+              <label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="t.$_checked" data-ng-change="typeChanged();" value="{{t.id}}" data-ng-true-value="true">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                  <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{t.label}}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown auto-close="outsideClick" is-open="tags_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"resourcesearch.label.Tags" | translate}}:</span>
+            <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.tagLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <div data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu cc-ps-search-dropdown-tags">
+          <div role="presentation">
+            <div class="cc-ps-tag-search">
+              <input type="text" class="form-control" placeholder="Search for tags" data-ng-model="tagQuery" />
+              <i class="fa fa-search cc-ps-tag-search-icon"></i>
+            </div>
+          </div>
+          <div role="menuitem">
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input data-ng-model="searchOptions.$allTagChecked" data-ng-disabled="searchOptions.$allTagChecked" data-ng-change="allTagChanged();" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"resourcesearch.label.AllTags" | translate}}</span>
+            </label>
+          </div>
+          <div class="divider"></div>
+          <ul role="menu" class="no-decoration cc-ps-search-tag-ul">
+            <li role="menuitem" class="cc-ps-search-tag-item" data-ng-repeat='t in searchOptions.tagOptions | filter:tagQuery'>
+              <label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="t.$_checked" data-ng-change="tagChanged();" value="{{t.id}}" data-ng-true-value="true">
+                <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                  <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{t.label}}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-modified-date" data-uib-dropdown auto-close="outsideClick" is-open="modified_search_open">
+        <button class="form-control cc-ps-button-common" data-uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"resourcesearch.label.ModifiedDate" | translate}}:</span>&nbsp;
+            <span class="cc-ps-dropdown-btn-label-content">{{searchOptions.modifiedDateLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem">
+            <label class="nobold cc-green-checkbox-radio-label" data-ng-click="updateCustomPeriod(undefined, $event);checkModifiedDate(searchOptions.specialModifiedDateOption);">
+              <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="filter-by-modified-date" data-ng-model="searchOptions.specialModifiedDateOption.$_checked" data-ng-model-options="{ updateOn: 'modifiedDateApplied' }" data-ng-value="true" data-ng-change="">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"resourcesearch.label.AnyModifiedDate" | translate}}</span>
+            </label>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li role="menuitem" data-ng-repeat="d in searchOptions.modifiedDateOptions">
+            <label class="nobold cc-green-checkbox-radio-label" data-ng-click="updateCustomPeriod(d, $event);checkModifiedDate(d);">
+              <input type="radio" class="cc-green-checkbox-radio cc-ps-search-modifieddate" name="filter-by-modified-date" data-ng-model="d.$_checked" data-ng-model-options="{ updateOn: 'modifiedDateApplied' }" data-ng-value="true" data-ng-change="">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{d.label}}</span>
+            </label>
+          </li>
+          <li role="menuitem" data-ng-if="isCustomPeriodSelected">
+            <div class="row">
+              <div class="col-md-2">{{'searchform.customperiod.from' | translate}} </div>
+              <div class="col-md-9">
+                <p class="input-group">
+                  <input type="text" class="form-control cc-ps-search-modifieddate" placeholder="Date From" data-uib-datepicker-popup="dd-MM-yyyy" data-is-open="filter_by_date.status.from" data-ng-required="true" data-close-text="Close" max-date="tempCustomDate.modifiedTo" data-ng-model="tempCustomDate.modifiedFrom" readonly />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="filter_by_date.status.from = !filter_by_date.status.from">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">{{'searchform.customperiod.to' | translate}} </div>
+              <div class="col-md-9">
+                <p class="input-group">
+                  <input type="text" class="form-control cc-ps-search-modifieddate" placeholder="Date To" data-uib-datepicker-popup="dd-MM-yyyy" data-is-open="filter_by_date.status.to" data-ng-required="true" data-close-text="Close" min-date="tempCustomDate.modifiedFrom" data-ng-model="tempCustomDate.modifiedTo" readonly/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="filter_by_date.status.to = !filter_by_date.status.to">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-more-option" data-ng-if="searchOptions.moreOptions.length > 0" data-uib-dropdown auto-close="outsideClick" is-open="more_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"resourcesearch.label.More" | translate}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" data-ng-repeat='option in searchOptions.moreOptions | filter:{open:false}'>
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="option.open" value="{{option.name}}" data-ng-true-value="true" data-ng-false-value="false" data-ng-change="more_search_open=false">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{option.label}}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-more-option-dropdown" data-uib-dropdown data-ng-repeat='option in searchOptions.moreOptions | filter:{open:true}' auto-close="outsideClick" is-open="more_search_{{$index}}_open">
+        <div class="cc-ps-search-dropdown-close">
+          <i class="fa fa-times-circle fa-2" data-ng-click="option.open = false"></i>
+        </div>
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">{{option.label}}</span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" data-ng-click="dropdownClicked($event)">
+          <li role="menuitem" data-ng-repeat='option in searchOptions.moreOptions'>
+            <label class="nobold cc-green-checkbox-radio-label">
+              <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="s.$_checked" data-ng-change="" value="{{s.name}}" data-ng-true-value="true">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{s.label}}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div> -->
+    <p class="cc-ps-search-text-container">
+      <input data-ng-model="searchCriteria.text" data-ng-model-options="{ debounce: 300 }" class="form-control cc-ps-search-text cc-ps-input-common" placeholder="{{'attributeProvider.placeholder.search' | translate}}" type="text" data-ng-change="" />
+      <i class="fa fa-search cc-ps-search-icon"></i>
+      
+    </p>
+    <p>
+      <!-- <button class="btn cc-ps-search-btn cc-ps-search-save-btn" data-ng-click="saveSearch()" data-ng-disabled="searchCriteria.pristine" type="submit">{{"resourcesearch.label.saveSearch"|translate}}</button> -->
+      <button class="btn cc-ps-search-btn cc-ps-search-clear-btn" data-ng-click="clearSearch()" type="submit">{{"resourcesearch.label.clearSearch"|translate}}</button>
+      <button class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="applySearch()" type="submit" data-ng-if="!instantSearch">{{"componentsearch.label.Apply"|translate}}</button>
+    </p>
+    </span>
+</div>

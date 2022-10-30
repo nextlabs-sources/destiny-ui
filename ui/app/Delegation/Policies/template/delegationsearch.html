@@ -1,0 +1,47 @@
+<div class="cc-ps-search-form">
+  <!-- <p>{{searchCriteria}}</p> -->
+  <form name="policySearchForm" id="policySearchForm" novalidate>
+    <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-effect" data-uib-dropdown keyboard-nav auto-close="outsideClick" is-open="open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"policysearch.label.Effect" | translate}}:</span>
+          <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.effectLabel}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu  class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="delegation-checkbox-search-selectAllEffect" data-ng-model="searchOptions.$allEffectChecked" data-ng-disabled="searchOptions.$allEffectChecked" data-ng-change="allEffectChanged()" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{"policysearch.label.AllEffect"|translate}}</span>
+            </label></a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='e in searchOptions.effectOptions'>
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="checkbox-delegation-search-selectEffect-{{e.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="e.$_checked" data-ng-change="effectChanged()" value="{{e.name}}" data-ng-true-value="true">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{e.label}}</span>
+            </label></a>
+          </li>
+          <!-- <li role="separator" class="divider"></li> -->
+          <!-- <li role="menuitem" class="cc-ps-search-btn-line">
+            <button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-apply-btn" data-propagation="true" data-ng-click="updateEffect();setDirty(); open=false">{{"policysearch.label.Apply" | translate}}</button><button type="button" class="btn btn-default btn-xs cc-ps-search-btn-on-dropdown cc-ps-search-cancel-btn" data-propagation="true" data-ng-click="open=false">{{"policysearch.label.Cancel" | translate}}</button>
+          </li> -->
+        </ul>
+      </div>
+      <div class="btn-group btn-block cc-dlg-search-text">
+        <p class="cc-ps-search-text-container cc-dlg-search-text-container">
+          <input data-ng-model="searchCriteria.text" data-ng-model-options="{ debounce: 300 }" class="form-control cc-ps-search-text cc-ps-input-common" placeholder="{{'delegation.search.text.placeholder' | translate}}" type="text" data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;"  data-ng-change="setDirty()" />
+          <i class="fa fa-search cc-ps-search-icon"></i>
+        </p>
+      </div>
+    </div>
+    <p>
+      <!-- <button class="btn cc-ps-search-btn cc-ps-search-save-btn" data-ng-click="saveSearch()" data-ng-disabled="searchCriteria.pristine" type="submit">{{"policysearch.label.saveSearch"|translate}}</button> -->
+      <button type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn cc-dlg-search-clear-btn" data-ng-click="clearSearch()">{{"policysearch.label.clearSearch"|translate}}</button>
+      <button type="submit" class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="applySearch()" data-ng-if="!instantSearch">{{"policysearch.label.Apply"|translate}}</button>
+    </p>
+</div>

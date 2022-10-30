@@ -1,0 +1,35 @@
+<div class="cc-ps-policy" data-ng-class="{'cc-ps-checked':folder.checked}">
+  <div class="cc-ps-policy-parent">
+    <div class="cc-ps-policy-content-container cc-ps-folder-content-container">
+      <div class="height-100-percent cc-green-checkbox-radio-box cc-ps-policy-check cc-ps-folder-check">
+        <label class="nobold cc-green-checkbox-radio-label cc-ps-checkbox-left-half">
+          <input id="checkbox-component-folder-{{folder.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="folder.checked" data-ng-change="folder.type == 'POLICY' ? policyCheckStatusChange() : componentCheckStatusChange()"> 
+          <span>
+            <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+          </span>
+        </label>
+      </div>
+      <div class="cc-ps-policy-content cc-ps-folder-content">
+        <div class="cc-ps-parent-policy-title cc-ps-parent-folder-title">
+          <div data-ng-click="openFolder(folder);">
+            <span class="cc-ps-large-folder"></span>
+            <p class="cc-ps-folder-name"><span title="{{folder.name}}">{{folder.name}}</span>
+            </p>
+          </div>
+        </div>
+        <div class="cc-ps-policy-option-block">
+          <div class="cc-ps-align-right">
+            <button id="btn-{{type ? 'components' : 'policy'}}-folder-option-dots-{{folder.name | id}}"
+              class="btn btn-default cc-ps-policy-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border"
+              data-ng-click="openOption(folder, !openOption(folder), $event)"></button>
+          </div>
+          <div data-ng-include="'ui/app/PolicyStudio/Component/partials/folder-option-template.html'" class="cc-ps-option"
+            data-ng-show="folder.optionOpen" data-ng-if="folder.type=='COMPONENT'"></div>
+            <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/folder-option-template.html'" class="cc-ps-option"
+            data-ng-show="folder.optionOpen" data-ng-if="folder.type=='POLICY'"></div>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+</div>

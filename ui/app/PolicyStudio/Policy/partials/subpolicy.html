@@ -1,0 +1,44 @@
+<div class="cc-ps-policy cc-ps-subpolicy" data-ng-class="{'cc-ps-policy-parent-with-subpolicy':policy.subPolicies.length > 0,'cc-ps-policy-subpolicy-open':policy.showsubpolicy}">
+  <div data-ng-if="!policy.status">
+    <i class="fa fa-spinner fa-pulse"></i>
+  </div>
+  <div data-ng-if="policy.status">
+    <div class="cc-ps-policy-parent">
+      <div class="cc-ps-policy-content-container">
+      <div class="cc-ps-policy-content cc-ps-subpolicy">
+        <div class="cc-ps-policy-name-desc cc-ps-subpolicy">
+          <p class="cc-ps-policy-name cc-ps-subpolicy"><span data-ng-click="editPolicy(policy)">{{policy.name}}</span></p>
+          <p>
+            <span class="cc-ps-effect {{policy.effectType | lowercase}}">{{policy.effectType | lowercase}}</span><span class="cc-ps-list-keyword">{{'Modified' | translate}}</span>
+            <friendly-date data-date="{{policy.lastUpdatedDate}}" data-date-type="miliseconds" data-title-class="cc-ps-friendly-date-title" data-content-class="cc-ps-friendly-date-content" data-prefix="" data-full-format="d MMM yyyy,h:mm a" data-short-format="h:mm a"></friendly-date>
+          </p>
+        </div>
+        <div class="cc-ps-policy-update">
+            <span class="cc-ps-deployed" data-ng-class="getPolicyUIStatus(policy)">{{policy.deploymentStatus}}</span>
+            <span ng-if="policy.status.toUpperCase() === 'DRAFT'" class="cc-ps-status">{{policy.status}}</span>
+        </div>
+        <div class="cc-ps-policy-option-block">
+          <p class="cc-ps-align-right">
+            <button class="btn btn-default cc-ps-policy-option cc-ps-btn-cc-big cc-ps-btn-bkgrd-hover cc-ps-btn-no-bkgrd cc-ps-btn-no-border" data-ng-click="openOption(policy, !openOption(policy))"></button>
+          </p>
+          <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/subpolicyoption-template.html'" class="cc-ps-option" data-ng-class="'cc-ps-option-alternate-' + (1 - alternate)" data-ng-show="policy.optionOpen"></div>
+        </div>
+      </div>
+      <div data-ng-include="'ui/app/PolicyStudio/Policy/partials/subpolicy-title.html'"></div>
+      </div>
+      <!-- <div class="cc-ps-parent-policy-title" data-ng-if="policy.hasParent">
+      <div><span class="cc-ps-policy-parent-label">Parent:</span><div class="cc-ps-policy-parent-title">{{policy.parent.title}}</div></div>
+    </div> -->
+    </div>
+    <div data-ng-if="policy.hasSubPolicies" data-ng-show="policy.showsubpolicy">
+      <div class="cc-ps-subpolicies cc-ps-subpolicy-alternate-{{alternate}}">
+        <ul class="no-padding no-decoration">
+          <li data-ng-repeat="policy in policy.subPolicies" data-ng-init="alternate=1 - alternate">
+              <!-- <div class="cc-ps-subpolicy" data-ng-include="'PolicyStudio/Policy/partials/policytemplate.html'"></div> -->
+              <div class="cc-ps-subpolicy" data-ng-include="'ui/app/PolicyStudio/Policy/partials/subpolicy.html'"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

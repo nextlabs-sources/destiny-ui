@@ -1,0 +1,81 @@
+<div >
+	<div class="left-container">
+		<a href="" data-ng-click="scrollTo('componentName')">
+			<div  class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentName')}">
+				
+				<label for="componentName">{{"createComponent.grammar.This" | translate}}</label>
+				<label for="componentName">{{"createComponent.grammar.Component" | translate }}:</label>
+				
+				<div class="wrapper">
+					<span ng-hide="component.name.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.ComponentName' | translate}}>
+					</span>
+					<span class="cc-ps-create-page-grammar-content" ng-show="component.name.length">{{component.name}}</span>
+				</div>
+							
+			</div>
+		</a>
+		<a href="" data-ng-click="scrollTo('componentType')">
+			<div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentType')}">
+				<label for="componentType">{{"createComponent.grammar.Of" | translate}}:</label>
+				<div class="wrapper">
+					<span ng-hide="component.policyModel.name.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.Type' | translate}}></span>
+					<span class="cc-ps-create-page-grammar-content" ng-show="component.policyModel.name.length">{{component.policyModel.name}}</span>
+				</div>
+			</div>
+		</a>
+		<a href="" data-ng-click="scrollTo('componentTags')">
+			<div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentTags')}">
+				<label for="componentTags">{{"createComponent.grammar.with.tags" | translate}}:</label>
+				
+				<div class="wrapper"> 
+					<span ng-hide = "component.tags.length" class="cc-grammar-placeholder"><{{'createComponent.label.Tags' | translate}}></span>
+					<span data-ng-repeat="tag in component.tags">
+						<span >{{tag.label}}</span>
+						<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+					</span>
+				</div>
+			</div>
+		</a>
+		<a href="" data-ng-click="scrollTo('componentCondition')" data-ng-if="shouldShowCondition()">
+			<div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentCondition')}">
+				<label for="componentCondition">{{"createComponent.grammar.With" | translate}}:</label>
+				<div class="wrapper">
+					<p ng-hide = "component_conditions.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.Conditions' | translate}}></p>
+					<p data-ng-repeat="con in component_conditions track by $index">
+						<!-- <span data-ng-hide="$index < 1"> AND </span> -->
+						<span data-ng-show = "con.attribute.dataType !== 'DATE' && con.value.length">{{con.attribute.name}} &nbsp; <span style="color: rgb(175, 179, 181)">{{con.operator.label}}</span> &nbsp; {{con.value | jsonToText}} </span>
+						<span data-ng-show = "con.attribute.dataType === 'DATE' && con.value">{{con.attribute.name}} &nbsp; <span style="color: rgb(175, 179, 181)">{{con.operator.label}}</span> &nbsp; {{con.value | date:'shortDate'}} </span>
+					</p>
+				</div>
+			</div>
+		</a>
+		<a href="" data-ng-click="scrollTo('componentMember')">
+				<div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentMember')}">
+					<label for="componentMember">{{"createComponent.grammar.With.Members" | translate}}:</label>
+					<div class="wrapper">
+						<p ng-hide = "component.memberConditions.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.Members' | translate}}></p>
+						<p data-ng-repeat="memCon in component.memberConditions">
+						<span class="key-word" data-ng-if="!$first"> {{'createpolicy.grammar.resource.concat' | translate}} </span>
+						<span style="color: rgb(175, 179, 181)" data-ng-show = "memCon.operator.value.length ">{{memCon.operator.value}} &nbsp;</span>
+						<span data-ng-repeat="mem in memCon.members">
+								<span data-ng-show = "mem.name.length ">{{mem.name}} &nbsp;<span data-ng-show = "mem.type === 'MEMBER'" style="color: rgb(175, 179, 181)">({{mem.memberType.toLowerCase().replace('_',' ')}})</span> </span>
+								<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+						</span> 
+						</p>
+					</div>
+				</div>
+			</a>
+		<a href="" data-ng-click="scrollTo('componentAction')" data-ng-if="shouldShowAction()">
+			<div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('componentAction')}">
+				<label for="componentCondition">{{"createComponent.grammar.With.Action" | translate}}:</label>
+				<div class="wrapper">
+					<p ng-hide = "component.actions.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.Actions' | translate}}></p>
+					<p data-ng-repeat="act in component.actions">
+						<!-- <span data-ng-hide="$index < 1"> AND </span> -->
+						<span>{{act.name}}</span>
+					</p>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,100 @@
+<div class="cc-layout-full-height">
+  <div class="no-margin cc-ps-create-page-title-panel">
+    <div class="cc-ps-create-page-back-btn-div">
+      <button id="goBack" class="btn btn-default active cc-ps-create-page-back-btn" type="button" ui-sref="Users.userlist">
+        <i class="fa fa-arrow-left" data-ng-class=""></i>
+      </button>
+    </div>
+    <div class="cc-ps-create-page-title">
+      <span>{{ 'Add External User Groups' | translate }}</span>
+    </div>
+    <div class="cc-ps-create-page-btn-div">
+      <a id="discardForm" class="btn btn-default cc-btn-discard" ui-sref="Users.userlist">{{"Discard" | translate}} </a>
+      <button id="importGroup" class="btn btn-default cc-btn-primary" data-ng-click="importGroup()" data-ng-disabled="!(groupList | filter:{$checked : true}).length"> {{"Import" | translate}} </button>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-dlg-search-and-list-box">
+    <div ng-if="!loginConfigList.length" class="cc-dlg-user-import-noconfig-div">
+      <a id="addLoginConfig" class="btn cc-btn-primary" ui-sref="LoginConfig.add"><span>{{'No User Source found, click to create one' | translate}}</span></a>
+    </div>
+    <div ng-if="loginConfigList.length" class="cc-dlg-user-import-div">
+      <div class="cc-dlg-import-wrapper-div">
+        <div class="btn-group cc-ps-dropdown-grp cc-dlg-user-import-config-div" uib-dropdown is-open="open">
+          <button id="loginConfig" type="button" class="btn btn-default form-control cc-ps-button-common" uib-dropdown-toggle>
+            <span class="cc-ps-dropdown-btn-label">
+              <span class="cc-ps-dropdown-btn-title">{{"Import group from" | translate}}:</span>
+              <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{loginConfig.name}}</span>
+            </span>
+            <span class="cc-ps-dropdown-btn-expand-icon"></span>
+          </button>
+          <ul class="dropdown-menu cc-dlg-user-import-config-list" uib-dropdown-menu role="menu" >
+            <li role="menuitem" class="cc-dlg-user-import-config" ng-class="{active:loginConfig == config}" ng-repeat="config in loginConfigList"><a ng-click="setLoginConfig(config);validateAndSearch();">{{config.name}}</a></li>
+          </ul>
+        </div>
+        <div class="btn-group btn-block cc-dlg-user-import-config-div cc-ps-dropdown-grp" >
+          <p class="cc-ps-search-text-container cc-dlg-search-text-container" style="margin:0;">
+          <input id="searchText" data-ng-model="searchText.text"  class="form-control cc-ps-search-text cc-ps-input-common" style="width:100%" placeholder="{{'Search for user group name' | translate}}" type="text" maxlength="255" />
+            <i class="fa fa-search cc-ps-search-icon" style="left:365px"></i>        
+          </p>
+          <p class="cc-dlg-import-more-results" data-ng-if="searchInvalid" style="color:red; padding-top:5px;">'(' and ')' are invalid search characters!</p>
+        </div>
+        <div class="btn-group cc-ps-dropdown-grp cc-dlg-user-set-record-div" uib-dropdown >
+          <button id="pageSize" type="button" class="btn btn-default form-control cc-ps-button-common" uib-dropdown-toggle>
+            <span class="cc-ps-dropdown-btn-label">
+              <span class="cc-ps-dropdown-btn-title">{{"Number of Records" | translate}}:</span>
+              <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{pageSize.size}}</span>
+            </span>
+            <span class="cc-ps-dropdown-btn-expand-icon" ></span>
+          </button>
+          <ul class="dropdown-menu cc-dlg-user-import-config-list" uib-dropdown-menu role="menu" >
+            <li role="menuitem" class="cc-dlg-user-import-config" ng-repeat="number in numOfRecordsList" ng-class="{active:pageSize == number}" ><a ng-click="pageSize.size = number">{{number}}</a></li>
+          </ul>
+        </div>
+        <div style="display:inline-block; margin-top:5px; padding-top:5px;">      
+          <button id="searchGroup" class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="validateAndSearch()" type="submit">{{"policysearch.label.Apply"|translate}}</button>
+        </div>
+      </div>
+    
+      <div class="cc-dlg-import-more-results" data-ng-if="hasMoreResults">{{"There are more than" | translate}} {{numOfRecords}} {{"results. Refine your search criteria to load more results." | translate}}
+      </div>
+    
+      <div class="cc-ps-empty-resource-list-box" style="text-align:center;" data-ng-if="noGroupFound">{{"No user group found for the specified search criteria." | translate}}
+      </div>
+    
+      <div class="cc-dlg-user-import-userlist" ng-if="groupList.length && !noGroupFound" style="margin-top:20px;">
+        <table class="table" style="table-layout:fixed;">
+          <thead>
+            <tr>
+              <th style="width: 60px;">
+                <label class="nobold cc-green-checkbox-radio-label">
+                  <input type="checkbox" ng-disabled="groupList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allGroupsChecked" data-ng-change="checkAllGroups()"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                </label>
+              </th>
+              <th style="width: 350px;">{{"Group Name" | translate}}</th>
+              <th>{{'Detail' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cc-dlg-user-import-user" ng-repeat="group in groupList">
+              <td>
+                <label class="nobold cc-green-checkbox-radio-label">
+                  <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="group.$checked" data-ng-change="groupCheckStatusChange()"><span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                </label>
+              </td>
+              <td class="user-name"><span title="{{group.name}}">{{group.name}}</span></td>
+              <td class="user-attr-cell">
+                  <span class="user-attr" ng-show="group.description != 'null'"><span class="user-attr-name">Description&nbsp;:</span><span class="user-attr-value">{{group.description}}</span></span>
+                  <span class="user-attr" ng-show="group.email != 'null'"><span class="user-attr-name">Email&nbsp;:</span><span class="user-attr-value">{{group.email}}</span></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p ng-if="cookieForNextPage">
+          <button type="button" class="btn btn-default cc-ps-btn-loadmore" data-ng-hide="true" data-ng-click="loadGroup()">{{"policylist.title.LoadMore" | translate}} </button>
+        </p>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

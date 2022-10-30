@@ -1,0 +1,12 @@
+<div ng-show="show">
+    <ul class="suggestion-group">
+        <li ng-repeat="suggestionGrp in suggestions">
+            <div class="title" ng-if="suggestionGrp.suggestions.length">{{suggestionGrp.label}}</div>
+            <ul class="suggestion">
+            	<li ng-repeat="suggestion in suggestionGrp.suggestions" ng-click="click(suggestion)" ng-mousedown="cancelTimer()" ng-class="{'highlight': highlightIndex == suggestion.globalIndex}">
+            		{{suggestion.label || suggestion.value}}<span class="cc-ps-create-page-editor-obligation-pm-name" ng-if="suggestion.pm" title="{{suggestion.pm}}">({{suggestion.pm}})</span>
+            	</li>
+            </ul>
+        </li>
+    </ul>
+</div>

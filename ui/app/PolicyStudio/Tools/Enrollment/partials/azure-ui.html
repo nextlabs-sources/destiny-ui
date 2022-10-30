@@ -1,0 +1,344 @@
+<div id="taskParameters" class="cc-ps-create-page-editor-title cc-common-gap">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.connection.details" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info ">
+    <div class="cc-flexbox cc-common-gap">
+        <div class="cc-enrollment-server cc-user-manual-anchor">
+            <label id="enrollment-azure-username-label">{{"enrollment.azure.oAuth" | translate}}
+                <i id="icon-enrollment-azure-username-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Azure - OAuth URL'] = true" data-ng-if="pageOptionList['Azure - OAuth URL']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style=" left: 70px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="Azure - OAuth URL" data-ng-model="showUserManual['Azure - OAuth URL']">
+                </user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-azure-username" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis cc-create-textfield-width "
+                    name="taskAzureServer" placeholder="The Azure OAuth URL"
+                    data-ng-model="azureProperties['azure-oauth-authority'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskAzureServer.$error"
+                    ng-if="enrollmentForm.val.taskAzureServer.$touched || saveExecuted || testConnectionExecuted">
+                    <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                    <p ng-message="required" class="cc-validation-block-no-margin">
+                        {{"toolManagement.createTask.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-flexbox cc-common-gap">
+        <div class="cc-enrollment-server cc-user-manual-anchor">
+            <label id="enrollment-azure-port-label">{{"enrollment.azure.tenant" | translate}}
+                <i id="icon-enrollment-azure-port-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Azure - Tenant'] = true" data-ng-if="pageOptionList['Azure - Tenant']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style=" left: 70px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="Azure - Tenant" data-ng-model="showUserManual['Azure - Tenant']">
+                </user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-azure-port" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis cc-create-textfield-width "
+                    name="taskAzurePort" placeholder="The tenant ID" data-ng-pattern="'[^~/*$&?\\\\]*'"
+                    data-ng-model="azureProperties['tenant'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskAzurePort.$error"
+                    ng-if="enrollmentForm.val.taskAzurePort.$touched || saveExecuted || testConnectionExecuted">
+                    <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                    <p ng-message="required" class="cc-validation-block-no-margin">
+                        {{"toolManagement.createTask.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-flexbox cc-common-gap">
+        <div class="cc-enrollment-server cc-user-manual-anchor">
+            <label id="enrollment-azure-login-label">{{"enrollment.azure.application.id" | translate}}
+                <i id="icon-enrollment-azure-login-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Azure - Application ID'] = true" data-ng-if="pageOptionList['Azure - Application ID']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style=" left: 70px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="Azure - Application ID" data-ng-model="showUserManual['Azure - Application ID']">
+                </user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-azure-login" type="text"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis cc-create-textfield-width "
+                    name="taskAzureLogin" placeholder="The application ID"
+                    data-ng-model="azureProperties['application-id'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskAzureLogin.$error"
+                    ng-if="enrollmentForm.val.taskAzureLogin.$touched || saveExecuted || testConnectionExecuted">
+                    <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                    <p ng-message="required" class="cc-validation-block-no-margin">
+                        {{"toolManagement.createTask.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cc-flexbox cc-common-gap">
+        <div class="cc-enrollment-server cc-user-manual-anchor">
+            <label id="enrollment-azure-password-label">{{"enrollment.azure.application.key" | translate}}
+                <i id="icon-enrollment-azure-password-manual" class="fa cc-about-individual-question fa-question-circle"
+                    data-ng-click="showUserManual['Azure - Application Key'] = true" data-ng-if="pageOptionList['Azure - Application Key']"></i>
+                <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                    style=" left: 70px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                    data-page="{{userManualOption.page}}" key="Azure - Application Key" data-ng-model="showUserManual['Azure - Application Key']">
+                </user-manual>
+            </label>
+            <div class="">
+                <input id="tf-enrollment-azure-password" type="password"
+                    class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-server-input cc-long-text-ellipsis cc-create-textfield-width "
+                    name="taskAzurePassword" placeholder="The application key"
+                    data-ng-model="azureProperties['application-key'].value" title="{{enrollment.name}}"
+                    data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+                <div class="cc-validation-block" ng-messages="enrollmentForm.val.taskAzurePassword.$error"
+                    ng-if="enrollmentForm.val.taskAzurePassword.$touched || saveExecuted || testConnectionExecuted">
+                    <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+                    <p ng-message="required" class="cc-validation-block-no-margin">
+                        {{"toolManagement.createTask.validation.required" | translate}}</p>
+                    <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="btn-enrollment-test-connection"
+        class="btn btn-default cc-enrollment-test-connection-btn" type="button" name="testConnection"
+           value="{{'enrollment.connection.test' | translate}}" data-ng-click="validateEnrollment()" />
+
+    <label id="enrollment-azure-connection-test-result-label" class="cc-enrollment-connection-response-label cc-connection-response-label-green cc-edit-page-editor-data"
+           data-ng-if="connectionTestSuccessful">{{"enrollment.common.connection.test.success" | translate}}</label>
+
+    <div class="cc-create-page-editor-data cc-user-manual-anchor enrollment-connection-toggle">
+        <div class="cc-flexbox">
+            <div class="cc-mr-2 cc-user-manual-anchor">
+                <label id="enrollment-azure-autoSync-label" class="cc-item-margin" for="effect">{{"enrollment.connection.auto" |
+                    translate}}&nbsp;
+                    <i id="icon-enrollment-azure-autoSync-manual" class="fa cc-about-individual-question fa-question-circle"
+                        data-ng-click="showUserManual['Auto Sync'] = true" data-ng-if="pageOptionList['Auto Sync']"></i>&nbsp;
+                    <user-manual id="manual-enrollment-azure-autoSync" class="cc-user-manual-input cc-user-manual-position-right"
+                        style="left: 90px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                        data-page="{{userManualOption.page}}" key="Auto Sync" data-ng-model="showUserManual['Auto Sync']">
+                    </user-manual>
+                </label>
+                <p class="cc-ps-search-text-container">
+                    <span class="cc-ps-policy-effect-switch">
+                        <switch ng-model="syncOn" ng-change="onSyncChange(syncOn)" class="cc-ps-search-switch-include-sub"></switch>
+                    </span>
+                    <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+                </p>
+            </div>
+        </div>
+        <div class="cc-tools-auto-sync-container" ng-if="syncOn">
+            <div class="cc-tools-first-sync">
+                <label id="enrollment-azure-firstSync-label" class="cc-tools-first-sync-label">{{"enrollment.common.first.sync" | translate}}</label>
+                <div class="input-group">
+                    <input id="input-enrollment-azure-startDate" type="text" name="enrollmentStartDate" class="form-control"
+                        uib-datepicker-popup="mediumDate" ng-model="enrollmentStartDate.from.date"
+                        is-open="enrollmentStartDate.from.popupOpen" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                        readonly readonly min-date="enrollmentStartDate.from.minDate">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="enrollmentStartDate.from.popupOpen = true">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="cc-tools-sync-at">
+                <label id="enrollment-azure-syncAt-label" style="visibility: hidden;">{{"enrollment.common.sync.at" | translate}}</label>
+                <div class="cc-tools-time-picker">
+                    <div class="cc-tools-time-picker-hour-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('hour')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{ syncTime.hour }}"
+                            ng-model="syncTime.hour" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('hour')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-minute-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('minute')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{syncTime.minute}}"
+                            ng-model="syncTime.minute" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('minute')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-format-container">
+                        <i class="cc-tools-arrow-background" ng-click="toggleTimeFormat()"></i>
+                        <input class="cc-tools-time-picker-minute sync" value="{{syncTime.format}}"
+                            ng-model="syncTime.format" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="toggleTimeFormat()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cc-tools-sync-repeat">
+                <label id="enrollment-azure-interval-label">{{"enrollment.common.repeat.every" | translate}}</label>
+                <div class="cc-tools-repeat-container">
+                    <div>
+                        <input class="cc-tools-input-number" type="number" min="0" ng-keydown="numberOnly($event)" ng-model="syncInterval.value" />
+                    </div>
+                    <div>
+                        <select data-ng-model="syncInterval.unit" class="form-control cc-tools-select-type"
+                            ng-options="timeUnit as timeUnit.label for timeUnit in timeUnits">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="taskParameters" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.definition.details" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+    <div class="cc-mr-2 cc-connection-details-margin">
+        <label class="cc-item-margin cc-user-manual-anchor">{{"enrollment.definition.details.store.missing.attributes" |
+            translate}}&nbsp;
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+                data-ng-click="showUserManual['Store missing attributes'] = true"
+                data-ng-if="pageOptionList['Store missing attributes']"></i>&nbsp;
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Store missing attributes"
+                data-ng-model="showUserManual['Store missing attributes']">
+            </user-manual>
+        </label>
+        <p class="cc-ps-search-text-container">
+            <span class="cc-ps-policy-effect-switch">
+                <switch ng-model="azureProperties['store.missing.attributes'].value"
+                    class="cc-ps-search-switch-include-sub"></switch>
+            </span>
+            <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+        </p>
+    </div>
+    <div class="cc-sub-item-margin">
+        <label class="cc-item-margin cc-user-manual-anchor" for="effect">{{"enrollment.definition.enroll.entities" | translate}}&nbsp;
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+            data-ng-click="showUserManual['Entities to enroll'] = true" data-ng-if="pageOptionList['Entities to enroll']"></i>&nbsp;
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                data-page="{{userManualOption.page}}" key="Entities to enroll" data-ng-model="showUserManual['Entities to enroll']">
+            </user-manual>
+        </label>
+        <div id="azure-enrollment-entities" class="cc-flexbox-filter ">
+            <div ng-repeat="(key, entity) in azureEntities track by $index">
+                <div class="cc-enrollment-entities">
+                    <label id="enrollment-azure-entity-label" class="nobold cc-entities-margin">
+                        <input id="checkbox-enrollment-azure-{{entity.entity}}" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                            ng-change="entityChecked(entity); setFilter(entity.$checked, 'group')" ng-model="entity.$checked">
+                        <span>
+                            <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            {{entity.entity}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="cc-validation-block">
+            <p ng-if="saveExecuted && !checked">{{"toolManagement.createTask.validation.requiredOne" | translate}}</p>
+        </div>
+    </div>
+    <div class="">
+        <label id="enrollment-azure-filtersAndAttributes-label" class="cc-label-tab-margin cc-connection-details-margin">{{"enrollment.common.filters.and.attribute.mapping" | translate}}</label>
+        <uib-tabset active="active" class="cc-enrollment-tab">
+            <uib-tab index="$index" ng-repeat="(key, tab) in azureEntities track by $index" heading="{{tab.entity}}"
+                disable="tab.tabDisabled" data-ng-if="tab.displayTab">
+                <!-- {{tab.content}} -->
+                <div class="cc-tab-content-container" ng-if="tab.$checked">
+                    <button id="btn-enrollment-azure-add-{{tab.entity}}-addAttribute" class="btn btn-default cc-create-page-add-condition-btn cc-enrollment-add-attribute"
+                        ng-if="$index !== 1" ng-click="addProperty(key)">{{"enrollment.common.add.attribute" | translate}}</button>
+                    <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table cc-enrollment-table"
+                        ng-if="$index !== 1">
+                        <thead>
+                            <tr class="cc-th-border">
+                                <th style="width:45%; text-align: center;">{{"enrollment.common.cc.attribute" | translate}}</th>
+                                <th style="width:45%; text-align: center;">{{"enrollment.common.directory.attributes" | translate}}
+                                </th>
+                                <th style="width:6%">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="enrollment-azure-property-row-{{$index}}" ng-repeat="attribute in tab.attributeList">
+                                <td>
+                                    <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp" id="cc-sort-by-select"
+                                        uib-dropdown>
+                                        <button id="property_btn_entityName_{{$index}}" ng-init="attribute.type = propertyList[0].label" type="button"
+                                            title="{{attribute.shortName}}" class="form-control cc-ps-button-common" data-uib-dropdown-toggle
+                                            ng-disabled="attribute.mandatory"
+                                            ng-class="{'cc-enrollment-semi-mandatory': $index === 2 && tab.entity === 'Users'}">
+                                            <span class="cc-ps-dropdown-btn-label">{{attribute.shortName}}</span> <span class="cc-ps-dropdown-btn-expand-icon"
+                                                ng-if="!attribute.mandatory"></span>
+                                        </button>
+                                        <ul data-uib-dropdown-menu
+                                            class="uib-dropdown-menu cc-ps-dropdown-menu cc-enrollment-dropdown"
+                                            role="menu" aria-labelledby="">
+                                            <li role="menuitem" data-ng-repeat="s in propertyList[tab.shortName]" data-ng-click="setAttribute(attribute,s)"
+                                            ng-if="checkEntityType(tab.entity, $parent.$index)" class="cc-ps-clickable-dropdown" ng-class="{'cc-disable-attribute': s.disabled}">
+                                                {{s.shortName}}
+                                            </li>
+                                            <li role="menuitem" data-ng-repeat="s in filteredPropertyList" label="{{s.shortName}}" ng-if="!checkEntityType(tab.entity, $parent.$index)"
+                                                data-ng-click="setAttribute(attribute, s)" class="cc-ps-clickable-dropdown"
+                                                ng-class="{'cc-disable-attribute': s.disabled}">
+                                                {{s.shortName}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-block">
+                                        <input class=" form-control cc-create-page-common-input"
+                                            id="attribute-input-azure-{{$index}}" name="aad-{{tab.entity + $index}}"
+                                            style="height:40px;" placeholder="The attribute value"
+                                            data-ng-model="attribute.value" data-ng-focus="highlightGrammar('users')"
+                                            required>
+                                        <div class="cc-validation-block"
+                                            ng-messages="enrollmentForm.val['aad-' + tab.entity + $index].$error"
+                                            ng-if="enrollmentForm.val['aad-' + tab.entity + $index].$touched || saveExecuted">
+                                            <p ng-message="required" class="cc-validation-block-no-margin">
+                                                {{::"toolManagement.locationManager.list.required.value" | translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cc-discard-container" ng-if="!attribute.mandatory && checkEntityType(tab.entity, $index)">
+                                    <div class="btn-group btn-block cc-enrollment-discard-attribute"
+                                        ng-click="cancelEdit(tab.shortName, $index)">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cc-tab-content-container" ng-if="tab.$checked && $index === 1">
+                    <div class="cc-enrollment-filter ">
+                        <div class="cc-enrollment-filter cc-user-manual-anchor">
+                            <label id="label-enrollment-azure-GroupEnumerationFilter" class="cc-filter-label-group">{{"enrollment.common.group.enumeration" | translate}}</label>
+                            <i id="icon-enrollment-azure-GroupEnumerationFilter-manual"
+                                class="fa cc-about-individual-question fa-question-circle"
+                                data-ng-click="showUserManual['Group attributes for enumeration'] = true"
+                                data-ng-if="pageOptionList['Group attributes for enumeration']"></i>
+                            <user-manual id="manual-enrollment-azure-GroupEnumerationFilter"
+                                class="cc-user-manual-input cc-user-manual-position-right" style="left: 60px; width: 500px;"
+                                data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                data-page="{{userManualOption.page}}" key="Group attributes for enumeration"
+                                data-ng-model="showUserManual['Group attributes for enumeration']">
+                            </user-manual>
+                            <input id="input-enrollment-azure-GroupEnumeration" type="text"
+                                class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                data-ng-pattern="'[^~/*$&?\\\\]*'"
+                                data-ng-model="azureProperties['group.attributefor.enumeration'].value"
+                                data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                            <hr style="margin: 26.5px 0 36.5px 0;">
+                        </div>
+                    </div>
+                </div>
+                <div class="cc-tab-content-no-item" ng-if="!tab.$checked">
+                    {{"enrollment.common.no.entity.checked" | translate}}
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

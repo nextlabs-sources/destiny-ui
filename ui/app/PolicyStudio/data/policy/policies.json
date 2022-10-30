@@ -1,0 +1,194 @@
+{
+  "statusCode": "1004",
+  "message": "Data loaded successfully",
+  "data": [{
+    "id": 888,
+    "name": "TEST_SUB_POLICYQ",
+    "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ",
+    "description": null,
+    "status": "APPROVED",
+    "effectType": "deny",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1451284645848,
+    "hasParent": true,
+    "hasSubPolicies": true,
+    "tags": [{
+      "id": null,
+      "key": "DOC_CLASSIFICATION_TAG",
+      "label": "CONFIDENTIAL",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }, {
+      "id": null,
+      "key": "DOC_POLICY_TAG",
+      "label": "ITAR",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }],
+    "parentPolicy": {
+      "id": 665,
+      "policyFullName": "TEST/TEST_DENY_POLICY",
+      "name": "TEST_DENY_POLICY",
+      "parent": true
+    },
+    "subPolicies": [{
+      "id": 889,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ/TEST_SUB_POLICY_2",
+      "name": "TEST_SUB_POLICY_2"
+    }]
+  }, {
+    "id": 889,
+    "name": "TEST_SUB_POLICY_2",
+    "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ/TEST_SUB_POLICY_2",
+    "description": null,
+    "status": "APPROVED",
+    "effectType": "deny",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1451284697708,
+    "hasParent": true,
+    "hasSubPolicies": true,
+    "tags": [{
+      "id": null,
+      "key": "DOC_SENSITIVE_TAG",
+      "label": "SENSITIVE",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }],
+    "parentPolicy": {
+      "id": 888,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ",
+      "name": "TEST_SUB_POLICYQ",
+      "parent": true
+    },
+    "subPolicies": [{
+      "id": 895,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ/TEST_SUB_POLICY_2/test_sub_allow_3",
+      "name": "test_sub_allow_3"
+    }]
+  }, {
+    "id": 665,
+    "name": "TEST_DENY_POLICY",
+    "policyFullName": "TEST/TEST_DENY_POLICY",
+    "description": null,
+    "status": "DRAFT",
+    "effectType": "allow",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1447920160484,
+    "hasParent": false,
+    "hasSubPolicies": true,
+    "tags": [{
+      "id": null,
+      "key": "DOC_POLICY_TAG",
+      "label": "ITAR",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }],
+    "parentPolicy": null,
+    "subPolicies": [{
+      "id": 888,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICYQ",
+      "name": "TEST_SUB_POLICYQ"
+    }, {
+      "id": 908,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICY_Q2",
+      "name": "TEST_SUB_POLICY_Q2"
+    }, {
+      "id": 909,
+      "policyFullName": "TEST/TEST_DENY_POLICY/TEST_SUB_POLICY_Q3",
+      "name": "TEST_SUB_POLICY_Q3"
+    }]
+  }, {
+    "id": 947,
+    "name": "TEST_DYNAMIC_ACCESS_CONTROL_POLICY",
+    "policyFullName": "TEST/TEST_DYNAMIC_ACCESS_CONTROL_POLICY",
+    "description": null,
+    "status": "EMPTY",
+    "effectType": "deny",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1451363242458,
+    "hasParent": false,
+    "hasSubPolicies": true,
+    "tags": [],
+    "parentPolicy": null,
+    "subPolicies": [{
+      "id": 948,
+      "policyFullName": "TEST/TEST_DYNAMIC_ACCESS_CONTROL_POLICY/DYNAMIC_ACCESS_CONTROL_SUBPOLICY",
+      "name": "DYNAMIC_ACCESS_CONTROL_SUBPOLICY"
+    }]
+  }, {
+    "id": 954,
+    "name": "DEVICE_CONTROL_POLICY",
+    "policyFullName": "TEST/DEVICE_CONTROL_POLICY",
+    "description": null,
+    "status": "APPROVED",
+    "effectType": "deny",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1451366712161,
+    "hasParent": false,
+    "hasSubPolicies": true,
+    "tags": [{
+      "id": null,
+      "key": "REMOTE_DEVICE_TAG",
+      "label": "CLOUD",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }, {
+      "id": null,
+      "key": "LOCAL_DEVICE_TAG",
+      "label": "ONPREMISE",
+      "type": "POLICY_TAG",
+      "status": "ACTIVE"
+    }],
+    "parentPolicy": null,
+    "subPolicies": [{
+      "id": 957,
+      "policyFullName": "TEST/DEVICE_CONTROL_POLICY/DEVICE_CONTROL_SUB_POLICY",
+      "name": "DEVICE_CONTROL_SUB_POLICY"
+    }]
+  }, {
+    "id": 977,
+    "name": "COMM_SUB_POLICY",
+    "policyFullName": "TEST/TEST_COMM_POLICY/COMM_SUB_POLICY",
+    "description": null,
+    "status": "APPROVED",
+    "effectType": "allow",
+    "lastUpdatedDate": 1452153254477,
+    "createdDate": 1451367402770,
+    "hasParent": true,
+    "hasSubPolicies": true,
+    "tags": [],
+    "parentPolicy": {
+      "id": 980,
+      "policyFullName": "TEST/TEST_COMM_POLICY",
+      "name": "TEST_COMM_POLICY",
+      "parent": true
+    },
+    "subPolicies": [{
+      "id": 981,
+      "policyFullName": "TEST/TEST_COMM_POLICY/COMM_SUB_POLICY/COMM_SUB_POLICY_2",
+      "name": "COMM_SUB_POLICY_2"
+    }]
+  }, {
+    "id": 946,
+    "name": "TEST_COMM_POLICY",
+    "policyFullName": "TEST/TEST_COMM_POLICY",
+    "description": null,
+    "status": "DELETED",
+    "effectType": "deny",
+    "lastUpdatedDate": 1451368381317,
+    "createdDate": 1451363162583,
+    "hasParent": false,
+    "hasSubPolicies": true,
+    "tags": [],
+    "parentPolicy": null,
+    "subPolicies": [{
+      "id": 977,
+      "policyFullName": "TEST/TEST_COMM_POLICY/COMM_SUB_POLICY",
+      "name": "COMM_SUB_POLICY"
+    }]
+  }],
+  "pageNo": 0,
+  "pageSize": 10,
+  "totalPages": 1,
+  "totalNoOfRecords": 7
+}

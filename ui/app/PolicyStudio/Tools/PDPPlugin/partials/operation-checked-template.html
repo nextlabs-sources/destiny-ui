@@ -1,0 +1,11 @@
+<div class="cc-ps-operation-check cc-green-checkbox-radio-box height-100-percent">
+  <label class="nobold cc-green-checkbox-radio-label">
+    <input type="checkbox" ng-disabled="pluginList.length == 0" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allPluginsChecked" data-ng-change="checkAllPlugins(checkStatus.allPluginsChecked)"/>
+      <span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+  </label>
+</div>
+<div class="cc-inline cc-dlg-operation-btn">
+  <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.hasPluginChecked" title="Delete" data-ng-click="bulkDelete($event)"><i class="fa fa-trash"></i></button>
+  <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big cc-btn-deploy" data-ng-disabled="!checkStatus.hasPluginChecked" title="Activate" data-ng-click="bulkDeploy($event)"></button>
+  <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big cc-btn-generate-undeploy" data-ng-disabled="!checkStatus.hasPluginChecked" title="Deactivate" data-ng-click="bulkDeactivate($event)"></button>
+</div>

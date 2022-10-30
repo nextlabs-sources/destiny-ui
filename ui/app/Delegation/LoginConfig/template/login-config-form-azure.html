@@ -1,0 +1,73 @@
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+  <p id="azureEnabled" class="cc-ps-search-text-container">
+    <span class="cc-ps-policy-effect-switch">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-change="setDirty(configForm.val)" data-ng-model="config.configData.enabled"></switch>
+    </span>
+    <span>{{"delegation.loginConfig.label.azureAd.enabled." + config.configData.enabled |translate}}</span>
+  </p>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.azureAuthorityUri.$touched && configForm.val.azureAuthorityUri.$invalid }">
+  <label for="azureAuthorityUri"> {{"delegation.loginConfig.label.azureAd.authorityUri" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Authority URI']=true" data-ng-if="pageOptionList['Authority URI']"> </i>
+  </label>
+  <input id="azureAuthorityUri" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+    placeholder="{{'delegation.loginConfig.placeholder.azureAd.authorityUri' | translate}}" 
+    data-ng-model="config.configData.authorityUri" name="azureAuthorityUri" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.azureAuthorityUri.$error" ng-if="configForm.val.azureAuthorityUri.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.azureAd.authorityUri.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Authority URI" data-ng-model="showUserManual['Authority URI']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.azureAttributeUri.$touched && configForm.val.azureAttributeUri.$invalid }">
+  <label for="azureAttributeUri"> {{"delegation.loginConfig.label.azureAd.attributeUri" | translate}}
+      <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Attribute URI']=true" data-ng-if="pageOptionList['Attribute URI']"> </i>
+  </label>
+  <input id="azureAttributeUri" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+    placeholder="{{'delegation.loginConfig.placeholder.azureAd.attributeUri' | translate}}" 
+    data-ng-model="config.configData.attributeUri" name="azureAttributeUri" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.azureAttributeUri.$error" ng-if="configForm.val.azureAttributeUri.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.azureAd.attributeUri.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Attribute URI" data-ng-model="showUserManual['Attribute URI']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.azureTenantId.$touched && configForm.val.azureTenantId.$invalid }">
+  <label for="azureTenantId"> {{"delegation.loginConfig.label.azureAd.tenantId" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Tenant ID']=true" data-ng-if="pageOptionList['Tenant ID']"> </i>
+  </label>
+  <input id="azureTenantId" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+    placeholder="{{'delegation.loginConfig.placeholder.azureAd.tenantId' | translate}}" data-ng-model="config.configData.tenantId"
+    name="azureTenantId" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.azureTenantId.$error" ng-if="configForm.val.azureTenantId.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.azureAd.tenantId.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Tenant ID" data-ng-model="showUserManual['Tenant ID']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.azureApplicationId.$touched && configForm.val.azureApplicationId.$invalid }">
+  <label for="azureApplicationId"> {{"delegation.loginConfig.label.azureAd.applicationId" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Application ID']=true" data-ng-if="pageOptionList['Application ID']"> </i>
+  </label>
+  <input id="azureApplicationId" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+    placeholder="{{'delegation.loginConfig.placeholder.azureAd.applicationId' | translate}}" data-ng-model="config.configData.applicationId"
+    name="azureApplicationId" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.azureApplicationId.$error" ng-if="configForm.val.azureApplicationId.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.azureAd.applicationId.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Application ID" data-ng-model="showUserManual['Application ID']"></user-manual>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'has-error': configForm.val.azureApplicationKey.$touched && configForm.val.azureApplicationKey.$invalid }">
+  <label for="azureApplicationKey"> {{"delegation.loginConfig.label.azureAd.applicationKey" | translate}}
+    <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Application Key']=true" data-ng-if="pageOptionList['Application Key']"> </i>
+  </label>
+  <input type="password" id="azureApplicationKey" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input"
+    placeholder="{{'delegation.loginConfig.placeholder.azureAd.applicationKey' | translate}}" 
+    data-ng-model="config.configData.applicationKey" name="azureApplicationKey" required autocomplete="off">
+  <div class="cc-validation-block" ng-messages="configForm.val.azureApplicationKey.$error" ng-if="configForm.val.azureApplicationKey.$touched">
+    <p ng-message="required"> {{"delegation.loginConfig.validation.azureAd.applicationKey.required" | translate}} </p>
+  </div>
+  <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Application Key" data-ng-model="showUserManual['Application Key']"></user-manual>
+</div>

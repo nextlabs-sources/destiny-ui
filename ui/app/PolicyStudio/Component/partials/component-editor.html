@@ -1,0 +1,208 @@
+<!-- <p>{{component.policyModel}}</p> -->
+<p class="cc-ps-create-page-warning" data-ng-show="globalWarning">{{globalWarning}}</p>
+<div id="componentType" class="cc-ps-create-page-editor-title">
+	<span class="cc-ps-create-page-title-underline"> {{"createComponent.subtitle.TypeOfComponent" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+	<div class="cc-create-page-editor-data cc-user-manual-anchor">
+		<label class="display-inline" for="name">{{"createComponent.label.ComponentType" | translate}}:
+	      <!-- <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name=true"></i> -->
+	    </label>
+		<span class="display-inline field-as-label" data-ng-model="type">{{type}}&nbsp;Component</span>
+	</div>
+	<div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-if='type == "Subject"'>
+		<label class="display-inline" style="vertical-align: middle" for="resourceType">{{"createComponent.label.PolicyModelType.SUBJECT" | translate}}:&nbsp;<i id="icon-{{type | lowercase}}-policy-model-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.policyModel = true" data-ng-if="pageOptionList['policyModel']"></i></label>
+		<div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+				<button class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-disabled="disablePolicyModel" data-ng-focus="highlightGrammar('componentType')">
+					<span class="cc-ps-dropdown-btn-label">{{component.policyModel.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+				</button>
+				<ul data-uib-dropdown-menu class="dropdown-menu" style="max-height:400px; overflow:auto;" role="menu">
+					<li role="menuitem" data-ng-repeat='rType in ResourceTypes'> 
+						<a href="javascript:void(0)" data-ng-click="component.policyModel != rType && changeResourceType(rType)">{{rType.name}}</a>
+					</li>
+				</ul>
+			</div>
+		<user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="policyModel" data-ng-model="showUserManual.policyModel"></user-manual>
+	</div>
+	<div class="cc-create-page-editor-data cc-user-manual-anchor" data-ng-if='type != "Subject"'>
+		<label style="vertical-align: middle" for="resourceType">{{"createComponent.label.PolicyModelType.RESOURCE" | translate}}:&nbsp;<i id="icon-{{type | lowercase}}-resource-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Resource Type'] = true" data-ng-if="pageOptionList['Resource Type']"></i></label>
+		<div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-tag" data-uib-dropdown>
+			<button class="form-control cc-ps-button-common cc-ps-create-dropdown-button-resource" type="button" uib-dropdown-toggle data-ng-disabled="disablePolicyModel" data-ng-focus="highlightGrammar('componentType')">
+			  <span class="cc-ps-dropdown-btn-label">{{component.policyModel.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span> <span class="cc-ps-dropdown-btn-expand-icon"></span>
+			</button>
+			<ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+				<li role="menuitem" data-ng-repeat='rType in ResourceTypes'> 
+					<a href="javascript:void(0)" data-ng-click="component.policyModel != rType && changeResourceType(rType)">{{rType.name}}</a>
+				</li>
+			</ul>
+		</div>
+		<user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Resource Type" data-ng-model="showUserManual['Resource Type']"></user-manual>
+	</div>
+</div>
+<div id="componentName" class="cc-ps-create-page-editor-title">
+	<span class="cc-ps-create-page-title-underline"> {{"createComponent.subtitle.ComponentInfo" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+	<div  class="cc-create-page-editor-data" data-ng-if="parentComponent">
+		<label class="display-inline">{{"createComponent.label.parent" | translate}}:</label>
+  		<span class="display-inline field-as-label">{{parentComponent.name}}</span>
+	</div>
+	<div  class="cc-create-page-editor-data cc-user-manual-anchor">
+		<label for="name">{{"createComponent.label.Name" | translate}}:<i id="icon-{{type | lowercase}}-name-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name = true" data-ng-if="pageOptionList['Name']"></i></label>
+  		<input id="name" type="text" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis" placeholder="{{'createComponent.input.placeholder.NameOfCompoent' | translate}}" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="component.name" title="{{component.name}}" data-ng-focus="highlightGrammar('componentName')" name="componentName" required ng-maxlength="255" maxlength="255" data-ng-disabled="isEditMode && component.deployed" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+  		<div class="cc-validation-block" ng-messages="componentForm.val.componentName.$error" ng-if="componentForm.val.componentName.$touched">
+              <p ng-message="maxlength">{{"component.name.validation.maxLength" | translate}}</p>
+							<p ng-message="required">{{"component.name.validation.required" | translate}}</p>
+							<p ng-message="pattern">{{"component.name.validation.pattern" | translate}}</p>
+		</div>
+		<user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Name" data-ng-model="showUserManual.Name"></user-manual>
+	</div>
+	<div class="cc-create-page-editor-data cc-user-manual-anchor">
+		<label for="folder">
+			{{"createpolicy.label.Folder" | translate}}
+			<i id="icon-{{type | lowercase}}-folder-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Name=true"
+				data-ng-if="pageOptionList['Folder']"></i>
+		</label>
+		<input id="folder" type="text"
+			class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input cc-long-text-ellipsis"
+			data-ng-model="component.folderPath" name="folder"  title="{{component.folderPath}}" disabled="true" />
+		<user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}"
+			data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Folder"
+			data-ng-model="showUserManual.Folder"></user-manual>
+	</div>
+	<div class="cc-create-page-editor-data cc-user-manual-anchor">
+		<label for="description">{{"createComponent.label.Description" | translate}}:<i id="icon-{{type | lowercase}}-description-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Description = true" data-ng-if="pageOptionList['Description']"></i></label>
+		<textarea id="description" style="height: 100px;" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right" placeholder="{{'createComponent.input.placeholder.DescriptionOfCompoent' | translate}}" data-ng-model="component.description" data-ng-focus="highlightGrammar('componentName')" name="componentDescription" ng-maxlength="4000" maxlength="4000"></textarea>
+		<user-manual class="cc-user-manual-textarea cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Description" data-ng-model="showUserManual.Description"></user-manual>
+	</div>
+	<div class="cc-create-page-editor-data cc-user-manual-anchor" id="componentTags">
+		<label for="tags">{{"createComponent.label.Tags" | translate}}:&nbsp;<i id="icon-{{type | lowercase}}-tags-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Tags = true" data-ng-if="pageOptionList['Tags']"></i></label>
+		<div class="cc-create-page-editor-data-right tag">
+			<go-as-you-type data-item-label="label" data-check-and-go="false" data-apply-btn-label="APPLY" data-add-new-btn-label="NEW" data-item-key-field="id" data-newitem-function="addTag" data-data-set-save-to="component.tags" data-get-latest-options="getComponentTags" data-placeholder="{{'createComponent.input.placeholder.tags' | translate}}" data-input-max="50" onfocus="highlightGrammar('componentName')" ng-if="userAccessMap" create-new="userAccessMap['CREATE_COMPONENT_TAG']" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?', '{', '}']"></go-as-you-type>
+		</div>
+		<user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Tags" data-ng-model="showUserManual.Tags"></user-manual>
+	</div>
+</div>
+
+<div id="componentCondition"  class="cc-ps-create-page-editor-title" data-ng-if="shouldShowCondition()">
+	<span class="cc-ps-create-page-title-underline"> {{"createComponent.subtitle.Conditions" | translate}}</span><i id="icon-{{type | lowercase}}-conditions-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Conditions = true" data-ng-if="pageOptionList['Conditions']"></i>
+</div>
+<div class="cc-ps-create-page-editor-info cc-user-manual-anchor" data-ng-if="shouldShowCondition()">
+	<user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Conditions" data-ng-model="showUserManual.Conditions"></user-manual>
+	<div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-class="{'custom-validation-error':conditionTable.error}">
+		<p class="table-message" data-ng-class="{'success':conditionTable.success,'error':conditionTable.error}" data-ng-show="conditionTable.notify">{{conditionTable.message}}</p>
+		<div class="cc-ps-create-page-editor-resource-attribute-div">
+		    <div class="table-header">
+		      <p class="heading">Characteristics of a component that may be referenced in policy creation</p>
+		      <p class="count" data-ng-if="component_conditions.length">{{component_conditions.length}} {{(component_conditions.length > 1) ? 'Conditions': 'Condition'}}</p>
+		    </div>
+	        <input class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD CONDITION" data-ng-click="addCondition();conditionTable.dirty = true;" data-ng-disabled="editItem.$$hashKey" /> 
+	    </div>             
+		<table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+		<thead>
+		  <tr>
+		    <th style="width:30%">{{"Name" | translate}}</th>
+		    <th style="width:15%">{{"Operator" | translate}}</th>
+		    <th style="width:47%">{{"Value" | translate}}</th>
+		    <th style="width:8%"></th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr class="" ng-repeat="con in component_conditions track by $index"  data-ng-include="editItem.$$hashKey == con.$$hashKey ? 'ui/app/PolicyStudio/Component/partials/condition-edit.html' : 'ui/app/PolicyStudio/Component/partials/condition-view.html'"></tr>
+		  <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+		    <td colspan="5"> 
+		      <a href="javascript:void(0)" data-ng-click="addCondition();conditionTable.dirty = true;" >+ {{'Add Condition' | translate}}</a>
+		    </td>
+		  </tr>
+		</tbody>
+		</table>
+	</div>	
+
+
+
+	<!-- <div class="cc-create-page-editor-condition-div cc-create-page-common-del-anchor" ng-repeat="con in component_conditions">
+		<div class="cc-create-page-editor-data-component-condition-attr cc-ps-dropdown-grp" data-uib-dropdown>
+			<select class="form-control cc-create-page-common-select" style="width:250px" data-ng-model="con.attribute" data-ng-options="key.name for key in allAttrOptions()" ng-init='!con.attribute && (con.attribute = allAttrOptions()[0])' data-ng-focus="highlightGrammar('componentCondition')" data-ng-change="con.operator = con.attribute.operatorConfigs[0];con.value=null" name="con_{{$index}}">
+			</select>
+		</div>
+		<div class="cc-create-page-editor-data-component-condition-operator cc-ps-dropdown-grp" data-uib-dropdown>
+			<select class="form-control cc-create-page-common-select" style="width:250px" data-ng-model="con.operator" data-ng-options="attr.label for attr in con.attribute.operatorConfigs" ng-init='!con.operator && (con.operator = con.attribute.operatorConfigs[0])' data-ng-focus="highlightGrammar('componentCondition')" data-ng-change="con.value=null" name="operator_{{$index}}"> 
+			</select>
+		</div>
+		<div class="cc-create-page-editor-data-component-condition-value">
+			<input class=" form-control cc-create-page-common-input" name="condition_value_{{$index}}" placeholder="{{'createComponent.input.placeholder.Value' | translate}}" data-ng-model="con.value" data-ng-focus="highlightGrammar('componentCondition')" required> 
+			<div class="cc-validation-block" ng-messages="componentForm.val['condition_value_' + $index].$error" ng-if="componentForm.val['condition_value_' + $index].$touched">
+                <p ng-message="required">{{"component.condition.value.validation.required" | translate}}</p>
+	        </div>
+        </div>
+    	<div class="clear"></div>
+					<i class="fa fa-times-circle-o cc-create-page-common-del-icon" data-ng-show='component_conditions.length  >= 1' data-ng-click="removeCondition($index)"></i>
+	</div>
+	<div style="padding-top:10px">
+		<input class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addCondition" value="{{'createComponent.button.Conditions' | translate}}" data-ng-click="addCondition()" />
+	</div> -->
+</div>
+<div id="componentAction"  class="cc-ps-create-page-editor-title" data-ng-if="shouldShowAction()">
+	<span class="cc-ps-create-page-title-underline"> {{"createComponent.subtitle.Actions" | translate}}</span><i id="icon-{{type | lowercase}}-actions-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Actions = true" data-ng-if="pageOptionList['Actions']"></i>
+</div>
+<div class="cc-ps-create-page-editor-info cc-user-manual-anchor" data-ng-if="shouldShowAction()">
+	<user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Actions" data-ng-model="showUserManual.Actions"></user-manual>
+	<div class="btn-group btn-block" data-uib-dropdown data-ng-if="actionOptions.length > 0" style="width:calc(100% - 200px);">
+		<button class="form-control cc-ps-button-common cc-ps-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-focus="highlightGrammar('componentAction')">
+		    <span class="cc-ps-dropdown-btn-title">{{"createComponent.actions" | translate}}</span>
+		    <span class="cc-ps-dropdown-btn-label-content" data-ng-class="{'cc-ps-dropdown-btn-empty-content':component.actions.length == 0}">
+		      {{actionLabel}}
+		    </span> 
+		    <span class="cc-ps-dropdown-btn-expand-icon"></span>     
+		</button>
+		<ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu component-action-dropdown" role="menu" data-ng-click="dropdownClicked($event)">
+		    <li role="menuitem" data-ng-repeat='action in actionOptions'>
+		        <label class="nobold cc-green-checkbox-radio-label">
+		            <input type="checkbox" class="cc-green-checkbox-radio" data-ng-model="action.$_checked" value="{{action.name}}" data-ng-true-value="true" data-ng-change="updateActionLabel(attr)"/>
+		            <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+		              <span class="cc-green-checkbox-radio-bgrd-holder">
+		              </span> 
+			      <span>{{action.name}}</span>
+		            </span>
+		        </label>
+		    </li>
+		</ul>
+  	</div>
+</div>
+
+<div class="cc-create-page-editor-data cc-user-manual-anchor">
+		<div id="componentMember" class="cc-ps-create-page-editor-title">
+			<span class="cc-ps-create-page-title-underline"> {{"createComponent.subtitle.Members" | translate}}</span>
+			<i id="icon-{{type | lowercase}}-members-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Members = true" data-ng-if="pageOptionList['Members']"></i>
+		</div>
+    <div class="bottom-input-container cc-ps-create-page-editor-info cc-user-manual-anchor cc-create-page-editor-data-right" style="padding: 7px;">
+			<user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Members" data-ng-model="showUserManual.Members"></user-manual>
+      <div ng-repeat="componentMember in component.memberConditions" class="cc-create-page-editor-data-subjectCompt-div cc-create-page-common-del-anchor component">
+        <div class="btn-group cc-ps-dropdown-grp cc-ps-component-scope" style="margin:1px 0px 10px 0" data-uib-dropdown>
+          <select class="form-control cc-create-page-common-select" data-ng-model="componentMember.operator" data-ng-options="attribute.attr for attribute in attributes"
+            ng-init='!componentMember.operator && (componentMember.operator = attributes[0])' data-ng-focus="highlightGrammar('policyEffect')">
+          </select>
+				</div>&nbsp;&nbsp;
+				<go-as-you-type go-as-you-type-id="memberInputBox" class="cc-create-page-editor-data-subjectCompt" data-ng-disabled-cc="!component.policyModel.id"
+				 data-item-label="name" data-item-sub-label-array="['memberType', 'domainName']" data-check-and-go="false"
+				 data-apply-btn-label="APPLY" data-item-key-field="typeId" data-add-new-btn-label="NEW" data-newitem-function="createNewSubComponent"
+				 create-new="userAccessMap['CREATE_COMPONENT'] && userAccessMap['EDIT_COMPONENT']" data-data-set="subComponentOptions"
+				 data-data-set-save-to="componentMember.members" data-placeholder="{{'createComponent.search.Members' | translate}}"
+				 data-filters="memberTypeFilters" data-get-latest-options="findMembers" data-static-data-set="true"
+				 data-item-error-field="notFound" char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?']" ng-if="userAccessMap"
+				 show-detail="showMemberOrCompInPanel" auto-resize-width="true" data-init-selected-filters="['COMPONENT']"
+				 data-enable-lookup="{{type === 'Subject'}}"></go-as-you-type>
+
+				<i class="fa fa-times-circle-o cc-create-page-common-del-icon" data-ng-click="removeMemberCondition($index)"></i>
+       
+        <div class="cc-ps-component-set-with-and-conj" ng-if="!$last">
+          <div class="cc-ps-component-set-with-and-conj-circle">
+            - AND -
+          </div>
+        </div>
+      </div>
+      <input id="btn-components-{{type | lowercase}}-add-member-condition" class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addMemberCondition" value="{{'createComponent.button.Members' | translate}}"
+        data-ng-click="addMemberCondition()" />
+    </div>
+  </div>
+

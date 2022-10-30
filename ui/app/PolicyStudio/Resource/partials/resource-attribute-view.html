@@ -1,0 +1,21 @@
+<td>
+    <span>{{attr.name}}</span>
+</td>
+<td>
+    <span>{{attr.shortName}}</span>
+</td>
+<td>
+    <span>{{attr.dataType}}</span>
+ 
+</td>
+<td>
+  <span>{{attr.$operatorLabel}}</span>
+</td>
+<td data-ng-hide="true">
+    {{attr.regExPattern}}
+</td>
+<td class="td-icon">
+  <!-- <button class="btn btn-default cc-ps-create-page-editable-table-btn" data-ng-click="setEdit(attr,1)">{{'Edit' | translate}}</button> -->
+  <i id="btn-component-type-edit{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="setEdit(attr,1)" title="Edit"></i>
+  <i id="btn-component-type-remove{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" class="fa fa-trash-o" data-ng-click="removeAttribute($index,1)" title="Delete"> </i>
+</td>

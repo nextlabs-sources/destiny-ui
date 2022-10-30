@@ -1,0 +1,10 @@
+<div class="modal-header" data-ng-if="title">
+  <h3 class="modal-title">{{ title }}</h3>
+</div>
+<div class="modal-body cc-ps-dialog-body" data-ng-if="msg" data-ng-bind-html="msg">
+  <!-- {{ msg }} -->
+</div>
+<div class="modal-footer">
+  <button id="btn-modal-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">{{cancelLabel ? cancelLabel : "PS.CANCEL" | translate}}</button>
+  <button id="btn-modal-confirm" class="btn btn-default cc-btn-primary" type="button" ng-click="ok()">{{confirmLabel ? confirmLabel : "PS.CONFIRM" | translate}}</button>
+</div>

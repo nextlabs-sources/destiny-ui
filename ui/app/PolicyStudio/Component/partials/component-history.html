@@ -1,0 +1,33 @@
+<div class="cc-ps-history" data-ng-class="{'cc-ps-history-latest-version':$first,'cc-ps-history-active':componentRevision && revision.revision==componentRevision.revision}" data-ng-click="openVersionPanel(revision, $first)" data-ng-repeat="revision in componentHistory">
+  <div class="cc-ps-history-version">
+    <span data-ng-if="!$first">{{revision.revision}}</span>
+    <span class="cc-ps-history-latest-icon" ng-class="{active:component.deployed, inactive:!component.deployed}" data-ng-if="$first"></span>
+  </div>
+  <div class="cc-ps-history-detail">
+    <div class="cc-ps-history-authro-operation">
+      <span class="cc-ps-history-author">{{revision.modifiedBy}}</span>
+      <span class="cc-ps-history-operation" data-ng-if="'DE' == revision.actionType">{{'createComponent.history.deployedTheComponent' | translate}}</span>
+      <span class="cc-ps-history-operation" data-ng-if="'UN' == revision.actionType">{{'createComponent.history.undeployedTheComponent' | translate}}</span>
+    </div>
+    <div class="cc-ps-history-time">{{revision.activeFrom | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+    <div class="cc-ps-history-title" data-ng-if="$first">{{'history.version' | translate}}&nbsp;{{revision.revision}}</div>
+    <div class="cc-ps-history-revert" data-ng-if="(!$first || component.status == 'DRAFT') && revision.actionType == 'DE'">
+      <span data-ng-click="revertToRevision(revision, $event)" data-ng-if="component.id" data-ng-click="revertToRevision(componentRevision, $event)"  dyn-attr="component.authoritiesParsed.EDIT_COMPONENT ? permissions.EDIT_COMPONENT.pageLevel.action.ALLOW : permissions.EDIT_COMPONENT.pageLevel.action.DENY" dyn-attr-del-unbind-if="!component.authoritiesParsed.EDIT_COMPONENT" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']">{{'history.revert' | translate}}</span>
+    </div>
+  </div>
+  <div class="cc-ps-history-open-panel" data-ng-if="true || !$first">
+    <div class="cc-ps-history-open-panel-arrow"></div>
+  </div>
+</div>
+<div class="cc-ps-history cc-ps-history-creation">
+  <div class="cc-ps-history-version">
+    <div class="cc-ps-history-creation-icon"></div>
+  </div>
+  <div class="cc-ps-history-detail">
+    <div class="cc-ps-history-authro-operation">
+      <span class="cc-ps-history-author">{{component.ownerDisplayName}}</span>
+      <span class="cc-ps-history-operation">{{'createComponent.history.createdTheComponent' | translate}}</span>
+    </div>
+    <div class="cc-ps-history-time">{{(component.createdDate ? component.createdDate : 0) | date:'dd MMM yyyy, HH:mma' | uppercase}}</div>
+  </div>
+</div>

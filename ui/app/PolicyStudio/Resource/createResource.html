@@ -1,0 +1,327 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="createResourceController">
+  <div class="cc-ps-create-page-container cc-layout-full-height ">
+    <div class="no-margin cc-ps-create-page-title-panel">
+      <div class="cc-ps-create-page-back-btn-div">
+        <a>
+          <button id="btn-back-to-resource" class="btn btn-default active cc-ps-create-page-back-btn" type="button" data-ng-click="backToResourceList(resourceTypeForm.val)">
+            <i id="icon-back-to-resource{{resource.name ? '-'+(resource.name | id)  : ''}}" class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-ps-create-page-title">
+        <span id="label-add-resource-type-title" data-ng-if="!isEditMode"> {{"createResource.title.CreatePolicyModel" | translate}} </span>
+        <span id="label-add-resource-type-{{resource.name | id}}" data-ng-if="isEditMode"> {{ resource.name }} </span>
+      </div>
+      <div class="cc-ps-create-page-btn-div" data-ng-if="permissions">
+        <a id="btn-component-type-{{ resource.name | id}}-reset" class="btn btn-default cc-btn-discard" data-ng-click="discardResource(resourceTypeForm.val)" data-ng-if="!isEditMode || resource.id" dyn-attr-del-unbind-if="isEditMode && !resource.authoritiesParsed.EDIT_POLICY_MODEL || !isEditMode && !permissions.CREATE_POLICY_MODEL.pageLevel.result" dyn-attr="isEditMode ? (resource.authoritiesParsed.EDIT_POLICY_MODEL ? permissions.EDIT_POLICY_MODEL.pageLevel.action.ALLOW : permissions.EDIT_POLICY_MODEL.pageLevel.action.DENY) : (permissions.CREATE_POLICY_MODEL ? permissions.CREATE_POLICY_MODEL.pageLevel.action.ALLOW : permissions.CREATE_POLICY_MODEL.pageLevel.action.DENY)" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']"> {{"createResource.button.Discard" | translate}} </a>
+        <a id="btn-component-type-{{ resource.name | id}}-save" class="btn btn-default cc-btn-primary" data-ng-click="saveResource(resourceTypeForm.val)" data-ng-if="!isEditMode || resource.id" dyn-attr-del-unbind-if="isEditMode && !resource.authoritiesParsed.EDIT_POLICY_MODEL || !isEditMode && !permissions.CREATE_POLICY_MODEL.pageLevel.result" dyn-attr="isEditMode ? (resource.authoritiesParsed.EDIT_POLICY_MODEL ? permissions.EDIT_POLICY_MODEL.pageLevel.action.ALLOW : permissions.EDIT_POLICY_MODEL.pageLevel.action.DENY) : (permissions.CREATE_POLICY_MODEL ? permissions.CREATE_POLICY_MODEL.pageLevel.action.ALLOW : permissions.CREATE_POLICY_MODEL.pageLevel.action.DENY)" dyn-attr-del="['data-ng-click','click']" dyn-attr-unbind="['click']"> {{"createResource.button.SavePolicyModel." + resource.type | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-ps-create-page-bottom-panel cc-ps-container-relative">
+      <div class="cc-ps-create-page-grammar-div cc-layout-full-height cc-fixed-grammar">
+        <div class="sticky-left-container">
+          <div class="left-container">
+            <a href="" data-ng-click="scrollTo('resourceInfo')">
+              <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('resourceInfo')}">
+                <label for="resourceInfo"> {{"createResource.grammar.This" | translate}} {{'createResource.grammar.placeholder.policyModelType.' + resource.type | translate}}</label>
+                <div class="wrapper">
+                  <span ng-hide="resource.name.length" class="cc-grammar-placeholder">
+                    <{{ 'createResource.grammar.placeholder.policyModelType.' + resource.type | translate}}>
+                  </span>
+                  <span class="cc-ps-create-page-grammar-content" ng-show="resource.name.length"> {{resource.name}} </span>
+                </div>
+              </div>
+            </a>
+            <a href="" data-ng-click="scrollTo('resourceTag')">
+              <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('resourceTag')}">
+                <label for="resourceTag"> {{"createResource.grammar.With.Tags" | translate}}</label>
+                <div class="wrapper">
+                  <span ng-hide="resource.tags.length" class="cc-grammar-placeholder">
+                    <{{ 'createResource.label.Tags' | translate}}>
+                  </span>
+                  <span class="cc-ps-create-page-grammar-content" data-ng-repeat="tag in resource.tags">
+                    {{tag.label}}<span data-ng-if="!$last">,&nbsp;&#8203;</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+            <a href="" data-ng-click="scrollTo('attr');tabSelected.val=0">
+              <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('attributesInfo')}">
+                <label for="attributesInfo"> {{"Has these attributes" | translate}}: </label>
+                <!-- <input id="attributesInfo" class="cc-ps-create-page-left-grammar-placeholder"  placeholder="<{{'createResource.grammar.placeholder.Conditions' | translate}}/>" value="{{resource.attributes}}" data-ng-readonly="true"/> -->
+                <div class="wrapper">
+                  <span ng-hide="resource.attributes[0].name.length" class="cc-grammar-placeholder">
+                    <{{ 'createResource.grammar.placeholder.Conditions' | translate}}>
+                  </span>
+                  <span class="cc-ps-create-page-grammar-content" data-ng-repeat="attr in resource.attributes">{{attr.name}}<span data-ng-if="!$last || enrollmentSubjectAttributes.length > 0">,&nbsp;&#8203;</span></span>
+                  <span class="cc-ps-create-page-grammar-content" data-ng-repeat="attr in enrollmentSubjectAttributes">{{attr.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span></span>
+                </div>
+              </div>
+            </a>
+            <a href="" data-ng-click="scrollTo('attr');tabSelected.val=2" data-ng-if="shouldShowAction()">
+              <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('actionInfo')}">
+                <label for="actionInfo"> {{"Has these " | translate}}&nbsp;{{resource.type.toLowerCase()}}{{'-related actions' | translate}}: </label>
+                <div class="wrapper">
+                  <span ng-hide="resource.actions[0].name.length" class="cc-grammar-placeholder">
+                    <{{ 'createResource.grammar.placeholder.Actions' | translate}}>
+                  </span>
+                  <span class="cc-ps-create-page-grammar-content" data-ng-repeat="action in resource.actions">{{action.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span></span>
+                </div>
+              </div>
+            </a>
+            <a href="" data-ng-click="scrollTo('attr');tabSelected.val=3" data-ng-if="shouldShowObligation()">
+              <div class="cc-ps-create-page-grammar-row" data-ng-class="{'cc-ps-create-page-grammar-row-selected':isActive('obligationInfo')}">
+                <label for="obligationInfo"> {{"Has these obligations" | translate}}: </label>
+                <div class="wrapper">
+                  <span ng-hide="resource.obligations[0].name.length" class="cc-grammar-placeholder">
+                    <{{ 'createResource.grammar.placeholder.Obligations' | translate}}>
+                  </span>
+                  <span class="cc-ps-create-page-grammar-content" data-ng-repeat="obli in resource.obligations">{{obli.name}}<span data-ng-if="!$last">,&nbsp;&#8203;</span></span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+      </div>
+      <div class="cc-ps-create-page-editor-div cc-ps-create-page-editor-content cc-policy-editor-absolute" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+        <form class="cc-ps-create-page-editor-form" name="resourceTypeForm.val" novalidate>
+          <div id="resourceInfo" class="cc-ps-create-page-editor-title">
+            <span id="label-component-type-{{resource.name ? (resource.name | id) + '-' : ''}}information" class="cc-ps-create-page-title-underline"> {{("createResource.subtitle.PolicyModelInfo." + resource.type) | translate}} </span>
+          </div>
+          <div class="cc-ps-create-page-editor-info">
+            <div class="cc-create-page-editor-data">
+              <label id="label-component-type-{{resource.name ? (resource.name | id) + '-' : ''}}type-{{resource.type | id}}" class="display-inline" for="type"> {{"Type" | translate}}: </label>
+              <label id="label-component-type-{{resource.name ? (resource.name | id) + '-' : ''}}{{resource.type | id}}" class="display-inline field-as-label" style="text-align: left;"> {{resource.type}} </label>
+              <select class="form-control cc-create-page-common-select" name="resourceType" style="width:180px; display: inline;" data-ng-model="resource.type" data-ng-options="type for type in ['RESOURCE','SUBJECT']" data-ng-hide="true"> </select>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor" ng-class="{ 'custom-validation-error': resourceTypeForm.val.resourceTypeName.$touched && resourceTypeForm.val.resourceTypeName.$invalid }">
+              <label id="label-component-type-name{{resource.name ? '-'+(resource.name | id) : ''}}" for="name"> {{"createResource.label.Name" | translate}}:
+                <i id="icon-component-type-name{{resource.name ? '-'+(resource.name | id) : ''}}-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Name'] = true" data-ng-if="pageOptionList['Name']"> </i></label>
+              <input id="tf-component-type-name{{resource.name ? '-'+(resource.name | id) : ''}}" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'createResource.input.placeholder.NameOfResourceType' | translate}}" data-ng-model="resource.name" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-focus="highlightGrammar('resourceInfo')" name="resourceTypeName" required ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+              <div class="cc-validation-block" ng-messages="resourceTypeForm.val.resourceTypeName.$error" ng-if="resourceTypeForm.val.resourceTypeName.$touched">
+                <p ng-message="maxlength"> {{"createResource.resourceName.validation.maxLength" | translate}} </p>
+                <p id="validation-componentType-name-required" ng-message="required"> {{"createResource.resourceName.validation.required" | translate}} </p>
+                <p ng-message="pattern"> {{"createResource.resourceName.validation.pattern" | translate}} </p>
+              </div>
+              <user-manual id="label-component-type-name-manual-content" class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Name" data-ng-model="showUserManual['Name']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label id="label-component-type-shortname{{resource.name ? '-'+(resource.name | id) : ''}}" for="sname"> {{"createResource.label.ShortName" | translate}}:&nbsp;
+                <i id="icon-component-type-shortname{{resource.name ? '-'+(resource.name | id) : ''}}-manual" class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Short name'] = true" data-ng-if="pageOptionList['Short name']"> </i>
+              </label>
+              <input id="tf-component-type-shortname{{resource.name ? '-'+(resource.name | id) : ''}}" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'createResource.input.placeholder.ShortNameOfResourceType' | translate}}" data-ng-model="resource.shortName" data-ng-pattern="'[a-zA-Z]+[\\d\\w_]*'" data-ng-focus="highlightGrammar('resourceInfo')" name="resourceTypeShortName" maxlength="255" ng-maxlength="255" data-ng-disabled = "isEditMode && shortNameRef" required data-ng-blur="resource.shortName = resource.shortName && resource.shortName.toLowerCase()" data-ng-change = "resetInvalidSname()">
+              <div class="cc-validation-block" ng-messages="resourceTypeForm.val.resourceTypeShortName.$error" ng-if="resourceTypeForm.val.resourceTypeShortName.$touched">
+                <p ng-message="maxlength"> {{"createResource.resourceSName.validation.maxLength" | translate}} </p>
+                <p ng-message="required"> {{"createResource.resourceSName.validation.required" | translate}} </p>
+                <p ng-message="pattern"> {{"createResource.shortname.alphanumeric.validation.pattern" | translate}} </p>
+                <p ng-if = "IsSnameValid(resource.shortName)"> "{{resource.shortName}}" {{"createResource.shortname.reservedKeyword" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Short name" data-ng-model="showUserManual['Short name']"></user-manual>
+            </div>
+            <div class="cc-create-page-editor-data cc-user-manual-anchor">
+              <label id="label-component-type-description{{resource.name ? '-'+(resource.name | id) : ''}}" for="description"> {{"createResource.label.Description" | translate}}:&nbsp;
+                <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Description'] = true" data-ng-if="pageOptionList['Description']"> </i>
+              </label>
+              <textarea id="ta-component-type-description{{resource.name ? '-'+(resource.name | id) : ''}}" style="height: 100px;" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right" placeholder="{{'createResource.input.placeholder.Description' | translate}}" data-ng-model="resource.description" data-ng-focus="highlightGrammar('resourceInfo')" name="resourceTypeDesc" ng-maxlength="4000" maxlength="4000"> </textarea>
+              <div class="cc-validation-block" ng-messages="resourceTypeForm.val.resourceTypeDesc.$error" ng-if="resourceTypeForm.val.resourceTypeDesc.$touched">
+                <p ng-message="maxlength"> {{"createResource.resourceTypeDesc.validation.maxLength" | translate}} </p>
+              </div>
+              <user-manual class="cc-user-manual-textarea cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Description" data-ng-model="showUserManual['Description']"></user-manual>
+            </div>
+            <div  class="cc-create-page-editor-data cc-user-manual-anchor" id="resourceTag">
+              <label id="label-component-type-tags{{resource.name ? '-'+(resource.name | id) : ''}}" for="tags"> {{"createResource.label.Tags" | translate}}:&nbsp;
+                <i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Tags'] = true" data-ng-if="pageOptionList['Tags']"></i>
+              </label>
+              <div class="cc-create-page-editor-data-right tag">
+                <go-as-you-type data-go-as-you-type-id="componentType-goAsYouType-tags" data-item-label="label" data-check-and-go="false" data-apply-btn-label="APPLY"
+                  data-add-new-btn-label="NEW TAG" data-item-key-field="id" data-newitem-function="addTag"
+                  data-data-set-save-to="resource.tags" data-get-latest-options="getPolicyModelTags"
+                  data-placeholder="{{'createResource.input.placeholder.Tags' | translate}}" data-input-max="50"
+                  data-ng-focus="highlightGrammar('resourceTag')" ng-if="userAccessMap"
+                  create-new="userAccessMap['CREATE_POLICY_MODEL_TAG']"
+                  char-list-not-allowed="['~', '/', '*', '$', '&', '\\', '?', '{', '}']"> </go-as-you-type>
+              </div>
+              <user-manual class="cc-user-manual-input cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Tags" data-ng-model="showUserManual['Tags']"></user-manual>
+            </div>
+          </div>
+          <div class="cc-create-page-editor-data bottom-input-container" style="max-width: calc(100% - 200px);">
+            <uib-tabset class="cc-no-bottom-border" id="attr" ng-class="{'custom-validation-error':model_error}" active="tabs.activeTab">
+              <uib-tab index="1" select="highlightGrammar('attributesInfo');selectTab(1)" id="attributesInfo" deselect="deselectTab(1,$event)">
+                <uib-tab-heading>
+                  <span id="tab-component-type-attributes{{resource.name ? '-'+(resource.name | id) : ''}}" class=""> {{"createResource.subtitle.Attributes" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Attributes = true" data-ng-if="pageOptionList['Attributes']"></i>
+                </uib-tab-heading>
+                <div class="cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Attributes" data-ng-model="showUserManual.Attributes"></user-manual>
+                   <p id="label-component-type-add-attribute-{{attributeTable.success ? 'success' : 'error'}}{{resource.name ? '-'+(resource.name | id) : ''}}" class="table-message" data-ng-class="{'success':attributeTable.success,'error':attributeTable.error}" data-ng-show="attributeTable.notify">{{attributeTable.message}}</p>
+                  <div class="cc-ps-create-page-editor-resource-attribute-div">
+                    <div class="table-header">
+                      <p class="heading">Characteristics of a resource that may be referenced in component creation</p>
+                      <p class="count" data-ng-if="resource.attributes.length">{{resource.attributes.length}} {{(resource.attributes.length > 1) ? 'Attributes': 'Attribute'}}</p>
+                    </div>
+                    <input id="btn-component-type-add-attribute{{resource.name ? '-'+(resource.name | id) : ''}}" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute();attributeTable.dirty = true;" data-ng-disabled="editItem.$$hashKey" /> </div>
+                  </div>
+                  <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table">
+                    <thead>
+                      <tr>
+                        <th id="header-component-type-attribute-name{{resource.name ? '-'+(resource.name | id) : ''}}" style="width: 36%">{{"createResource.label.AttributeName" | translate}}</th>
+                        <th id="header-component-type-attribute-shortname{{resource.name ? '-'+(resource.name | id) : ''}}" style="width: 20%">{{"createResource.label.ShortName" | translate}}</th>
+                        <th id="header-component-type-attribute-datatype{{resource.name ? '-'+(resource.name | id) : ''}}" style="width: 14%">{{"createResource.label.DataType" | translate}}</th>
+                        <th id="header-component-type-attribute-operators{{resource.name ? '-'+(resource.name | id) : ''}}"style="width: 23%">{{"createResource.label.Operators" | translate}}</th>
+                        <th data-ng-hide="true">{{"createResource.label.RegularExpression" | translate}}</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="" ng-repeat="attr in resource.attributes" ng-init="attrIndex = $index" data-ng-include="editItem.$$hashKey == attr.$$hashKey ? (attr.isReferenced ? 'ui/app/PolicyStudio/Resource/partials/resource-attribute-edit-name-only.html' : 'ui/app/PolicyStudio/Resource/partials/resource-attribute-edit.html') : 'ui/app/PolicyStudio/Resource/partials/resource-attribute-view.html'"></tr>
+                      <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                        <td colspan="5"> 
+                          <a id="link-component-type-add-attribute{{resource.name ? '-'+(resource.name | id) : ''}}" href="javascript:void(0)" data-ng-click="addAttribute();attributeTable.dirty = true;" >+ {{'Add Attribute' | translate}}</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cc-ps-info" ng-show="enrollmentSubjectAttributes.length" ><i class="fa fa-info-circle" aria-hidden="true"></i>Reserved keywords(case insensitive): <span ng-repeat="attr in enrollmentSubjectAttributes" class="display-inline-block">{{attr.shortName}}<span ng-show="!$last">,&nbsp;</span></span>.</div>
+              </uib-tab>
+              <uib-tab index="4" select="highlightGrammar('attributesInfo'); selectTab(4)" deselect="deselectTab(4,$event)" class="" data-ng-show='enrollmentSubjectAttributes.length'>
+                <uib-tab-heading>
+                  <span id="header-component-type-preseeded-attribute{{resource.name ? '-'+(resource.name | id) : ''}}" class=""> {{"createResource.subtitle.EnrollmentAttributes" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual['Enrollment Attributes'] = true" data-ng-if="pageOptionList['Enrollment Attributes']"></i>
+                </uib-tab-heading>
+                <div class="cc-ps-create-page-editor-info cc-ps-pre-seeded-attribute cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Enrollment Attributes" data-ng-model="showUserManual['Enrollment Attributes']"></user-manual>
+                  <div class="cc-ps-create-page-editor-resource-enroll-attribute-div cc-ps-create-page-editor-resource-enroll-attribute-div-ie" ng-repeat="attr in enrollmentSubjectAttributes" >
+                    <div class="cc-ps-create-page-resource-type-attr">
+                      <label id="label-component-type-attribute-namelabel-{{attr.name | id}}{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}"> {{"createResource.label.AttributeName" | translate}}
+                        <input id="tf-component-type-attribute-namelabel-{{attr.name | id}}{{resource.name ? '-'+(resource.name | id) : ''}}" disabled class="form-control cc-ps-create-page-common-name cc-create-page-common-input" value="{{attr.name}}">
+                      </label>
+                    </div>
+                    <div class="cc-ps-create-page-resource-type-attr">
+                      <label id="label-component-type-attribute-shortname-{{attr.shortName | id}}{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}"> {{"createResource.label.ShortName" | translate}}
+                        <input id="tf-component-type-attribute-shortname-{{attr.shortName | id}}{{resource.name ? '-'+(resource.name | id) : ''}}" disabled class="form-control cc-ps-create-page-common-sname cc-create-page-common-input" value="{{attr.shortName}}" > </label>
+                    </div>
+                    <div class="cc-ps-create-page-resource-type-attr">
+                      <label id="label-component-type-attribute-datatype-{{attr.dataType | id}}{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" style="display:block"> {{"createResource.label.DataType" | translate}}
+                          <input id="tf-component-type-attribute-datatype-{{attr.dataType | id}}{{resource.name ? '-'+(resource.name | id) : ''}}" disabled class="form-control cc-ps-create-page-common-sname cc-create-page-common-input" value="{{attr.dataType}}" > 
+                      </label>
+                    </div>
+                    <div class="cc-ps-create-page-resource-type-attr">
+                      <label id="label-component-type-attribute-operators-{{getOpConfigLabel(attr.operatorConfigs) | id}}{{resource.name ? '-'+(resource.name | id) : ''}}-{{$index}}" style="display:block"> {{"createResource.label.Operators" | translate}}
+                        <input id="tf-component-type-attribute-operators-{{getOpConfigLabel(attr.operatorConfigs) | id}}{{resource.name ? '-'+(resource.name | id) : ''}}" disabled class="form-control cc-ps-create-page-common-name cc-create-page-common-input" value="{{ getOpConfigLabel(attr.operatorConfigs)}}">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </uib-tab>
+              <uib-tab index="2" select="highlightGrammar('actionInfo');selectTab(2)" class="" data-ng-if="shouldShowAction()" deselect="deselectTab(2)">
+                <uib-tab-heading>
+                  <span id="tab-component-type-actions" class=""> {{"createResource.subtitle.Actions" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Actions = true" data-ng-if="pageOptionList['Actions']"></i>
+                </uib-tab-heading>
+                <div class="cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Actions" data-ng-model="showUserManual.Actions"></user-manual>
+                    <p class="table-message" data-ng-class="{'success':actionTable.success,'error':actionTable.error}" data-ng-show="actionTable.notify">{{actionTable.message}}</p>
+                  <div class="cc-ps-create-page-editor-resource-attribute-div">
+                  
+                    <div class="table-header">
+                      <p class="heading">An operation that can be performed on the resource</p>
+                      <p class="count" data-ng-if="resource.actions.length">{{resource.actions.length}} {{(resource.actions.length > 1) ? 'Actions': 'Action'}}</p>
+                    </div>
+                    <input id="btn-component-type-add-action" class="btn btn-default cc-create-page-add-condition-btn" type="button" value="ADD ACTION" data-ng-click="addAction();actionTable.dirty=true;" data-ng-disabled="editItem.$$hashKey" />
+                  </div>
+                  <table class="table cc-ps-create-page-common-table" >
+                    <thead >
+                      <tr>
+                        <th id="header-component-type-action-name" style="width:55%"> {{"createResource.subtitle.Action.name" | translate}} </th>
+                        <th id="header-component-type-action-shortname" style="width:45%"> {{"createResource.subtitle.Action.sname" | translate}} </th>
+                        <th style="width:10%"> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-ng-repeat="action in resource.actions" data-ng-include="editItem.$$hashKey == action.$$hashKey ? (action.isReferenced ? 'ui/app/PolicyStudio/Resource/partials/resource-action-edit-name-only.html' : 'ui/app/PolicyStudio/Resource/partials/resource-action-edit.html') : 'ui/app/PolicyStudio/Resource/partials/resource-action-view.html'">
+                      </tr>
+                      <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                        <td colspan="5"> 
+                          <a id="link-component-type-add-action" href="javascript:void(0)" data-ng-click="addAction();actionTable.dirty = true;" >+ {{'Add Action' | translate}}</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                 
+                </div>
+              </uib-tab>
+              <uib-tab index="3" select="highlightGrammar('obligationInfo');selectTab(3)" deselect="deselectTab(3)" class="" data-ng-if="shouldShowObligation()">
+                <uib-tab-heading>
+                  <span id="tab-component-type-obligations" class=""> {{"createResource.subtitle.Obligations" | translate}} </span><i class="fa cc-about-individual-question fa-question-circle" data-ng-click="showUserManual.Obligations = true" data-ng-if="pageOptionList['Obligations']"></i>
+                </uib-tab-heading>
+                <div class="cc-user-manual-anchor">
+                  <user-manual class="cc-user-manual-section-title cc-user-manual-position-right" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Obligations" data-ng-model="showUserManual.Obligations"></user-manual>
+                   <p class="table-message" data-ng-class="{'success':obligationTable.success,'error':obligationTable.error}" data-ng-show="obligationTable.notify">{{obligationTable.message}}</p>
+                  <div class="cc-ps-create-page-editor-resource-attribute-div">
+                   
+                    <div class="table-header">
+                      <p class="heading">An operation that can be performed on the resource</p>
+                      <p class="count" data-ng-if="resource.obligations.length">{{resource.obligations.length}} {{(resource.obligations.length > 1) ? 'Obligations': 'Obligation'}}</p>
+                    </div>
+                    <input id="btn-component-type-add-obligation" class="btn btn-default cc-create-page-add-condition-btn" type="button" name="addObligation" value="ADD OBLIGATION" data-ng-click="addObligation();obligationTable.dirty = true;" data-ng-disabled="editItem.$$hashKey" /> 
+                  </div>
+                  <table class="table cc-ps-create-page-common-table" ui-sortable="sortableOptions" ng-model="resource.obligations">
+                    <thead >
+                      <tr>
+                        <th id="header-component-type-obligation-name" style="width:50%"> {{"createResource.label.ObligationName" | translate}} </th>
+                        <th id="header-component-type-obligation-shortname" style="width:30%"> {{"createResource.label.ObligationSName" | translate}} </th>
+                        <th style="width:15%"> </th>
+                      </tr>
+                    </thead>
+                    <!-- there MUST not be ordering here, since we are using explicit manual ordering -->
+                    <tbody data-ng-repeat="obli in resource.obligations track by $index" ng-init="obliIndex = $index">
+                      <tr data-ng-include="editItem.$$hashKey == obli.$$hashKey ? (obli.isReferenced ? 'ui/app/PolicyStudio/Resource/partials/resource-obligation-edit-name-only.html' : 'ui/app/PolicyStudio/Resource/partials/resource-obligation-edit.html') : 'ui/app/PolicyStudio/Resource/partials/resource-obligation-view.html'">
+                      </tr>
+                      <tr data-ng-if="resource.obligations.length && hideObliParams[$index]">
+                        <td colspan="3">
+                          <table class="table cc-ps-create-page-common-table" >
+                            <thead>
+                              <tr>
+                                <th style="width:12%"> {{"createResource.label.Name" | translate}} </th>
+                                <th style="width:8%"> {{"createResource.label.sName" | translate}} </th>
+                                <th style="width:10%"> {{"createResource.label.Type" | translate}} </th>
+                                <th style="width:10%"> {{"createResource.label.ListValue" | translate}} </th>
+                                <th style="width:10%"> {{"createResource.label.DefaultValue" | translate}} </th>
+                                <th style="width:6%"> {{"createResource.label.Hidden" | translate}} </th>
+                                <th style="width:6%"> {{"createResource.label.Editable" | translate}} </th>
+                                <th style="width:7%"> {{"createResource.label.Mandatory" | translate}} </th>
+                                <th style="width:12%"> </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- there MUST not be ordering here, since we are using explicit manual ordering -->
+                              <tr data-ng-repeat="para in obli.parameters track by $index" data-ng-include="editItem.$$hashKey == para.$$hashKey ? (obli.isReferenced ? 'ui/app/PolicyStudio/Resource/partials/resource-obligation-param-edit-name-only.html' : 'ui/app/PolicyStudio/Resource/partials/resource-obligation-param-edit.html') : 'ui/app/PolicyStudio/Resource/partials/resource-obligation-param-view.html'">
+                              </tr>
+                              <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                                <td colspan="9">
+                                  <a href="javascript:void(0)" data-ng-click="addParameter(obli, $index);obligationTable.dirty = true;" >+ {{'Add Parameter' | translate}}</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody> 
+                     <tbody> 
+                      <tr class="last-row" data-ng-show="!editItem.$$hashKey">
+                        <td colspan="3"> 
+                          <a id="link-component-type-add-obligation" href="javascript:void(0)" data-ng-click="addObligation();obligationTable.dirty = true;" >+ {{'Add Obligation' | translate}}</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </uib-tab>
+            </uib-tabset>
+          </div>
+        </form>
+        <!-- <div id="label-component-type-cc-version-and-copyright" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

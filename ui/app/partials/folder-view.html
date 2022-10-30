@@ -1,0 +1,56 @@
+<div class="btn-group go-as-you-type-root" data-uib-dropdown auto-close="outsideClick">
+        <div class="go-as-you-type-selected-box" data-ng-class="{'go-as-you-type-selected-box-disabled':ngDisabledCc, 'go-as-you-type-selected-box-expand':itemSubLabel}">
+            <div class="go-as-you-type-selected go-as-you-type-selected-expand" data-ng-repeat="item in dataSetSaveTo  track by $index" data-ng-class="{'not-last':!$last}">
+                <table class="item">
+                    <tbody class="item">
+                        <tr class="item">
+                            <td class="folder-view-selected-icon-pre"></td>
+                            <td auto-size class="folder-view-selected-label">
+                                <div class="auto-resize-target" ng-style="isErrorItem(item) && {'color':'red'}">{{listItemLabel(item)}}</div>
+                            </td>
+                            <td class="go-as-you-type-selected-sublabel" ng-if="itemSubLabel || itemSubLabelArray">{{listItemSubLabel(item)}}</td>
+                            <td class="go-as-you-type-deselect" data-ng-click="deleteItem(item, $event);deselectItem($index)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="go-as-you-type-input-box">
+                <input id="{{folderViewId}}" ng-disabled="ngDisabledCc" data-ng-focus="!noInputTimeout && setNoInputTimer(); refreshOptions();"
+                    class="go-as-you-type-input" data-ng-model="__itemFilterValueModel" data-ng-model-options="{ debounce: staticDataSet ? 0 :500, allowInvalid: true }"
+                    data-ng-change="nameChanged()" placeholder="{{placeholder}}" maxlength="{{inputMax}}" data-ng-click="mapSelectedFolders(); inputClicked();"
+                    ng-keypress="clearNoInputTimer()" data-ng-required="required && dataSetSaveTo.length == 0" ng-readonly="true"></div>
+            <div class="clear"></div>
+        </div>
+        <button id="go-as-you-type-toggle-btn-{{$id}}" class="go-as-you-type-toggle-btn" type="button" data-uib-dropdown-toggle></button>
+        <div data-uib-dropdown-menu class="uib-dropdown-menu go-as-you-type-dropdown-box">
+            <div class="go-as-you-type-dropdown-filters-container">
+                <ul class="go-as-you-type-dropdown-filters" data-ng-if="dataSet.length > 0">
+                    <label>
+                        <input type="checkbox" class="go-as-you-type-checkbox" ng-true-value="true" ng-false-value="false" data-ng-click="selectAllOptions()" 
+                            data-ng-model="optionSelection.all"/>
+                        <span class="cc-ps-label-for-checkbox-radio">
+                            <span class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            <span class="go-as-you-type-dropdown-filter-item-name">Select all folders</span>
+                        </span>
+                    </label>
+                </ul>
+                <div class="go-as-you-type-lookup">
+                    <span class="cc-float-right-text">Include sub-folders</span>
+                </div>
+            </div>
+            <ul class="go-as-you-type-dropdown-items" data-ng-if="(noInputTimeout || __itemFilterValueModel && __itemFilterValueModel.length) ">
+                <li data-ng-if="dataSet.length > 0" class="folder-view-dropdown-item">
+                    <div ui-tree data-drop-enabled="false" data-drag-enabled="false">
+                        <ol ui-tree-nodes="" ng-model="dataSet" id="tree-root" class="folder-view-dropdown-parent" >
+                            <li ng-repeat="folder in dataSet" ui-tree-node data-ng-include="'ui/app/partials/folder-tree-view.html'">
+                            </li>
+                        </ol>
+                    </div>
+                </li>
+            </ul>
+            <div data-ng-if="dataSet.length > 0" class="go-as-you-type-btn-box">
+                <button class="btn btn-default go-as-you-type-btn-apply" data-ng-click="applyBtnClicked()">{{applyBtnLabel}} </button>
+            </div>
+        </div>
+    </div>
+    

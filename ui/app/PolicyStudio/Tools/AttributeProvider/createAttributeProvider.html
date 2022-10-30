@@ -1,0 +1,64 @@
+<div data-ui-view class="cc-layout-full-height" data-ng-controller="createAttributeProviderController">
+  <div class="cc-ps-create-page-container cc-layout-full-height">
+    <div class="no-margin cc-ps-create-page-title-panel">
+      <div class="cc-ps-create-page-back-btn-div">
+        <a>
+          <button class="btn btn-default active cc-ps-create-page-back-btn" type="button" data-ng-click="backToList(attributeProviderForm.val)">
+            <i class="fa fa-arrow-left" data-ng-class=""> </i>
+          </button>
+        </a>
+      </div>
+      <div class="cc-ps-create-page-title">
+        <span data-ng-if="!isEditMode"> {{"attributeProvider.title.create" | translate}} </span>
+        <span data-ng-if="isEditMode"> {{ resource.name }} </span>
+      </div>
+      <div class="cc-ps-create-page-btn-div" >
+        <a class="btn btn-default cc-btn-discard" data-ng-click="reset(attributeProviderForm.val)"> {{"attributeProvider.button.discard" | translate}} </a>
+        <a class="btn btn-default cc-btn-primary" data-ng-click="save(attributeProviderForm.val)"> {{"attributeProvider.button.create" | translate}} </a>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div class="cc-ps-create-page-bottom-panel">
+      
+      <div class="cc-ps-create-page-editor-div cc-ps-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" style="width:100%" scroll-top-margin="80">
+        <form class="cc-ps-create-page-editor-form" name="attributeProviderForm.val" novalidate>
+          <div  class="cc-ps-create-page-editor-title">
+            <span class="cc-ps-create-page-title-underline"> {{"attributeProvider.subTitle.metaInfo" | translate}} </span>
+          </div>
+          <div class="cc-ps-create-page-editor-info" >
+            
+            <div class="cc-create-page-editor-data" ng-class="{ 'custom-validation-error': attributeProviderForm.val.pipName.$touched && attributeProviderForm.val.pipName.$invalid }">
+              <label for="name"> {{"attributeProvider.label.name" | translate}}:</label>
+              <input id="name" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-page-common-input" placeholder="{{'attributeProvider.placeholder.name' | translate}}" data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="attributeProvider.name" name="pipName" required ng-maxlength="255" maxlength="255" restrict-input="['~', '/', '*', '$', '&', '\\', '?']">
+              <div class="cc-validation-block" ng-messages="attributeProviderForm.val.pipName.$error" ng-if="attributeProviderForm.val.pipName.$touched">
+                <p ng-message="maxlength"> {{"attributeProvider.validation.pipName.maxLength" | translate}} </p>
+                <p ng-message="required"> {{"attributeProvider.validation.pipName.required" | translate}} </p>
+                <p ng-message="pattern"> {{"attributeProvider.validation.pipName.pattern" | translate}} </p>
+              </div>
+            </div>
+            
+            <div class="cc-create-page-editor-data" >
+              <label for="description"> {{"attributeProvider.label.description" | translate}}:
+               
+              </label>
+              <textarea id="description" style="height: 100px;" class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right" placeholder="{{'attributeProvider.placeholder.description' | translate}}" data-ng-model="attributeProvider.description" name="description" ng-maxlength="4000" maxlength="4000"> </textarea>
+              <div class="cc-validation-block" ng-messages="attributeProviderForm.val.description.$error" ng-if="attributeProviderForm.val.description.$touched">
+                <p ng-message="maxlength"> {{"attributeProvider.validation.decsription.maxLength" | translate}} </p>
+              </div>
+              
+            </div>
+          </div>
+          <div class="cc-create-page-editor-data" >
+            <div  class="cc-ps-create-page-editor-title">
+              <span class="cc-ps-create-page-title-underline"> {{"attributeProvider.subTitle.script" | translate}} </span>
+            </div>
+            <div class="cc-ps-create-page-editor-info" style="min-height: 500px; vertical-align: top">
+              <textarea ui-codemirror="scriptOptions" ng-model="attributeProvider.script"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

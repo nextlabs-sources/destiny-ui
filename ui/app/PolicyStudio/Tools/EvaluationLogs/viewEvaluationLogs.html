@@ -1,0 +1,13 @@
+<div>
+    <br></br>
+    <span class="cc-ps-search-include-subpolicy">
+      <switch class="cc-ps-search-switch-include-sub" data-ng-model="includeSubPolicies.val"  ></switch>
+    </span>
+    <span>{{"Show Evaluation Logs" |translate}}</span>
+      <br></br>
+    <pre>
+     <p data-ng-repeat="evalLog in logsList track by $index">
+      <span>{{evalLog}}</span>
+    </p>
+    </pre>
+</div>

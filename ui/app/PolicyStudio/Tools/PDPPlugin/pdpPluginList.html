@@ -1,0 +1,48 @@
+<div class="cc-layout-full-height" data-ui-view data-ng-controller="pdpPluginListController">
+  <div class="no-margin cc-dlg-title-on-content cc-dlg-title-absolute ">
+    <div class="cc-dlg-list-title cc-dlg-title-on-content-title ">
+      {{"pdpPlugin.title.main" | translate}}
+    </div>
+    <a data-ui-sref="PolicyStudio.addPDPPlugin" class="btn btn-default cc-btn-primary cc-create-btn cc-ps-page-operation-btn">
+      <i class="fa fa-plus uppercase"></i>&nbsp;&nbsp;{{"pdpPlugin.action.addPlugin" | translate}}</a>
+    <div class="clear"></div>
+  </div>
+  <div class="cc-ps-search-and-list-box cc-ps-resource-list-table list-container">
+    <div class="cc-ps-policy-list-table">
+      <div class="cc-ps-policy-list-container">
+        <div class="cc-ps-operation">
+          <div id="cc-sort-by" class="cc-inline cc-dlg-align-right">
+            <div class="cc-inline" id="cc-sort-by-title">{{"componentsearch.label.sortby"|translate}}</div>
+            <div class="cc-inline btn-group btn-block cc-dlg-dropdown-grp cc-dlg-search-status" id="cc-sort-by-select" uib-dropdown>
+              <button class="form-control cc-dlg-button-common" id="" type="button" data-uib-dropdown-toggle>
+                <span class="cc-dlg-dropdown-btn-label">{{sortBy.label}}</span> <span class="cc-dlg-dropdown-btn-expand-icon"></span>
+              </button>
+              <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+                <li role="menuitem" data-ng-repeat="s in sortOptions" data-ng-click="changeSortBy(s);" class="cc-ps-clickable-dropdown"><a class="cc-ps-clickable-dropdown-a" href="javascript:void(0)">{{s.label}}</a></li>
+              </ul>
+            </div>
+          </div> 
+        </div>
+        <div class="cc-ps-operation"
+          data-ng-include="'ui/app/PolicyStudio/Tools/PDPPlugin/partials/operation-checked-template.html'">
+        </div>
+        <div class="cc-flex-center-item cc-common-table-header">
+          <div style="width: 4%; border: 0px;"></div>
+          <div style="width: 66%; border: 0px;">{{"pdpPlugin.table.header.plugin" | translate}}</div>
+          <div style="width: 15%; border: 0px;">{{"pdpPlugin.table.header.status" | translate}}</div>
+          <div style="width: 15%; border: 0px;"></div>
+        </div>
+        <div data-ng-repeat="plugin in pluginList | orderBy: sortBy.name : sortBy.order === 'DESC'; track by $index">
+          <div class="cc-common-table-row" ng-class="{'cc-common-table-row-last': $index === (pluginList.length - 1)}"
+            data-ng-include="'ui/app/PolicyStudio/Tools/PDPPlugin/partials/pdpPlugin-template.html'"
+            ng-init="attrIndex = $index">
+          </div>
+        </div>
+        <div data-ng-if="!pluginList.length" class="cc-ps-empty-resource-list-box">
+          <p style="text-align:center"> {{"pdpPlugin.message.noData" | translate}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="footer" data-ng-include="'ui/app/partials/version-and-copyright.html'"></div> -->
+  </div>
+</div>

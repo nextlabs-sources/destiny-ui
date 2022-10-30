@@ -1,0 +1,56 @@
+<div class="cc-pv-request-editor-page-div cc-pv-create-page-editor-content" scroll-top-margin="80">
+
+    <!-- Empty State -->
+    <div data-ng-if="!responseObj.data && !errorResponse" class="cc-ps-create-page-editor-info">
+        <p>No response available, please click "Test Request" to view response</p>
+        
+    </div>
+    <!-- Empty State div ends here -->
+    <!-- if error response -->
+    <div data-ng-if="errorResponse">
+        <div cc-ps-policy-content><b>Error</b></div>
+        <div cc-ps-policy-content>message: {{errorResponse}}</div>
+    </div>
+
+    <!-- Response Data -->
+    <div data-ng-if="responseObj.data && !errorResponse" class="cc-ps-create-page-editor-info">
+        <div class="cc-create-page-editor-data">
+            <div cc-ps-policy-content>
+                <div class="cc-pv-eval-response-div">
+                    <label for="decision">{{::"requestbuilder.label.decision" | translate}} : </label>
+                    <p data-ng-class="decisionClass">
+                        {{responseObj.data.decision | uppercase}}</p>
+                    <label for="evalTime">{{::"requestbuilder.label.evaluationTime" | translate}} : </label>
+                    <p>{{responseObj.data.timeInMs}}ms</p>
+                </div>
+
+                <div cc-ps-policy-content>
+                    <div id="respObligations" class="cc-pv-create-page-editor-title">
+                        <span class="cc-ps-create-page-title-underline"> {{::"requestbuilder.label.responseObligation" | translate}} </span>
+                    </div>
+                    <div data-ng-repeat="obligation in responseObj.data.obligations track by $index">
+                        <p style="font-weight: 500;">{{obligation.id}}</p>
+                        <table class="table cc-ps-create-page-common-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:35%"> {{::"requestbuilder.label.conditionName" | translate}} </th>
+                                    <th style="width:65%"> {{::"requestbuilder.label.conditionValue" | translate}} </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="parameter in obligation.attributeAssignment track by parameter.attributeId">
+                                    <td><span>{{parameter.attributeId}}</span></td>
+                                    <td data-ng-repeat="val in parameter.value">
+                                        <span>{{val}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Response Data -->
+
+</div>

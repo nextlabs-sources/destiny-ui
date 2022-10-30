@@ -1,0 +1,324 @@
+<div id="enrollmentLDIFDefinitionSync" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.definition.sync" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info">
+    <div class="cc-mr-2 cc-user-manual-anchor">
+        <label class="cc-item-margin" for="effect">{{"enrollment.ldif.schedule.sync" | translate}}
+            <i id="icon-enrollment-description-manual" class="fa cc-about-individual-question fa-question-circle"
+               data-ng-click="showUserManual['Auto Sync'] = true" data-ng-if="pageOptionList['Auto Sync']"></i>&nbsp;
+            <user-manual id="manual-enrollment-datasource" class="cc-user-manual-input cc-user-manual-position-right"
+                         style="left: 200px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                         data-page="{{userManualOption.page}}" key="Auto Sync"
+                         data-ng-model="showUserManual['Auto Sync']">
+            </user-manual>
+
+            <span class="cc-ps-policy-effect-switch">
+                <switch ng-model="syncOn" ng-change="onSyncChange(syncOn)" class="cc-ps-search-switch-include-sub"></switch>
+            </span>
+            <input type="hidden" data-ng-focus="highlightGrammar('policyEffect')">
+        </label>
+    </div>
+    <div ng-if="syncOn">
+        <div class="cc-tools-auto-sync-container">
+            <div class="cc-tools-first-sync">
+                <label id="enrollment-ldif-firstSync-label" class="cc-tools-first-sync-label">{{"enrollment.common.first.sync" | translate}}</label>
+                <div class="input-group">
+                    <input id="input-enrollment-ldif-startDate" type="text" name="enrollmentStartDate" class="form-control"
+                           uib-datepicker-popup="mediumDate" ng-model="enrollmentStartDate.from.date"
+                           is-open="enrollmentStartDate.from.popupOpen" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                           readonly readonly min-date="enrollmentStartDate.from.minDate">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="enrollmentStartDate.from.popupOpen = true">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="cc-tools-sync-at">
+                <label id="enrollment-ldif-syncAt-label" style="visibility: hidden;">{{"enrollment.common.sync.at" | translate}}</label>
+                <div class="cc-tools-time-picker">
+                    <div class="cc-tools-time-picker-hour-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('hour')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{ syncTime.hour }}"
+                               ng-model="syncTime.hour" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('hour')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-minute-container">
+                        <i class="cc-tools-arrow-background" ng-click="upTime('minute')"></i>
+                        <input class="cc-tools-time-picker-minute sync" type="number" ng-keydown="numberOnly($event)" value="{{syncTime.minute}}"
+                               ng-model="syncTime.minute" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="downTime('minute')"></i>
+                    </div>
+                    <div class="cc-tools-time-picker-format-container">
+                        <i class="cc-tools-arrow-background" ng-click="toggleTimeFormat()"></i>
+                        <input class="cc-tools-time-picker-minute sync" value="{{syncTime.format}}"
+                               ng-model="syncTime.format" />
+                        <i class="cc-tools-arrow-background-rotate" ng-click="toggleTimeFormat()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cc-tools-sync-repeat">
+                <label id="enrollment-ldif-interval-label">{{"enrollment.common.repeat.every" | translate}}</label>
+                <div class="cc-tools-repeat-container">
+                    <div>
+                        <input class="cc-tools-input-number" type="number" min="0" ng-keydown="numberOnly($event)" ng-model="syncInterval.value" />
+                    </div>
+                    <div>
+                        <select data-ng-model="syncInterval.unit" class="form-control cc-tools-select-type"
+                                ng-options="timeUnit as timeUnit.label for timeUnit in timeUnits">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="enrollmentldifDefinitionDetails" class="cc-ps-create-page-editor-title">
+    <span class="cc-ps-create-page-title-underline">
+        {{"enrollment.definition.attributes" | translate}}</span>
+</div>
+<div class="cc-ps-create-page-editor-info ">
+    <div class="cc-create-page-editor-data cc-user-manual-anchor no-margin">
+        <label id="enrollment-ldif-globalId-label">{{"enrollment.definition.details.global.id" | translate}}
+            <i id="icon-enrollment-ldif-globalId-manual" class="fa cc-about-individual-question fa-question-circle"
+               data-ng-click="showUserManual['Global Unique ID'] = true" data-ng-if="pageOptionList['Global Unique ID']"></i>
+            <user-manual id="manual-enrollment-globalId" class="cc-user-manual-input cc-user-manual-position-right"
+                         style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                         data-page="{{userManualOption.page}}" key="Global Unique ID" data-ng-model="showUserManual['Global Unique ID']">
+            </user-manual>
+        </label>
+        <input id="input-enrollment-ldif-globalId" type="text"
+               class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-common-input cc-long-text-ellipsis cc-create-textfield-width"
+               name="ldifStaticId" placeholder="{{'enrollment.definition.details.global.id.placeholder' | translate}}"
+               data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="ldifProperties['entry.attributefor.staticid'].value"
+               data-ng-focus="highlightGrammar('taskName')" required ng-maxlength="255" maxlength="255">
+        <div class="cc-validation-block" ng-messages="enrollmentForm.val.ldifStaticId.$error" ng-if="enrollmentForm.val.ldifStaticId.$touched">
+            <p ng-message="maxlength">{{"toolManagement.createTask.validation.maxLength" | translate}}</p>
+            <p ng-message="required">{{"toolManagement.createTask.validation.required" | translate}}</p>
+            <p ng-message="pattern">{{"toolManagement.createTask.validation.pattern" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-mr-2">
+        <div class="cc-connection-details-margin">
+            <div class="cc-flexbox cc-mr-2 cc-user-manual-anchor">
+                <label id="enrollment-ldif-deleteInactiveGroupMember-label" class="cc-item-margin">
+                    <input type="checkbox" ng-model="ldifProperties['delete.inactive.group.members'].value" class="cc-green-checkbox-radio" />
+                    <span>
+                        <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        {{"enrollment.common.delete.inactive.group" | translate}}&nbsp;
+                    </span>
+                </label>
+                <i id="icon-enrollment-deleteInactiveGroupMember-manual" class="fa cc-about-individual-question fa-question-circle"
+                   data-ng-click="showUserManual['Delete inactive group members'] = true"
+                   data-ng-if="pageOptionList['Delete inactive group members']"></i>&nbsp;
+                <user-manual id="manual-enrollment-deleteInactiveGroupMember" class="cc-user-manual-input cc-user-manual-position-right"
+                             style="left: 260px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                             data-page="{{userManualOption.page}}" key="Delete inactive group members"
+                             data-ng-model="showUserManual['Delete inactive group members']">
+                </user-manual>
+            </div>
+            <div class="cc-flexbox cc-mr-2 cc-user-manual-anchor">
+                <label id="enrollment-ldif-storeMissingAttribute-label" class="cc-item-margin">
+                    <input type="checkbox" ng-model="ldifProperties['store.missing.attributes'].value" class="cc-green-checkbox-radio" />
+                    <span>
+                        <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                        {{"enrollment.definition.details.store.missing.attributes" | translate}}&nbsp;
+                    </span>
+                </label>
+                <i id="icon-enrollment-storeMissingAttribute-manual" class="fa cc-about-individual-question fa-question-circle"
+                   data-ng-click="showUserManual['Store missing attributes'] = true"
+                   data-ng-if="pageOptionList['Store missing attributes']"></i>&nbsp;
+                <user-manual id="manual-enrollment-storeMissingAttribute" class="cc-user-manual-input cc-user-manual-position-right"
+                             style="left: 220px; width: 500px;" data-app="{{userManualOption.app}}"
+                             data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}" key="Store missing attributes"
+                             data-ng-model="showUserManual['Store missing attributes']">
+                </user-manual>
+            </div>
+        </div>
+    </div>
+    <div class="cc-sub-item-margin">
+        <label id="enrollment-ldif-entities-label" class="cc-item-margin cc-user-manual-anchor">{{"enrollment.definition.enroll.entities" | translate}}&nbsp;
+            <i id="icon-enrollment-entities-manual" class="fa cc-about-individual-question fa-question-circle"
+               data-ng-click="showUserManual['Entities to enroll'] = true" data-ng-if="pageOptionList['Entities to enroll']"></i>&nbsp;
+            <user-manual id="manual-enrollment-entities" class="cc-user-manual-input cc-user-manual-position-right"
+                         style="left: 140px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                         data-page="{{userManualOption.page}}" key="Entities to enroll" data-ng-model="showUserManual['Entities to enroll']">
+            </user-manual>
+        </label>
+        <div id="ldif-enrollment-entities" class="cc-flexbox-filter">
+            <div ng-repeat="(key, entity) in ldifEntities track by $index">
+                <div class="cc-enrollment-entities">
+                    <label id="enrollment-ldif-entity-label" class="nobold cc-entities-margin">
+                        <input id="checkbox-enrollment-ldif-{{entity.entity}}" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                               ng-disabled="entity.disabled" ng-change="entityChecked(entity)" ng-model="entity.$checked">
+                        <span>
+                            <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                            {{entity.entity}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="cc-validation-block">
+            <p ng-if="saveExecuted && !checked">{{"toolManagement.createTask.validation.requiredOne" | translate}}</p>
+        </div>
+    </div>
+    <div class="cc-common-gap">
+        <label id="enrollment-ldif-filtersAndAttributes-label"
+               class="cc-label-tab-margin cc-connection-details-margin cc-user-manual-anchor">{{"enrollment.common.filters.and.attribute.mapping"
+            | translate}}
+            <i id="icon-enrollment-ldif-filtersAndAttributes-manual" class="fa cc-about-individual-question fa-question-circle"
+               data-ng-click="showUserManual['Filters & attributes mapping'] = true"
+               data-ng-if="pageOptionList['Filters & attributes mapping']"></i>
+            <user-manual id="manual-enrollment-filtersAndAttributes" class="cc-user-manual-input cc-user-manual-position-right"
+                         style="left: 210px; width: 500px;" data-app="{{userManualOption.app}}"
+                         data-section="{{userManualOption.section}}" data-page="{{userManualOption.page}}"
+                         key="Filters & attributes mapping" data-ng-model="showUserManual['Filters & attributes mapping']">
+            </user-manual>
+        </label>
+        <uib-tabset active="active" class="cc-enrollment-tab cc-enrollment-ldif-tab">
+            <uib-tab index="$index" ng-repeat="(key, tab) in ldifEntities track by $index" heading="{{tab.entity}}"
+                     disable="tab.tabDisabled">
+                <!-- {{tab.content}} -->
+                <div class="cc-tab-content-container" ng-if="tab.$checked && $index !== 4">
+                    <div class="cc-enrollment-filter " ng-if="tab.entity !== 'Groups'">
+                        <label id="label-enrollment-ldif-{{tab.entity}}Filter" class="cc-filter-label">{{"enrollment.common.filter" | translate}}</label>
+                        <i id="icon-enrollment-ldif-{{tab.entity}}Filter-manual" class="fa cc-about-individual-question fa-question-circle"
+                           data-ng-click="showUserManual[tab.entity+' Filter'] = true" data-ng-if="pageOptionList[tab.entity+' Filter']"></i>
+                        <user-manual id="manual-enrollment-{{tab.entity}}Filter" class="cc-user-manual-input cc-user-manual-position-right"
+                                     style="left: 60px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                     data-page="{{userManualOption.page}}" key="{{tab.entity+' Filter'}}"
+                                     data-ng-model="showUserManual[tab.entity+' Filter']">
+                        </user-manual>
+                        <input id="tf-enrollment-ldif-{{tab.entity | id}}-filter" type="text"
+                               class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                               name="filter{{key | uppercase}}" data-ng-model="tab.filter" title="{{enrollment.name}}"
+                               data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                        <hr style="margin: 26.5px 0 36.5px 0;">
+                    </div>
+                    <button id="btn-enrollment-ldif-add-{{tab.entity}}-addAttribute" class="btn btn-default cc-create-page-add-condition-btn cc-enrollment-add-attribute"
+                            ng-if="$index < 4" ng-click="addProperty(key)">{{"enrollment.common.add.attribute" | translate}}</button>
+                    <table class="table cc-ps-create-page-common-table cc-ps-create-page-editable-table cc-enrollment-table"
+                           ng-if="$index < 4">
+                        <thead>
+                        <tr class="cc-th-border">
+                            <th style="width:45%; text-align: center;">{{"enrollment.common.cc.attribute" | translate}}</th>
+                            <th style="width:45%; text-align: center;">{{"enrollment.common.directory.attributes" | translate}}
+                            </th>
+                            <th style="width:6%">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="enrollment-ldif-property-row-{{$index}}" ng-repeat="attribute in tab.attributeList">
+                            <td>
+                                <div class="cc-inline btn-group btn-block cc-ps-dropdown-grp" id="cc-sort-by-select"
+                                     uib-dropdown>
+                                    <button id="btn-enrollment-ldif-{{tab.entity}}-attribute-{{$index}}" type="button" class="form-control cc-ps-button-common"
+                                            data-uib-dropdown-toggle ng-disabled="attribute.mandatory" title="{{attribute.shortName}}"
+                                            ng-class="{'cc-enrollment-semi-mandatory': $index === 2 && tab.entity === 'Users'}">
+                                        <span class="cc-ps-dropdown-btn-label">{{attribute.shortName}}</span> <span class="cc-ps-dropdown-btn-expand-icon"
+                                                                                                                    ng-if="!attribute.mandatory"></span>
+                                    </button>
+                                    <ul data-uib-dropdown-menu
+                                        class="uib-dropdown-menu cc-ps-dropdown-menu cc-enrollment-dropdown" role="menu"
+                                        aria-labelledby="">
+                                        <li role="menuitem" data-ng-repeat="s in propertyList[tab.shortName]" label = "{{s.label}}" ng-if="checkEntityType(tab.entity, $parent.$index)"
+                                            data-ng-click="setAttribute(attribute,s)" class="cc-ps-clickable-dropdown" ng-class="{'cc-disable-attribute': s.disabled}">
+                                            {{s.shortName}}
+                                        </li>
+                                        <li role="menuitem" data-ng-repeat="s in filteredPropertyList" label="{{s.shortName}}"  ng-if="!checkEntityType(tab.entity, $parent.$index)"
+                                            data-ng-click="setAttribute(attribute, s)" class="cc-ps-clickable-dropdown"
+                                            ng-class="{'cc-disable-attribute': s.disabled}">
+                                            {{s.shortName}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-block">
+                                    <input id="input-enrollment-ldif-{{attribute.shortName}}-attributeValue" class=" form-control cc-create-page-common-input"
+                                           id="attribute-input-ldif-{{$index}}" name="ldif-{{tab.entity + $index}}" style="height:40px;"
+                                           placeholder="The attribute value" data-ng-model="attribute.value" data-ng-focus="highlightGrammar('users')"
+                                           required>
+                                    <div class="cc-validation-block" ng-messages="enrollmentForm.val['ldif-' + tab.entity + $index].$error"
+                                         ng-if="enrollmentForm.val['ldif-' + tab.entity + $index].$touched || saveExecuted">
+                                        <p ng-message="required" class="cc-validation-block-no-margin">
+                                            {{::"toolManagement.locationManager.list.required.value" | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cc-discard-container" ng-if="!attribute.mandatory && checkEntityType(tab.entity, $index)">
+                                <div class="btn-group btn-block cc-enrollment-discard-attribute" ng-click="cancelEdit(tab.shortName, $index)">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cc-tab-content-container" ng-if="tab.$checked && $index === 4">
+                    <div class="cc-enrollment-filter ">
+                        <label id="label-enrollment-ldif-GroupFilter" class="cc-filter-label-group-1 cc-user-manual-anchor">{{"enrollment.common.filter" | translate}}
+                            <i id="icon-enrollment-GroupFilter-manual" class="fa cc-about-individual-question fa-question-circle"
+                               data-ng-click="showUserManual['Groups Filter'] = true" data-ng-if="pageOptionList['Groups Filter']"></i>
+                            <user-manual id="manual-enrollment-GroupFilter" class="cc-user-manual-input cc-user-manual-position-right"
+                                         style="left: 60px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                         data-page="{{userManualOption.page}}" key="Groups Filter"
+                                         data-ng-model="showUserManual['Groups Filter']">
+                            </user-manual></label>
+                        <input id="input-enrollment-ldif-GroupFilter" type="text"
+                               class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                               data-ng-pattern="'[^~/*$&?\\\\]*'" data-ng-model="ldifProperties['group.requirements'].value"
+                               data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                        <div class="cc-enrollment-filter cc-user-manual-anchor">
+                            <label id="label-enrollment-ldif-GroupEnumeration" class="cc-filter-label-group" style="display: inline;">{{"enrollment.common.group.enumeration" | translate}}</label>
+                            <i id="icon-enrollment-GroupEnumeration-manual" class="fa cc-about-individual-question fa-question-circle"
+                               data-ng-click="showUserManual['Group attributes for enumeration'] = true" data-ng-if="pageOptionList['Group attributes for enumeration']"></i>
+                            <user-manual id="manual-enrollment-GroupEnumeration" class="cc-user-manual-input cc-user-manual-position-right"
+                                         style="left: 60px; width: 500px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                         data-page="{{userManualOption.page}}" key="Group attributes for enumeration"
+                                         data-ng-model="showUserManual['Group attributes for enumeration']">
+                            </user-manual>
+                            <input id="input-enrollment-ldif-GroupEnumeration" type="text"
+                                   class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                   data-ng-pattern="'[^~/*$&?\\\\]*'"
+                                   data-ng-model="ldifProperties['group.attributefor.enumeration'].value"
+                                   data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                        </div>
+                        <div class="cc-enrollment-filter cc-user-manual-anchor">
+                            <label id="enrollment-ldif-structural-group-label" class="nobold cc-entities-margin cc-enrollment-structural-group">
+                                <input id="checkbox-enrollment-ldif-StructuralGroup" type="checkbox" class="cc-green-checkbox-radio cc-green-checkbox-radio"
+                                       ng-change="onChangeStructuralCheckbox(structuralGroupCheckbox.$checked)"
+                                       ng-model="structuralGroupCheckbox.$checked">
+                                <span>
+                                        <span id="" class="cc-green-checkbox-radio-bgrd-holder"></span>
+                                        {{"enrollment.common.structural.group" | translate}}
+                                    </span>
+                            </label>
+                            <i id="icon-enrollment-structuralGroup-manual" class="fa cc-about-individual-question fa-question-circle"
+                               data-ng-click="showUserManual['Structural Group Filter'] = true"
+                               data-ng-if="pageOptionList['Structural Group Filter']"></i>
+                            <user-manual id="manual-enrollment-structuralGroup" class="cc-user-manual-input cc-user-manual-position-right"
+                                         style="left: 180px;" data-app="{{userManualOption.app}}" data-section="{{userManualOption.section}}"
+                                         data-page="{{userManualOption.page}}" key="Structural Group Filter"
+                                         data-ng-model="showUserManual['Structural Group Filter']">
+                            </user-manual>
+                            <input id="input-enrollment-ldif-structuralGroup" type="text"
+                                   class="cc-ps-create-page-editor-input-placeholder cc-create-page-editor-data-right cc-create-enrollment-filter"
+                                   name="filter{{key | uppercase}}" data-ng-model="ldifProperties['structure.requirements'].value"
+                                   title="{{enrollment.name}}" data-ng-focus="highlightGrammar('taskName')" ng-maxlength="255" maxlength="255">
+                        </div>
+                    </div>
+                </div>
+                <div class="cc-tab-content-no-item" ng-if="!tab.$checked">
+                    {{"enrollment.common.no.entity.checked" | translate}}
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+<!--    <div data-ng-include="'ui/app/PolicyStudio/Tools/Enrollment/partials/createTask-ldif-file.html'"></div>-->
+
+</div>

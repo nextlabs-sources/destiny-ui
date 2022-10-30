@@ -1,0 +1,49 @@
+<div class="cc-ps-search-form">
+  <form name="logConfigSearchForm" id="logConfigSearchForm" novalidate>
+    <div class="cc-ps-search-option">
+      <div class="btn-group btn-block cc-ps-dropdown-grp cc-ps-search-group" data-uib-dropdown keyboard-nav auto-close="outsideClick"
+        is-open="status_search_open">
+        <button class="form-control cc-ps-button-common" type="button" uib-dropdown-toggle>
+          <span class="cc-ps-dropdown-btn-label">
+            <span class="cc-ps-dropdown-btn-title">{{"logconfigsearch.label.level" | translate}}:</span>
+            <span class="cc-ps-dropdown-btn-label-content">&nbsp;{{searchOptions.levelLabel | translate}}</span>
+          </span>
+          <span class="cc-ps-dropdown-btn-expand-icon"></span>
+        </button>
+        <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu">
+          <li role="menuitem" class="cc-ps-menu-item-left-padding">
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="serverLog-checkbox-search-selectAllLevel" data-ng-model="searchOptions.$allLevelChecked" data-ng-disabled="searchOptions.$allLevelChecked"
+                data-ng-change="allLevelChanged();" type="checkbox" class="cc-green-checkbox-radio">
+              <span class="cc-ps-dropdown-all-label cc-ps-label-for-checkbox-radio">
+                <span
+                  class="cc-green-checkbox-radio-bgrd-holder"></span>{{"logconfigsearch.label.allLevels"|translate}}</span>
+            </label></a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem" class="cc-ps-menu-item-left-padding" data-ng-repeat='s in searchOptions.levelOptions'>
+            <a href="javascript:void(0)" class="cc-ps-clickable-dropdown-a"><label class="nobold cc-green-checkbox-radio-label">
+              <input id="checkbox-serverLog-search-selectLevel-{{s.name | id}}" type="checkbox" class="cc-green-checkbox-radio" data-ng-model="s.$_checked"
+                data-ng-change="levelChanged();" value="{{s.name}}"
+                data-ng-true-value="true">
+              <span class="cc-ps-search-item-label cc-ps-label-for-checkbox-radio">
+                <span class="cc-green-checkbox-radio-bgrd-holder"></span>{{s.label}}</span>
+            </label></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="cc-ps-search-text-container">
+      <input data-ng-model="searchCriteria.text" data-ng-model-options="{ debounce: 300 }"
+        class="form-control cc-ps-search-text cc-ps-input-common"
+        data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;"
+        placeholder="{{'logconfigsearch.text.placeholder' | translate}}" type="text" data-ng-change="" />
+      <i class="fa fa-search cc-ps-search-icon"></i>
+    </p>
+    <p>
+      <button type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn"
+        data-ng-click="clearSearch()">{{"logconfigsearch.label.clearSearch"|translate}}</button>
+      <button type="submit" class="btn cc-ps-search-apply-btn cc-btn-primary" data-ng-click="applySearch()"
+        data-ng-if="!instantSearch">{{"logconfigsearch.label.apply"|translate}}</button>
+    </p>
+</div>

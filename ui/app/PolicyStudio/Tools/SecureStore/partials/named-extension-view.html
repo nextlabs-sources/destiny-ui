@@ -1,0 +1,10 @@
+<td style="vertical-align: middle;">
+    <span>{{namedExtension.field}}</span>
+</td>
+<td style="vertical-align: middle;">
+    <span>{{namedExtension.value}}</span>
+</td>
+<td class="td-icon" style="vertical-align: middle;">
+    <i id="edit_{{$index}}" class="fa fa-pencil-square-o" aria-hidden="true" data-ng-click="editNamedExtension(namedExtension); highlightGrammar('namedExtension');" title="Edit" data-ng-if="!isViewMode"></i>
+    <i id="delete_{{$index}}" class="fa fa-trash-o" data-ng-click="removeNamedExtension($index); highlightGrammar('namedExtension');" title="Delete" data-ng-if="!isViewMode"></i>
+</td>

@@ -1,0 +1,6 @@
+<div class="cc-toaster">
+	<p data-ng-bind-html="toaster.data.msg" data-ng-if="toaster.data.html"> </p>
+	<p data-ng-if="!toaster.data.html">{{toaster.data.msg}} </p>
+	<!--<br><br>-->
+	<a class="toaster-link" ui-sref="{{toaster.data.backLink}}" data-ng-if="toaster.data.backLink">{{toaster.data.backLabel}}</a>
+</div>

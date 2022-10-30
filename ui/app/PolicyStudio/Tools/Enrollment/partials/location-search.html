@@ -1,0 +1,21 @@
+<div class="cc-ps-search-form">
+  <form name="locationSearchForm" id="locationSearchForm" novalidate>
+    <p class="cc-ps-search-text-container">
+      <input id="loc_input_search_text" data-ng-model="searchCriteria.text" data-ng-model-options="{ debounce: 300 }"
+        class="form-control cc-ps-search-text cc-ps-input-common"
+        placeholder="{{'toolManagement.locationManager.search.placeholder' | translate}}" type="text"
+        data-ng-keyup="$event.keyCode == 13 ? applySearch() : null;" data-ng-change="" />
+      <i class="fa fa-search cc-ps-search-icon"></i>
+    </p>
+    <p>
+      <button id="loc_btn_search_save" type="button" class="btn cc-ps-search-btn cc-ps-search-save-btn"
+        data-ng-click="saveSearch()"
+        data-ng-disabled="searchCriteria.pristine">{{"resourcesearch.label.saveSearch"|translate}}</button>
+      <button id="loc_btn_search_clear" type="button" class="btn cc-ps-search-btn cc-ps-search-clear-btn"
+        data-ng-click="clearSearch()">{{"resourcesearch.label.clearSearch"|translate}}</button>
+      <button id="loc_btn_search_submit" type="button" class="btn cc-ps-search-apply-btn cc-btn-primary"
+        data-ng-click="applySearch()"
+        data-ng-if="!instantSearch">{{"toolManagement.locationManager.search.apply"|translate}}</button>
+    </p>
+    </span>
+</div>

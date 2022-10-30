@@ -1,0 +1,30 @@
+<div class="profile-content" data-ng-show="true" data-ng-mouseenter="showUserProfile.val=true">
+	<div class="user-profile-details">
+		<div class="initial-name-img">
+			{{initialsUsername}}
+		</div>
+		<div>
+			<div class="display-name">{{currentUser.name}}</div>
+			<div class="username">{{currentUser.username}}</div>
+		</div>
+	</div>
+	<hr class="divider">
+
+	<div class="profile-action-container">
+		<div data-ng-class="userType == 'imported' ? 'disabled change-password-container' : 'enabled change-password-container'" id="change-password" data-ng-click="editUserProfile(userType)">
+			<div class="change-password-icon"></div>
+			<div>
+				{{"Change Password" | translate}}
+			</div>
+		</div>
+		<form id="logout-form" style="display: hidden" method="POST" action="logout">
+			<input type="hidden" id="logout-form-token" name="_csrf" />
+		</form>
+		<div class="logout-container" id="logout" data-ng-click="logout()">
+			<div class="logout-icon"></div>
+			<div>
+				{{'Logout'|translate}}
+			</div>
+		</div>
+	</div>
+</div>

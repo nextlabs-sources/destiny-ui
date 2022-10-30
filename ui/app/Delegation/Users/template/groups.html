@@ -1,0 +1,61 @@
+<div class="cc-ps-main-search-section cc-ps-sticky-search" data-uib-collapse="!show_search">
+    <div class="cc-ps-main-search-section-content" data-ng-include="'ui/app/Delegation/Users/template/group-search.html'"></div>
+</div>
+<div data-ng-class="!show_search ? 'cc-dlg-delegation-list-table user-list-container dlg-bottom-space' : 'cc-dlg-delegation-list-table search-opened-user-list-container dlg-bottom-space' ">
+    <div data-ng-if="groupList.length" class="cc-dlg-operation" >
+        <div class="cc-dlg-operation-check cc-green-checkbox-radio-box height-100-percent">
+            <label class="nobold cc-green-checkbox-radio-label">
+                <input type="checkbox" ng-disabled="groupList.length == 1" class="cc-green-checkbox-radio cc-green-checkbox-radio" data-ng-model="checkStatus.allGroupChecked" data-ng-change="checkAllGroups(checkStatus.allGroupChecked)">
+                <span><span id="selectAll" class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+            </label>
+        </div>
+        <div class="cc-inline cc-dlg-operation-btn">
+            <button id="bulkDelete" class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" data-ng-disabled="!checkStatus.hasGroupChecked" title="Delete" data-ng-click="bulkDelGroup($event)"><i class="fa fa-trash"></i></button>
+        </div>
+        <div id="cc-sort-by" class="cc-inline cc-dlg-align-right">
+            <div class="cc-inline" id="cc-sort-by-title">{{"componentsearch.label.sortby"|translate}}</div>
+            <div class="cc-inline btn-group btn-block cc-dlg-dropdown-grp cc-dlg-search-status" id="cc-sort-by-select" uib-dropdown keyboard-nav>
+                <button class="form-control cc-dlg-button-common" id="sortBy" type="button" data-uib-dropdown-toggle>
+                    <span class="cc-dlg-dropdown-btn-label">{{groupSearchCriteria.sortBy.label}}</span> <span class="cc-dlg-dropdown-btn-expand-icon"></span>
+                </button>
+                <ul data-uib-dropdown-menu class="uib-dropdown-menu cc-ps-dropdown-menu" role="menu" aria-labelledby="">
+                    <li role="menuitem" data-ng-repeat="s in searchOptions.groupSortOptions" data-ng-click="groupSearchCriteria.sortBy = s;" class="cc-ps-clickable-dropdown"><a class="cc-ps-clickable-dropdown-a" href="javascript:void(0)">{{s.label}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="no-padding no-decoration cc-dlg-delegation-list-table-ul">
+        <li class="cc-ps-list-item" data-ng-repeat="group in groupList | orderBy: 'name'" data-ng-switch = "group.id" >
+            <div class="cc-dlg-delegation" data-ng-class="{'cc-ps-checked':group.checked}">
+                <div class="cc-dlg-delegation-content-container">
+                    <div class="height-100-percent cc-green-checkbox-radio-box cc-dlg-delegation-check">
+                        <label class="nobold cc-green-checkbox-radio-label cc-dlg-checkbox-left-half">
+                            <input type="checkbox" class="cc-green-checkbox-radio" data-ng-if="group.id" data-ng-model="group.checked" data-ng-change="groupCheckStatusChange()">
+                            <span><span class="cc-green-checkbox-radio-bgrd-holder"></span></span>
+                        </label>
+                    </div>
+                    <div class="cc-dlg-delegation-content">
+                        <div class="cc-dlg-delegation-name-desc">
+                            <span>{{group.name}}</span>
+                        </div>
+                        <div class="cc-ps-policy-model-badge cc-dlg-delegation-type" data-ng-switch-default>
+                            <p title="Source: {{group.authHandlerName | translate}}" class="cc-overflow-ellipsis" style="font-size: 10px; width:170px; margin:0 auto;">Source: {{group.authHandlerName | translate}}</p>
+                        </div>
+                        <div class="cc-dlg-delegation-option-block">
+                            <div class="cc-dlg-align-right">
+                                <button class="btn btn-default cc-ps-btn cc-ps-btn-cc-big" title="Delete" data-ng-click="delGroup(group, $event)" data-ng-if="group.id"><i class="cc-ps-icon-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <p data-ng-if="groupList.length < groupTotal">
+        <button id="btn-groups-load-more" type="button" class="btn btn-default cc-ps-btn-loadmore" data-ng-click="loadMore()">{{"delegation.list.title.LoadMore" | translate}} </button>
+    </p>
+    <div data-ng-if="!groupList.length" class="cc-ps-empty-resource-list-box">
+        <p style="text-align:center"> {{"delegation.grouplist.nogroup.msg" | translate}}</p>
+    </div>
+</div>

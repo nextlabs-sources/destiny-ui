@@ -1,0 +1,102 @@
+{
+  "data": [{
+    "id": 1,
+    "title": "Documents",
+    "description": "Documents Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad, soluta totam saepe animi quia ut, placeat atque ipsa omnis nobis. Consectetur reiciendis ipsam, laboriosam tempora officiis veniam accusamus dolorem. ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447316970000,
+    "createdTime": 1447316970000
+  }, {
+    "id": 2,
+    "title": "SAP",
+    "description": "SAP Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate assumenda, obcaecati illum molestiae praesentium sequi dignissimos quos eius ratione fuga, officiis fugit alias necessitatibus pariatur. Ex illum doloremque aperiam numquam! ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000
+  }, {
+    "id": 3,
+    "title": "Sharepoint",
+    "description": "Sharepoint Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, nihil fugit et ratione officiis dolor nulla inventore quasi commodi labore, saepe blanditiis unde sed doloribus, optio earum corporis temporibus deserunt. ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000
+  }, {
+    "id": 4,
+    "title": "Enovia",
+    "description": "Enovia Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, nihil fugit et ratione officiis dolor nulla inventore quasi commodi labore, saepe blanditiis unde sed doloribus, optio earum corporis temporibus deserunt. ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000
+  }, {
+    "id": 5,
+    "title": "Portals",
+    "description": "Portals Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, nihil fugit et ratione officiis dolor nulla inventore quasi commodi labore, saepe blanditiis unde sed doloribus, optio earum corporis temporibus deserunt. ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000
+  }, {
+    "id": 6,
+    "title": "My Own Resource Type",
+    "description": "My Own Resource Type Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, nihil fugit et ratione officiis dolor nulla inventore quasi commodi labore, saepe blanditiis unde sed doloribus, optio earum corporis temporibus deserunt. ",
+    "tags": [{
+      "id": 1,
+      "value": "tage"
+    }, {
+      "id": 2,
+      "value": "tagb"
+    }, {
+      "id": 3,
+      "value": "tagc"
+    }],
+    "lastUpdatedDate": 1447311970000,
+    "createdTime": 1447311970000
+  }],
+  "startFrom": 1,
+  "pageSize": 6,
+  "totalNoOfRecords": 10
+}

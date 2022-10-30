@@ -1,0 +1,32 @@
+<div data-ui-view class="cc-ps-create-environment cc-layout-full-height" data-ng-controller="createEnvironmentController"
+ng-animate="'animate'">
+<div class="cc-ps-create-page-container cc-layout-full-height">
+    <form id="environment-form-edit" class="cc-ps-create-page-editor-form cc-layout-full-height" name="environmentForm"
+        novalidate>
+        <div class="no-margin cc-ps-create-page-title-panel">
+            <div class="cc-ps-create-page-back-btn-div">
+                <button id="btn-add-environment-back-arrow" class="btn btn-default active cc-ps-create-page-back-btn"
+                    type="button" data-ng-click="backToEnvironmentList(environmentForm)">
+                    <i class="fa fa-arrow-left" data-ng-class=""></i>
+                </button>
+            </div>
+            <div class="cc-ps-create-page-title">
+                <span>{{ environmentTitle }}</span>
+            </div>
+            <div class="cc-ps-create-page-btn-div" data-ng-if="permissions.EDIT_ENVIRONMENT_CONFIGURATION.pageLevel.result">
+                <a id="btn-edit-environment-reset" class="btn btn-default cc-btn-discard"
+                    data-ng-click="reset()">{{"createEnvironment.button.Discard" | translate}}</a>
+                <a id="btn-edit-environment-save" class="btn btn-default cc-btn-primary"
+                    data-ng-click="saveClicked(environmentForm)">{{"createEnvironment.button.SaveEnvironment" | translate}}
+                </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="cc-ps-create-page-bottom-panel">
+            <div class="cc-ps-create-page-editor-content"
+                data-ng-include="'ui/app/PolicyStudio/Environment/partials/environment-editor.html'" ></div>
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+</div>

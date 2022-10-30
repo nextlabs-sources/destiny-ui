@@ -1,0 +1,28 @@
+<ul class="no-decoration no-padding" role="menu" ng-show="true || !showAboutPage">
+  <li role="menuitem" class="cc-about-menu-item" data-ng-show="false && hasUserManual">
+    <span class="cc-about-menu-item-anchor" data-ng-click="showUserManual()">
+      <span>{{::'about.this.page' | translate}}</span>
+    </span>
+  </li>
+  <li class="divider" data-ng-show="false && hasUserManual"></li>
+  <li role="menuitem" class="cc-about-menu-item">
+    <span class="cc-about-discard-title">
+      <a class="cc-white-link" ng-href="{{splashScreen.links.gettingStarted}}"
+        target="_blank">{{::'Getting Started' | translate}}</a>
+    </span>
+  </li>
+  <li class="divider"></li>
+  <li role="menuitem" class="cc-about-menu-item">
+    <span class="cc-about-discard-title">
+      <a class="cc-white-link" ng-href="{{splashScreen.links.helpSystem}}"
+        target="_blank">{{::'Launch the Help System' | translate}}</a>
+    </span>
+  </li>
+</ul>
+<ul class="no-decoration no-padding" role="menu" ng-show="false && showAboutPage">
+  <li role="menuitem" class="cc-about-menu-item">
+    <span class="cc-about-discard-title"><i class="fa fa-question-circle cc-about-discard-title-question"></i>{{::'about.this.page' | translate}}</span>
+    <span data-ng-click="showUserManual()" class="cc-about-discard">{{::'about.this.page.discard.all' | translate}}</span>
+  </li>
+</ul>
+

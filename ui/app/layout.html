@@ -1,0 +1,89 @@
+<div class="cc-header">
+
+	<!-- Right header -->
+	<div>
+		<!-- Header logo -->
+		<div class="cc-header-logo"></div>
+	</div>
+	
+	<!-- Left header -->
+	<div class="right-header">
+
+		<!-- Application list -->
+		<div class="cc-category-menu" data-ng-mouseleave="showCategoryList.val = false" id="app-button" data-ng-mouseenter="showCategoryList.val=true">
+			<div class="category-menu">
+				<p title="{{currentCategory}}" class="category-title"> {{currentCategory}}</p>
+				<div class="app-icon"></div>
+			</div>
+			<div data-ng-show="showCategoryList.val" data-ng-include="'ui/app/partials/category-menu.html'" class="category-menu-list"></div>
+		</div>
+
+		<!-- Help or about -->
+		<div class="cc-about-menu" data-ng-mouseleave="showAboutMenuList.val = false" ng-click="help()">
+			<div class="about-menu-icon help-icon" data-ng-class="{'highlight':showAboutMenuList.val}"></div>
+		</div>
+
+		<!-- User Profile -->
+		<div data-ng-mouseleave="showUserProfile.val = false;tempVar.val=false">
+			<div class="cc-user-profile" >
+				<div class="header" data-ng-mouseenter="showLogout()" data-ng-click="showUserProfile.val=!showUserProfile.val">
+					<div> {{initialsUsername}}</div>
+				</div>
+				
+			</div>
+			<div class="profile-container" data-ng-show="showUserProfile.val" data-ng-include="'ui/app/partials/user-profile.html'"></div>
+		</div>
+
+		<div data-ng-include="'ui/app/partials/fav-menu.html'" data-ng-show="false" style="display: inline;"></div>
+	</div>
+  
+</div>
+
+<div class="cc-layout">
+	<div class="no-margin cc-layout-height">
+		<div class="cc-menu layout" data-ng-if="appAccess && menuAccess">
+				<div data-ng-class="currentCategory != 'Policy Studio' ? 'menu-flex' : 'policy-studio-flex-menu'">
+					<div ng-repeat="(index,section) in menus">
+						<div data-ng-if="section.name && handleMenuPermission(section)" class="section-title" id="{{handleElementId('',section.name)}}">
+							{{section.name}}
+						</div>
+						<div class="side-menu-container">
+							<a data-ng-if="section.items.length>0 && ((menu.menuType != 'User Access' && menuAccess[menu.permission].menuAccessible) || (menu.menuType == 'User Access' && checkUserAccess(menu.permission)) || (menu.permission == 'Reporter' && appAccess[menu.permission]))" [routerLink]="{{handleNavigateUrl(menu)}}" ng-href="{{handleNavigateUrl(menu)}}" ng-attr-target="{{menu.url == 'policy-validator' ? '_blank': '_self'}}" ng-repeat="(key,menu) in section.items" 				
+								id="{{handleElementId(section.name,menu.name)}}">
+								<div data-ng-class="menu.type == 'title'?'disabled-menu menu-title': (menu.menuType != 'User Access' && !menuAccess[menu.permission].menuAccessible) || (menu.menuType == 'User Access' && !checkUserAccess(menu.permission))? 'disabled-menu menu-title' : activeApp.val.indexOf(menu.url) > -1 ? 'active-menu enabled-menu menu-title' : 'enabled-menu menu-title'" >
+									<ul data-ng-if="menu.type == 'list'">
+										<li class="menu-name-container">
+											<div style="background: url({{menu.img}});" data-ng-class="activeApp.val.indexOf(menu.url) > -1 && menu.type != 'title' && menu.imgHeight == 'Small' ? 'active-menu-image small-menu-image' : activeApp.val.indexOf(menu.url) > -1 && menu.type != 'title' ? 'active-menu-image' : menu.imgHeight == 'Small'? 'menu-image small-menu-image' : 'menu-image'"></div>
+											<div class="menu-name">{{menu.name}}</div>
+										</li>
+									</ul>
+									<div data-ng-if="menu.type != 'list'" class="menu-name-container">
+										<div style="background: url({{menu.img}});" data-ng-class="activeApp.val.indexOf(menu.url) > -1 && menu.type != 'title' && menu.imgHeight == 'Small' ? 'active-menu-image small-menu-image' : activeApp.val.indexOf(menu.url) > -1 && menu.type != 'title' ? 'active-menu-image' : menu.imgHeight == 'Small'? 'menu-image small-menu-image' : 'menu-image'"></div>
+										<div class="menu-name">{{menu.name}}</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<hr data-ng-if="index != menus.length-1" class="section-divider"/>
+					</div>
+				</div>
+
+				<div class="version-copyright">
+					<div class="version" data-ng-if="cc_version">Version:&nbsp;{{::cc_version}}</div>
+					<div class="copyright" data-translate='cc.copyright' data-translate-value-current-year="{{currentYear}}"></div>
+					<div class="copyright" data-translate='cc.copyright.reserved'></div>
+					<div class="clear"></div>
+				</div>
+		</div>
+		<div class="layout no-padding cc-layout-full-height cc-products-console" >
+			<div ui-view class="cc-layout-full-height" data-ng-class="transition" id="cc-ps-main-content"></div>
+
+		</div>
+		<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+			<div data-ng-include="'ui/app/partials/splash-screen.html'"></div>
+			<div class="cc-ps-spinner" data-ng-show="ongoingAjaxRequest > 0 && !hideSpinner && activeApp.val.indexOf('Dashboard') == -1">
+				<center><i class="fa fa-spinner fa-pulse"></i></center>
+			</div>
+	</div>
+</div>
+

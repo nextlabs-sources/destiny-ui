@@ -1,0 +1,91 @@
+<div class="cc-ps-right-panel-close-btn cc-close-btn" data-ng-click="closeComponentInPanel()"> </div>
+<div class="cc-ps-history-version-meta">
+    <!-- <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version' | translate}}</div> -->
+    <!-- <div class="cc-ps-history-content cc-ps-history-text-version cc-ps-history-line-height-1">{{componentOverview.revision}}</div> -->
+    <span class="cc-ps-history-latest-icon" ng-class="{active:componentOverview.deployed, inactive:!componentOverview.deployed}"></span>
+    <div ng-attr-title="{{componentOverview.name}}" class="cc-ps-history-content cc-ps-history-text-name cc-no-wrap cc-overflow-ellipsis">{{componentOverview.name}}</div>
+</div>
+<div class="cc-ps-history-version-time">
+    <div class="cc-ps-history-version-last-updated-by">
+        <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version.lastUpdatedBy' | translate}}</div>
+        <div class="cc-ps-history-content cc-ps-history-line-height-1">{{componentOverview.ownerDisplayName}}</div>
+        <div>
+            <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+            <span class="cc-ps-history-content">{{componentOverview.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+        </div>
+    </div>
+    <div class="cc-ps-history-version-last-deployed-by">
+        <div class="cc-ps-history-title cc-ps-history-line-height-1">{{'history.version.deployedBy' | translate}}</div>
+        <div class="cc-ps-history-content cc-ps-history-line-height-1">{{componentOverview.ownerDisplayName}}</div>
+        <div>
+            <span class="cc-ps-history-title">{{'history.version.on' | translate}}</span>
+            <span class="cc-ps-history-content">{{componentOverview.lastUpdatedDate | date:'dd MMM yyyy, HH:mma' | uppercase}}</span>
+        </div>
+    </div>
+</div>
+<div class="cc-ps-history-version-detail cc-ps-history-content">
+    <div class="cc-ps-create-page-grammar-row-1">
+        <div class="cc-ps-history-title">{{"createComponent.grammar.Of" | translate}}:</div>
+        <div class="detail-info">
+            <span ng-hide="componentOverview.policyModel.name.length" class="cc-grammar-placeholder"><{{'createComponent.grammar.placeholder.Type' | translate}}></span>
+            <span class="cc-ps-create-page-grammar-content" ng-show="componentOverview.policyModel.name.length">{{componentOverview.policyModel.name}}</span>
+        </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show-1="componentOverview.tags.length">
+        <div class="cc-ps-history-title">{{"createComponent.grammar.with.tags" | translate}}:</div>
+        <div class="detail-info">
+            <span ng-hide="componentOverview.tags.length" class="cc-grammar-placeholder"><{{'createComponent.label.Tags' | translate}}></span>
+            <span data-ng-repeat="tag in componentOverview.tags">
+				<span >{{tag.label}}</span>
+            <span data-ng-if="!$last">,&nbsp;</span>
+            </span>
+        </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="componentOverview.type == 'SUBJECT' || componentOverview.type == 'RESOURCE'" style="position: relative;">
+        <div class="cc-ps-history-title">{{"createComponent.grammar.With" | translate}}:&nbsp;<i class="cc-ps-right-panel-edit-component" ng-click="editComponent(componentOverview)"></i></div>
+        <div class="detail-info">
+            <p ng-hide="componentOverview.conditions.length" class="cc-grammar-placeholder">
+                <{{ 'createComponent.grammar.placeholder.Conditions' | translate}}>
+            </p>
+            <p data-ng-repeat="con in componentOverview.conditions track by $index">
+                <!-- <span data-ng-hide="$index < 1"> AND </span> -->
+				<span data-ng-show = "con.hasOwnProperty('attributeObj') && con.attributeObj.dataType !== 'DATE' && con.value.length">{{con.attributeObj.name}} &nbsp; <span style="color: rgb(175, 179, 181)">{{con.operatorObj.label}}</span> &nbsp; {{con.value | jsonToText}} </span>
+				<span data-ng-show = "con.hasOwnProperty('attributeObj') && con.attributeObj.dataType === 'DATE' && con.value">{{con.attributeObj.name}} &nbsp; <span style="color: rgb(175, 179, 181)">{{con.operatorObj.label}}</span> &nbsp; {{con.value | date:'shortDate'}} </span>
+                <span data-ng-show = "!con.hasOwnProperty('attributeObj') && con.value">{{con.attribute}} &nbsp;
+                    <span style="color: rgb(175, 179, 181)" data-ng-show = "con.operator === '='">is</span>
+                    <span style="color: rgb(175, 179, 181)" data-ng-show = "con.operator === '!='">is not</span> &nbsp;
+                    {{con.value | jsonToText}} </span>
+            </p>
+        </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="componentOverview.type == 'SUBJECT' || componentOverview.type == 'RESOURCE'" style="position: relative;">
+        <div class="cc-ps-history-title">{{"createComponent.grammar.With.Members" | translate}}:&nbsp;</div>
+        <div class="detail-info">
+            <p ng-hide="componentOverview.memberConditions.length" class="cc-grammar-placeholder">
+                <{{ 'createComponent.grammar.placeholder.Members' | translate}}>
+            </p>
+            <p data-ng-repeat="memCon in componentOverview.memberConditions">
+                <span class="key-word" data-ng-if="!$first" style="color: rgb(175, 179, 181)">
+                    {{'createpolicy.grammar.resource.concat' | translate}} </span>
+                <span style="color: rgb(175, 179, 181)" data-ng-show="memCon.operator.length ">{{memCon.operator}} &nbsp;</span>
+                <span data-ng-repeat="mem in memCon.members">
+                    <span data-ng-show="mem.name.length ">{{mem.name}} &nbsp;<span data-ng-show="mem.type === 'MEMBER'" style="color: rgb(175, 179, 181)">({{mem.memberType.toLowerCase().replace('_',' ')}})</span>
+                    </span>
+                    <span data-ng-if="!$last">,&nbsp;&#8203;</span>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="cc-ps-create-page-grammar-row-1" ng-show="componentOverview.type == 'ACTION'" style="position: relative;">
+        <div class="cc-ps-history-title">{{"createComponent.grammar.With.Action" | translate}}:&nbsp;<i class="cc-ps-right-panel-edit-component" ng-click="editComponent(componentOverview)"></i></div>
+        <div class="detail-info">
+            <p ng-hide="componentOverview.actions.length" class="cc-grammar-placeholder">
+                <{{ 'createComponent.grammar.placeholder.Actions' | translate}}>
+            </p>
+            <p data-ng-repeat="act in componentOverview.actions">
+                <!-- <span data-ng-hide="$index < 1"> AND </span> -->
+                <span>{{act}}</span>
+            </p>
+        </div>
+    </div>
+</div>

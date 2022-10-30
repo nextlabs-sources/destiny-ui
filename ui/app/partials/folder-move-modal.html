@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{"folders.moveFolder.title" | translate}}</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div ui-tree class="cc-ps-folder-tree">
+                    <ol class="folder-view-dropdown-parent" ui-tree-nodes="" ng-model="folders.list">
+                        <li ng-repeat="folder in folders.list" ui-tree-node
+                            data-ng-include="'ui/app/partials/folder-tree-item.html'">
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-policy-bulk-move-cancel" class="btn btn-default cc-btn-discard" type="button" ng-click="cancel()">
+        {{cancelLabel ? cancelLabel : "PS.CANCEL"| translate}}
+    </button>
+    <button id="btn-policy-bulk-move-confirm" class="btn btn-default cc-btn-primary" type="button" ng-click="ok()" data-ng-disabled="!folders.selectedFolder">
+        {{confirmLabel ? confirmLabel : "PS.MOVE"| translate}}
+    </button>
+</div>

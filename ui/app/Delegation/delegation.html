@@ -1,0 +1,20 @@
+<div class="no-margin cc-layout-full-height" data-ng-class="{'cc-ps-create-page-container-parent':isCreatePage}" data-ng-controller="delegationController">
+
+	<div class="cc-ps-menu">
+	    <div data-ng-repeat="tab in tabs">
+	      <div data-ng-if="!tab.children" class="cc-ps-menu-item-box">
+	        <a class="cc-ps-menu-item" data-ng-class="{'cc-ps-menu-selected':isActiveTab(tab.url)}" data-ng-click="onClickTab(tab)" ui-sref="{{tab.url}}">
+	          <i class="{{tab.iconCls}}"></i>{{tab.title | translate}} </a>
+	      </div>
+	      
+		</div>
+	</div>	
+
+	<div class="no-padding cc-layout-full-width cc-layout-full-height" id="{{ (!isCreatePage)? 'cc-dlg-main-content' : ''}}" data-ng-class="transition">
+		<div class="cc-layout-full-height" data-ng-class="transition" ui-view></div>
+	</div>
+	
+	<div class="cc-ps-spinner" data-ng-show="ongoingAjaxRequest > 0">
+		<center><i class="fa fa-spinner fa-pulse"></i></center>
+	</div>
+</div>

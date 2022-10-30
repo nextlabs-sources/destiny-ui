@@ -1,0 +1,174 @@
+<div class="cc-pv-request-inner-editor-page-div cc-pv-create-page-editor-content" auto-scroll-to scroll-target-selector=".cc-validation-block>p:first,.custom-validation-error" scroll-top-margin="80">
+
+<!--     <form id="reqBuilderForm.val" class="cc-ps-create-page-editor-form" name="reqBuilderForm.val" novalidate> -->
+        <div class="cc-pv-tab-inner-content">
+            <div class="cc-create-page-editor-data">
+                <div class="cc-pv-table-container">
+                    <div id="subjectAttributes" class="cc-pv-create-page-editor-title">
+                        <span>Add <b>SUBJECT</b> attributes</span>
+                    </div>
+                    <div class="table-header cc-pv-display-inline">
+<!--                         <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('S');attributeTable.dirty = true;" data-ng-disabled="checkAddAttrAllowed('S');" /> -->
+                        <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('S');attributeTable.dirty = true;" />
+                    </div>
+                    <table class="table cc-ps-create-page-common-table no-wrapping">
+                        <thead>
+                            <tr>
+                                <th style="width:30%"> {{::"requestbuilder.label.conditionName" | translate}} </th>
+                                <th style="width:60%"> {{::"requestbuilder.label.conditionValue" | translate}} </th>
+                                <th style="width:10%"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="condition in requestObj.data.request.subjectConditions track by $index" data-ng-init="conditionIndex = $index; conditionType = 'sub'">
+                                <td>
+                                    <div class="cc-pv-request-attribute" style="width:100%">
+                                        <input type="text" name="subCondition_{{$index}}" data-ng-disabled="condition.mandatory"
+                                            data-ng-model="condition.attribute" uib-typeahead="attribute as attribute.attrName for attribute in filterSubjectAttributes($viewValue)"
+                                            typeahead-template-url="ui/app/PolicyStudio/Tools/PolicyValidator/partials/subject-options-template.html"
+                                             typeahead-show-hint="true" typeahead-min-length="0" typeahead-wait-ms="300" autocomplete="off" 
+                                             class="form-control cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user"
+                                            required maxlength="255" data-ng-blur="addDefaultHostOrAppAttr(condition)" typeahead-on-select="addDefaultHostOrAppAttr(condition)"/>
+                                        <div class="cc-validation-block" ng-messages="reqBuilderForm.val['subCondition_' + $index].$error" ng-if="reqBuilderForm.val['subCondition_' + $index].$touched">
+                                            <p ng-message="required">{{::"Attribute Name" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/advanced-input-box.html'">
+                                </td>
+<!--                                 <td data-ng-hide="true" class="td-icon-disabled" data-ng-if="$index == 0">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </td> -->
+                                <td class="td-icon">
+                                    <i class="fa fa-trash-o" aria-hidden="true" data-ng-click="removeAttribute('S', $index);addDefaultHostOrAppAttr(condition);" data-ng-show="!condition.mandatory"></i>
+                                </td>
+                            </tr>
+                            <!-- <tr class="last-row" data-ng-hide="checkAddAttrAllowed('S');"> -->
+                            <tr class="last-row">
+                                <td colspan="5">
+                                    <a href="javascript:void(0)" data-ng-click="addAttribute('S');attributeTable.dirty = true;">+ {{'Add Attribute' | translate}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cc-pv-table-container">
+                    <div id="resourceAttributes" class="cc-pv-create-page-editor-title">
+                        <span>Add <b>RESOURCE</b> attributes</span>
+                    </div>
+                <div>
+                    <div class="cc-pv-select-container" style="display: inline-block;">
+                        <div class="btn-group " data-uib-dropdown>
+                            <label for="resourceType">{{::"requestbuilder.label.resourcetype" | translate}}:</label>
+                            <button class="form-control cc-pv-button-common cc-pv-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-model="requestObj.data.request.resourceType">
+                             <span class="cc-ps-dropdown-btn-label">{{requestObj.data.request.resourceType.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span>
+                             <span class="cc-pv-dropdown-btn-expand-icon"></span>
+                          </button>
+                            <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+                                <li role="menuitem" data-ng-repeat='resourceType in resourceTypeOptions'>
+                                    <a href="javascript:void(0)" data-ng-click="getResourceAttrsActions(resourceType);requestObj.data.request.resourceType = resourceType" name="resourceType">{{resourceType.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group cc-ps-dropdown-grp" data-uib-dropdown>
+                            <label for="resourceType">{{::"requestbuilder.label.action" | translate}}:</label>
+                            <button class="form-control cc-pv-button-common cc-pv-create-dropdown-button" type="button" uib-dropdown-toggle data-ng-model="requestObj.data.request.action">
+                            <span class="cc-ps-dropdown-btn-label">{{requestObj.data.request.action.name}}<span class="cc-ps-dropdown-btn-label-content"></span></span>
+                            <span class="cc-pv-dropdown-btn-expand-icon"></span>
+                          </button>
+                            <ul data-uib-dropdown-menu class="dropdown-menu" role="menu">
+                                <li role="menuitem" data-ng-repeat='action in actionOptions'>
+                                    <a href="javascript:void(0)" data-ng-click="requestObj.data.request.action = action" name="resourceType">{{action.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table-header cc-pv-display-inline" style="margin-top: 25px;">
+                        <!-- <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('R');attributeTable.dirty = true" data-ng-disabled="checkAddAttrAllowed('R');" /> -->
+                        <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('R');attributeTable.dirty = true"/>
+                    </div>
+                </div>    
+                    <table class="table cc-ps-create-page-common-table no-wrapping">
+                        <thead>
+                            <tr>
+                                <th style="width:30%"> {{::"requestbuilder.label.conditionName" | translate}} </th>
+                                <th style="width:60%"> {{::"requestbuilder.label.conditionValue" | translate}} </th>
+                                <th style="width:10%"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="condition in requestObj.data.request.resourceConditions track by $index" data-ng-init="conditionIndex = $index; conditionType = 'res'">
+                                <td>
+<!--                                     <div data-ng-hide="true" data-ng-if="$index == 0" class="cc-pv-request-attribute" style="width:100%">
+                                        <input type="text" name="resCondition_{{$index}}" data-ng-model="condition.attribute.attrName" class="cc-dlg-create-page-editor-input-placeholder cc-create-page-common-input cc-create-page-editor-data-right cc-dlg-create-page-common-input-user" data-ng-disabled="true"/>
+                                    </div> -->
+                                    <div class="cc-pv-request-attribute" style="width:100%">
+                                        <input type="text" class="form-control cc-pv-typeahead-input" name="resCondition_{{$index}}" data-ng-disabled="condition.mandatory"
+                                            data-ng-model="condition.attribute" uib-typeahead="resOption as resOption.attrName for resOption in resourceOptions | filter:{attrName:$viewValue}"
+                                            typeahead-min-length="0" typeahead-wait-ms="300" autocomplete="off" required maxlength="255" />
+                                        <div class="cc-validation-block" ng-messages="reqBuilderForm.val['resCondition_' + $index].$error" ng-if="reqBuilderForm.val['resCondition_' + $index].$touched">
+                                            <p ng-message="required">{{::"Attribute Name" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/advanced-input-box.html'">
+                                </td>
+<!--                                 <td data-ng-hide="true" class="td-icon-disabled" data-ng-if="$index == 0">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </td> -->
+                                <td class="td-icon">
+                                    <i class="fa fa-trash-o" aria-hidden="true" data-ng-click="removeAttribute('R', $index);" data-ng-show="!condition.mandatory"></i>
+                                </td>
+                            </tr>
+                            <!-- <tr class="last-row" data-ng-hide="checkAddAttrAllowed('R');"> -->
+                            <tr class="last-row">
+                                <td colspan="5">
+                                    <a href="javascript:void(0)" data-ng-click="addAttribute('R');attributeTable.dirty = true">+ {{'Add Attribute' | translate}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cc-pv-table-container">
+                    <div id="otherCategories" class="cc-pv-create-page-editor-title">
+                        <span>Add <b>ENVIRONMENT</b> attributes</span>
+                    </div>
+                    <div class="table-header cc-pv-display-inline">
+                        <!-- <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('E');attributeTable.dirty = true" data-ng-disabled="checkAddAttrAllowed('E');" /> -->
+                        <input class="btn btn-default cc-pv-request-editor-add-condition-btn" type="button" value="ADD ATTRIBUTE" data-ng-click="addAttribute('E');attributeTable.dirty = true"/>
+                    </div>
+                    <table class="table cc-ps-create-page-common-table">
+                        <thead>
+                            <tr>
+                                <th style="width:30%"> {{::"requestbuilder.label.conditionName" | translate}} </th>
+                                <th style="width:60%"> {{::"requestbuilder.label.conditionValue" | translate}} </th>
+                                <th style="width:10%"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="condition in requestObj.data.request.envConditions track by $index" data-ng-init="conditionIndex = $index; conditionType = 'env'">
+                                <td data-ng-class="{ 'custom-validation-error': reqBuilderForm.val.envcondition.$touched && reqBuilderForm.val.envcondition.$invalid }">
+                                    <input class="cc-pv-environment-div" data-ng-model="condition.attribute" name="envcondition" required>
+                                    <div class="cc-validation-block" data-ng-messages="reqBuilderForm.val.envcondition.$error" data-ng-if="reqBuilderForm.val.envcondition.$touched">
+                                        <p ng-message="required"> {{::"Attribute Name" | translate}}&nbsp;{{"common.validation.required.suffix" | translate}} </p>
+                                    </div>
+                                </td>
+                                <td data-ng-include="'ui/app/PolicyStudio/Tools/PolicyValidator/partials/advanced-input-box.html'">
+                                </td>
+                                <td class="td-icon">
+                                    <i class="fa fa-trash-o" aria-hidden="true" data-ng-click="removeAttribute('E', $index);"></i>
+                                </td>
+                            </tr>
+                            <!-- <tr class="last-row" data-ng-hide="checkAddAttrAllowed('E');"> -->
+                            <tr class="last-row">
+                                <td colspan="5">
+                                    <a href="javascript:void(0)" data-ng-click="addAttribute('E');attributeTable.dirty = true">+ {{'Add Attribute' | translate}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!--     </form> -->
+</div>
